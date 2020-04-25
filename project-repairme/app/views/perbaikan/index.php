@@ -93,7 +93,6 @@ left:60px;
             <div class="panel-collapse collapse in" id="support1">
               <div class="panel-body">
                 Pilih mitra yang anda inginkan dengan menekan area peta, deskripsi mitra akan muncul bersamaan dengan rating mitra.
-                <?php// var_dump($data['rating']); ?>
               </div>
             </div>
           </div>

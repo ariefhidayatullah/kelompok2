@@ -17,7 +17,7 @@ class App{
 		// panggil function yang ada di bawah *cek yang bawah
 
 		$url = $this->parseURL();
-		 // var_dump($url);die; 
+		// var_dump($url);die; 
  
 		//controller
 		//mengecek apakah ada file yang sama di controllers, yang dituliskan di url[0], 
