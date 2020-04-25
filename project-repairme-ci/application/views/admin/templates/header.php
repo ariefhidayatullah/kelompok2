@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title><?= $data['judul']; ?></title>
+  <title><?= $judul; ?></title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?= base_url(); ?>/panel-master/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="<?= base_url(); ?>/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?= base_url(); ?>/panel-master/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- jQuery -->
-<script src="<?= base_url(); ?>/panel-master/plugins/jquery/jquery.min.js"></script>
+<script src="<?= base_url(); ?>assets/panel-master/plugins/jquery/jquery.min.js"></script>
 
 
 </head>
@@ -30,7 +30,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?= base_url(); ?>/home/index" class="nav-link">Home</a>
+        <a href="<?= base_url(); ?>assets/home/index" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -40,7 +40,7 @@
           <ul class="navbar-nav ml-auto">
           <li>
             <i class="fa fa-sign-out-alt">  </i>
-          <a><?php mySession::sessionLogin(); ?></a>
+          <a><?php //mySession::sessionLogin(); ?></a>
           </li>
           </ul>
     </ul>
@@ -51,7 +51,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img class="profile-user-img img-fluid img-circle" src="<?= base_url(); ?>/panel-master/dist/img/user1.png" alt="User profile picture" width="100px" height="100px">
+      <img class="profile-user-img img-fluid img-circle" src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png" alt="User profile picture" width="100px" height="100px">
       <span class="brand-text font-weight-light">Dashboard Admin</span>
     </a>
 
@@ -60,7 +60,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<?= base_url(); ?>/panel-master/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<?= base_url(); ?>assets/panel-master/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">ADMIN</a>

@@ -13,13 +13,13 @@ class Admin extends CI_Controller{
 	public function index(){
 		$data['judul'] = 'Admin';
 		//if ($_SESSION['login']['pesan'] == true && $_SESSION['login']['jenis'] == 'admin') {
-		$data['pelanggan'] = $this->Admin_model->jumlahpelanggan()->result();
-		$data['mitra'] = $this->Admin_model->jumlahmitra()->result();
+		$data['pelanggan'] = $this->Admin_model->jumlahpelanggan();
+		$data['mitra'] = $this->Admin_model->jumlahmitra();
 		$this->load->view('admin/templates/header', $data);
-		$this->load->view('admin/index',$data);
+		$this->load->view('admin/index', $data);
 		$this->load->view('admin/templates/footer');
 		//}else{
-			//header('Location:'.$BASEURL.'/login');
+		//	header('Location:'.base_url().'/login');
 		//}
 	}
 

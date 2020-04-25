@@ -266,10 +266,12 @@ class Admin_model extends CI_MODEL{
      
 
      public function jumlahpelanggan(){
-     	return $this->db->query("SELECT COUNT(id_pelanggan) FROM tb_pelanggan");
+     	$jumlah_pelanggan = $this->db->query("SELECT COUNT(id_pelanggan) FROM tb_pelanggan")->result_array();
+     	return $jumlah_pelanggan[0];
      }   
      public function jumlahmitra(){
-     	return $this->db->query("SELECT COUNT(id_mitra) FROM tb_mitra");
+     	$jumlah_mitra =  $this->db->query("SELECT COUNT(id_mitra) FROM tb_mitra")->result_array();
+     	return $jumlah_mitra[0];
      }   
 
 }
