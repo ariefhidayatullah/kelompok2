@@ -17,7 +17,7 @@ class App{
 		// panggil function yang ada di bawah *cek yang bawah
 
 		$url = $this->parseURL();
-		 //var_dump($url); 
+		 // var_dump($url);die; 
  
 		//controller
 		//mengecek apakah ada file yang sama di controllers, yang dituliskan di url[0], 
@@ -63,7 +63,7 @@ class App{
 	}
 
 	function parseURL(){
-		if( isset($_GET['url'])){
+		if(isset($_GET['url'])){
 
 			//ambil url, simpan di variable $url
 

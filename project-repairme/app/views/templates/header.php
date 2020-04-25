@@ -71,8 +71,8 @@
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="<?= BASEURL; ?>/home/index2">HOME</a></li>
-              <li><a href="<?= BASEURL; ?>/home/index/#mitra">Mitra</a></li>
+              <li><a href="<?= BASEURL; ?>/home">Home</a></li>
+              <li><a href="<?= BASEURL; ?>/home/mitra">Mitra</a></li>
               <li><a href="<?= BASEURL; ?>/home/about">tentang kami</a></li>
               <li><a class="fa fa-address-card" href="" data-toggle="modal" data-target="#exampleModal">Registrasi</a></li>
               <li><a class="fa fa-user" href="<?= BASEURL; ?>/login">Login</a></li>
