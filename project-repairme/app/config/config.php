@@ -1,6 +1,6 @@
 <?php 
 
-define('BASEURL', 'http://localhost/Kelompok-1/project-repairme/public');
+define('BASEURL', 'http://localhost/kelompok2/project-repairme/public/');
 
 
 // Database
