@@ -83,11 +83,11 @@
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="<?= base_url(); ?>assets/home">Home</a></li>
-              <li><a href="<?= base_url(); ?>assets/home/mitra">Mitra</a></li>
-              <li><a href="<?= base_url(); ?>assets/home/about">tentang kami</a></li>
+              <li><a href="<?= base_url(); ?>home">Home</a></li>
+              <li><a href="<?= base_url(); ?>home/mitra">Mitra</a></li>
+              <li><a href="<?= base_url(); ?>home/about">tentang kami</a></li>
               <li><a class="fa fa-address-card" href="" data-toggle="modal" data-target="#exampleModal">Registrasi</a></li>
-              <li><a class="fa fa-user" href="<?= base_url(); ?>assets/login">Login</a></li>
+              <li><a class="fa fa-user" href="<?= base_url(); ?>login">Login</a></li>
 
                 </ul>
               </li>
