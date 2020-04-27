@@ -111,9 +111,9 @@
       </div>
       <div class="modal-body">
         
-        <a href="<?= base_url(); ?>assets/pelanggan/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi Pelanggan</a>
+        <a href="<?= base_url(); ?>pelanggan/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi Pelanggan</a>
               
-        <a href="<?= base_url(); ?>assets/mitra/registrasi" class="btn btn-round btn-b tombol-mitra" style="width: 280px;">Gabung Menjadi Mitra</a>
+        <a href="<?= base_url(); ?>mitra/registrasi" class="btn btn-round btn-b tombol-mitra" style="width: 280px;">Gabung Menjadi Mitra</a>
       </div>
     </div>
   </div>

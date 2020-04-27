@@ -8,6 +8,7 @@ class Home extends CI_Controller {
         parent::__construct();
         $this->load->model('Mitra_model');
         $this->load->model('Barang_model');
+        $this->load->model('Pelanggan_model');
     }
 
     public function index(){
