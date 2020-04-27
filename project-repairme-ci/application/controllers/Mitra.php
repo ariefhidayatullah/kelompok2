@@ -20,4 +20,23 @@ class Mitra extends CI_Controller {
 
     }
 
+    public function insertMitra(){
+    // var_dump($_POST);
+    $this->Mitra_model->inputMitra($_POST);
+    // var_dump($_FILES);
+    // $hasil = $this->model('Mitra_model')->inputMitra($_POST);
+    // // var_dump($hasil);
+    // if($this->model('Mitra_model')->inputMitra($_POST) > 0){
+    // header ('Location: '.BASEURL.'/mitra/');
+    // // Flasher::setFlash(' berhasil', 'ditambahkan', 'success');
+    //     exit();
+    // }else {
+    // header ('Location: '.BASEURL.'/mitra/');
+    // // Flasher::setFlash(' gagal', 'ditambahkan', 'danger');    
+    //     exit();
+    // }
+
+    
+    }
+
 }
