@@ -501,5 +501,6 @@
 					$('.finish').hide();
 					$('.userpass').show();
 				});
+				
 		});
 		</script>
