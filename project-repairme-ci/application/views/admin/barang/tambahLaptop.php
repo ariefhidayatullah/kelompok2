@@ -36,7 +36,7 @@
               <div class="row">
               <div class="col-sm-12">
               <div class="notif">
-                <!-- <?php Flasher::flash(); ?> -->
+                <?php //Flasher::flash(); ?>
               </div>
               </div>
               </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-6 offset-sm-1 mt-3">
-                    <form action="<?= base_url(); ?>admin/tambahTipeLaptop" method="POST" id="formKat">
+                    <form action="<?= base_url(); ?>/admin/tambahTipeLaptop" method="POST" id="formKat">
                       <input type="text" name="tipelaptop" class="form-control" id="tipelaptop" placeholder="Tipe Laptop Baru">
                     </div>
                     <div class="col-sm-4 mt-3">
@@ -99,7 +99,7 @@
                   <td><button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal" data-target="#modalubahlaptop" value="<?= $tipe['tipe_laptop']; ?>">
                   update
                   </button></td>
-                  <td><a href="<?= base_url(); ?>admin/deletelaptop/<?= $tipe['id_tipe_laptop'];?>" class="btn btn-danger btn-sm">Hapus</a>
+                  <td><a href="<?= base_url(); ?>/admin/deletelaptop/<?= $tipe['id_tipe_laptop'];?>" class="btn btn-danger btn-sm">Hapus</a>
                 </td>
               </tr>
               <?php endforeach;?>
@@ -107,7 +107,7 @@
             <tfoot>
             
             </tfoot>
-          </table>
+          </table></div></div>
         </div>
         <!-- /.card -->
       </div>
@@ -143,7 +143,7 @@ $('#formKat').submit();
         
         <!-- isi dari class modal -->
         
-        <form action="<?=base_url();?>admin/tambahMerkLaptop" method="POST" id="formmodmerk" data-parsley-validate="">
+        <form action="<?=base_url();?>/admin/tambahMerkLaptop" method="POST" id="formmodmerk" data-parsley-validate="">
           <label for="merk">Merk Laptop Baru</label>
           <input id="merk_laptop" type="text" name="merk_laptop" data-parsley-trigger="change"  placeholder="Isi Dengan Merk Laptop Baru" autocomplete="off" class="form-control">
           <br><br>
@@ -169,7 +169,7 @@ $('#formKat').submit();
         
         <!-- isi dari class modal -->
         
-        <form action="<?= base_url(); ?>admin/edittipeLaptop" method="POST">
+        <form action="<?= base_url(); ?>/admin/edittipeLaptop" method="POST">
           <input type="text" class="form-control"  id="tipe_lp_lm" name="tipe_lp_lm" hidden>
           
           <input type="text"  id="tipelaptop_ubh" name="tipelaptop_ubh" class="form-control mt-20">
