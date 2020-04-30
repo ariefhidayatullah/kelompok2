@@ -73,7 +73,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin" class="nav-link">
+            <a href="<?= base_url(); ?>admin" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Data Cepat
@@ -91,13 +91,13 @@
             </a>
              <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url(); ?>/admin/tambahdatalaptop" class="nav-link">
+                <a href="<?= base_url(); ?>admin/tambahdatalaptop" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambahkan Daftar Laptop</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url(); ?>/admin/tambahdatahp" class="nav-link">
+                <a href="<?= base_url(); ?>admin/tambahdatahp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambahkan Daftar Hp</p>
                 </a>
@@ -115,13 +115,13 @@
             </a>
              <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url(); ?>/admin/tambahkerusakanlaptop" class="nav-link">
+                <a href="<?= base_url(); ?>admin/tambahkerusakanlaptop" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Kerusakan Laptop</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url(); ?>/admin/tambahkerusakanhp" class="nav-link">
+                <a href="<?= base_url(); ?>admin/tambahkerusakanhp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tambah Kerusakan Hp</p>
                 </a>
@@ -129,7 +129,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin/perbaikan" class="nav-link">
+            <a href="<?= base_url(); ?>admin/perbaikan" class="nav-link">
               <i class="nav-icon fas fa-poll-h"></i>
               <p>
                 Data Perbaikan
@@ -138,7 +138,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin/dataMitra" class="nav-link">
+            <a href="<?= base_url(); ?>admin/dataMitra" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                Data Mitra
@@ -147,7 +147,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin/dataPelanggan" class="nav-link">
+            <a href="<?= base_url(); ?>admin/dataPelanggan" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Data Pelanggan
@@ -156,7 +156,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin/paket" class="nav-link">
+            <a href="<?= base_url(); ?>admin/paket" class="nav-link">
               <i class="nav-icon fas fa-poll-h"></i>
               <p>
                 Paket Biaya Iklan
@@ -165,7 +165,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url(); ?>/admin/permintaanverifikasi" class="nav-link">
+            <a href="<?= base_url(); ?>admin/permintaanverifikasi" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                   Konfirmasi Mitra

@@ -21,7 +21,6 @@ class Mitra extends CI_Controller {
     }
 
     public function insertMitra(){
-    // var_dump($_POST);
     $this->Mitra_model->inputMitra($_POST);
     // var_dump($_FILES);
     // $hasil = $this->model('Mitra_model')->inputMitra($_POST);
