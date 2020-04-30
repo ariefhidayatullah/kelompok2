@@ -30,7 +30,7 @@ class Admin extends CI_Controller{
 		$data['tipe'] = $this->Barang_model->getLaptop();
 		$data['merk'] = $this->Barang_model->getMerkLaptop();
 		$this->load->view('admin/templates/header',$data);
-		
+		$this->load->view('admin/barang/tambahLaptop', $data);
 		$this->load->view('admin/templates/footer');
 	}
 
