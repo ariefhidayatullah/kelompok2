@@ -5,7 +5,7 @@
             <div class="font-alt mb-30 titan-title-size-1"></div>
             <div class="font-alt mb-40 titan-title-size-3"><span class="rotate">Jasa Perbaikan Hp dan Laptop | Segera Perbaiki Sekarang |Banyak Promo | Mitra Terpercaya</span>
 
-           </div><a class="btn btn-border-w btn-circle" href="<?= base_url(); ?>assets/perbaikan">Perbaiki Sekarang!</a>
+           </div><a class="btn btn-border-w btn-circle" href="<?= base_url('perbaikan'); ?>">Perbaiki Sekarang!</a>
             <!-- </div><a class="section-scroll btn btn-border-w btn-circle" href="#about">Learn More</a> -->
           </div>
         </div>
@@ -116,7 +116,7 @@
                 <div class="shop-item">
 
                   <div class="shop-item-image">  <img src="<?= base_url(); ?>assets/img/mitra/<?= $mitra['foto_usaha']; ?>" alt="member" width="128px" height="128px">
-                    <form action="<?= base_url(); ?>assets/perbaikan/barangkerusakan" method="POST">
+                    <form action="<?= base_url(); ?>perbaikan/barangkerusakan" method="POST">
                     <input type="text" id="id" name="id" hidden value="<?= $mitra['id_mitra']?>">
                     <div class="shop-item-detail"><button class="btn btn-round btn-b" type="submit"><span class="icon-basket">Pilih Mitra</span></button></div>
                      </form>
@@ -141,7 +141,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="widget" style="width:100%;text-align: center;">
-                  <h5 class="widget-title font-alt"><a href="<?= base_url(); ?>home/about">Perbaiki Sekarang</h5>
+                  <h5 class="widget-title font-alt"><a href="<?= base_url('perbaikan'); ?>">Perbaiki Sekarang</h5>
                 </div>
               </div>
                <div class="col-sm-4">
