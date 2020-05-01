@@ -9,7 +9,9 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Admin_model');
+		$this->load->model('Mitra_model');
 		$this->load->model('Barang_model');
+		$this->load->model('Pelanggan_model');
 	}
 
 
@@ -235,5 +237,37 @@ class Admin extends CI_Controller
 			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
 			exit();
 		}
+	}
+
+
+	//data Mitra
+	public function dataMitra()
+	{
+		$data['judul'] = 'Data Mitra';
+		$data['mitra'] = $this->Mitra_model->getAllMitra();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/dataMitra', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+
+	//data Pelanggan
+	public function dataPelanggan()
+	{
+		$data['judul'] = 'Data Pelanggan';
+		$data['pelanggan'] = $this->Pelanggan_model->getAllpelanggan();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/dataPelanggan', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+
+	public function paket()
+	{
+		$data['judul'] = 'Tambah Paket';
+		$data['paket'] = $this->Barang_model->getAllPaket();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/paket', $data);
+		$this->load->view('admin/templates/footer');
 	}
 }

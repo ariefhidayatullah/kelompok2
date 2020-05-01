@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
-<script src="<?= BASEURL; ?>/js/tableHTMLExport.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
+<script src="<?= base_url(); ?>assets/js/tableHTMLExport.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -17,72 +17,75 @@
           </ol>
         </div>
       </div>
-      </div><!-- /.container-fluid -->
-    </section>
+    </div><!-- /.container-fluid -->
+  </section>
 
- <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <!-- Default box -->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Daftar pelanggan</h3>
-                <br>
-                <i class="fas fa-file-download" style="display: inline-block;"></i>
-                <a href="#" id="unduhdata">Unduh Data</a>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <!-- Default box -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Daftar pelanggan</h3>
+              <br>
+              <i class="fas fa-file-download" style="display: inline-block;"></i>
+              <a href="#" id="unduhdata">Unduh Data</a>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
                   <i class="fas fa-times"></i></button>
-                </div>
               </div>
-               <div class="card-body">
+            </div>
+            <div class="card-body">
 
-                <table id="datapelanggan" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                
+              <table id="datapelanggan" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
                 <thead>
-                <tr>
-                  <th>Nama Pelanggan</th>
-                  <th>Email & No Telpon</th>
-                  <th>Alamat</th>
-                  <th>Opsi</th>
-                </tr>
+                  <tr>
+                    <th>Nama Pelanggan</th>
+                    <th>Email & No Telpon</th>
+                    <th>Alamat</th>
+                    <th>Opsi</th>
+                  </tr>
                 </thead>
 
                 <tbody>
-                   <?php foreach ($data['pelanggan'] as $pelanggan) :?>
-                <tr>
-                    <td><?= $pelanggan['nama']; ?></td>
-                    <td><?= $pelanggan['email']; ?>, <?= $pelanggan['no_tlp']; ?></td>
-                    <td><?= $pelanggan['alamat']; ?></td>
-                    <td><a href="<?= BASEURL; ?>/pelanggan/delete/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
-                </tr>
-                <?php endforeach; ?>
-                  </tbody>
-                
+                  <?php foreach ($pelanggan as $pelanggan) : ?>
+                    <tr>
+                      <td><?= $pelanggan['nama']; ?></td>
+                      <td><?= $pelanggan['email']; ?>, <?= $pelanggan['no_tlp']; ?></td>
+                      <td><?= $pelanggan['alamat']; ?></td>
+                      <td><a href="<?= base_url(); ?>pelanggan/delete/<?= $pelanggan['id_pelanggan']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+
               </table>
-              
+
               <!-- /.card-body -->
             </div>
           </div>
-            <!-- /.card -->
-            <!-- untuk col-sm-12 -->
-          </div>
-          <!-- untuk class row -->
+          <!-- /.card -->
+          <!-- untuk col-sm-12 -->
         </div>
-        <!-- untuk container fluid -->
-      </div> 
-    </section>
-    <!-- /.content -->
-  </div>
+        <!-- untuk class row -->
+      </div>
+      <!-- untuk container fluid -->
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
 
-    <script>  
-    $(document).ready(function(){
-     $('#unduhdata').click(function(){
-     // alert('oke');
-      $("#datapelanggan").tableHTMLExport({type:'csv',filename:'datapelanggan.csv'});
-     }); 
+<script>
+  $(document).ready(function() {
+    $('#unduhdata').click(function() {
+      // alert('oke');
+      $("#datapelanggan").tableHTMLExport({
+        type: 'csv',
+        filename: 'datapelanggan.csv'
+      });
     });
-  </script>
+  });
+</script>
