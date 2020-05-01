@@ -4,19 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?= $data['judul']; ?></title>
+    <title><?= $judul; ?></title>
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- jQuery -->
-    <script src="<?= BASEURL; ?>/panel-master/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= base_url(); ?>assets/panel-master/plugins/jquery/jquery.min.js"></script>
         <!-- Toastr -->
-  <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
   </head>
   <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
     <div class="wrapper">
@@ -28,7 +28,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= BASEURL; ?>/home/index" class="nav-link">Home</a>
+            <a href="<?= base_url(); ?>assets/home/index" class="nav-link">Home</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -50,7 +50,7 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="<?= BASEURL; ?>/panel-master/dist/img/user1.png" class="img-box elevation-2" alt="Foto Profile">
+              <img src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png" class="img-box elevation-2" alt="Foto Profile">
             </div>
             <div class="info">
                <?php foreach ($data['pelanggan'] as $pelanggan ) :?>
@@ -74,32 +74,32 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/pengajuanperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/pengajuanperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Pengajuan perbaikan</p>
                     </a>
                   </li>
                   
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/perbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/perbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Dalam Pengerjaan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/batalperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/batalperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Perbaikan Dibatalkan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/selesaiperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/selesaiperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Barang Selesai Di Perbaiki</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/riwayatperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/riwayatperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Riwayat Perbaikan</p>
                     </a>
@@ -117,13 +117,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/pelanggan/profile" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/pelanggan/profile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Profile</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/Pelanggan/editProfile" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/Pelanggan/editProfile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ubah Profile</p>
                     </a>
@@ -141,13 +141,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/perbaikan/index" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/perbaikan/index" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Cari Mitra</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= BASEURL; ?>/Pelanggan/beriRating" class="nav-link">
+                    <a href="<?= base_url(); ?>assets/Pelanggan/beriRating" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Berikan Rating</p>
                     </a>

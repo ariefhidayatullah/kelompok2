@@ -1,7 +1,7 @@
 <script>
   $(document).ready(function(){
 
-     $("[href='<?= BASEURL; ?>/pelanggan'").addClass('active');
+     $("[href='<?= base_url(); ?>/pelanggan'").addClass('active');
   });
 </script>
 

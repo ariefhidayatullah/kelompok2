@@ -1,9 +1,9 @@
 <!-- daterange picker -->
-<link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.css">
-<script src="<?= BASEURL; ?>/panel-master/plugins/moment/moment.min.js"></script>
-<script src="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+<script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 
-<script src="<?= BASEURL; ?>/js/autoNumeric.js"></script>
+<script src="<?= base_url(); ?>assets/js/autoNumeric.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -267,10 +267,10 @@
         
         <button class="btn btn-block btn-danger btn-sm hapuslaptop" data-dismiss="modal" aria-label="Close">Hapus Perbaikan</button>
       </div>
-      <form action="<?= BASEURL; ?>/mitra/arsipbatalperbaikanlaptop" method="POST" id="form_arsiplaptop">
+      <form action="<?= base_url(); ?>/mitra/arsipbatalperbaikanlaptop" method="POST" id="form_arsiplaptop">
         <input type="text" name="id_arsiplaptop" id="id_arsiplaptop" hidden>
       </form>
-      <form action="<?= BASEURL; ?>/mitra/hapusbatalperbaikanlaptop" method="POST" id="form_batallaptop">
+      <form action="<?= base_url(); ?>/mitra/hapusbatalperbaikanlaptop" method="POST" id="form_batallaptop">
         <input type="text" name="id_batallaptop" id="id_batallaptop" hidden>
       </form>
     </div>
@@ -297,10 +297,10 @@
         
         <button class="btn btn-block btn-danger btn-sm hapushp" data-dismiss="modal" aria-label="Close">Hapus Perbaikan</button>
       </div>
-      <form action="<?= BASEURL; ?>/mitra/arsipbatalperbaikanhp" method="POST" id="form_arsiphp">
+      <form action="<?= base_url(); ?>/mitra/arsipbatalperbaikanhp" method="POST" id="form_arsiphp">
         <input type="text" name="id_arsiphp" id="id_arsiphp" hidden>
       </form>
-      <form action="<?= BASEURL; ?>/mitra/hapusbatalperbaikanhp" method="POST" id="form_batalhp">
+      <form action="<?= base_url(); ?>/mitra/hapusbatalperbaikanhp" method="POST" id="form_batalhp">
         <input type="text" name="id_batalhp" id="id_batalhp" hidden>
       </form>
     </div>
