@@ -104,4 +104,48 @@ class Barang_model extends CI_model
     {
         return $this->db->delete('tb_tipe_hp', ['id_tipe_hp' => $id]);
     }
+
+    public function getKerusakanLaptop()
+    {
+        return $this->db->get('tb_kerusakan_laptop')->result_array();
+    }
+
+    public function tambahkerusakanlaptop()
+    {
+        $data = [
+            "kerusakan_laptop" => $this->input->post('kerusakan', true)
+        ];
+        return $this->db->insert('tb_kerusakan_laptop', $data);
+    }
+
+    public function updateKerusakanLaptop($data)
+    {
+        $id = $data['id_kerusakanlap_ubh'];
+        $kerusakan = $data['kerusakanlap_ubh'];
+        $this->db->where('id_kerusakan_laptop', $id);
+        return $this->db->update('tb_kerusakan_laptop', $kerusakan);
+    }
+
+    public function deleteKerusakanlaptop($id)
+    {
+        return $this->db->delete('tb_kerusakan_laptop', ['id_kerusakan_laptop' => $id]);
+    }
+
+    public function getKerusakanHp()
+    {
+        return $this->db->get('tb_kerusakan_hp')->result_array();
+    }
+
+    public function deleteKerusakanhp($id)
+    {
+        return $this->db->delete('tb_kerusakan_hp', ['id_kerusakan_hp' => $id]);
+    }
+
+    public function tambahkerusakanhp()
+    {
+        $data = [
+            "kerusakan_hp" => $this->input->post('kerusakan', true)
+        ];
+        return $this->db->insert('tb_kerusakan_hp', $data);
+    }
 }

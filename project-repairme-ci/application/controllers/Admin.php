@@ -153,4 +153,87 @@ class Admin extends CI_Controller
 			exit();
 		}
 	}
+
+	public function tambahkerusakanlaptop()
+	{
+		$data['judul'] = 'Tambah Kerusakan';
+		$data['kerusakan'] = $this->Barang_model->getKerusakanLaptop();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/kerusakan/tambahkerusakanlaptop', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function tambahkerusakanlaptopbaru()
+	{
+		if ($this->Barang_model->tambahkerusakanlaptop($_POST) > 0) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data merk has been created!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data merk has been created!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		}
+	}
+
+	public function editKerusakanlaptop()
+	{
+		if ($this->Barang_model->updateKerusakanLaptop($_POST) > 0) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been updated!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to update!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		}
+	}
+
+	public function deleteKerusakanlaptop($id)
+	{
+		if ($this->Barang_model->deleteKerusakanLaptop($id) > 0) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been delete!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to delete!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
+			exit();
+		}
+	}
+
+	public function tambahkerusakanhp()
+	{
+		$data['judul'] = 'Tambah Kerusakan';
+		$data['kerusakan'] = $this->Barang_model->getKerusakanHp();
+		$this->load->view('admin/templates/header', $data);
+		$this->load->view('admin/kerusakan/tambahkerusakanhp', $data);
+		$this->load->view('admin/templates/footer');
+	}
+
+	public function deleteKerusakanhp($id)
+	{
+		if ($this->Barang_model->deleteKerusakanHp($id) > 0) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been delete!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
+			exit();
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to delete!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
+			exit();
+		}
+	}
+
+	public function tambahkerusakanhpbaru()
+	{
+		if ($this->Barang_model->tambahKerusakanHp() > 0) {
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been created!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
+			exit();
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to created!</div>');
+			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
+			exit();
+		}
+	}
 }
