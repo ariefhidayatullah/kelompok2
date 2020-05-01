@@ -24,6 +24,16 @@ android {
         sourceCompatibility = 1.6
         targetCompatibility = 1.6
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            file("src/main/res/layouts/").listFiles(),
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
 
 }
 
