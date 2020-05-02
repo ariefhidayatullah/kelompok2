@@ -94,18 +94,18 @@
               </thead>
               <tbody>
                 <!--Menampilkan data dari database-->
-                <?php foreach ($tipe as $tipe) : ?>
+                <?php foreach ($tipe as $tipee) : ?>
 
                   <tr role="row" class="odd">
-                    <td><?= $tipe['tipe_hp']; ?></td>
-                    <td><?= $tipe['merk_hp']; ?></td>
+                    <td><?= $tipee['tipe_hp']; ?></td>
+                    <td><?= $tipee['merk_hp']; ?></td>
                     <td>
-                      <button class="btn btn-success btn-sm btn-u-ubahhp" data-toggle="modal" data-target="#modalubahhp" value="<?= $tipe['tipe_hp']; ?>">
+                      <button class="btn btn-success btn-sm btn-u-ubahhp" data-toggle="modal" data-target="#modalubahhp" value="<?= $tipee['tipe_hp']; ?>">
                         Ubah
                       </button>
                     </td>
                     <td>
-                      <a href="<?= base_url(); ?>admin/deletehp/<?= $tipe['id_tipe_hp']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                      <a href="<?= base_url(); ?>admin/deletehp/<?= $tipee['id_tipe_hp']; ?>" class="btn btn-danger btn-sm">Hapus</a>
                     </td>
                   <?php endforeach; ?>
               </tbody>

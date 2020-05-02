@@ -121,9 +121,11 @@ class Barang_model extends CI_model
     public function updateKerusakanLaptop($data)
     {
         $id = $data['id_kerusakanlap_ubh'];
-        $kerusakan = $data['kerusakanlap_ubh'];
+        $data = [
+            "kerusakan_laptop" => $this->input->post('kerusakanlap_ubh', true)
+        ];
         $this->db->where('id_kerusakan_laptop', $id);
-        return $this->db->update('tb_kerusakan_laptop', $kerusakan);
+        return $this->db->update('tb_kerusakan_laptop', $data);
     }
 
     public function deleteKerusakanlaptop($id)
