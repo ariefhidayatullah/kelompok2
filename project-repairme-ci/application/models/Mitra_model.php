@@ -6,6 +6,10 @@ class Mitra_model extends CI_model {
         return $this->db->get('tb_mitra')->result_array();
     }
 
+    public function getDetail($id){
+    	return $this->db->get_where('tb_mitra', ['id_mitra' => $id])->result_array();
+    }
+
 	public function inputMitra($data){
 		
 

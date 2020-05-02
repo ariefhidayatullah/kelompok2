@@ -167,6 +167,7 @@ class Admin extends CI_Controller
 
 	public function tambahkerusakanlaptopbaru()
 	{
+		echo $this->Barang_model->tambahkerusakanlaptop($_POST);die;
 		if ($this->Barang_model->tambahkerusakanlaptop($_POST) > 0) {
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data merk has been created!</div>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');

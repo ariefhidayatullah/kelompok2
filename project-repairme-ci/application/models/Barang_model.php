@@ -122,6 +122,7 @@ class Barang_model extends CI_model
     {
         $id = $data['id_kerusakanlap_ubh'];
         $kerusakan = $data['kerusakanlap_ubh'];
+        var_dump($data);die;
         $this->db->where('id_kerusakan_laptop', $id);
         return $this->db->update('tb_kerusakan_laptop', $kerusakan);
     }
@@ -148,4 +149,39 @@ class Barang_model extends CI_model
         ];
         return $this->db->insert('tb_kerusakan_hp', $data);
     }
+
+    public function getTipeLaptop()
+    {
+        return $this->db->query("SELECT tb_tipe_laptop.id_tipe_laptop, tb_tipe_laptop.tipe_laptop, tb_merk_laptop.id_merk_laptop, tb_merk_laptop.merk_laptop from tb_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop")->result_array();
+        // return $this->db->get_where('tb_tipe_laptop', ['id_merk_laptop' => $kode])->result();
+    }
+    public function getTipeHp()
+    {
+        // return $this->db->query("SELECT tb_tipe_laptop.id_tipe_laptop, tb_tipe_laptop.tipe_laptop, tb_merk_laptop.id_merk_laptop, tb_merk_laptop.merk_laptop from tb_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop")->result();
+        return $this->db->get('tb_tipe_hp')->result_array();
+    }
+    public function getLaptopById($data)
+    {
+        $tipe = $this->db->get_where('tb_tipe_laptop', ['id_tipe_laptop'  => $data])->result_array();
+        $merk = $this->db->select('merk_laptop')->get('tb_merk_laptop', ['id_merk_laptop' => $tipe[0]['id_merk_laptop']])->result_array();
+        return ['tipe' => $tipe[0]['tipe_laptop'], 'merk' => $merk[0]['merk_laptop']];
+    }
+
+    public function kerusakanLaptopById($data)
+    {
+        $kerusakan = $this->db->select('kerusakan_laptop')->get('tb_kerusakan_laptop', ['id_kerusakan_laptop' => $data])->result_array();
+        return $kerusakan[0]['kerusakan_laptop'];
+    }
+    public function getHpById($data)
+    {
+        $tipe = $this->db->get_where('tb_tipe_hp', ['id_tipe_hp'  => $data])->result_array();
+        $merk = $this->db->select('merk_hp')->get('tb_merk_hp', ['id_merk_hp' => $tipe[0]['id_merk_hp']])->result_array();
+        return ['tipe' => $tipe[0]['tipe_hp'], 'merk' => $merk[0]['merk_hp']];
+    }
+    public function kerusakanHpById($data)
+    {
+        $kerusakan = $this->db->select('kerusakan_hp')->get('tb_kerusakan_hp', ['id_kerusakan_hp' => $data])->result_array();
+        return $kerusakan[0]['kerusakan_hp'];
+    }
+
 }

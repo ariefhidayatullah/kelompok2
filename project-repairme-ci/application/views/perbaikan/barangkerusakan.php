@@ -10,7 +10,7 @@
 				</div>
 				
 				<div id="map" style="min-height: 400px; min-width: 150px; border: solid black 1px;">
-					<?php foreach ($data['id'] as $mitra):?>
+					<?php foreach ($id as $mitra):?>
 					<script>
 					var map = L.map('map').setView([<?= $mitra['lat']; ?>, <?= $mitra['lng']; ?>], 17);
 					L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,18 +32,19 @@
 						<ul class="nav nav-tabs font-alt" role="tablist">
 							<li class="active"><a href="#description" data-toggle="tab"><span class="icon-tools-2"></span>Deskripsi</a></li>
 							<li><a href="#data-sheet" data-toggle="tab"><span class="icon-tools-2"></span>Data</a></li>
+							<?php var_dump($this->session->userdata('dataUser')); ?>
 							<li><a href="#reviews" data-toggle="tab"><span class="icon-tools-2"></span>Reviews (2)</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active" id="description">
-								<img class="fotoMitra" src="<?= BASEURL ?>/img/mitra/<?= $mitra['foto_usaha']; ?>" alt="" width="678px" height="452px">
+								<img class="fotoMitra" src="<?= base_url() ?>/img/mitra/<?= $mitra['foto_usaha']; ?>" alt="" width="678px" height="452px">
 								<?php endforeach; ?>
 								<p><?= $mitra['deskripsi']; ?>.</p>
 							</div>
 							<div class="tab-pane" id="data-sheet">
 								<table class="table table-striped ds-table table-responsive">
 									<tbody>
-										<?php foreach ($data['id'] as $mitra):?>
+										<?php foreach ($id as $mitra):?>
 										<tr>
 											<th>Mitra</th>
 											<th>Informasi</th>
@@ -213,7 +214,7 @@
 						<div class="tab-pane active" id="data-sheet">
 							<table class="table table-striped ds-table table-responsive">
 								<tbody>
-									<?php foreach ($data['id'] as $mitra):?>
+									<?php foreach ($id as $mitra):?>
 									<tr>
 										<th>Mitra</th>
 										<th>Informasi</th>
@@ -279,7 +280,7 @@
 				<select class="form-control" id="selector_merk_laptop" >
 					<option selected="selected" disabled>MERK</option>
 					<option style="color: red;" value="false">tidak ada di daftar</option>
-					<?php foreach ($data['merk_laptop'] as $merk):?>
+					<?php foreach ($merk_laptop as $merk):?>
 					<option value="<?= $merk['id_merk_laptop']; ?>"><?php $getMerklaptop = $merk['merk_laptop']; ?><?= $merk['merk_laptop']; ?></option>
 					<?php endforeach; ?>
 				</select>
@@ -306,7 +307,7 @@
 				<select class="form-control" id="selector_merk_hp" >
 					<option selected="selected" disabled>MERK</option>
 					<option style="color: red;" value="false">tidak ada di daftar</option>
-					<?php foreach ($data['merk_hp'] as $merk):?>
+					<?php foreach ($merk_hp as $merk):?>
 					<option value="<?= $merk['id_merk_hp']; ?>"><?php $getMerkhp = $merk['merk_hp']; ?><?= $merk['merk_hp']; ?></option>
 					<?php endforeach; ?>
 				</select>
@@ -334,7 +335,7 @@
 				<select class="form-control" id="selector_kerusakan_laptop" >
 					<option selected="selected" disabled>Kerusakan</option>
 					<option style="color: red;" value="false">tidak ada di daftar</option>
-					<?php foreach ($data['kerusakan_laptop'] as $laptop):?>
+					<?php foreach ($kerusakan_laptop as $laptop):?>
 					<option value="<?= $laptop['id_kerusakan_laptop']; ?>"><?= $laptop['kerusakan_laptop']; ?></option>
 					<?php endforeach; ?>
 				</select>
@@ -354,7 +355,7 @@
 				<select class="form-control" id="selector_kerusakan_hp" >
 					<option selected="selected" disabled>Kerusakan</option>
 					<option style="color: red;" value="false">tidak ada di daftar</option>
-					<?php foreach ($data['kerusakan_hp'] as $hp):?>
+					<?php foreach ($kerusakan_hp as $hp):?>
 					<option value="<?= $hp['id_kerusakan_hp']; ?>"><?= $hp['kerusakan_hp']; ?></option>
 					<?php endforeach; ?>
 				</select>
@@ -367,8 +368,9 @@
 		</div>
 	</div>
 	<div class="myForm">
-		<form action="<?= BASEURL; ?>/perbaikan/pengajuanperbaikanlaptop" method="POST" id="formperbaikanlaptop">
-			<input type="text" id="id_pelanggan" name="id_pelanggan" value="<?= $_SESSION['login']['data']['id_pelanggan']; ?>" hidden>
+		<form action="<?= base_url(); ?>perbaikan/detailpengajuan" method="POST" id="formperbaikanlaptop">
+			<input type="text" id="jenis_perbaikan" name="jenis_perbaikan" value="LAPTOP" hidden>
+			<input type="text" id="id_pelanggan" name="id_pelanggan" value="<?= $this->session->userdata('userData')['id_pelanggan'];?>" hidden>
 			<input type="text" id="id_mitra" name="id_mitra" hidden>
 			<input type="text" id="id_tipe_laptop" name="id_tipe_laptop" hidden>
 			<input type="text" id="id_kerusakan_laptop" name="id_kerusakan_laptop" hidden>
@@ -376,8 +378,9 @@
 			<input type="text" id="tipe_laptop_ttd" name="tipe_laptop_ttd" hidden>
 			<input type="text" id="ket_kerusakan_laptop_lain" name="ket_kerusakan_laptop_lain" hidden>
 		</form>
-		<form action="<?= BASEURL; ?>/perbaikan/pengajuanperbaikanhp" method="POST" id="formperbaikanhp">
-			<input type="text" id="id_pelanggan2" name="id_pelanggan2" value="<?= $_SESSION['login']['data']['id_pelanggan']; ?>" hidden>
+		<form action="<?= base_url(); ?>/perbaikan/detailpengajuan" method="POST" id="formperbaikanhp">
+			<input type="text" id="jenis_perbaikan" name="jenis_perbaikan" value="HANDPHONE" hidden>
+			<input type="text" id="id_pelanggan2" name="id_pelanggan2" value="<?= $this->session->userdata('userData')['id_pelanggan'];?>" hidden>
 			<input type="text" id="id_mitra2" name="id_mitra2" hidden>
 			<input type="text" id="id_tipe_hp" name="id_tipe_hp" hidden>
 			<input type="text" id="id_kerusakan_hp" name="id_kerusakan_hp" hidden>
@@ -402,7 +405,7 @@ $(document).ready(function(){
 			$('#tipe_laptop_ttd').val($('#tipelaptopbaru').val());
 		}else if($('#selector_tipe_laptop').val() == 'false'){
 			$('#id_tipe_laptop').val(0);
-<?php foreach ($data['merk_laptop'] as $laptop):?>
+<?php foreach ($merk_laptop as $laptop):?>
 if ($('#selector_merk_laptop').val() == "<?= $laptop['id_merk_laptop']; ?>") {
 $('#merk_laptop_ttd').val("<?= $laptop['merk_laptop']; ?>");
 }
@@ -431,7 +434,7 @@ $('#merk_hp_ttd').val($('#merkhpbaru').val());
 $('#tipe_hp_ttd').val($('#tipehpbaru').val());
 }else if($('#selector_tipe_hp').val() == 'false'){
 $('#id_tipe_hp').val(0);
-<?php foreach ($data['merk_hp'] as $hp):?>
+<?php foreach ($merk_hp as $hp):?>
 if ($('#selector_merk_hp').val() == "<?= $hp['id_merk_hp']; ?>") {
 $('#merk_hp_ttd').val("<?= $hp['merk_hp']; ?>");
 }
@@ -493,7 +496,7 @@ $('#merklaptopbaru').hide();
 $('#tipelaptopbaru').hide();
 $('#selector_tipe_laptop').show();
 }
-<?php foreach ($data['tipe_laptop'] as $tipe):?>
+<?php foreach ($tipe_laptop as $tipe):?>
 if ($(this).val() == "<?= $tipe['id_merk_laptop']; ?>") {
 $('#selector_tipe_laptop').append("<option class='optiontipe' value='<?= $tipe['id_tipe_laptop']; ?>'><?= $tipe['tipe_laptop']; ?></option>");
 }
@@ -519,7 +522,7 @@ $('#tipehpbaru').hide();
 $('#selector_tipe_hp').show();
 $('.next2').show();
 }
-<?php foreach ($data['tipe_hp'] as $tipe):?>
+<?php foreach ($tipe_hp as $tipe):?>
 if ($(this).val() == "<?= $tipe['id_merk_hp']; ?>") {
 $('#selector_tipe_hp').append("<option class='optiontipe2' value='<?= $tipe['id_tipe_hp']; ?>'><?= $tipe['tipe_hp']; ?></option>");
 }

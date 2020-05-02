@@ -38,9 +38,12 @@ class Login extends CI_Controller {
             }
         }
         if ($ret == 'false'){
-            echo "login gagal, password salah";
-            // Flasher::setFlash(' Login', 'GAGAl', 'danger'); 
-                // header('Location:'.BASEURL.'/login/');
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Password Yang Anda Masukkan Salah",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
+        if ($ret == 'falseUsername'){
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Username Belum Terdaftar",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
         }
     }
 

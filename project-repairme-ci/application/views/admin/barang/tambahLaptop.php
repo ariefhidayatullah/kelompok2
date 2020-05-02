@@ -191,10 +191,13 @@
     </div>
   </div>
   <script>
-    $(document).ready(function() {
-      $('.btn-u-ubahlap').click(function() {
-        $('#tipelaptop_ubh').val($(this).val());
-        $('#tipe_lp_lm').val($(this).val());
-      });
+    $('.btn-u-kerusakanlap').click(function() {
+      <?php foreach ($kerusakan as $kerusakan) : ?>
+        alert('oke');
+        if ("<?= $kerusakan['id_kerusakan_laptop'] ?>" == $(this).val()) {
+          $('#id_kerusakanlap_ubh').val("<?= $kerusakan['id_kerusakan_laptop']; ?>");
+          $('#kerusakanlap_ubh').val("<?= $kerusakan['kerusakan_laptop']; ?>");
+        }
+      <?php endforeach; ?>
     });
   </script>

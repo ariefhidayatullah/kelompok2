@@ -33,6 +33,7 @@
 
     <div class="loginpage  mt-80" style="margin: 0 3%;">
     <h4 class="font-alt">Login</h4>
+     <?= $this->session->flashdata('message'); ?>
     <hr class="divider-w mb-10">
     <form class="form mt-30"  action="<?= base_url(); ?>login/checklogin" method="POST">
         <div class="form-group">
@@ -64,16 +65,5 @@
     })
 </script>
 
-<script>
-  $(document).ready(function(){
-   if ("<?= $this->session->userdata('login'); ?>" === 'active') {
-    $.notiny({
-      text: "Selamat Datang",
-      position: 'right-bottom',
-      animation_hide: 'custom-hide-animation 20s forwards'
-    });
-   }
-  });
-</script>
 
 
