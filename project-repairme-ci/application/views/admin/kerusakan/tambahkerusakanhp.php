@@ -98,17 +98,17 @@
                       </thead>
 
                       <tbody>
-                        <?php foreach ($kerusakan as $kerusakan) : ?>
+                        <?php foreach ($kerusakan as $kerusakann) : ?>
                           <tr>
-                            <td><?= $kerusakan['id_kerusakan_hp']; ?></td>
-                            <td><?= $kerusakan['kerusakan_hp']; ?></td>
+                            <td><?= $kerusakann['id_kerusakan_hp']; ?></td>
+                            <td><?= $kerusakann['kerusakan_hp']; ?></td>
                             <td>
-                              <button class="btn btn-success btn-sm btn-u-kerusakanhp" data-toggle="modal" data-target="#modalubahhp" value="<?= $kerusakan['id_kerusakan_hp']; ?>">
+                              <button class="btn btn-success btn-sm btn-u-kerusakanhp" data-toggle="modal" data-target="#modalubahhp" value="<?= $kerusakann['id_kerusakan_hp']; ?>">
                                 update
                               </button>
                             </td>
                             <td>
-                              <a href="<?= base_url(); ?>admin/deleteKerusakanhp/<?= $kerusakan['id_kerusakan_hp']; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                              <a href="<?= base_url(); ?>admin/deleteKerusakanhp/<?= $kerusakann['id_kerusakan_hp']; ?>" class="btn btn-sm btn-danger">Hapus</a>
                             </td>
                           </tr>
                         <?php endforeach; ?>

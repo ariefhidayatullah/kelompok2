@@ -90,17 +90,19 @@
                           </tr>
                         </thead>
 
+
                         <tbody>
-                          <?php foreach ($kerusakan as $kerusakan) : ?>
+                          <?php foreach ($kerusakan as $kerusakann) : ?>
+
                             <tr>
-                              <td><?= $kerusakan['id_kerusakan_laptop']; ?></td>
-                              <td><?= $kerusakan['kerusakan_laptop']; ?></td>
+                              <td><?= $kerusakann['id_kerusakan_laptop']; ?></td>
+                              <td><?= $kerusakann['kerusakan_laptop']; ?></td>
                               <td>
-                                <button class="btn btn-success btn-sm btn-u-kerusakanlap" data-toggle="modal" data-target="#modalubahlap" value="<?= $kerusakan['id_kerusakan_laptop']; ?>">
+                                <button class="btn btn-success btn-sm btn-u-kerusakanlap" data-toggle="modal" data-target="#modalubahlap" value="<?= $kerusakann['id_kerusakan_laptop']; ?>">
                                   update
                                 </button>
                               </td>
-                              <td><a href="<?= base_url(); ?>admin/deleteKerusakanlaptop/<?= $kerusakan['id_kerusakan_laptop']; ?>" class="btn btn-danger btn-sm">Hapus</a></td>
+                              <td><a href="<?= base_url(); ?>admin/deleteKerusakanlaptop/<?= $kerusakann['id_kerusakan_laptop']; ?>" class="btn btn-danger btn-sm">Hapus</a></td>
                             </tr>
                           <?php endforeach; ?>
                         </tbody>
@@ -142,7 +144,6 @@
 </div>
 <script>
   $(document).ready(function() {
-
     $('.btn-u-kerusakanlap').click(function() {
       <?php foreach ($kerusakan as $ker) : ?>
         // console.log($(this).val())
@@ -154,6 +155,5 @@
         }
       <?php endforeach; ?>
     });
-
   });
 </script>

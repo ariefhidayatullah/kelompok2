@@ -1,13 +1,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
-<script src="<?= BASEURL; ?>/js/tableHTMLExport.js"></script>
+<script src="<?= base_url(); ?>assets/js/tableHTMLExport.js"></script>
 <!-- daterange picker -->
-<link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.css">
-<script src="<?= BASEURL; ?>/panel-master/plugins/moment/moment.min.js"></script>
-<script src="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+<script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 
-<script src="<?= BASEURL; ?>/js/autoNumeric.js"></script>
+<script src="<?= base_url(); ?>assets/js/autoNumeric.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -168,10 +168,10 @@
       </div>
       <!-- /.card -->
       <div>
-        <form action="<?= BASEURL; ?>/mitra/hapusriwayatlaptop" method="POST" id="hapusriwayatlaptop">
+        <form action="<?= base_url(); ?>/mitra/hapusriwayatlaptop" method="POST" id="hapusriwayatlaptop">
           <input type="text" name="id_hapusriwayatlaptop" id="id_hapusriwayatlaptop" hidden>
         </form>
-        <form action="<?= BASEURL; ?>/mitra/hapusriwayathp" method="POST" id="hapusriwayathp">
+        <form action="<?= base_url(); ?>/mitra/hapusriwayathp" method="POST" id="hapusriwayathp">
           <input type="text" name="id_hapusriwayathp" id="id_hapusriwayathp" hidden>
         </form>
       </div>

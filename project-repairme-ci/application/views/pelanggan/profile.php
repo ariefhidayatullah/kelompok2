@@ -1,6 +1,6 @@
 <script>
   $(document).ready(function(){
-     $("[href='<?= BASEURL; ?>/pelanggan/profile'").addClass('active');
+     $("[href='<?= base_url(); ?>/pelanggan/profile'").addClass('active');
   });
 </script>
 
@@ -34,7 +34,7 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="<?= BASEURL; ?>/panel-master/dist/img/user1.png"
+                       src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png"
                        alt="User profile picture">
                 </div>
                 <?php foreach ($data['pelanggan'] as $pelanggan ) :?>

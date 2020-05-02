@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <form action="<?= BASEURL; ?>/pelanggan/editProfilePel" method="POST">
+                <form action="<?= base_url(); ?>/pelanggan/editProfilePel" method="POST">
                 <input type="text" id="id_pelanggan" name="id_pelanggan" value="<?= $_SESSION['login']['data']['id_pelanggan'];?>" hidden>
                 <tr>
                   <td>

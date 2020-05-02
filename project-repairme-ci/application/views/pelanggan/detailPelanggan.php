@@ -21,7 +21,7 @@
                             <td><?= $pelanggan['email']; ?></td>
                             <td><?= $pelanggan['alamat']; ?></td>
                             <td><?= $pelanggan['no_tlp']; ?></td>
-                            <td><a href="<?= BASEURL; ?>/mitra/delete/<?= $mitra['id_mitra']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
+                            <td><a href="<?= base_url(); ?>/mitra/delete/<?= $mitra['id_mitra']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
                         </tr>
                         
                     </tbody>

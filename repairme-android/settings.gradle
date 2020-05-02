@@ -1,0 +1,2 @@
+rootProject.name='Repairme'
+include ':app'

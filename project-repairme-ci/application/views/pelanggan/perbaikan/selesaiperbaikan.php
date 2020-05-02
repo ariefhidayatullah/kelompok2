@@ -1,9 +1,9 @@
 <!-- daterange picker -->
-<link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.css">
-<script src="<?= BASEURL; ?>/panel-master/plugins/moment/moment.min.js"></script>
-<script src="<?= BASEURL; ?>/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+<link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+<script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 
-<script src="<?= BASEURL; ?>/js/autoNumeric.js"></script>
+<script src="<?= base_url(); ?>assets/js/autoNumeric.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
