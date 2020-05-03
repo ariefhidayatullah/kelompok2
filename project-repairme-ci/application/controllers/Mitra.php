@@ -31,15 +31,13 @@ class Mitra extends CI_Controller
     {
         $data['judul'] = 'Mitra RepairMe';
         $data['mitra'] = $this->Mitra_model->getMitraNow();
-        // var_dump($data['mitra']);
-        // die;
-        $id_jenis = $this->session->userdata('userData')['id_jenis'];
-        if ($this->session->userdata('userData') == true && $id_jenis == '2') {
+        if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             $this->load->view('mitra/templates/header', $data);
             $this->load->view('mitra/index', $data);
             $this->load->view('mitra/templates/footer');
         } else {
-            header('Location:' . base_url() . '/login');
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
         }
     }
 }

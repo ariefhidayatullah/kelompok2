@@ -21,20 +21,19 @@ class Login extends CI_Controller
     public function checklogin()
     {
         $ret = $this->Login_model->checkloginkey($_POST);
-        if (count($ret) == 1) {
+        if (count($ret['data']) == 1) {
 
-            if ($ret[0]['id_jenis'] == 1) {
-                $dataSession = ['login' => 'active', 'userData' => $ret[0]];
+            if ($ret['data'][0]['id_jenis'] == 1) {
+                $dataSession = ['login' => true, 'jenis' => $ret['jenis'] , 'userData' => $ret['data'][0]];
                 $this->session->set_userdata($dataSession);
                 echo "sukses admin";
                 // header('Location:'.BASEURL.'/mitra/');
-            } else if ($ret[0]['id_jenis'] == 2) {
-                $dataSession = ['login' => 'active', 'userData' => $ret[0]];
+            } else if ($ret['data'][0]['id_jenis'] == 2) {
+                $dataSession = ['login' => true,'jenis' => $ret['jenis'], 'userData' => $ret['data'][0]];
                 $this->session->set_userdata($dataSession);
-                // echo "sukses mitra";
-                header('Location:' . base_url() . 'mitra/');
-            } else if ($ret[0]['id_jenis'] == 3) {
-                $dataSession = ['login' => 'active', 'userData' => $ret[0]];
+                redirect('mitra');
+            } else if ($ret['data'][0]['id_jenis'] == 3) {
+                $dataSession = ['login' => true, 'jenis' => $ret['jenis'], 'userData' => $ret['data'][0]];
                 $this->session->set_userdata($dataSession);
                 echo "sukses pelanggan";
                 // header('Location:'.BASEURL.'/mitra/');

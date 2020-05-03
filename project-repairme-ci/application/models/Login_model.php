@@ -18,11 +18,11 @@ class Login_model extends CI_Model {
             $mitra = $this->db->get_where('tb_mitra', ['id_user' => $getIdUser])->result_array();
             $pelanggan = $this->db->get_where('tb_pelanggan', ['id_user' => $getIdUser])->result_array();
                 if (count($admin) == 1) {
-                    return $admin;
+                    return ['jenis' => 'admin', 'data' => $admin];
                 }elseif (count($mitra) == 1) {
-                    return $mitra;
+                    return ['jenis' => 'mitra', 'data' => $mitra];
                 }elseif(count($pelanggan) == 1){
-                    return $pelanggan;
+                    return ['jenis' => 'pelanggan', 'data' => $pelanggan ];
                 }else{
                 return "false";
                 }
