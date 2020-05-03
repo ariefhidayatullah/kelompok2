@@ -28,10 +28,10 @@ class Login_model extends CI_Model {
                 }
 
         }else{
-            return "false";
+            return ['data' => "false"];
         }
       }else{
-        return "falseUsername";
+        return ['data' => "falseUsername"];
       }
 }
 }

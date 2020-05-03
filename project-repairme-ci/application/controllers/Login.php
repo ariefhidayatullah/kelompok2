@@ -21,7 +21,8 @@ class Login extends CI_Controller
     public function checklogin()
     {
         $ret = $this->Login_model->checkloginkey($_POST);
-        if (count($ret['data']) == 1) {
+        var_dump($ret);
+        if ($ret['data'] != 'false' && $ret['data'] != 'falseUsername') {
 
             if ($ret['data'][0]['id_jenis'] == 1) {
                 $dataSession = ['login' => true, 'jenis' => $ret['jenis'] , 'userData' => $ret['data'][0]];
@@ -39,11 +40,11 @@ class Login extends CI_Controller
                 // header('Location:'.BASEURL.'/mitra/');
             }
         }
-        if ($ret == 'false') {
+        else if ($ret['data'] == 'false') {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Password Yang Anda Masukkan Salah",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
             redirect('login');
         }
-        if ($ret == 'falseUsername') {
+        else if ($ret['data'] == 'falseUsername') {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Username Belum Terdaftar",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
             redirect('login');
         }
