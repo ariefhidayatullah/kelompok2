@@ -5,19 +5,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title><?= $data['judul']; ?></title>
+  <title><?= $judul; ?></title>
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Toastr -->
-  <link rel="stylesheet" href="<?= BASEURL; ?>/panel-master/plugins/toastr/toastr.min.css">perb
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">perb
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- jQuery -->
-  <script src="<?= BASEURL; ?>/panel-master/plugins/jquery/jquery.min.js"></script>
+  <script src="<?= base_url(); ?>assets/panel-master/plugins/jquery/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
@@ -34,7 +34,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="<?= BASEURL; ?>/home/index" class="nav-link">Home</a>
+          <a href="<?= base_url(); ?>home/index" class="nav-link">Home</a>
         </li>
 
       </ul>
@@ -42,7 +42,8 @@
       <ul class="navbar-nav ml-auto">
         <li>
           <i class="fa fa-sign-out-alt"> </i>
-          <a><?php mySession::sessionLogin(); ?></a>
+          <a><?php //mySession::sessionLogin(); 
+              ?></a>
         </li>
       </ul>
       </ul>
@@ -52,7 +53,7 @@
     <aside class="main-sidebar sidebar-dark-light elevation-2">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-        <img src="<?= BASEURL; ?>/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="<?= base_url(); ?>assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Mitra RepairMe</span>
       </a>
       <!-- Sidebar -->
@@ -60,14 +61,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="<?= BASEURL; ?>/img/mitra/<?= $_SESSION['login']['data']['foto_usaha']; ?>" class="img-box elevation-2" alt="Foto Usaha Mitra">
+            <img src="<?= base_url(); ?>assets/img/mitra/<?= $this->session->userdata('userData')['foto_usaha']; ?>" class="img-box elevation-2" alt="Foto Usaha Mitra">
           </div>
 
           <div class="info">
-            <?php foreach ($data['mitra'] as $mitra) : ?>
-              <a class="float-right"><?= $mitra['nama'];
-                                      die; ?></a>
-            <?php endforeach; ?>
+            <a class="float-right"><?= $mitra['nama']; ?></a>
           </div>
 
         </div>
@@ -77,7 +75,7 @@
             <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="<?= BASEURL; ?>/mitra" class="nav-link">
+              <a href="<?= base_url(); ?>mitra" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Beranda <span class="right badge badge-success">Data Cepat</span>
@@ -95,37 +93,37 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/permintaanperbaikan" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Permintaan Perbaikan</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/voucher" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/voucher" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Voucher Perbaikan</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/perbaikan" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/perbaikan" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Perbaikan</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/batalperbaikan" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/batalperbaikan" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Perbaikan Dibatalkan</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/selesaiperbaikan" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/selesaiperbaikan" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Barang Selesai Di Perbaiki</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/riwayatperbaikan" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/riwayatperbaikan" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Riwayat Perbaikan</p>
                   </a>
@@ -143,13 +141,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/profile" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/profile" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= BASEURL; ?>/mitra/deskripsi" class="nav-link">
+                  <a href="<?= base_url(); ?>mitra/deskripsi" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ubah Profile</p>
                   </a>

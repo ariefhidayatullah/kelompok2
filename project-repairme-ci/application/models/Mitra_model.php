@@ -1,24 +1,27 @@
-<?php 
+<?php
 
-class Mitra_model extends CI_model {
-    public function getAllMitra()
-    {
-        return $this->db->get('tb_mitra')->result_array();
-    }
+class Mitra_model extends CI_model
+{
+	public function getAllMitra()
+	{
+		return $this->db->get('tb_mitra')->result_array();
+	}
 
-    public function getDetail($id){
-    	return $this->db->get_where('tb_mitra', ['id_mitra' => $id])->result_array();
-    }
+	public function getDetail($id)
+	{
+		return $this->db->get_where('tb_mitra', ['id_mitra' => $id])->result_array();
+	}
 
-	public function inputMitra($data){
-		
+	public function inputMitra($data)
+	{
+
 
 		//persiapan data untuk dijadikan array
 		$id_jenis = 2;
 		$nama = $data['nama'];
 		$nama_usaha = $data['nama_usaha'];
 		$email = $data['email'];
-		$no_telpon= $data['no_telpon'];
+		$no_telpon = $data['no_telpon'];
 		$alamat = $data['alamat'];
 		$lat = $data['lat'];
 		$lng = $data['lng'];
@@ -28,11 +31,11 @@ class Mitra_model extends CI_model {
 		//untuk username dan password
 		$username = strtolower(stripslashes($data['username']));
 		$password = $data['password1'];
-		
+
 		//hash password
 		$password = password_hash($password, PASSWORD_DEFAULT);
-		
-		
+
+
 		//query untuk menyiapkan id_user, karena bukan auto_increment, jadi bikin manual
 		$this->db->select('id_user');
 		$this->db->order_by('id_user', 'DESC');
@@ -42,7 +45,7 @@ class Mitra_model extends CI_model {
 		//query untuk input ke table tb_user;
 		$for_tbUser	= ['id_user' => $id_user, 'username' => $username, 'password' => $password];
 		$insertUser = $this->db->insert('tb_user', $for_tbUser);
-		
+
 		//method upload disini
 		$foto_ktp = $this->do_upload('foto_ktp', $id_user, $nama_usaha);
 		$foto_usaha = $this->do_upload('foto_usaha', $id_user, $nama_usaha);
@@ -51,33 +54,42 @@ class Mitra_model extends CI_model {
 		$insertMitra = $this->db->insert('tb_mitra', $for_tbMitra);
 
 		if ($insertUser && $insertMitra == 1) {
-			echo "sip, tinggal atur redirectnya";die;
+			echo "sip, tinggal atur redirectnya";
+			die;
 			redirect(base_url());
-		}else{
-			echo "gagal";die;
+		} else {
+			echo "gagal";
+			die;
 			redirect(base_url('mitra/registrasi'));
 		}
-		
 	}
-	
+
 	private function do_upload($data, $id_user, $nama_usaha)
-        {
-        		//untuk upload
-                $config['upload_path']          = './gallery/';
-                $config['allowed_types']        = 'jpg|png|jpeg';
-                $config['file_name']			=  $data.'_'.$nama_usaha.'_id'.$id_user;
-                $config['overwrite']			= true;
-                $config['max_size']             = 2048;
-                $config['max_width']            = 1024;
-                $config['max_height']           = 768;
+	{
+		//untuk upload
+		$config['upload_path']          = './gallery/';
+		$config['allowed_types']        = 'jpg|png|jpeg';
+		$config['file_name']			=  $data . '_' . $nama_usaha . '_id' . $id_user;
+		$config['overwrite']			= true;
+		$config['max_size']             = 2048;
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
 
-                //untuk load library upload
-                $this->load->library('upload', $config);
+		//untuk load library upload
+		$this->load->library('upload', $config);
 
-                if ($this->upload->do_upload($data)) {
-                	return $config['file_name'];
-                }else{
-                	return 'gambar_gagal_diunggah';
-                }
-        }
+		if ($this->upload->do_upload($data)) {
+			return $config['file_name'];
+		} else {
+			return 'gambar_gagal_diunggah';
+		}
+	}
+
+	public function getMitraNow()
+	{
+		//return $this->db->query("SELECT tb_mitra.* FROM `tb_mitra` WHERE tb_mitra.id_mitra = " . $_SESSION['login']['data']['id_mitra']);
+		$data = $this->session->userdata('userData');
+		$id_mitra = $data['id_mitra'];
+		return $this->db->get_where('tb_mitra', ['id_mitra' => $id_mitra])->row_array();
+	}
 }
