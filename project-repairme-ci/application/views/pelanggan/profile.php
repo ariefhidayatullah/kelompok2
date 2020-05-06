@@ -1,6 +1,6 @@
 <script>
   $(document).ready(function(){
-     $("[href='<?= base_url(); ?>/pelanggan/profile'").addClass('active');
+     $("[href='<?= base_url(); ?>pelanggan/profile'").addClass('active');
   });
 </script>
 

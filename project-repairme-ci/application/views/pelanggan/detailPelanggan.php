@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-6">
             <h3>Detail Pelanggan</h3>
-            <?php foreach($data['pelanggan'] as $pelanggan) :?>
+            <?php foreach($pelanggan as $pelanggan) :?>
             
             <div class="card-body">
                 <table class="table table-striped table-bordered first">
@@ -21,7 +21,7 @@
                             <td><?= $pelanggan['email']; ?></td>
                             <td><?= $pelanggan['alamat']; ?></td>
                             <td><?= $pelanggan['no_tlp']; ?></td>
-                            <td><a href="<?= base_url(); ?>/mitra/delete/<?= $mitra['id_mitra']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
+                            <td><a href="<?= base_url(); ?>mitra/delete/<?= $mitra['id_mitra']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
                         </tr>
                         
                     </tbody>

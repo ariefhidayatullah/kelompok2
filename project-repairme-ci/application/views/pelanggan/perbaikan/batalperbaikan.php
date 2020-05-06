@@ -267,10 +267,10 @@
         
         <button class="btn btn-block btn-danger btn-sm hapuslaptop" data-dismiss="modal" aria-label="Close">Hapus Perbaikan</button>
       </div>
-      <form action="<?= base_url(); ?>/mitra/arsipbatalperbaikanlaptop" method="POST" id="form_arsiplaptop">
+      <form action="<?= base_url(); ?>mitra/arsipbatalperbaikanlaptop" method="POST" id="form_arsiplaptop">
         <input type="text" name="id_arsiplaptop" id="id_arsiplaptop" hidden>
       </form>
-      <form action="<?= base_url(); ?>/mitra/hapusbatalperbaikanlaptop" method="POST" id="form_batallaptop">
+      <form action="<?= base_url(); ?>mitra/hapusbatalperbaikanlaptop" method="POST" id="form_batallaptop">
         <input type="text" name="id_batallaptop" id="id_batallaptop" hidden>
       </form>
     </div>
@@ -297,10 +297,10 @@
         
         <button class="btn btn-block btn-danger btn-sm hapushp" data-dismiss="modal" aria-label="Close">Hapus Perbaikan</button>
       </div>
-      <form action="<?= base_url(); ?>/mitra/arsipbatalperbaikanhp" method="POST" id="form_arsiphp">
+      <form action="<?= base_url(); ?>mitra/arsipbatalperbaikanhp" method="POST" id="form_arsiphp">
         <input type="text" name="id_arsiphp" id="id_arsiphp" hidden>
       </form>
-      <form action="<?= base_url(); ?>/mitra/hapusbatalperbaikanhp" method="POST" id="form_batalhp">
+      <form action="<?= base_url(); ?>mitra/hapusbatalperbaikanhp" method="POST" id="form_batalhp">
         <input type="text" name="id_batalhp" id="id_batalhp" hidden>
       </form>
     </div>
