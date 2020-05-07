@@ -82,6 +82,10 @@ class _BottomSheetContent extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(bottom: 2.0),
             decoration: new BoxDecoration(
+              border : Border.all(
+                width: 5,
+                color: Colors.white,
+              ) ,
               image: DecorationImage(
                   image: new AssetImage("assets/img/5e37b4a4bcaf4.jpeg"),
                   fit: BoxFit.fill,
