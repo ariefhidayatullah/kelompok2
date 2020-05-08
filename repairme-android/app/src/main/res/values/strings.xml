@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name" translatable="false">Repairme</string>
-    <string name="home">Home</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="notifications">Notifications</string>
-    <string name="repair_now">Repair Now</string>
-    <string name="AboutUs">About Us</string>
-</resources>

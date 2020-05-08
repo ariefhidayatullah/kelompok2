@@ -35,7 +35,7 @@
                             <h5 class="card-header">list pelanggan</h5>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <?php foreach ($data['pelanggan'] as $pelanggan) :?>
+                                    <?php foreach ($pelanggan as $pelanggan) :?>
                                     <table class="table table-striped table-bordered first">
                                         <thead>
                                             <tr>
@@ -47,10 +47,10 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><?= $pelanggan['nama']; ?></td>
-                                               <td><a href="<?= base_url(); ?>/pelanggan/delete/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
-											   <td><a href="<?= base_url(); ?>/pelanggan/ubah/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-success float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-id="<?= $pelanggan['id']; ?>">Ubah</a></td>
-											   <td><a href="<?= base_url(); ?>/pelanggan/detailPelanggan/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-primary float-right ml-1">Detail</a></td>
+                                                <td><?= $nama; ?></td>
+                                               <td><a href="<?= base_url(); ?>pelanggan/delete/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-danger float-right ml-1">Hapus</a></td>
+											   <td><a href="<?= base_url(); ?>pelanggan/ubah/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-success float-right ml-1 tampilModalUbah" data-toggle="modal" data-target="#formModal" data-id="<?= $pelanggan['id']; ?>">Ubah</a></td>
+											   <td><a href="<?= base_url(); ?>pelanggan/detailPelanggan/<?= $pelanggan['id_pelanggan']; ?>" class="badge badge-primary float-right ml-1">Detail</a></td>
                                             </tr>
                                     
                                         </tbody>

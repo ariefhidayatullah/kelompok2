@@ -168,10 +168,10 @@
       </div>
       <!-- /.card -->
       <div>
-        <form action="<?= base_url(); ?>/mitra/hapusriwayatlaptop" method="POST" id="hapusriwayatlaptop">
+        <form action="<?= base_url(); ?>mitra/hapusriwayatlaptop" method="POST" id="hapusriwayatlaptop">
           <input type="text" name="id_hapusriwayatlaptop" id="id_hapusriwayatlaptop" hidden>
         </form>
-        <form action="<?= base_url(); ?>/mitra/hapusriwayathp" method="POST" id="hapusriwayathp">
+        <form action="<?= base_url(); ?>mitra/hapusriwayathp" method="POST" id="hapusriwayathp">
           <input type="text" name="id_hapusriwayathp" id="id_hapusriwayathp" hidden>
         </form>
       </div>

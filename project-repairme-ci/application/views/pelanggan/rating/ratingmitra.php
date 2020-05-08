@@ -1,7 +1,7 @@
         <div class="row">
       <div class="comment-form mt-30" style="width: 40%; position: absolute; top: 10%; right: 4%;">
         <h2 class="comment-form-title font-alt">Rating Mitra</h2>
-        <form method="post" action="<?= base_url(); ?>/Pelanggan/rating">
+        <form method="post" action="<?= base_url(); ?>Pelanggan/rating">
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">

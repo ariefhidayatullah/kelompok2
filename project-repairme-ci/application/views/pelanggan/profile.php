@@ -1,6 +1,6 @@
 <script>
   $(document).ready(function(){
-     $("[href='<?= base_url(); ?>/pelanggan/profile'").addClass('active');
+     $("[href='<?= base_url(); ?>pelanggan/profile'").addClass('active');
   });
 </script>
 
@@ -37,7 +37,7 @@
                        src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png"
                        alt="User profile picture">
                 </div>
-                <?php foreach ($data['pelanggan'] as $pelanggan ) :?>
+                <?php foreach ($pelanggan as $pelanggan ) :?>
                 <h3 class="profile-username text-center"><?= $pelanggan ['nama'] ?></p></h3>
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">

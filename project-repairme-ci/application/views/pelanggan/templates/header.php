@@ -74,32 +74,32 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/pengajuanperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/pengajuanperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Pengajuan perbaikan</p>
                     </a>
                   </li>
                   
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/perbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/perbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Dalam Pengerjaan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/batalperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/batalperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Perbaikan Dibatalkan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/selesaiperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/selesaiperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Barang Selesai Di Perbaiki</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/riwayatperbaikan" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/riwayatperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Riwayat Perbaikan</p>
                     </a>
@@ -117,13 +117,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/pelanggan/profile" class="nav-link">
+                    <a href="<?= base_url(); ?>pelanggan/profile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Profile</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/Pelanggan/editProfile" class="nav-link">
+                    <a href="<?= base_url(); ?>Pelanggan/editProfile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ubah Profile</p>
                     </a>
@@ -141,13 +141,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/perbaikan/index" class="nav-link">
+                    <a href="<?= base_url(); ?>perbaikan/index" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Cari Mitra</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="<?= base_url(); ?>assets/Pelanggan/beriRating" class="nav-link">
+                    <a href="<?= base_url(); ?>Pelanggan/beriRating" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Berikan Rating</p>
                     </a>
