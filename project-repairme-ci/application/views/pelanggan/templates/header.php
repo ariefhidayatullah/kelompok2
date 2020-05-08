@@ -34,7 +34,7 @@
         <ul class="navbar-nav ml-auto">
           <li>
             <i class="fa fa-sign-out-alt">  </i>
-          <a><?php mySession::sessionLogin(); ?></a>
+          <a><?php //mySession::sessionLogin(); ?></a>
           </li>
           </ul>
       </nav>
@@ -42,8 +42,8 @@
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-light elevation-2">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
-          <span class="brand-text font-weight-light">Pelanggan RepairMe</span>
+        <a href="<?= base_url('pelanggan'); ?>" class="brand-link">
+          <span class="brand-text font-weight-light"><center>RepairME</center></span>
         </a>
         <!-- Sidebar -->
         <div class="sidebar">
@@ -53,9 +53,7 @@
               <img src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png" class="img-box elevation-2" alt="Foto Profile">
             </div>
             <div class="info">
-               <?php foreach ($data['pelanggan'] as $pelanggan ) :?>
-              <a href="#" class="d-block"><?= $pelanggan ['nama']; ?></a>
-            <?php endforeach; ?>
+              <a href="#" class="d-block"><?= strtoupper($this->session->userdata('userData')['nama']); ?></a>
             </div>
           </div>
           <!-- Sidebar Menu -->

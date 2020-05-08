@@ -63,7 +63,7 @@ public function pengajuanperbaikan(){
 	if ($_SESSION['login']['pesan'] == true && $_SESSION['login']['jenis'] == 'pelanggan'){
 	$call = $this->model('Perbaikan_model');
 	$data['pelanggan'] = $this->model('pelanggan_model')->getPelNow();
-	$data['perbaikan'] = $call->getPerbaikan();
+	$data['perbaikan'] = $call->getPerbaikan();var_dump($data['perbaikan']);die;
 	$data['perbaikan2'] = $call->getPerbaikan2();
 	$data['voucher'] = $call->getVoucher();
 	$data['voucher2'] = $call->getVoucher2();

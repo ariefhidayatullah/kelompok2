@@ -36,8 +36,7 @@ class Login extends CI_Controller
             } else if ($ret['data'][0]['id_jenis'] == 3) {
                 $dataSession = ['login' => true, 'jenis' => $ret['jenis'], 'userData' => $ret['data'][0]];
                 $this->session->set_userdata($dataSession);
-                echo "sukses pelanggan";
-                // header('Location:'.BASEURL.'/mitra/');
+                redirect('pelanggan');
             }
         } else if ($ret['data'] == 'false') {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Password Yang Anda Masukkan Salah",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
