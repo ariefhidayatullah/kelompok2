@@ -74,16 +74,7 @@
           </form>
         </div>
         <div class="card-body">
-          <?php if ($this->session->flashdata('message')) : ?>
-            <div class="row">
-              <div class="col-md-12">
-                <?= $this->session->flashdata('message'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-          <?php endif; ?>
+          <?= $this->session->flashdata('message'); ?>
           <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
               <div class="col-sm-12 text-center">

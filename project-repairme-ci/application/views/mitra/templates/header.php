@@ -13,7 +13,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Toastr -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">perb
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- jQuery -->
@@ -41,9 +41,8 @@
 
       <ul class="navbar-nav ml-auto">
         <li>
-          <i class="fa fa-sign-out-alt"> </i>
-          <a><?php //mySession::sessionLogin(); 
-              ?></a>
+          <a class="fa fa-sign-out-alt" href="<?= base_url('login/logout');
+                                              ?>"></a>
         </li>
       </ul>
       </ul>
