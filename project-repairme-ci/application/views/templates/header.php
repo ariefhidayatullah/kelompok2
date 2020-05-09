@@ -66,6 +66,9 @@
               <li><a class="fa fa-address-card" href="" data-toggle="modal" data-target="#exampleModal">Registrasi</a></li>
               <li><a class="fa fa-user" href="<?= base_url(); ?>login">Login</a></li>
             <?php endif; ?>
+            <?php if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') : ?>
+              <li><a href="<?= base_url(); ?>pelanggan">Dasboard pelanggan</a></li>
+            <?php endif; ?>
           </ul>
           </li>
           </ul>

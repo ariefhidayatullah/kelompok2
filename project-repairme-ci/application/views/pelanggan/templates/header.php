@@ -39,8 +39,8 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li>
-            <i class="fa fa-sign-out-alt">  </i>
-          <a><?php //mySession::sessionLogin(); ?></a>
+            <a class="fa fa-sign-out-alt" href="<?= base_url('login/logout');
+                                              ?>"></a>
           </li>
           </ul>
       </nav>
@@ -62,104 +62,105 @@
               <a href="#" class="d-block"><?= strtoupper($this->session->userdata('userData')['nama']); ?></a>
             </div>
           </div>
-          <!-- Sidebar Menu -->
-          <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
-              <!-- Add icons to the links using the .nav-icon class
-              with font-awesome or any other icon font library -->
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-shopping-cart"></i>
-                  <p>
-                    Barang
-                    <i class="fas fa-angle-left right"></i>
-                    <span class="badge badge-info right">5</span>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/pengajuanperbaikan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan perbaikan</p>
-                    </a>
-                  </li>
-                  
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/perbaikan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Dalam Pengerjaan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/batalperbaikan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Perbaikan Dibatalkan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/selesaiperbaikan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Barang Selesai Di Perbaiki</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/riwayatperbaikan" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Riwayat Perbaikan</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>
-                    Profile Pelanggan
-                    <i class="fas fa-angle-left right"></i>
-                    <span class="right badge badge-warning">Edit</span>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>pelanggan/profile" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Profile</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>Pelanggan/editProfile" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Ubah Profile</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="" class="nav-link">
-                  <i class="nav-icon fas fa-map"></i>
-                  <p>
-                   Mitra
-                    <i class="right fas fa-angle-left"></i>
-                     <span class="badge badge-info right">2</span>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>perbaikan/index" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Cari Mitra</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url(); ?>Pelanggan/beriRating" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Berikan Rating</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-          </nav>
-          <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
-      </aside>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+              with font-awesome or any other icon font library -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-shopping-cart"></i>
+                <p>
+                  Barang
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="badge badge-info right">5</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/pengajuanperbaikan" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pengajuan perbaikan</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/perbaikan" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Dalam Pengerjaan</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/batalperbaikan" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Perbaikan Dibatalkan</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/selesaiperbaikan" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Barang Selesai Di Perbaiki</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/riwayatperbaikan" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Riwayat Perbaikan</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                  Profile Pelanggan
+                  <i class="fas fa-angle-left right"></i>
+                  <span class="right badge badge-warning">Edit</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>pelanggan/profile" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>Pelanggan/editProfile" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ubah Profile</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="" class="nav-link">
+                <i class="nav-icon fas fa-map"></i>
+                <p>
+                  Mitra
+                  <i class="right fas fa-angle-left"></i>
+                  <span class="badge badge-info right">2</span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>perbaikan/index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Cari Mitra</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url(); ?>Pelanggan/beriRating" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Berikan Rating</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
