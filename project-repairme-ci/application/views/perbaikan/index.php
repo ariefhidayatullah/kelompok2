@@ -1,26 +1,27 @@
 <!-- page ini banyak menggunakan javaScript, Tolong perhatikan -->
 <script>
-$(document).ready(function(){
-$('.miniProfile').hide();
-$('.pilihMitra').hide();
-});
+  $(document).ready(function() {
+    $('.miniProfile').hide();
+    $('.pilihMitra').hide();
+  });
 </script>
 <!-- style css tambahan -->
 <style>
-#mapSearchContainer{
-top:20px;
-right: 40px;
-height:30px;
-width:180px;
-font-size:10pt;
-color:#5d5d5d;
-border:solid 1px #bbb;
-background-color:#f8f8f8;
-}
-.pointer{
-top:86px;
-left:60px;
-}
+  #mapSearchContainer {
+    top: 20px;
+    right: 40px;
+    height: 30px;
+    width: 180px;
+    font-size: 10pt;
+    color: #5d5d5d;
+    border: solid 1px #bbb;
+    background-color: #f8f8f8;
+  }
+
+  .pointer {
+    top: 86px;
+    left: 60px;
+  }
 </style>
 <div class="container-fluid">
   <div class="row mt-70">
@@ -28,58 +29,63 @@ left:60px;
       <div id="map" style="min-height: 550px; min-width: 150px; border: solid black 1px;">
         <div class='pointer'> Click search button</div>
         <script>
-        var map = L.map('map').setView([-7.91346, 113.82145] ,17);
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-        var results = new L.LayerGroup().addTo(map);
-        searchControl.on('results', function(data){
-        results.clearLayers();
-        for (var i = data.results.length - 1; i >= 0; i--) {
-        results.addLayer(L.marker(data.results[i].latlng));
-        }
-        });
-        
-        var greyIcon = new L.Icon({
-        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-        });
-        setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
-        var c = new L.Control.Coordinates();
-        c.addTo(map);
-        function onMapClick(e) {
-        c.setCoordinates(e);
-        console.log(e);
-        }
-        map.on('click', onMapClick);
+          var map = L.map('map').setView([-7.91346, 113.82145], 17);
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+          var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+          var results = new L.LayerGroup().addTo(map);
+          searchControl.on('results', function(data) {
+            results.clearLayers();
+            for (var i = data.results.length - 1; i >= 0; i--) {
+              results.addLayer(L.marker(data.results[i].latlng));
+            }
+          });
+
+          var greyIcon = new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+          });
+          setTimeout(function() {
+            $('.pointer').fadeOut('slow');
+          }, 3400);
+          var c = new L.Control.Coordinates();
+          c.addTo(map);
+
+          function onMapClick(e) {
+            c.setCoordinates(e);
+            console.log(e);
+          }
+          map.on('click', onMapClick);
         </script>
       </div>
     </div>
     <?php foreach ($mitra as $mitra) : ?>
-    <script>
-    var popup = L.popup();
-    var marker = L.marker([<?= $mitra['lat']; ?>, <?= $mitra['lng']; ?>], {icon: greyIcon}).addTo(map)
-    marker.bindPopup('<?= $mitra['nama_usaha']; ?>');
-    </script>
-    <script>
-    $(marker).click(function(){
-    $('#id').attr('value', '<?= $mitra['id_mitra']; ?>');
-    
-    $('.miniProfile').show();
-    $('.pilihMitra').show();
-    $('.tutorial').hide();
-    $('.namaMitra').text('<?= $mitra['nama_usaha']; ?>');
-    $('.descMitra').text('<?= $mitra['deskripsi']; ?>');
-    $('.rating').text('<?= $mitra['rating']; ?>');
-    $('.fotoMitra').attr('src','<?= base_url(); ?>img/mitra/<?=$mitra['foto_usaha'] ?>');
-    map.setView([<?= $mitra['lat']; ?>, <?= $mitra['lng']; ?>], 17);
-    });
-    </script>
+      <script>
+        var popup = L.popup();
+        var marker = L.marker([<?= $mitra['lat']; ?>, <?= $mitra['lng']; ?>], {
+          icon: greyIcon
+        }).addTo(map)
+        marker.bindPopup('<?= $mitra['nama_usaha']; ?>');
+      </script>
+      <script>
+        $(marker).click(function() {
+          $('#id').attr('value', '<?= $mitra['id_mitra']; ?>');
+
+          $('.miniProfile').show();
+          $('.pilihMitra').show();
+          $('.tutorial').hide();
+          $('.namaMitra').text('<?= $mitra['nama_usaha']; ?>');
+          $('.descMitra').text('<?= $mitra['deskripsi']; ?>');
+          $('.rating').text('<?= $mitra['rating']; ?>');
+          $('.fotoMitra').attr('src', '<?= base_url(); ?>img/mitra/<?= $mitra['foto_usaha'] ?>');
+          map.setView([<?= $mitra['lat']; ?>, <?= $mitra['lng']; ?>], 17);
+        });
+      </script>
     <?php endforeach; ?>
     <div class="col-sm-4">
       <div class="tutorial">
@@ -120,12 +126,15 @@ left:60px;
             <div class="tab-pane active" id="description">
               <img class="fotoMitra" src="" alt="" width="678px" height="452px">
               <p class="font-alt mb-0 descMitra"></p>
-              <div><p class="font-alt mb-0 " style="display: inline-block;">Rating :<p class="font-alt mb-0 rating" style="display: inline-block;"></p></p></div>
-              
+              <div>
+                <p class="font-alt mb-0 " style="display: inline-block;">Rating :<p class="font-alt mb-0 rating" style="display: inline-block;"></p>
+                </p>
+              </div>
+
               <!-- <i class="fa fa-star star"></i> -->
-              
+
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -140,9 +149,9 @@ left:60px;
   </div>
 </div>
 <script>
-$(document).ready(function(){
-$('.pilihMitra').click(function(){
-$('.LinkSelanjutnya').attr()
-})
-});
+  $(document).ready(function() {
+    $('.pilihMitra').click(function() {
+      $('.LinkSelanjutnya').attr()
+    })
+  });
 </script>

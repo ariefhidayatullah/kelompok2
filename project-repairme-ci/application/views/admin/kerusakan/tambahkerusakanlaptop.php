@@ -36,13 +36,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-12">
-                  <?php if ($this->session->flashdata('message')) : ?>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <?= $this->session->flashdata('message'); ?>
-                      </div>
-                    </div>
-                  <?php endif; ?>
+                  <?= $this->session->flashdata('message'); ?>
                 </div>
               </div>
               <form action="<?= base_url(); ?>admin/tambahkerusakanlaptopbaru" method="POST">

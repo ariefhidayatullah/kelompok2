@@ -107,11 +107,15 @@ class Admin extends CI_Controller
 	public function tambahMerkHp()
 	{
 		if ($this->Barang_model->tambahMerkHp($_POST) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data merk has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data Merk has been created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data merk has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data Merk failed to created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		}
@@ -120,11 +124,15 @@ class Admin extends CI_Controller
 	public function tambahTipeHp()
 	{
 		if ($this->Barang_model->tambahTipeHp($_POST) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data Tipe has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data Tipe has been created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data tipe has been delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data Tipe failed to created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		}
@@ -133,11 +141,15 @@ class Admin extends CI_Controller
 	public function editTipeHp()
 	{
 		if ($this->Barang_model->updateTipeHp($_POST) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been updated!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data has been update.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to update!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to update.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		}
@@ -146,11 +158,15 @@ class Admin extends CI_Controller
 	public function deleteHp($id)
 	{
 		if ($this->Barang_model->deleteBaranghp($id) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data has been delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.warning(
+				"Data has been delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahdatahp');
 			exit();
 		}
@@ -167,13 +183,16 @@ class Admin extends CI_Controller
 
 	public function tambahkerusakanlaptopbaru()
 	{
-		echo $this->Barang_model->tambahkerusakanlaptop($_POST);die;
 		if ($this->Barang_model->tambahkerusakanlaptop($_POST) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data merk has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data has been created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data merk has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		}
@@ -182,11 +201,15 @@ class Admin extends CI_Controller
 	public function editKerusakanlaptop()
 	{
 		if ($this->Barang_model->updateKerusakanLaptop($_POST) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been updated!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data has been update.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to update!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to update.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		}
@@ -195,11 +218,15 @@ class Admin extends CI_Controller
 	public function deleteKerusakanlaptop($id)
 	{
 		if ($this->Barang_model->deleteKerusakanLaptop($id) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.warning(
+				"Data has been delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanlaptop');
 			exit();
 		}
@@ -217,11 +244,15 @@ class Admin extends CI_Controller
 	public function deleteKerusakanhp($id)
 	{
 		if ($this->Barang_model->deleteKerusakanHp($id) > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.warning(
+				"Data has been delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to delete!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to delete.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
 			exit();
 		}
@@ -230,11 +261,15 @@ class Admin extends CI_Controller
 	public function tambahkerusakanhpbaru()
 	{
 		if ($this->Barang_model->tambahKerusakanHp() > 0) {
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"><h5><i class="icon fas fa-check"></i> Alert!</h5>Data has been created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.success(
+				"Data has been created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
 			exit();
 		} else {
-			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"><h5><i class="icon fas fa-ban"></i> Alert!</h5>Data failed to created!</div>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){toastr.error(
+				"Data failed to created.!"
+			  );});</script>');
 			header('Location: ' . base_url() . 'admin/tambahkerusakanhp');
 			exit();
 		}

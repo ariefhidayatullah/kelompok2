@@ -34,21 +34,7 @@
             </div>
 
             <div class="card-body">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="notif">
-                    <?php //Flasher::flash(); 
-                    ?>
-                  </div>
-                </div>
-              </div>
-              <?php if ($this->session->flashdata('message')) : ?>
-                <div class="row">
-                  <div class="col-md-12">
-                    <?= $this->session->flashdata('message'); ?>
-                  </div>
-                </div>
-              <?php endif; ?>
+              <?= $this->session->flashdata('message'); ?>
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6 offset-sm-1 mt-3">

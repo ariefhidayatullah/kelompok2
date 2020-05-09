@@ -93,6 +93,58 @@
 									echo "-";
 								} ?></td>
 							</tr>
+							<tr>
+								<td>TANGGAL</td>
+								<td><?= tglIndo(); ?></td>
+								<?php function tglIndo()
+								{
+									$data = date('m');
+									$date = date('d');
+									$year = date('Y');
+									switch ($data) {
+										case '01':
+											return " ".$date.' Januari '.$year;
+											break;
+										case '02':
+											return $date.' Februari '.$year;
+											break;
+										case '03':
+											return $date.' Maret '.$year;
+											break;
+										case '04':
+											return $date.' April '.$year;
+											break;
+										case '05':
+											return $date.' Mei '.$year;
+											break;
+										case '06':
+											return $date.' Juni '.$year;
+											break;
+										case '07':
+											return $date.' Juli '.$year;
+											break;
+										case '08':
+											return $date.' Agustus '.$year;
+											break;
+										case '09':
+											return $date.' September '.$year;
+											break;
+										case '10':
+											return $date.' Oktober '.$year;
+											break;
+										case '11':
+											return $date.' November '.$year;
+											break;
+										case '12':
+											return $date.' Desember '.$year;
+											break;
+										default:
+											return 'false';
+											break;
+									}
+									return $data;
+								} ?>
+							</tr>
 					</tbody>
 				</table>
 			</div>
@@ -105,6 +157,7 @@
 					<input type="text" id="merk_laptop_ttd" name="merk_laptop_ttd" value="<?= $input['merk_laptop_ttd']; ?>" hidden>
 					<input type="text" id="tipe_laptop_ttd" name="tipe_laptop_ttd" value="<?= $input['tipe_laptop_ttd']; ?>" hidden>
 					<input type="text" id="ket_kerusakan_laptop_lain" name="ket_kerusakan_laptop_lain" value="<?= $input['ket_kerusakan_laptop_lain']; ?>" hidden>
+					<input type="text" id="tanggal" name="tanggal" value="<?= tglIndo(); ?>" hidden>
 				<button class="btn btn-block btn-round btn-d next4" style="width: 100%; margin-top: 30px;">KIRIM PENGAJUAN</button>
 				</form>
 			<?php endif; ?>
@@ -117,6 +170,7 @@
 					<input type="text" id="merk_hp_ttd" name="merk_hp_ttd" value="<?= $input['merk_hp_ttd']; ?>" hidden>
 					<input type="text" id="tipe_hp_ttd" name="tipe_hp_ttd" value="<?= $input['tipe_hp_ttd']; ?>" hidden>
 					<input type="text" id="ket_kerusakan_hp_lain" name="ket_kerusakan_hp_lain" value="<?= $input['ket_kerusakan_hp_lain']; ?>" hidden>
+					<input type="text" id="tanggal2" name="tanggal2" value="<?= tglIndo(); ?>" hidden>
 					<button class="btn btn-block btn-round btn-d next4" style="width: 100%; margin-top: 30px;">
 				</form>
 				KIRIM PENGAJUAN</button>
@@ -124,32 +178,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	 $(document).ready(function(){
-		       
-		$('#buttonnn').click(function() {
-			var kodes = Math.floor(Math.random() * 10);
-			 $.ajax({
-		    type  : 'POST',
-		    url   : "<?= base_url('perbaikan/jsonTipeLaptop');?>",
-		    async : true,
-		    dataType : 'json',
-		    data : {kode: kodes},
-		    cache : false,
-		    success : function(data){
-		    	var html = '';
-		        var i;
-		        for(i=0; i<data.length; i++){
-		            html += '<tr>'+
-		                    '<td>'+data[i].tipe_laptop+'</td>'+
-		                    '</tr>';
-		        }
-		        $('#show_data').html(html);
-		    }
-
-		});
-		});
-
-});
-</script>
