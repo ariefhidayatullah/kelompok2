@@ -117,9 +117,17 @@
           cache : false,
           success : function(data){
             console.log(data);
-            var lat = data[0].lat;
-            var lng = data[0].lng;
-            map(lat,lng)
+            var lat = data[0].lat
+            var lng = data[0].lng
+            var nama = data[0].nama_usaha.toUpperCase()
+             map(lat,lng,nama)   
+             $('.nama_usaha').text(data[0].nama_usaha.toUpperCase())
+             $('.nama_mitra').text(data[0].nama.toUpperCase())
+             $('.keahlian').text(data[0].jenis.toUpperCase())
+             $('.alamat').text(data[0].alamat.toUpperCase())
+             $('.deskripsi').text(data[0].deskripsi.toUpperCase())
+             $('.rating').text(data[0].rating.toUpperCase())
+             $('.foto_usaha').attr('src', '<?= base_url("gallery/"); ?>'+data[0].foto_usaha)
           }
       });
     }
@@ -148,8 +156,7 @@
 
     <!-- Main content -->
     <section class="content">
-      <?php //Flasher::flash(); ?>
-      <!-- Default box -->
+  
           <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Bordered Table</h3>
@@ -178,7 +185,7 @@
 
                  <!-- ===== FUNCTION JAVASCRIPT ===== -->
 
-                        <script>laptopttd(1)</script>
+                        <script>laptopttd(<?= $val['id_perbaikan']; ?>)</script>
 
                    <!-- ======END OF JAVASCRIPT==== -->
 
@@ -286,29 +293,67 @@
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
+                  <table class="table table-bordered">
                   <div class="container-fluid">
-                    <div class="col-sm-6">
-                      <div id="map" style="height: 180px;">
+                    <tr>
+                      <th>Lokasi</th>
+                      <th colspan="2" style="width: 40%;">Data</th>
+                    </tr>
+                    <tr>
+                      <td rowspan="10">
+                      <div id="map" style="height: 450px; display: block;">
                           <script>
-                          function map (lat,lng) {
-                            
+                          function map (lat,lng,nama) {
+                            setTimeout(function () {
+                            var popup = L.popup();
                             var map = L.map('map').setView([lat, lng], 17);
                             L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             }).addTo(map);
-
-
-                            var marker = L.marker([lat, lng]).addTo(map);
-                              marker.bindPopup('OKE').openPopup();
-                             setTimeout(function () {
-                                map.invalidateSize();
-                              }, 10);
-                          }
+                            var marker = L.marker([lat, lng]).addTo(map).bindPopup(nama).openPopup();
+                            map.invalidateSize()
+                            }, 200);
+                        }
                              
                         </script>
                       </div>
-                    </div>
+            
+                      </td>
+                      <td style="width: 18%;">
+                            <b>NAMA MITRA</b>
+                      </td>
+                      <td class="nama_usaha"> </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2"><img src="" class="foto_usaha"></td>
+                    </tr>
+                    <tr>
+                     <td><b>NAMA PEMILIK</b></td>
+                      <td class="nama_mitra"> </td>
+                    </tr>
+                    <tr>
+                      <td><b>KEAHLIAN</b></td>
+                      <td class="keahlian"> </td>
+                    </tr>
+                    <tr>
+                      <td><b>ALAMAT</b></td>
+                      <td class="alamat"></td>
+                    </tr>
+                    <tr>
+                      <td><b>DESKRIPSI</b></td>
+                      <td class="deskripsi"></td>
+                    </tr>
+                    <tr>
+                      <td><b>RATING</b></td>
+                      <td class="rating"></td>
+                    </tr>
+                    
+                     
+                        
+                      
+                   
                   </div>
+                  </table>
                 </div>
               </div>
               <!-- /.modal-content -->
