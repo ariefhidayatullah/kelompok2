@@ -67,7 +67,6 @@ class Pelanggan_model extends CI_model
 	{
 		return $this->db->get('tb_mitra', ['id_mitra' => $data])->result_array();
 	}
-}
 
 	public function getPelNow()
 	{
