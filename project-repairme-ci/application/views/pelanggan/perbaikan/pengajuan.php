@@ -1,4 +1,4 @@
- 
+
 <!-- =============== JAVA SCRIPT =============== -->
 <script>
  
@@ -55,12 +55,74 @@
                 $('.laptop_kerusakan').text(kerusakan);
               }
               
-              $('.laptop_kerusakan_lain').text(kerusakan_lain);
+              if (kerusakan_lain == '') {
+                $('.laptop_kerusakan_lain').text('-');
+              }else{
+                $('.laptop_kerusakan_lain').text(kerusakan_lain);
+              }
 
           }
       });
     }
 
+    function detail_laptop_ttd(id) {
+    var kodes = id;
+     $.ajax({
+          type  : 'POST',
+          url   : "<?= base_url('pelanggan/detail_laptop_ttd');?>",
+          async : true,
+          dataType : 'json',
+          data : {kode: kodes},
+          cache : false,
+          success : function(data){
+            var merk = '';
+            var tipe = '';
+            var kerusakan = '';
+            var kerusakan_lain = '';
+              var i;
+              for(i=0; i<data.length; i++){
+                  merk += data[i].merk;
+                  tipe += data[i].tipe;
+                  kerusakan += data[i].kerusakan;
+                  kerusakan_lain += data[i].kerusakan_lain;
+              }
+              $('.laptop_merk').text(merk);
+              $('.laptop_tipe').text(tipe);
+              if (kerusakan == 'null') {
+                $('.laptop_kerusakan').text('-');  
+              }else{
+                $('.laptop_kerusakan').text(kerusakan);
+              }
+              
+              if (kerusakan_lain == '') {
+                $('.laptop_kerusakan_lain').text('-');
+              }else{
+                $('.laptop_kerusakan_lain').text(kerusakan_lain);
+              }
+
+          }
+      });
+    }
+
+    // ====================== FUNCTION DETAIL MITRA ==================
+
+    function detail_mitra(id) {
+    var kodes = id;
+     $.ajax({
+          type  : 'POST',
+          url   : "<?= base_url('pelanggan/detail_mitra');?>",
+          async : true,
+          dataType : 'json',
+          data : {kode: kodes},
+          cache : false,
+          success : function(data){
+            console.log(data);
+            var lat = data[0].lat;
+            var lng = data[0].lng;
+            map(lat,lng)
+          }
+      });
+    }
 
 </script>
 
@@ -102,6 +164,7 @@
                       <th style="width: 30%;">Mitra</th>
                       <th style="width: 20%;">Tanggal</th>
                       <th style="width: 20%;">Status</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -119,7 +182,7 @@
 
                    <!-- ======END OF JAVASCRIPT==== -->
 
-                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" >Detail</button>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)" >Detail</button>
 
                         <?php elseif ($val['id_tipe'] != 0):?>
                           <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
@@ -127,10 +190,11 @@
                           <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
                         <?php endif; ?>
 
-                       
-
                       </td>
-                      <td><?= strtoupper($val['mitra']); ?></td>
+                      <td>
+                        <?= strtoupper($val['mitra']); ?>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)" >Detail</button>
+                      </td>
                       <td><?= $val['tanggal']; ?></td>
                       <td><span class="badge bg-danger">55%</span></td>
                     </tr>
@@ -200,6 +264,50 @@
                           <td class="laptop_kerusakan_lain"></td>
                         </tr>
                       </table>
+                  </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
+          <div class="modal fade" id="detailMitra">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+               
+                <div class="modal-body">
+                    <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="container-fluid">
+                    <div class="col-sm-6">
+                      <div id="map" style="height: 180px;">
+                          <script>
+                          function map (lat,lng) {
+                            
+                            var map = L.map('map').setView([lat, lng], 17);
+                            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+
+
+                            var marker = L.marker([lat, lng]).addTo(map);
+                              marker.bindPopup('OKE').openPopup();
+                             setTimeout(function () {
+                                map.invalidateSize();
+                              }, 10);
+                          }
+                             
+                        </script>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

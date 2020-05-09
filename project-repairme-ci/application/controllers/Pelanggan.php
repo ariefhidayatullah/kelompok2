@@ -69,16 +69,27 @@ class Pelanggan extends CI_Controller {
 	public function laptopTtd()
 	{
 		$kode = $this->input->post('kode');
-		$data = $this->Pelanggan_model->mdlLaptopTtd($kode);
+		$data = $this->Pelanggan_model->LaptopTtd($kode);
 		echo json_encode($data);
 	}
 	public function detail_laptop()
 	{
 		$kode = $this->input->post('kode');
-		$data = $this->Pelanggan_model->mdldetail_laptop($kode);
+		$data = $this->Pelanggan_model->detail_laptop($kode);
 		echo json_encode($data);
 	}
-
+	public function detail_laptop_ttd()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Pelanggan_model->detail_laptop_ttd($kode);
+		echo json_encode($data);
+	}
+	public function detail_mitra()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Pelanggan_model->detail_mitra($kode);
+		echo json_encode($data);
+	}
 }
 
 /* End of file Pelanggan.php */
