@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pelanggan extends CI_Controller {
+class Pelanggan extends CI_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
@@ -12,18 +13,19 @@ class Pelanggan extends CI_Controller {
 	public function index()
 	{
 		$data['judul'] = 'Dashboard Pelanggan';
-		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan'){
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
 			$this->load->view('pelanggan/templates/header', $data);
 			$this->load->view('pelanggan/index', $data);
 			$this->load->view('pelanggan/templates/footer');
 			// echo "oke";
-			}else{
+		} else {
 			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
-            redirect('login');
-		}	
+			redirect('login');
+		}
 	}
 
-	public function registrasi(){
+	public function registrasi()
+	{
 		$data['judul'] = 'Registrasi pelanggan';
 		$data['pelanggan'] = $this->Pelanggan_model->getAllpelanggan();
 		$data['user'] = $this->User_model->getAllUser();
@@ -31,25 +33,74 @@ class Pelanggan extends CI_Controller {
 		$this->load->view('pelanggan/regis', $data);
 		$this->load->view('templates/footer');
 	}
-	public function insertpelanggan(){
-	// var_dump($_POST);
-	if($this->Pelanggan_model->inputpelanggan($_POST) > 0){
-		// header ('Location: '.BASEURL.'/pelanggan/');
-		// Flasher::setFlash(' berhasil', 'ditambahkan', 'success');
+	public function insertpelanggan()
+	{
+		// var_dump($_POST);
+		if ($this->Pelanggan_model->inputpelanggan($_POST) > 0) {
+			// header ('Location: '.BASEURL.'/pelanggan/');
+			// Flasher::setFlash(' berhasil', 'ditambahkan', 'success');
 			exit();
-		}else {
-		// header ('Location: '.BASEURL.'/pelanggan/');
-		// Flasher::setFlash(' gagal', 'ditambahkan', 'danger');	
+		} else {
+			// header ('Location: '.BASEURL.'/pelanggan/');
+			// Flasher::setFlash(' gagal', 'ditambahkan', 'danger');	
 			exit();
 		}
-}
+	}
+
+	// ============== BAGIAN PROFILE ============ //
+
+	public function profile()
+	{
+		// var_dump($_SESSION['login']['data']['nama_usaha']);
+		// echo $_SESSION['login'];
+		$data['judul'] = 'Pelanggan RepairMe';
+		$data['pelanggan'] = $this->Pelanggan_model->getPelNow();
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/profile', $data);
+			$this->load->view('pelanggan/templates/footer');
+		} else {
+			header('Location:' . base_url() . '/login');
+		}
+	}
+
+	public function editProfile()
+	{
+
+		$data['judul'] = 'editprofile';
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$data['pelanggan'] = $this->Pelanggan_model->getPelNow();
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/editprofile', $data);
+			$this->load->view('pelanggan/templates/footer');
+		}
+	}
+
+	public function editProfilePel()
+	{
+		//var_dump($_POST);
+		if ($this->Pelanggan_model->updatePelanggan($_POST) > 0) {
+			$this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan';
+			header('Location: ' . base_url() . 'pelanggan/');
+			// Flasher::setFlash(' berhasil', 'ditambahkan', 'success');
+			exit();
+		} else {
+			header('Location: ' . base_url() . 'pelanggan/editprofile');
+			// Flasher::setFlash(' gagal', 'ditambahkan', 'danger');	
+			exit();
+		}
+	}
+
+
+	// ============== TUTUP BAGIAN PROFILE ============ //
+
 
 	// ============== BAGIAN PERBAIKAN ============ //
 
 	public function pengajuanperbaikan()
-	{	
+	{
 		$data['judul'] = 'Pengajuan Perbaikan';
-		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan'){
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
 			// $call = $this->model('Perbaikan_model');
 			// $data['pelanggan'] = $this->model('pelanggan_model')->getPelNow();
 			// $data['perbaikan'] = $call->getPerbaikan();
@@ -57,12 +108,12 @@ class Pelanggan extends CI_Controller {
 			// $data['voucher'] = $call->getVoucher();
 			// $data['voucher2'] = $call->getVoucher2(); 
 			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
-			$this->load->view('pelanggan/templates/header',$data);
+			$this->load->view('pelanggan/templates/header', $data);
 			$this->load->view('pelanggan/perbaikan/pengajuan', $data);
 			$this->load->view('pelanggan/templates/footer');
-		}else{
+		} else {
 			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
-            redirect('login');
+			redirect('login');
 		}
 	}
 
@@ -78,7 +129,6 @@ class Pelanggan extends CI_Controller {
 		$data = $this->Pelanggan_model->mdldetail_laptop($kode);
 		echo json_encode($data);
 	}
-
 }
 
 /* End of file Pelanggan.php */
