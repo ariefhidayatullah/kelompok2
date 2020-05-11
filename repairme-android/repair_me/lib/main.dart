@@ -26,6 +26,10 @@ class MyHomePage extends StatefulWidget{
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+class GoToMaps extends StatefulWidget{
+  @override
+  _GoToMaps createState() => _GoToMaps();
+}
 
 class _MyHomePageState extends State<MyHomePage>{
   int currentTab = 0;
@@ -108,7 +112,7 @@ class PageOne extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => _GoToMaps()),
+                  MaterialPageRoute(builder: (context) => GoToMaps()),
                 );
               },
               splashColor: Colors.black26,
@@ -123,7 +127,23 @@ class PageOne extends StatelessWidget {
 
 }
 
-class _GoToMaps extends StatelessWidget {
+class _GoToMaps extends State<GoToMaps> {
+
+  int currentTab = 1;
+  PageOne one;
+  MyMapsPage maps;
+  List<Widget> pages;
+  Widget currentPage;
+
+  void initState() {
+    one = PageOne();
+    maps = MyMapsPage();
+
+    pages = [one, maps];
+    currentPage = one;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -132,6 +152,25 @@ class _GoToMaps extends StatelessWidget {
         title: Text("Repair Now"),
       ),
       body: MyMapsPage(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        onTap: (int index) {
+          setState(() {
+            currentTab = index;
+            currentPage = pages[index];
+          });
+        },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            title: Text("Repair Now"),
+          )
+        ],
+      ),
     );
   }
 }
