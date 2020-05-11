@@ -48,11 +48,11 @@ class Pelanggan_model extends CI_model
 
 	public function pengajuanLaptop($id)
 	{
-		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id")->result_array();
+		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_perbaikan_laptop.id_status_perbaikan, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id && id_status_perbaikan = 1 || id_status_perbaikan = 2 || id_status_perbaikan = 3")->result_array();
 	}
 	public function LaptopTtd($data)
 	{
-		return $this->db->get('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
+		return $this->db->get_where('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
 	}
 	public function detail_laptop($id)
 	{
@@ -65,9 +65,16 @@ class Pelanggan_model extends CI_model
 	}
 	public function detail_mitra($data)
 	{
-		return $this->db->get('tb_mitra', ['id_mitra' => $data])->result_array();
+		return $this->db->get_where('tb_mitra', ['id_mitra' => $data])->result_array();
 	}
-
+	public function pengajuanHp($id)
+	{
+		return $this->db->query("SELECT tb_perbaikan_hp.id_perbaikan, tb_perbaikan_hp.id_tipe_hp as id_tipe, tb_tipe_hp.tipe_hp as tipe, tb_perbaikan_hp.tanggal, tb_merk_hp.merk_hp as merk,tb_perbaikan_hp.keterangan_mitra, tb_perbaikan_hp.id_status_perbaikan, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_hp JOIN tb_mitra ON tb_perbaikan_hp.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_hp ON tb_perbaikan_hp.id_tipe_hp = tb_tipe_hp.id_tipe_hp LEFT JOIN tb_merk_hp ON tb_tipe_hp.id_merk_hp = tb_merk_hp.id_merk_hp WHERE id_pelanggan = $id && id_status_perbaikan = 1 || id_status_perbaikan = 2 || id_status_perbaikan = 3")->result_array();
+	}
+	public function hpTtd($data)
+	{
+		return $this->db->get_where('tb_ttd_hp', ['id_perbaikan' => $data])->result_array();
+	}
 	public function getPelNow()
 	{
 		return $this->db->get_where('tb_pelanggan', array('id_pelanggan' => $this->session->userdata('userData')['id_pelanggan']))->result_array();

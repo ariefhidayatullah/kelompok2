@@ -50,7 +50,7 @@ class Login extends CI_Controller
     public function logout()
     {
         session_destroy();
-        header('Location:' . base_url('login'));
-        exit;
+        $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "Username Belum Terdaftar",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+        redirect('login');
     }
 }
