@@ -109,12 +109,18 @@ class PageOne extends StatelessWidget {
                   color: Colors.white,
                   ),
                 ),
-              onPressed: () {
-                Navigator.push(
+              onPressed: () => {
+              Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => GoToMaps()),
-                );
+                  MaterialPageRoute (builder: (context) => GoToMaps()))
+//                  _GoToMaps(),
               },
+//                  () {
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => GoToMaps()),
+//                );
+//              },
               splashColor: Colors.black26,
               color: Colors.greenAccent,
             ),
@@ -140,7 +146,7 @@ class _GoToMaps extends State<GoToMaps> {
     maps = MyMapsPage();
 
     pages = [one, maps];
-    currentPage = one;
+    currentPage = maps;
     super.initState();
   }
 
@@ -149,9 +155,10 @@ class _GoToMaps extends State<GoToMaps> {
     // TODO: implement build
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Repair Now"),
+        title: Text("Repair Me"),
+        automaticallyImplyLeading: false,
       ),
-      body: MyMapsPage(),
+      body: currentPage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentTab,
         onTap: (int index) {
