@@ -232,6 +232,7 @@
                   <tbody>
                     <?php $i = 1; ?>
                   <?php foreach ($laptop as $val):?>
+                    <?php if ($val['id_status_perbaikan'] == 1 || $val['id_status_perbaikan'] == 2 || $val['id_status_perbaikan'] == 3):?>
                     <tr>
                       <td><?= $i; ?></td>
                       <td>
@@ -265,24 +266,25 @@
 
                   <?php if ($val['id_status_perbaikan'] == 3):?>
                         <td>
-                          <button class="btn btn-danger btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                          <button class="btn btn-danger btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop"  value="">
                               Mitra Menolak
                           </button>
                         </td>
                         
-                  <?php elseif($val['id_status_perbaikan'] == 2): ?>
+                  <?php elseif($val['id_status_perbaikan'] == 1): ?>
                         <td>
-                         <button disabled class="btn btn-info btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                         <button disabled class="btn btn-info btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop"  value="">
                               Menunggu Persetujuan 
                           </button>
                         </td>
-                  <?php elseif($val['id_status_perbaikan'] == 1): ?>
+                  <?php elseif($val['id_status_perbaikan'] == 2): ?>
                         <td>
-                          <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                          <button class="btn btn-success btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
                               Ambil Voucher
                           </button>
                         </td>
                   <?php endif; ?>
+                <?php endif; ?>
                 <?php endforeach; ?>
                   <!-- ========================= END OF BUTTON =============== -->
                     </tr>

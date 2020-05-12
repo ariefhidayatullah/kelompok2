@@ -9,6 +9,7 @@ class Mitra extends CI_Controller
         parent::__construct();
         $this->load->model('Mitra_model');
         $this->load->model('User_model');
+        $this->load->model('Barang_model');
     }
 
     public function registrasi()
@@ -59,7 +60,30 @@ class Mitra extends CI_Controller
     public function laptopTtd()
     {
         $kode = $this->input->post('kode');
-        $data = $this->Mitra_model->LaptopTtd($kode);
+        $data = $this->Barang_model->LaptopTtd($kode);
         echo json_encode($data);
+    }
+    public function detail_laptop()
+    {
+        $kode = $this->input->post('kode');
+        $data = $this->Barang_model->detail_laptop($kode);
+        echo json_encode($data);
+    }
+    public function detail_laptop_ttd()
+    {
+        $kode = $this->input->post('kode');
+        $data = $this->Barang_model->detail_laptop_ttd($kode);
+        echo json_encode($data);
+    }
+    public function detail_pelanggan()
+    {
+        $kode = $this->input->post('kode');
+        $data = $this->Mitra_model->detail_pelanggan($kode);
+        echo json_encode($data);
+    }
+
+    public function terimaperbaikanlaptop()
+    {
+        var_dump($_POST);
     }
 }

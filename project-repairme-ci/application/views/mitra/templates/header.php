@@ -3,21 +3,26 @@
 
 <head>
   <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><?= $judul; ?></title>
+    <!-- jQuery -->
+  <script src="<?= base_url(); ?>assets/js/jquery-3.4.1.js"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
+
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- jQuery -->
-  <script src="<?= base_url(); ?>assets/panel-master/plugins/jquery/jquery.min.js"></script>
+  
+  <script src="<?= base_url('assets/js/autoNumeric.js'); ?>"></script>
+  
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
@@ -60,7 +65,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="<?= base_url(); ?>assets/img/mitra/<?= $this->session->userdata('userData')['foto_usaha']; ?>" class="img-box elevation-2" alt="Foto Usaha Mitra">
+            <img src="<?= base_url(); ?>gallery/<?= $this->session->userdata('userData')['foto_usaha']; ?>" class="img-box elevation-2" alt="Foto Usaha Mitra">
           </div>
 
           <div class="info">

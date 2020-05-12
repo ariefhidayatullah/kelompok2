@@ -48,20 +48,7 @@ class Pelanggan_model extends CI_model
 
 	public function pengajuanLaptop($id)
 	{
-		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_perbaikan_laptop.id_status_perbaikan, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id && id_status_perbaikan = 1 || id_status_perbaikan = 2 || id_status_perbaikan = 3")->result_array();
-	}
-	public function LaptopTtd($data)
-	{
-		return $this->db->get_where('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
-	}
-	public function detail_laptop($id)
-	{
-		return $this->db->query("SELECT tb_merk_laptop.merk_laptop AS merk, tb_tipe_laptop.tipe_laptop AS tipe, tb_kerusakan_laptop.kerusakan_laptop as kerusakan, tb_perbaikan_laptop.kerusakan_lain FROM tb_perbaikan_laptop JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE id_perbaikan = $id")->result_array();
-	}
-
-	public function detail_laptop_ttd($id)
-	{
-		return $this->db->query("SELECT tb_ttd_laptop.merk_laptop as merk, tb_ttd_laptop.tipe_laptop as tipe, tb_kerusakan_laptop.kerusakan_laptop as kerusakan, tb_perbaikan_laptop.kerusakan_lain FROM tb_perbaikan_laptop JOIN tb_ttd_laptop ON tb_perbaikan_laptop.id_perbaikan = tb_ttd_laptop.id_perbaikan LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
+		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_perbaikan_laptop.id_status_perbaikan, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id")->result_array();
 	}
 	public function detail_mitra($data)
 	{

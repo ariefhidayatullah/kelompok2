@@ -8,6 +8,7 @@ class Pelanggan extends CI_Controller
 		parent::__construct();
 		$this->load->model('Pelanggan_model');
 		$this->load->model('User_model');
+		$this->load->model('Barang_model');
 	}
 
 	public function index()
@@ -115,19 +116,19 @@ class Pelanggan extends CI_Controller
 	public function laptopTtd()
 	{
 		$kode = $this->input->post('kode');
-		$data = $this->Pelanggan_model->LaptopTtd($kode);
+		$data = $this->Barang_model->LaptopTtd($kode);
 		echo json_encode($data);
 	}
 	public function detail_laptop()
 	{
 		$kode = $this->input->post('kode');
-		$data = $this->Pelanggan_model->detail_laptop($kode);
+		$data = $this->Barang_model->detail_laptop($kode);
 		echo json_encode($data);
 	}
 	public function detail_laptop_ttd()
 	{
 		$kode = $this->input->post('kode');
-		$data = $this->Pelanggan_model->detail_laptop_ttd($kode);
+		$data = $this->Barang_model->detail_laptop_ttd($kode);
 		echo json_encode($data);
 	}
 	public function detail_mitra()

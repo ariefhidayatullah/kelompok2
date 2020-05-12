@@ -87,7 +87,6 @@ class Mitra_model extends CI_model
 
 	public function getMitraNow()
 	{
-		//return $this->db->query("SELECT tb_mitra.* FROM `tb_mitra` WHERE tb_mitra.id_mitra = " . $_SESSION['login']['data']['id_mitra']);
 		$data = $this->session->userdata('userData');
 		$id_mitra = $data['id_mitra'];
 		return $this->db->get_where('tb_mitra', ['id_mitra' => $id_mitra])->row_array();
@@ -95,11 +94,16 @@ class Mitra_model extends CI_model
 
 	public function pengajuanLaptop($id)
 	{
-		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_pelanggan.nama as pelanggan, tb_pelanggan.id_pelanggan FROM tb_perbaikan_laptop JOIN tb_pelanggan ON tb_perbaikan_laptop.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE tb_perbaikan_laptop.id_mitra = $id")->result_array();
+		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_pelanggan.nama as pelanggan, tb_pelanggan.id_pelanggan, tb_perbaikan_laptop.id_status_perbaikan FROM tb_perbaikan_laptop JOIN tb_pelanggan ON tb_perbaikan_laptop.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE tb_perbaikan_laptop.id_mitra = $id && tb_perbaikan_laptop.id_status_perbaikan = 1")->result_array();
 	}
 
 	public function LaptopTtd($data)
 	{
-		return $this->db->get('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
+		return $this->db->get_where('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
+	}
+
+	public function detail_pelanggan($data)
+	{
+		return $this->db->get_where('tb_pelanggan', ['id_pelanggan' => $data])->result_array();
 	}
 }

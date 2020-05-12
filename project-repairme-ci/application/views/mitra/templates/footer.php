@@ -30,8 +30,6 @@
    <script src="<?= base_url(); ?>assets/panel-master/plugins/chart.js/Chart.min.js"></script>
    <!-- Toastr -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.js"></script>
-   <!-- PAGE SCRIPTS -->
-   <script src="<?= base_url(); ?>assets/panel-master/dist/js/pages/dashboard2.js"></script>
    </body>
 
    </html>
