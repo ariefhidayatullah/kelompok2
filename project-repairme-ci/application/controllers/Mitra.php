@@ -40,4 +40,26 @@ class Mitra extends CI_Controller
             redirect('login');
         }
     }
+
+    public function permintaanperbaikan()
+    {
+        $data['judul'] = 'Pengajuan Perbaikan';
+        $data['mitra'] = $this->Mitra_model->getMitraNow();
+        if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
+            $data['laptop'] = $this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']);
+            $this->load->view('mitra/templates/header', $data);
+            $this->load->view('mitra/perbaikan/pengajuan', $data);
+            $this->load->view('mitra/templates/footer');
+        } else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
+    }
+
+    public function laptopTtd()
+    {
+        $kode = $this->input->post('kode');
+        $data = $this->Mitra_model->LaptopTtd($kode);
+        echo json_encode($data);
+    }
 }

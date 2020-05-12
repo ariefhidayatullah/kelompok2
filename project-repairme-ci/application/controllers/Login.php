@@ -51,6 +51,5 @@ class Login extends CI_Controller
     {
         session_destroy();
         header('Location:' . base_url('login'));
-        exit;
     }
 }

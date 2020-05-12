@@ -48,7 +48,7 @@ class Pelanggan_model extends CI_model
 
 	public function pengajuanLaptop($id)
 	{
-		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_mitra.nama_usaha as mitra, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id")->result_array();
+		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_pelanggan.nama as pelanggan, tb_mitra.id_mitra FROM tb_perbaikan_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE id_pelanggan = $id")->result_array();
 	}
 	public function LaptopTtd($data)
 	{
@@ -85,4 +85,3 @@ class Pelanggan_model extends CI_model
 		$this->db->update('tb_pelanggan', $data_pelanggan);
 	}
 }
-

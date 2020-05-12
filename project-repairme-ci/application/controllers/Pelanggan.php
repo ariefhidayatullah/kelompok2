@@ -101,12 +101,6 @@ class Pelanggan extends CI_Controller
 	{
 		$data['judul'] = 'Pengajuan Perbaikan';
 		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
-			// $call = $this->model('Perbaikan_model');
-			// $data['pelanggan'] = $this->model('pelanggan_model')->getPelNow();
-			// $data['perbaikan'] = $call->getPerbaikan();
-			// $data['perbaikan2'] = $call->getPerbaikan2();
-			// $data['voucher'] = $call->getVoucher();
-			// $data['voucher2'] = $call->getVoucher2(); 
 			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
 			$this->load->view('pelanggan/templates/header', $data);
 			$this->load->view('pelanggan/perbaikan/pengajuan', $data);

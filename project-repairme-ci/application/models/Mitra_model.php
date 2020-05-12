@@ -92,4 +92,14 @@ class Mitra_model extends CI_model
 		$id_mitra = $data['id_mitra'];
 		return $this->db->get_where('tb_mitra', ['id_mitra' => $id_mitra])->row_array();
 	}
+
+	public function pengajuanLaptop($id)
+	{
+		return $this->db->query("SELECT tb_perbaikan_laptop.id_perbaikan, tb_perbaikan_laptop.id_tipe_laptop as id_tipe, tb_tipe_laptop.tipe_laptop as tipe, tb_perbaikan_laptop.tanggal, tb_merk_laptop.merk_laptop as merk,tb_perbaikan_laptop.keterangan_mitra, tb_pelanggan.nama as pelanggan, tb_pelanggan.id_pelanggan FROM tb_perbaikan_laptop JOIN tb_pelanggan ON tb_perbaikan_laptop.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop LEFT JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop WHERE tb_perbaikan_laptop.id_mitra = $id")->result_array();
+	}
+
+	public function LaptopTtd($data)
+	{
+		return $this->db->get('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
+	}
 }

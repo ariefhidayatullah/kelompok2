@@ -1,4 +1,28 @@
-<script src="<?= BASEURL; ?>/js/autoNumeric.js"></script>
+<script>
+  // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===
+
+  function laptopttd(id) {
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('mitra/laptopTtd'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        var text = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          text += data[i].merk_laptop + ' - ' + data[i].tipe_laptop;
+        }
+        $('#tipettd').text(text);
+      }
+    });
+  }
+</script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -14,343 +38,210 @@
           </ol>
         </div>
       </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- Main content -->
-    <section class="content">
-      <?php Flasher::flash(); ?>
-      <!-- Default box -->
-      <div class="card card-dark">
-        <div class="card-header">
-          <h3 class="card-title">Laptop</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-            <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-            <i class="fas fa-times"></i></button>
-          </div>
-        </div>
-        <div class="card-body p-0 text-center">
-          <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-            <?php for ($i=0; $i < count($data['perbaikan']['perbaikan_laptop']); $i++):?>
-            <?php if ($data['perbaikan']['perbaikan_laptop'][$i]['id_status_perbaikan'] == 1):?>
-            <thead>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Bordered Table</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal</th>
+              <th style="width: 20%;">Terima / Tolak</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($laptop as $val) : ?>
               <tr>
-                <th>
-                  Nama Pelanggan
-                </th>
-                <th>
-                  Laptop
-                </th>
-                <th>
-                  Kerusakan & Lain-Lain
-                </th>
-                <th>
-                  Terima / Tolak
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
+                <td><?= $i; ?></td>
                 <td>
-                  <a>
-                    <?= $data['perbaikan']['pelanggan'][$i][0]['nama']; ?>
-                  </a>
+                  <span id="tipettd"></span>
+                  <?php if ($val['id_tipe'] == 0) : ?>
+
+                    <!-- ===== FUNCTION JAVASCRIPT ===== -->
+
+                    <script>
+                      laptopttd(<?= $val['id_perbaikan']; ?>)
+                    </script>
+
+                    <!-- ======END OF JAVASCRIPT==== -->
+
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)">Detail</button>
+
+                  <?php elseif ($val['id_tipe'] != 0) : ?>
+                    <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
+                  <?php endif; ?>
+
                 </td>
                 <td>
-                  <ul class="list-inline">
-                    <?= $data['perbaikan']['merk_laptop'][$i][0]['merk_laptop']; ?>
-                    <?= $data['perbaikan']['tipe_laptop'][$i][0]['tipe_laptop']; ?>
-                  </ul>
+                  <?= strtoupper($val['pelanggan']); ?>
+                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_pelanggan']; ?>)">Detail</button>
                 </td>
-                <td>
-                  <ul class="list-inline">
-                    <?= $data['perbaikan']['kerusakan_laptop'][$i][0]['kerusakan_laptop']; ?>
-                    <?= $data['perbaikan']['keterangan_lain'][$i]; ?>
-                  </ul>
-                </td>
-                <td class="list-inline">
-                  <button class="btn btn-success btn-sm t-terimalaptop" data-toggle="modal" data-target="#terimaLaptop" value="<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>" style="width: 70px;">
-                  Terima
+                <td><?= $val['tanggal']; ?></td>
+                <td><button class="btn btn-success btn-sm t-terimahp" data-toggle="modal" data-target="#terimahp" value="<?= $val['id_perbaikan']; ?>" style="width: 70px;">
+                    Terima
                   </button>
-                  <button class="btn btn-danger btn-sm t-tolaklaptop" data-toggle="modal" data-target="#tolakLaptop" value="<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>" style="width:70px;">
-                  Tolak
-                  </button>
-                </td>
+                  <button class="btn btn-danger btn-sm t-tolakhp" data-toggle="modal" data-target="#tolakHp" value="<?= $val['id_perbaikan']; ?>" style="width: 70px;">
+                    Tolak
+                  </button></td>
               </tr>
-            </tbody>
-            <?php endif; ?>
-            <?php endfor; ?>
-          </table>
-        </div>
-        <!-- /.card-body -->
+              <?php $i += 1; ?>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
-      <!-- /.card -->
-      <br><br>
-      <!-- untuk hp -->
-      
-      <div class="row">
-        <div class="card card-dark col-sm-12">
-          <div class="card-header">
-            <h3 class="card-title">Handphone</h3>
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-            </div>
-          </div>
-          <div class="card-body p-0 text-center">
-            <table class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-              <?php for ($i=0; $i < count($data['perbaikan2']['perbaikan_hp']); $i++):?>
-              <?php if ($data['perbaikan2']['status'][$i][0]['id_status_perbaikan'] == 1):?>
-              <thead>
-                <tr>
-                  <th>
-                    Nama Pelanggan
-                  </th>
-                  <th>
-                    Handphone
-                  </th>
-                  <th>
-                    Kerusakan & Keterangan
-                  </th>
-                  <th>
-                    Terima / Tolak
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <a>
-                      <ul class="list-inline">
-                        <?= $data['perbaikan2']['pelanggan'][$i][0]['nama']; ?>
-                      </a>
-                    </td>
-                    <td>
-                      <ul class="list-inline">
-                        <?= $data['perbaikan2']['merk_hp'][$i][0]['merk_hp']; ?>
-                        <?= $data['perbaikan2']['tipe_hp'][$i][0]['tipe_hp']; ?>
-                      </ul>
-                    </td>
-                    <td >
-                      <ul class="list-inline">
-                        <?= $data['perbaikan2']['kerusakan_hp'][$i][0]['kerusakan_hp']; ?>
-                        <?= $data['perbaikan2']['keterangan_lain'][$i]; ?>
-                      </ul>
-                    </td>
-                    <td class="list-inline">
-                      <button class="btn btn-success btn-sm t-terimahp" data-toggle="modal" data-target="#terimahp" value="<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>" style="width: 70px;">
-                      Terima
-                      </button>
-                      <button class="btn btn-danger btn-sm t-tolakhp" data-toggle="modal" data-target="#tolakHp" value="<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>" style="width: 70px;">
-                      Tolak
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-                <?php endif; ?>
-                <?php endfor; ?>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          
-        </div>
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper-->
-    <!-- penolakan -->
-    <!-- Modal -->
-    <div class="modal fade" id="tolakLaptop" tabindex="-1" role="dialog" aria-labelledby="tolakLaptopLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tolakLaptopLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <form action="<?= BASEURL; ?>/mitra/tolakperbaikanlaptop" method="POST">
-                <input type="text" id="id_perbaikan_laptopx" name="id_perbaikan_laptopx" hidden>
-                <select class="form-control" id="alasanPenolakanLaptop">
-                  <option selected="true" disabled="">Alasan Penolakan</option>
-                  <option>Teknisi Belum Ready</option>
-                  <option>Permintaan Masih Penuh</option>
-                  <option>Permintaan Tidak Benar</option>
-                  <option style="color: red;" value="false">Alasan Lain</option>
-                </select>
-              </div>
-              <div class="form-group mt-20">
-                <input class="form-control" id="ketpenolakanlaptop" name="ketpenolakanlaptop" type="text" placeholder="Alasan Anda">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-danger">Tolak Permintaan</button>
-            </form>
-          </div>
-        </div>
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
       </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="tolakHp" tabindex="-1" role="dialog" aria-labelledby="tolakHpLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="tolakHpLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <form action="<?= BASEURL; ?>/mitra/tolakperbaikanhp" method="POST">
-                <input type="text" id="id_perbaikan_hpx" name="id_perbaikan_hpx" hidden>
-                <select class="form-control" id="alasanPenolakanHp">
-                  <option selected="true" disabled="">Alasan Penolakan</option>
-                  <option>Teknisi Belum Ready</option>
-                  <option>Permintaan Masih Penuh</option>
-                  <option>Permintaan Tidak Benar</option>
-                  <option style="color: red;" value="false">Alasan Lain</option>
-                </select>
-              </div>
-              <div class="form-group mt-20">
-                <input class="form-control" id="ketpenolakanhp" name="ketpenolakanhp" type="text" placeholder="Alasan Anda">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-danger">Tolak Permintaan</button>
-            </form>
-          </div>
+    <!-- /.card -->
+  </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="tolakLaptop" tabindex="-1" role="dialog" aria-labelledby="tolakLaptopLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tolakLaptopLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <form action="<?= base_url(); ?>mitra/tolakperbaikanlaptop" method="POST">
+            <input type="text" id="id_perbaikan_laptopx" name="id_perbaikan_laptopx" hidden>
+            <select class="form-control" id="alasanPenolakanLaptop">
+              <option selected="true" disabled="">Alasan Penolakan</option>
+              <option>Teknisi Belum Ready</option>
+              <option>Permintaan Masih Penuh</option>
+              <option>Permintaan Tidak Benar</option>
+              <option style="color: red;" value="false">Alasan Lain</option>
+            </select>
+        </div>
+        <div class="form-group mt-20">
+          <input class="form-control" id="ketpenolakanlaptop" name="ketpenolakanlaptop" type="text" placeholder="Alasan Anda">
         </div>
       </div>
-    </div>
-    <!-- untuk penerimaan -->
-    <!-- Modal -->
-    <div class="modal fade" id="terimaLaptop" tabindex="-1" role="dialog" aria-labelledby="terimaLaptopLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="terimaLaptopLabel"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group mt-20">
-              <form action="<?= BASEURL; ?>/mitra/terimaperbaikanlaptop" method="POST">
-                <input type="text" id="id_perbaikan_laptop" name="id_perbaikan_laptop" hidden>
-                <input type="text" id="voucherlaptop" name="voucherlaptop" hidden>
-                <input class="form-control" id="hargalaptop" name="hargalaptop" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
-              </div>
-              <p class="hargalaptop" style="color: red;"></p>
-              <div class="form-group mt-20">
-                <input class="form-control" id="ketlaptoplain" name="ketlaptoplain" type="text" placeholder="Keterangan Lain">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Terima Permintaan</button>
-            </form>
-          </div>
-        </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Tolak Permintaan</button>
+        </form>
       </div>
     </div>
-    <!-- terima hp -->
-    <!-- Modal -->
-    <div class="modal fade" id="terimahp" tabindex="-1" role="dialog" aria-labelledby="terimahpLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="terimahpLabel">Menerima Permintaan</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group mt-20">
-              <form action="<?= BASEURL; ?>/mitra/terimaperbaikanhp" method="POST">
-                <input type="text" id="id_perbaikan_hp" name="id_perbaikan_hp" hidden>
-                <input type="text" id="voucherhp" name="voucherhp" hidden>
-                <input class="form-control" id="hargahp" name="hargahp" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
-              </div>
-              <p class="hargahp" style="color: red;"></p>
-              <div class="form-group mt-20">
-                <input class="form-control" id="kethplain" name="kethplain" type="text" placeholder="Keterangan Lain">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Terima Permintaan</button>
-            </form>
-          </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="tolakHp" tabindex="-1" role="dialog" aria-labelledby="tolakHpLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tolakHpLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <form action="<?= base_url(); ?>mitra/tolakperbaikanhp" method="POST">
+            <input type="text" id="id_perbaikan_hpx" name="id_perbaikan_hpx" hidden>
+            <select class="form-control" id="alasanPenolakanHp">
+              <option selected="true" disabled="">Alasan Penolakan</option>
+              <option>Teknisi Belum Ready</option>
+              <option>Permintaan Masih Penuh</option>
+              <option>Permintaan Tidak Benar</option>
+              <option style="color: red;" value="false">Alasan Lain</option>
+            </select>
+        </div>
+        <div class="form-group mt-20">
+          <input class="form-control" id="ketpenolakanhp" name="ketpenolakanhp" type="text" placeholder="Alasan Anda">
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Tolak Permintaan</button>
+        </form>
+      </div>
     </div>
-    <script>
-    $(document).ready(function(){
-    //membuat voucher
-    function voucher(){
-    var result = '';
-    var character = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var characterLength = character.length;
-    for (var i = 0; i < 7; i++) {
-    result += character.charAt(Math.floor(Math.random() * characterLength));
-    }
-    return result;
-    }
-    //penolakan laptop
-    $('#ketpenolakanlaptop').hide();
-    $('#alasanPenolakanLaptop').change(function() {
-    $('#ketpenolakanlaptop').val('');
-    if ($(this).val() == 'false') {
-    $('#ketpenolakanlaptop').show();
-    }else{
-    $('#ketpenolakanlaptop').hide();
-    $('#ketpenolakanlaptop').val($(this).val());
-    }
-    });
-    $('.t-tolaklaptop').click(function(){
-    $('#id_perbaikan_laptopx').val($(this).val());
-    });
-    // penolakan hp
-    $('#ketpenolakanhp').hide();
-    $('#alasanPenolakanHp').change(function() {
-    if ($(this).val() == 'false') {
-    $('#ketpenolakanhp').show();
-    }else{
-    $('#ketpenolakanhp').hide();
-    $('#ketpenolakanhp').val($(this).val());
-    }
-    });
-    $('.t-tolakhp').click(function(){
-    $('#id_perbaikan_hpx').val($(this).val());
-    });
-    //penerimaan laptop
-    $('.t-terimalaptop').click(function(){
-    $('#id_perbaikan_laptop').val($(this).val());
-    var vlaptop = voucher();
-    $('#terimaLaptopLabel').text("Kode Voucher : " + vlaptop);
-    $('#voucherlaptop').val(vlaptop);
-    });
-    //penerimaan hp
-    $('.t-terimahp').click(function(){
-    $('#id_perbaikan_hp').val($(this).val());
-    var vhp = voucher();
-    $('#terimahpLabel').text("Kode Voucher : " + vhp);
-    $('#voucherhp').val(vhp);
-    });
-    });
-    </script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    $('#hargalaptop').autoNumeric('init');
-    });
-    </script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-    $('#hargahp').autoNumeric('init');
-    });
-    </script>
+  </div>
+</div>
+<!-- untuk penerimaan -->
+<!-- Modal -->
+<div class="modal fade" id="terimaLaptop" tabindex="-1" role="dialog" aria-labelledby="terimaLaptopLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="terimaLaptopLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mt-20">
+          <form action="<?= base_url(); ?>mitra/terimaperbaikanlaptop" method="POST">
+            <input type="text" id="id_perbaikan_laptop" name="id_perbaikan_laptop" hidden>
+            <input type="text" id="voucherlaptop" name="voucherlaptop" hidden>
+            <input class="form-control" id="hargalaptop" name="hargalaptop" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
+        </div>
+        <p class="hargalaptop" style="color: red;"></p>
+        <div class="form-group mt-20">
+          <input class="form-control" id="ketlaptoplain" name="ketlaptoplain" type="text" placeholder="Keterangan Lain">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Terima Permintaan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- terima hp -->
+<!-- Modal -->
+<div class="modal fade" id="terimahp" tabindex="-1" role="dialog" aria-labelledby="terimahpLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="terimahpLabel">Menerima Permintaan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mt-20">
+          <form action="<?= base_url(); ?>mitra/terimaperbaikanhp" method="POST">
+            <input type="text" id="id_perbaikan_hp" name="id_perbaikan_hp" hidden>
+            <input type="text" id="voucherhp" name="voucherhp" hidden>
+            <input class="form-control" id="hargahp" name="hargahp" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
+        </div>
+        <p class="hargahp" style="color: red;"></p>
+        <div class="form-group mt-20">
+          <input class="form-control" id="kethplain" name="kethplain" type="text" placeholder="Keterangan Lain">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Terima Permintaan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
