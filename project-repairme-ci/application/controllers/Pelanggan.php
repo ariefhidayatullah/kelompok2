@@ -102,6 +102,7 @@ class Pelanggan extends CI_Controller
 		$data['judul'] = 'Pengajuan Perbaikan';
 		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
 			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
+			$data['hp'] = $this->Pelanggan_model->pengajuanHp($this->session->userdata('userData')['id_pelanggan']);
 			$this->load->view('pelanggan/templates/header', $data);
 			$this->load->view('pelanggan/perbaikan/pengajuan', $data);
 			$this->load->view('pelanggan/templates/footer');
@@ -133,6 +134,12 @@ class Pelanggan extends CI_Controller
 	{
 		$kode = $this->input->post('kode');
 		$data = $this->Pelanggan_model->detail_mitra($kode);
+		echo json_encode($data);
+	}
+	public function hpTtd()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Pelanggan_model->hpTtd($kode);
 		echo json_encode($data);
 	}
 }

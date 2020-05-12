@@ -1,130 +1,181 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:repairme/maps.dart';
+
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget{
+  final _title = "Repair Me";
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new MyHomePage(),
+    Widget build(BuildContext context) {
+    // TODO: implement build
+    return MaterialApp(
+      title: _title,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulWidget{
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
+}
+class GoToMaps extends StatefulWidget{
+  @override
+  _GoToMaps createState() => _GoToMaps();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>{
+  int currentTab = 0;
+  PageOne one;
+  MyMapsPage maps;
+  List<Widget> pages;
+  Widget currentPage;
+
+  void initState(){
+    one = PageOne();
+    maps = MyMapsPage();
+
+    pages = [one, maps];
+    currentPage = one;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Repair Me'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Repair Me"),
       ),
-      body: new FlutterMap(
-        options: new MapOptions(
-          center: new LatLng(-7.91346, 113.82145),
-          minZoom: 10.0,
-        ),
-        layers: [
-          new TileLayerOptions(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c']),
-          new MarkerLayerOptions(
-            markers: [
-              new Marker(
-                width: 45.0,
-                height: 45.0,
-                point: new LatLng(-7.913478948634584, 113.8200195532897),
-                builder: (context) => new Container(
-                  child: IconButton(
-                    icon: Icon(Icons.location_on),
-                    color: Colors.red,
-                    iconSize: 45.0,
-                    onPressed: () {
-                      print('Indah Cell');
-                      _showModalBottomSheet(context);
-                    },
-                  ),
-                ),
-              ),
-            ],
+      body: currentPage,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        onTap: (int index){
+                  setState(() {
+                    currentTab = index;
+                    currentPage = pages[index];
+                  });
+              },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            title: Text("Repair Now"),
+          )
         ],
       ),
     );
   }
 
-  void _showModalBottomSheet(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (context) {
-        return _BottomSheetContent();
-      },
-    );
-  }
 }
 
-class _BottomSheetContent extends StatelessWidget {
+class PageOne extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: <Widget>[
+      Container(
+          height: 230.0,
+          margin: EdgeInsets.only(bottom: 5.0),
+          decoration: new BoxDecoration(
+          image: DecorationImage(
+            image: new AssetImage("assets/img/5e37b4a4bcaf4.jpeg"),
+            fit: BoxFit.fill,
+            ),
+          ),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: OutlineButton(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(
+                color: Colors.black,
+                ),
+               ),
+            child: Text(
+              "Perbaiki Sekarang",
+                  style:TextStyle(
+                  color: Colors.white,
+                  ),
+                ),
+              onPressed: () => {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute (builder: (context) => GoToMaps()))
+//                  _GoToMaps(),
+              },
+//                  () {
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => GoToMaps()),
+//                );
+//              },
+              splashColor: Colors.black26,
+              color: Colors.greenAccent,
+            ),
+          ),
+        ),
+      ],
+    );
+
+  }
+
+}
+
+class _GoToMaps extends State<GoToMaps> {
+
+  int currentTab = 1;
+  PageOne one;
+  MyMapsPage maps;
+  List<Widget> pages;
+  Widget currentPage;
+
+  void initState() {
+    one = PageOne();
+    maps = MyMapsPage();
+
+    pages = [one, maps];
+    currentPage = maps;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      height: 300,
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 2.0),
-            decoration: new BoxDecoration(
-              border : Border.all(
-                width: 5,
-                color: Colors.white,
-              ) ,
-              image: DecorationImage(
-                  image: new AssetImage("assets/img/5e37b4a4bcaf4.jpeg"),
-                  fit: BoxFit.fill,
-              ),
-            ),
-            height: 230,
+    return new Scaffold(
+      appBar: AppBar(
+        title: Text("Repair Me"),
+        automaticallyImplyLeading: false,
+      ),
+      body: currentPage,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentTab,
+        onTap: (int index) {
+          setState(() {
+            currentTab = index;
+            currentPage = pages[index];
+          });
+        },
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
           ),
-          Container(
-            padding: EdgeInsets.only(left:10.0),
-            margin : EdgeInsets.all(3.0),
-            child: new Row(
-              children: <Widget>[
-                Expanded(
-                  child : new FlatButton(
-                    onPressed: null,
-                    highlightColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                    child: Text(
-                        "Indah Cell",
-                        style:TextStyle(
-                        color: Colors.purple,
-                    ),
-                    ),
-                  ),
-                  flex: 2,
-                ),
-                new RaisedButton(
-                  onPressed: () {},
-                  splashColor: Colors.lightGreenAccent,
-                  color: Colors.greenAccent,
-                  child: Text(
-                      "Pilih Mitra",
-                      style:TextStyle(
-                      color: Colors.purple,
-                  ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            title: Text("Repair Now"),
+          )
         ],
       ),
     );

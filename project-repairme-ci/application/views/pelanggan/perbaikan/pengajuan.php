@@ -1,7 +1,23 @@
-
 <!-- =============== JAVA SCRIPT =============== -->
 <script>
- 
+  // ================CHECK CONNECTION==============
+ jQuery(document).ready(function($) {
+   checkConnection()
+ });
+
+ function checkConnection() {
+    var status = navigator.onLine
+    if (status) {
+      alert('connected')    
+    }else{
+      setTimeout(function () {
+        toastr.warning(
+            "Anda Tidak Terhubung Ke Internet!!"
+          );
+      }, 150)
+    }
+  }
+
  // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===
 
  function laptopttd(id) {
@@ -19,7 +35,7 @@
               for(i=0; i<data.length; i++){
                   text += data[i].merk_laptop+ ' - ' +data[i].tipe_laptop;
               }
-              $('#tipettd').text(text);
+              $('#tipettd_'+id).text(text);
           }
       });
     }
@@ -107,6 +123,7 @@
     // ====================== FUNCTION DETAIL MITRA ==================
 
     function detail_mitra(id) {
+    checkConnection()
     var kodes = id;
      $.ajax({
           type  : 'POST',
@@ -120,6 +137,7 @@
             var lat = data[0].lat
             var lng = data[0].lng
             var nama = data[0].nama_usaha.toUpperCase()
+
              map(lat,lng,nama)   
              $('.nama_usaha').text(data[0].nama_usaha.toUpperCase())
              $('.nama_mitra').text(data[0].nama.toUpperCase())
@@ -131,6 +149,42 @@
           }
       });
     }
+
+      function map (lat,lng,nama) {
+        setTimeout(function () {
+
+        $('#map').html('<div id="maps" style="height:100%; width:100%;"></div>');
+        var popup = L.popup();
+        var map = L.map('maps').setView([lat, lng], 17);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var marker = L.marker([lat, lng]).addTo(map).bindPopup(nama).openPopup();
+        }, 200);
+    }
+         
+                  
+    // =================== FUNCTION UNTUK HP ===================
+    function hpttd(id) {
+    var kodes = id;
+     $.ajax({
+          type  : 'POST',
+          url   : "<?= base_url('pelanggan/hpTtd');?>",
+          async : true,
+          dataType : 'json',
+          data : {kode: kodes},
+          cache : false,
+          success : function(data){
+            var text = '';
+              var i;
+              for(i=0; i<data.length; i++){
+                  text += data[i].merk_hp+ ' - ' +data[i].tipe_hp;
+              }
+              $('#tipettdhp_'+id).text(text);
+          }
+      });
+    }
+
 
 </script>
 
@@ -156,14 +210,15 @@
 
     <!-- Main content -->
     <section class="content">
-  
           <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Bordered Table</h3>
+                <h3 class="card-title">Perbaikan Laptop</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered">
+                <script src="<?= base_url('assets/js/offline.min.js'); ?>"></script>
+  <link rel="stylesheet" href="<?= base_url('assets/css/offlinechrome.css'); ?>">
+                <table class="table table-bordered" id="tb_laptop">
                   <thead>                  
                     <tr>
                       <th style="width: 10px">#</th>
@@ -171,7 +226,7 @@
                       <th style="width: 30%;">Mitra</th>
                       <th style="width: 20%;">Tanggal</th>
                       <th style="width: 20%;">Status</th>
-
+                    
                     </tr>
                   </thead>
                   <tbody>
@@ -180,7 +235,7 @@
                     <tr>
                       <td><?= $i; ?></td>
                       <td>
-                        <span id="tipettd"></span>
+                        <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
                         <?php if ($val['id_tipe'] == 0):?>
 
                  <!-- ===== FUNCTION JAVASCRIPT ===== -->
@@ -203,10 +258,34 @@
                         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)" >Detail</button>
                       </td>
                       <td><?= $val['tanggal']; ?></td>
-                      <td><span class="badge bg-danger">55%</span></td>
-                    </tr>
+                      
                     <?php $i += 1; ?>
-                  <?php endforeach; ?>
+                  
+                  <!-- ============= BUTTON STATUS PERBAIKAN ============= -->
+
+                  <?php if ($val['id_status_perbaikan'] == 3):?>
+                        <td>
+                          <button class="btn btn-danger btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                              Mitra Menolak
+                          </button>
+                        </td>
+                        
+                  <?php elseif($val['id_status_perbaikan'] == 2): ?>
+                        <td>
+                         <button disabled class="btn btn-info btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                              Menunggu Persetujuan 
+                          </button>
+                        </td>
+                  <?php elseif($val['id_status_perbaikan'] == 1): ?>
+                        <td>
+                          <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                              Ambil Voucher
+                          </button>
+                        </td>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+                  <!-- ========================= END OF BUTTON =============== -->
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -222,6 +301,94 @@
               </div>
             </div>
             <!-- /.card -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Perbaikan Handphone</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>                  
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th style="width: 30%;">Barang</th>
+                      <th style="width: 30%;">Mitra</th>
+                      <th style="width: 20%;">Tanggal</th>
+                      <th style="width: 20%;">Status</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i = 1; ?>
+                  <?php foreach ($hp as $val):?>
+                    <tr>
+                      <td><?= $i; ?></td>
+                      <td>
+                        <span id="tipettdhp_<?= $val['id_perbaikan'];?>"></span>
+                        <?php if ($val['id_tipe'] == 0):?>
+
+                 <!-- ===== FUNCTION JAVASCRIPT ===== -->
+
+                        <script>hpttd(<?= $val['id_perbaikan']; ?>)</script>
+
+                   <!-- ======END OF JAVASCRIPT==== -->
+
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)" >Detail</button>
+
+                        <?php elseif ($val['id_tipe'] != 0):?>
+                          <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+
+                          <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
+                        <?php endif; ?>
+
+                      </td>
+                      <td>
+                        <?= strtoupper($val['mitra']); ?>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)" >Detail</button>
+                      </td>
+                      <td><?= $val['tanggal']; ?></td>
+                      
+                    <?php $i += 1; ?>
+                  
+                  <!-- ============= BUTTON STATUS PERBAIKAN ============= -->
+
+                  <?php if ($val['id_status_perbaikan'] == 3):?>
+                        <td>
+                          <button class="btn btn-danger btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                              Mitra Menolak
+                          </button>
+                        </td>
+                        
+                  <?php elseif($val['id_status_perbaikan'] == 1): ?>
+                        <td>
+                         <button disabled class="btn btn-info btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp"  value="">
+                              Menunggu Persetujuan 
+                          </button>
+                        </td>
+                  <?php elseif($val['id_status_perbaikan'] == 2): ?>
+                        <td>
+                          <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                              Ambil Voucher
+                          </button>
+                        </td>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+                  <!-- ========================= END OF BUTTON =============== -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
 </section>
 </div>
 
@@ -302,20 +469,7 @@
                     <tr>
                       <td rowspan="10">
                       <div id="map" style="height: 450px; display: block;">
-                          <script>
-                          function map (lat,lng,nama) {
-                            setTimeout(function () {
-                            var popup = L.popup();
-                            var map = L.map('map').setView([lat, lng], 17);
-                            L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            }).addTo(map);
-                            var marker = L.marker([lat, lng]).addTo(map).bindPopup(nama).openPopup();
-                            map.invalidateSize()
-                            }, 200);
-                        }
-                             
-                        </script>
+                          
                       </div>
             
                       </td>
