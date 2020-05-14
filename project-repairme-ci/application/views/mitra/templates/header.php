@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><?= $judul; ?></title>
-    <!-- jQuery -->
+  <!-- jQuery -->
   <script src="<?= base_url(); ?>assets/js/jquery-3.4.1.js"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
@@ -16,13 +16,14 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
 
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
-  
+
   <script src="<?= base_url('assets/js/autoNumeric.js'); ?>"></script>
-  
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
@@ -97,7 +98,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="nav-link">
+                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Permintaan Perbaikan</p>
                   </a>
@@ -166,3 +167,30 @@
       </div>
       <!-- /.sidebar -->
     </aside>
+
+    <div class="modal fade" id="modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Pilih Permintaan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <p>One fine body&hellip;</p> -->
+            <a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="btn btn-primary">
+              Laptop
+            </a>
+            <a href="<?= base_url(); ?>mitra/permintaanperbaikanhp" class="btn btn-primary">
+              Hp
+            </a>
+          </div>
+          <div class="modal-footer justify-content-between">
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->

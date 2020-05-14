@@ -14,6 +14,9 @@
    <script src="<?= base_url(); ?>assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
    <!-- overlayScrollbars -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+   <!-- DataTables -->
+   <script src="<?= base_url(); ?>assets/panel-master/plugins/datatables/jquery.dataTables.js"></script>
+   <script src="<?= base_url(); ?>assets/panel-master/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
    <!-- AdminLTE App -->
    <script src="<?= base_url(); ?>assets/panel-master/dist/js/adminlte.js"></script>
 
@@ -30,6 +33,19 @@
    <script src="<?= base_url(); ?>assets/panel-master/plugins/chart.js/Chart.min.js"></script>
    <!-- Toastr -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.js"></script>
+   <script>
+     $(function() {
+       $("#example1").DataTable();
+       $('#example2').DataTable({
+         "paging": true,
+         "lengthChange": false,
+         "searching": false,
+         "ordering": true,
+         "info": true,
+         "autoWidth": false,
+       });
+     });
+   </script>
    </body>
 
    </html>
