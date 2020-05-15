@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/models/persistent-nav-bar-scaffold.widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:repairme/maps.dart';
 
@@ -171,6 +170,10 @@ class _GoToMaps extends State<GoToMaps> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            title: Text("Repair Now"),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
