@@ -33,6 +33,8 @@
    <script src="<?= base_url(); ?>assets/panel-master/plugins/chart.js/Chart.min.js"></script>
    <!-- Toastr -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.js"></script>
+   <script src="<?= base_url(); ?>assets/js/notiny/notiny.js"></script>
+    <link href="<?= base_url(); ?>assets/js/notiny/notiny.css" rel="stylesheet">
    <script>
      $(function() {
        $("#example1").DataTable();

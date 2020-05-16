@@ -14,8 +14,6 @@ class Mitra_model extends CI_model
 
 	public function inputMitra($data)
 	{
-
-
 		//persiapan data untuk dijadikan array
 		$id_jenis = 2;
 		$nama = $data['nama'];
@@ -53,7 +51,7 @@ class Mitra_model extends CI_model
 		$for_tbMitra = ['id_mitra' => NULL, 'id_jenis' => $id_jenis, 'id_user' => $id_user, 'jenis' => $jenis, 'nama' => $nama, 'nama_usaha' => $nama_usaha, 'email' => $email, 'alamat' => $alamat, 'lat' => $lat, 'lng' => $lng, 'no_tlp' => $no_telpon, 'foto_ktp' => $foto_ktp, 'foto_usaha' => $foto_usaha, 'deskripsi' => '-', 'rating' => 0];
 		$insertMitra = $this->db->insert('tb_mitra', $for_tbMitra);
 
-		if ($insertUser && $insertMitra == 1) {
+		if ($insertUser > 0 && $insertMitra > 0) {
 			echo "sip, tinggal atur redirectnya";
 			die;
 			redirect(base_url());
@@ -177,13 +175,64 @@ class Mitra_model extends CI_model
 		return $this->db->update('tb_perbaikan_hp', $update);
 	}
 
-	public function getVoucher()
+	public function getVoucher($data)
 	{
-		return $this->db->get('tb_voucher_laptop')->result_array();
+		$voucher1 = $this->db->get_where('tb_voucher_laptop', ['voucher_laptop' => $data])->result_array();
+		$voucher2 = $this->db->get_where('tb_voucher_hp', ['voucher_hp' => $data])->result_array();
+		if ($voucher1 != []) {
+			return ['jenis' => 'laptop', 'data' => $voucher1];
+		}else if($voucher2 != []){
+			return ['jenis' => 'hp', 'data' => $voucher2];
+		}
 	}
 
 	public function getVoucher2()
 	{
 		return $this->db->get('tb_voucher_hp')->result_array();
+	}
+	public function getPerbaikan($id, $jenis)
+	{
+		if ($jenis == 'laptop') {
+			return $this->db->get_where('tb_perbaikan_laptop', ['id_perbaikan' => $id])->result_array();
+		}else if($jenis == 'hp'){
+			return $this->db->get_where('tb_perbaikan_hp', ['id_perbaikan' => $id])->result_array();
+		}
+	}
+	public function terima_voucher($data)
+	{
+		$id = $data['id_perbaikan'];
+		$jenis = $data['jenis_perbaikan'];
+		if ($jenis == 'laptop') {
+			$data_laptop = [
+			'id_waktu_perbaikan_laptop' => null, 
+			'waktu_tanggal' => $data['tanggal'],
+			'waktu_hari' => $data['hari'],
+			'berakhir' => $data['waktu_berakhir'],
+			'id_perbaikan_laptop' => $data['id_perbaikan']
+			];
+			$insert_waktu_laptop = $this->db->insert('tb_waktu_perbaikan_laptop', $data_laptop);
+			$update_perbaikan_laptop = $this->db->query("UPDATE tb_perbaikan_laptop SET tb_perbaikan_laptop.id_status_perbaikan = 4 WHERE id_perbaikan = $id");
+			if($insert_waktu_laptop > 0 && $update_perbaikan_laptop > 0){
+				return 1;
+			}else{
+				return 0;
+			}
+
+		}else if($jenis == 'hp'){
+			$data_hp = [
+			'id_waktu_perbaikan_hp' => null, 
+			'waktu_tanggal' => $data['tanggal'],
+			'waktu_hari' => $data['hari'],
+			'berakhir' => $data['waktu_berakhir'],
+			'id_perbaikan_hp' => $data['id_perbaikan']
+			];
+			$insert_waktu_hp = $this->db->insert('tb_waktu_perbaikan_hp', $data_hp);
+			$update_perbaikan_hp = $this->db->query("UPDATE tb_perbaikan_hp SET tb_perbaikan_hp.id_status_perbaikan = 4 WHERE id_perbaikan = $id");
+			if($insert_waktu_hp > 0 && $update_perbaikan_hp > 0){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
 	}
 }

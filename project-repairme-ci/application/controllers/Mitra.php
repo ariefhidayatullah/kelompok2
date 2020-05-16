@@ -120,6 +120,11 @@ class Mitra extends CI_Controller
         echo json_encode($data);
     }
 
+    public function getPerbaikan()
+    {
+      echo json_encode($this->Mitra_model->getPerbaikan($this->input->post('kode'),$this->input->post('jenis')));
+    }
+
     public function terimaperbaikanlaptop()
     {
         // var_dump($_POST);
@@ -133,6 +138,10 @@ class Mitra extends CI_Controller
                 // Flasher::setFlash(' gagal', 'diterima', 'danger');
                 exit();
             }
+        }
+        else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
         }
     }
 
@@ -150,6 +159,10 @@ class Mitra extends CI_Controller
                 exit();
             }
         }
+        else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
     }
 
     public function terimaperbaikanhp()
@@ -165,6 +178,10 @@ class Mitra extends CI_Controller
                 // Flasher::setFlash(' gagal', 'diterima', 'danger');
                 exit();
             }
+        }
+        else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
         }
     }
 
@@ -182,6 +199,10 @@ class Mitra extends CI_Controller
                 exit();
             }
         }
+        else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
     }
 
     public function voucher()
@@ -189,15 +210,35 @@ class Mitra extends CI_Controller
         $data['judul'] = 'Perbaikan';
         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             $data['mitra'] = $this->Mitra_model->getMitraNow();
-            $data['voucher'] = $this->Mitra_model->getVoucher();
-            $data['voucher2'] = $this->Mitra_model->getVoucher2();
-            $data['perbaikan'] = $this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']);
-            $data['perbaikan2'] = $this->Mitra_model->pengajuanHp($this->session->userdata('userData')['id_mitra']);
+            
             $this->load->view('mitra/templates/header', $data);
             $this->load->view('mitra/perbaikan/terimaVoucher', $data);
             $this->load->view('mitra/templates/footer');
         } else {
-            header('Location:' . base_url() . 'login/');
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
+    }
+
+    public function getVoucher()
+    {
+        echo json_encode($this->Mitra_model->getVoucher($this->input->post('voucher')));
+    }
+
+    public function terima_voucher()
+    {
+         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
+            if ($this->Mitra_model->terima_voucher($_POST) > 0) {
+                $this->session->set_flashdata('message', '<script>setTimeout(function() { toastr.success( "Perbaikan Telah Diterima" ); }, 10)</script>');
+                redirect('mitra/voucher');
+            } else {
+                $this->session->set_flashdata('message', '<script>setTimeout(function() { toastr.error( "Penerimaan Voucher Gagal!!" ); }, 10)</script>');
+                redirect('mitra/voucher');
+            }
+        }
+        else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
         }
     }
 }

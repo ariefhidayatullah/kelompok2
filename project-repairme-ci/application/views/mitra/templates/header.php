@@ -17,13 +17,18 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
+
 
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
 
   <script src="<?= base_url('assets/js/autoNumeric.js'); ?>"></script>
-
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+  <!-- InputMask -->
+  <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+  <!-- date-range-picker -->
+  <script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
