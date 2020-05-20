@@ -20,7 +20,7 @@ class Pelanggan extends CI_Controller
 			$this->load->view('pelanggan/templates/footer');
 			// echo "oke";
 		} else {
-			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
 			redirect('login');
 		}
 	}
@@ -47,6 +47,42 @@ class Pelanggan extends CI_Controller
 			exit();
 		}
 	}
+
+	public function verify()
+	{
+		$email = $this->input->get('username');
+		$token = $this->input->get('token');
+
+		$user = $this->db->get_where('tb_user', ['username' => $email])->row_array();
+		$id = $user['id_user'];
+		if ($user) {
+			$user_token = $this->db->get_where('tb_token', ['token' => $token])->row_array();
+			if ($user_token) {
+				if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+					$this->db->set('is_actived', 1);
+					$this->db->where('username', $email);
+					$this->db->update('tb_user');
+					$this->db->delete('tb_token', ['username' => $email]);
+					$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "Congratulation! your account has been activated. Please login. ",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+					redirect('login');
+				} else {
+					$this->db->delete('tb_user', ['username' => $email]);
+					$this->db->delete('tb_pelanggan', ['id_user' => $id]);
+					$this->db->delete('tb_token', ['username' => $email]);
+
+					$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "Account activation failed! Token expired.",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+					redirect('login');
+				}
+			} else {
+				$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "Account activation failed! Wrong token.",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+				redirect('login');
+			}
+		} else {
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "Account activation failed! Wrong email.",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
+		}
+	}
+
 
 	// ============== BAGIAN PROFILE ============ //
 
@@ -143,9 +179,20 @@ class Pelanggan extends CI_Controller
 		$data = $this->Pelanggan_model->hpTtd($kode);
 		echo json_encode($data);
 	}
-	public function voucher()
+
+	public function perbaikan()
 	{
-		echo json_encode($this->Pelanggan_model->getVoucher($_POST['id'], $_POST['jenis']));
+		$data['judul'] = 'Perbaikan';
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
+			$data['hp'] = $this->Pelanggan_model->pengajuanHp($this->session->userdata('userData')['id_pelanggan']);
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/perbaikan/perbaikan', $data);
+			$this->load->view('pelanggan/templates/footer');
+		} else {
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
+		}
 	}
 }
 
