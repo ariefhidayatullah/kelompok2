@@ -235,4 +235,59 @@ class Mitra extends CI_Controller
             redirect('login');
         }
     }
+
+    // =========================== BAGIAN PERBAIKAN UTAMA ==========================
+
+    public function perbaikan_laptop()
+    {
+        $data['judul'] = 'Perbaikan';
+        $data['mitra'] = $this->Mitra_model->getMitraNow();
+        if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
+            $data['laptop'] = $this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']);
+            $this->load->view('mitra/templates/header', $data);
+            $this->load->view('mitra/perbaikan/perbaikan_laptop', $data);
+            $this->load->view('mitra/templates/footer');
+        } else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
+    }
+    public function getVoucherLaptop_ById()
+    {
+        echo json_encode($this->Mitra_model->getVoucherLaptop_ById($_POST['id']));
+    }
+    public function perbaikan_detail_laptop()
+    {
+        return $this->Mitra_model->perbaikan_detail_laptop($_POST['id'], $_POST['jenis']);
+    }
+    public function get_lama_perkiraan_laptop()
+    {
+        echo json_encode($this->Mitra_model->get_lama_perkiraan_laptop($_POST['id']));
+    }
+        public function perbaikan_hp()
+    {
+        $data['judul'] = 'Perbaikan';
+        $data['mitra'] = $this->Mitra_model->getMitraNow();
+        if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
+            $data['hp'] = $this->Mitra_model->pengajuanhp($this->session->userdata('userData')['id_mitra']);
+            $this->load->view('mitra/templates/header', $data);
+            $this->load->view('mitra/perbaikan/perbaikan_hp', $data);
+            $this->load->view('mitra/templates/footer');
+        } else {
+            $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+            redirect('login');
+        }
+    }
+    public function getVoucherhp_ById()
+    {
+        echo json_encode($this->Mitra_model->getVoucherhp_ById($_POST['id']));
+    }
+    public function perbaikan_detail_hp()
+    {
+        return $this->Mitra_model->perbaikan_detail_hp($_POST['id'], $_POST['jenis']);
+    }
+    public function get_lama_perkiraan_hp()
+    {
+        echo json_encode($this->Mitra_model->get_lama_perkiraan_hp($_POST['id']));
+    }
 }

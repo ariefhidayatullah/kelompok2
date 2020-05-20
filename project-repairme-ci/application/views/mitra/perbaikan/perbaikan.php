@@ -543,7 +543,7 @@
               <button class="btn btn-dark btn_ket_harga_hp" type="button" style="width: 49%;">
                 Ubah Harga
               </button>
-            </div>
+    
             <div class="form-group mt-20">
                <button class="btn btn-success diskon_hp" type="button" style="width: 49%;">
                 Beri Diskon
