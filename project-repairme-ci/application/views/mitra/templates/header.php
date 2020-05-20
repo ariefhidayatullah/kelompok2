@@ -17,7 +17,8 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-
+  <!-- range slider -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
 
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
@@ -31,6 +32,7 @@
   <script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 </head>
 
+  
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
 
 
@@ -103,7 +105,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm">
+                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Permintaan Perbaikan</p>
                   </a>
@@ -115,7 +117,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url(); ?>mitra/perbaikan" class="nav-link">
+                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="perbaikan">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Perbaikan</p>
                   </a>
@@ -182,14 +184,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="option_barang">
             <!-- <p>One fine body&hellip;</p> -->
-            <a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="btn btn-primary">
-              Laptop
-            </a>
-            <a href="<?= base_url(); ?>mitra/permintaanperbaikanhp" class="btn btn-primary">
-              Hp
-            </a>
+            
           </div>
           <div class="modal-footer justify-content-between">
           </div>
@@ -199,3 +196,33 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    <script>
+  // ================CHECK CONNECTION==============
+  jQuery(document).ready(function($) {
+    checkConnection()
+    $('#permintaan_perbaikan').on('click', function (e) {
+      $('#option_barang a').remove();
+      $('#option_barang').append('<a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/permintaanperbaikanhp" class="btn btn-primary">HANDPHONE</a>');
+    });
+    $('#perbaikan').on('click', function (e) {
+      $('#option_barang a').remove();
+      $('#option_barang').append('<a href="<?= base_url(); ?>mitra/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+    });
+  });
+
+  
+
+  function checkConnection() {
+    var status = navigator.onLine
+    if (status) {
+      $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
+    } else {
+      setTimeout(function() {
+        toastr.warning(
+          "Anda Tidak Terhubung Ke Internet!!"
+        );
+      }, 150)
+    }
+  }
+</script>

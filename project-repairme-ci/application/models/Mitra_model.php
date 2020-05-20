@@ -175,6 +175,8 @@ class Mitra_model extends CI_model
 		return $this->db->update('tb_perbaikan_hp', $update);
 	}
 
+	// ============================= MODAL BAGIAN VOUCHER =====================
+
 	public function getVoucher($data)
 	{
 		$voucher1 = $this->db->get_where('tb_voucher_laptop', ['voucher_laptop' => $data])->result_array();
@@ -186,9 +188,15 @@ class Mitra_model extends CI_model
 		}
 	}
 
-	public function getVoucher2()
+	public function getVoucherLaptop_byId($id)
 	{
-		return $this->db->get('tb_voucher_hp')->result_array();
+		$this->db->select('voucher_laptop');
+		return $this->db->get_where('tb_voucher_laptop',['id_perbaikan_laptop' => $id])->result_array();
+	}
+	public function getVoucherhp_byId($id)
+	{
+		$this->db->select('voucher_hp');
+		return $this->db->get_where('tb_voucher_hp',['id_perbaikan_hp' => $id])->result_array();
 	}
 	public function getPerbaikan($id, $jenis)
 	{
@@ -198,6 +206,7 @@ class Mitra_model extends CI_model
 			return $this->db->get_where('tb_perbaikan_hp', ['id_perbaikan' => $id])->result_array();
 		}
 	}
+
 	public function terima_voucher($data)
 	{
 		$id = $data['id_perbaikan'];
@@ -234,5 +243,42 @@ class Mitra_model extends CI_model
 				return 0;
 			}
 		}
+	}
+
+	// ====================== AKHIR DARI MODAL VOUCHER ========================
+
+	// ========================== MODAL PERBAIKAN UTAMA =======================
+	
+	public function perbaikan_detail_laptop($id, $jenis)
+		{
+			if ($jenis == 'ttd') {
+				$data = $this->db->query("SELECT tb_perbaikan_laptop.*, tb_ttd_laptop.tipe_laptop, tb_ttd_laptop.merk_laptop, tb_pelanggan.nama, tb_kerusakan_laptop.kerusakan_laptop FROM tb_perbaikan_laptop JOIN tb_ttd_laptop ON tb_ttd_laptop.id_perbaikan = tb_perbaikan_laptop.id_perbaikan JOIN tb_pelanggan ON tb_perbaikan_laptop.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
+				echo json_encode($data[0]);
+			}else if ($jenis == 'normal') {
+				$data = $this->db->query("SELECT tb_perbaikan_laptop.*, tb_tipe_laptop.tipe_laptop, tb_merk_laptop.merk_laptop, tb_pelanggan.nama, tb_kerusakan_laptop.kerusakan_laptop FROM tb_perbaikan_laptop JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop JOIN tb_pelanggan ON tb_perbaikan_laptop.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
+				echo json_encode($data[0]);
+			}
+			
+		}	
+
+	public function get_lama_perkiraan_laptop($id)
+	{
+		return $this->db->get_where('tb_waktu_perbaikan_laptop', ['id_perbaikan_laptop' => $id])->result_array();
+	}
+	public function perbaikan_detail_hp($id, $jenis)
+	{
+		if ($jenis == 'ttd') {
+			$data = $this->db->query("SELECT tb_perbaikan_hp.*, tb_ttd_hp.tipe_hp, tb_ttd_hp.merk_hp, tb_pelanggan.nama, tb_kerusakan_hp.kerusakan_hp FROM tb_perbaikan_hp JOIN tb_ttd_hp ON tb_ttd_hp.id_perbaikan = tb_perbaikan_hp.id_perbaikan JOIN tb_pelanggan ON tb_perbaikan_hp.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_kerusakan_hp ON tb_perbaikan_hp.id_kerusakan_hp = tb_kerusakan_hp.id_kerusakan_hp WHERE tb_perbaikan_hp.id_perbaikan = $id")->result_array();
+			echo json_encode($data[0]);
+		}else if ($jenis == 'normal') {
+			$data = $this->db->query("SELECT tb_perbaikan_hp.*, tb_tipe_hp.tipe_hp, tb_merk_hp.merk_hp, tb_pelanggan.nama, tb_kerusakan_hp.kerusakan_hp FROM tb_perbaikan_hp JOIN tb_tipe_hp ON tb_perbaikan_hp.id_tipe_hp = tb_tipe_hp.id_tipe_hp JOIN tb_merk_hp ON tb_tipe_hp.id_merk_hp = tb_merk_hp.id_merk_hp JOIN tb_pelanggan ON tb_perbaikan_hp.id_pelanggan = tb_pelanggan.id_pelanggan LEFT JOIN tb_kerusakan_hp ON tb_perbaikan_hp.id_kerusakan_hp = tb_kerusakan_hp.id_kerusakan_hp WHERE tb_perbaikan_hp.id_perbaikan = $id")->result_array();
+			echo json_encode($data[0]);
+		}
+		
+	}	
+
+	public function get_lama_perkiraan_hp($id)
+	{
+		return $this->db->get_where('tb_waktu_perbaikan_hp', ['id_perbaikan_hp' => $id])->result_array();
 	}
 }

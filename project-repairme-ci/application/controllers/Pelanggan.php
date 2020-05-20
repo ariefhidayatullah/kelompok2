@@ -143,6 +143,10 @@ class Pelanggan extends CI_Controller
 		$data = $this->Pelanggan_model->hpTtd($kode);
 		echo json_encode($data);
 	}
+	public function voucher()
+	{
+		echo json_encode($this->Pelanggan_model->getVoucher($_POST['id'], $_POST['jenis']));
+	}
 }
 
 /* End of file Pelanggan.php */

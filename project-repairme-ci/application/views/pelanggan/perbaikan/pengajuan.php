@@ -185,6 +185,26 @@
       });
     }
 
+    function ambil_voucher (id,jenis) {
+      $.ajax({
+        url: '<?= base_url('pelanggan/voucher') ?>',
+        type: 'post',
+        dataType: 'json',
+        data: {id: id, jenis: jenis},
+        success: function (data) {
+          if (jenis == 'laptop') {
+            $('.voucher').text(data[0].voucher_laptop);
+          }
+          if (jenis == 'hp') {
+            $('.voucher').text(data[0].voucher_hp);
+          }
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      });
+      
+    }
 
 </script>
 
@@ -216,8 +236,6 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <script src="<?= base_url('assets/js/offline.min.js'); ?>"></script>
-  <link rel="stylesheet" href="<?= base_url('assets/css/offlinechrome.css'); ?>">
                 <table class="table table-bordered" id="tb_laptop">
                   <thead>                  
                     <tr>
@@ -279,7 +297,7 @@
                         </td>
                   <?php elseif($val['id_status_perbaikan'] == 2): ?>
                         <td>
-                          <button class="btn btn-success btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
+                          <button class="btn btn-success btn-sm t-terimaLaptop" data-toggle="modal" data-target="#modal_voucher" onclick="ambil_voucher(<?= $val['id_perbaikan']; ?>, 'laptop')">
                               Ambil Voucher
                           </button>
                         </td>
@@ -369,7 +387,7 @@
                         </td>
                   <?php elseif($val['id_status_perbaikan'] == 2): ?>
                         <td>
-                          <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                          <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#modal_voucher"  onclick="ambil_voucher(<?= $val['id_perbaikan']; ?>, 'hp')">
                               Ambil Voucher
                           </button>
                         </td>
@@ -397,6 +415,36 @@
 
 
 <!-- ==========  BAGIAN MODAL ============= -->
+
+ <div class="modal fade" id="modal_voucher">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+               
+                <div class="modal-body">
+                    <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="container-fluid">
+                      <table class="table table-bordered">
+                       <tr>
+                         <td><strong>VOUCHER</strong></td>
+                         <td class="voucher"></td>
+                       </tr>
+
+                      </table>
+                  </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
 
  <div class="modal fade" id="detailLaptop">
             <div class="modal-dialog modal-sm">
@@ -502,12 +550,7 @@
                     <tr>
                       <td><b>RATING</b></td>
                       <td class="rating"></td>
-                    </tr>
-                    
-                     
-                        
-                      
-                   
+                    </tr>  
                   </div>
                   </table>
                 </div>

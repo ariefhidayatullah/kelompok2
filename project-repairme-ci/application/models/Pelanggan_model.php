@@ -78,4 +78,12 @@ class Pelanggan_model extends CI_model
 		$this->db->where('id_pelanggan', $id);
 		$this->db->update('tb_pelanggan', $data_pelanggan);
 	}
+	public function getVoucher($id,$jenis)
+	{
+		if ($jenis == 'laptop') {
+			return $this->db->get_where('tb_voucher_laptop', ['id_perbaikan_laptop' => $id])->result_array();
+		}else if ($jenis == 'hp') {
+			return $this->db->get_where('tb_voucher_hp', ['id_perbaikan_hp' => $id])->result_array();
+		}
+	}
 }
