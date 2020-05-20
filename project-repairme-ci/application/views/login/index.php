@@ -44,7 +44,7 @@
           <div class="form-group mt-30">
             <button class="btn btn-round btn-b" type="submit">Login</button>
           </div>
-          <div class="form-group"><a href="">Forgot Password?</a></div>
+          <div class="form-group"><a href="<?= base_url(); ?>login/lupapassword">Forgot Password?</a></div>
         </form>
       </div>
     </div>
