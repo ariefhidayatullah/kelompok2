@@ -43,6 +43,7 @@
       $('.card_persentase').hide();
       $('.card_ubah_harga').show();
       $('.card_tambah_harga').hide();
+      $('#keterangan_mitra').val('');
       $('.harga_akhir').hide();
       $('.card_diskon').hide();
       $('.keterangan_mitra').show();
@@ -157,6 +158,10 @@
       $('.btn_ubah').show();
     });
 
+    $('#ubah').on('hidden.bs.modal', function () {
+      location.reload()
+    });
+
   });
 
   // ================CHECK CONNECTION==============
@@ -258,6 +263,7 @@
 
   function get_lama_perkiraan(id, jenis) {
     detail_laptop(id, jenis)
+    $('.btn_ubah').val(id);
     $.ajax({
       url: '<?= base_url('mitra/get_lama_perkiraan_laptop'); ?>',
       type: 'post',
@@ -279,12 +285,55 @@
   }
 
   function ubah_data() {
-    // console.log($('.btn_ubah').val())
-    if (this.val() == 'ubah_diskon') {
-
-    }
+    const my_value = $('.btn_ubah').val();
+    let path = '';
+    const id_perbaikan = perbaikan.id_perbaikan;
+    const harga_akhir  = $('#harga_akhir').val();
+    const keterangan_mitra = $('#keterangan_mitra').val();
+    let data_json = {
+                  'id_perbaikan' : perbaikan.id_perbaikan,
+                  'harga'  : $('#harga_akhir').val(),
+                  'keterangan' : $('#keterangan_mitra').val()
+                 };
+    if (my_value == 'ubah_diskon') {
+      path = 'mitra/beri_diskon_laptop';
+      $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
+         if (data == 'true') {
+           toastr.success(
+              "Diskon Berhasil Ditambahkan!!!!"
+            );
+           setTimeout(function () {
+             $('#ubah').modal('hide');
+           },3000);
+         }else{
+          toastr.error(
+              "Diskon Gagal Ditambahkan!!!"
+            );
+         }
+      });
+    }else if(my_value == 'ubah_tambah_harga'){
+      path = 'mitra/tambah_harga_laptop';
+        $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
+           if (data == 'true') {
+             toastr.warning(
+                "Perbaikan Dihentikan Untuk Menunggu Persetujuan Kenaikan Harga!"
+              );
+             setTimeout(function () {
+               $('#ubah').modal('hide');
+             },2000);
+           }else{
+            toastr.error(
+                "Harga Gagal Di Tambahkan!"
+            );
+           }
+        });
+      }
+    
+    
   }
+
 </script>
+<?= $this->session->flashdata('message'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -304,7 +353,7 @@
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Pengajuan Perbaikan</h3>
+        <h3 class="card-title">Perbaikan Yang Sedang Berlangsung</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -313,8 +362,8 @@
             <tr>
               <th style="width: 5%;">No</th>
               <th>Perbaikan</th>
-              <th>voucher</th>
-              <th>Edit</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -351,6 +400,56 @@
                     </td>
                   <?php endif; ?>
                 <?php endif; ?>
+                <?php $i++; ?>
+              <?php endforeach; ?>
+                </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+        <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Menunggu Persetujuan Penambahan Harga</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 5%;">No</th>
+              <th>Perbaikan</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($laptop as $val) : ?>
+              <?php if ($val['id_status_perbaikan'] == 5) : ?>
+                <tr>
+                  <script>
+                    get_voucher(<?= $val['id_perbaikan']; ?>)
+                  </script>
+                  <td><?= $i; ?></td>
+                  <td>
+                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
+                    <?php if ($val['id_tipe'] == 0) : ?>
+                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
+                      <script>
+                        laptopttd(<?= $val['id_perbaikan']; ?>)
+                      </script>
+                      <!-- ======END OF JAVASCRIPT==== -->
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
+                    <?php elseif ($val['id_tipe'] != 0) : ?>
+                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
+                    <?php endif; ?>
+                  </td>
+                  <td class="voucher-<?= $val['id_perbaikan']; ?>"></td>
+                 <td style="color: red;">Menunggu Persetujuan</td>
+                <?php endif; ?>
+                <?php $i++; ?>
               <?php endforeach; ?>
                 </tr>
           </tbody>

@@ -290,4 +290,20 @@ class Mitra extends CI_Controller
     {
         echo json_encode($this->Mitra_model->get_lama_perkiraan_hp($_POST['id']));
     }
+    public function beri_diskon_laptop()
+    {
+        $this->Mitra_model->beri_diskon_laptop($this->input->post('data'));
+    }
+    public function tambah_harga_laptop()
+    {
+        $this->Mitra_model->tambah_harga_laptop($this->input->post('data'));
+    }
+    public function beri_diskon_hp()
+    {
+        $this->Mitra_model->beri_diskon_hp($this->input->post('data'));
+    }
+    public function tambah_harga_hp()
+    {
+        $this->Mitra_model->tambah_harga_hp($this->input->post('data'));
+    }
 }

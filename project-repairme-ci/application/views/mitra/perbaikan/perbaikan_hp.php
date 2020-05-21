@@ -14,16 +14,16 @@
     $('.btn_ubah').hide();
     checkConnection()
     $('#input_persentase').ionRangeSlider({
-      min     : 0,
-      max     : 100,
-      type    : 'single',
-      step    : 1,
-      postfix : ' %',
+      min: 0,
+      max: 100,
+      type: 'single',
+      step: 1,
+      postfix: ' %',
       prettify: false,
-      hasGrid : true
+      hasGrid: true
     })
 
-    $('.btn_ubah_harga').on('click', function () {
+    $('.btn_ubah_harga').on('click', function() {
       $('.ubah_title').html('<code>Ubah Harga</code>');
       $('.btn_diskon').show();
       $('.btn_tambah_harga').show();
@@ -36,20 +36,21 @@
       $('.btn_ubah').hide();
     });
 
-    $('.btn_ubah_keterangan').on('click', function () {
+    $('.btn_ubah_keterangan').on('click', function() {
       $('.ubah_title').html('<code>Ubah Keterangan</code>');
       $('.btn_diskon').hide();
       $('.btn_tambah_harga').hide();
       $('.card_persentase').hide();
       $('.card_ubah_harga').show();
       $('.card_tambah_harga').hide();
+      $('#keterangan_mitra').val('');
       $('.harga_akhir').hide();
       $('.card_diskon').hide();
       $('.keterangan_mitra').show();
       $('.btn_ubah').val('ubah_keterangan');
     });
 
-    $('.btn_diskon').on('click', function () {
+    $('.btn_diskon').on('click', function() {
       $('.card_tambah_harga').hide();
       $('.btn_ubah').hide();
       $('.btn_ubah').val('ubah_diskon');
@@ -60,11 +61,11 @@
       var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
       $('.card_diskon').show();
       $('#harga_akhir').autoNumeric('destroy');
-      $('#harga_akhir').val(parseInt(harga)) 
+      $('#harga_akhir').val(parseInt(harga))
       $('#harga_akhir').autoNumeric('init');
     });
 
-    $('.btn_tambah_harga').on('click', function () {
+    $('.btn_tambah_harga').on('click', function() {
       $('.card_diskon').hide();
       $('.btn_ubah').hide();
       $('.btn_ubah').val('ubah_tambah_harga');
@@ -76,20 +77,20 @@
       $('#input_tambah_harga').autoNumeric('init');
       var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
       $('#harga_akhir').autoNumeric('destroy');
-      $('#harga_akhir').val(parseInt(harga)) 
+      $('#harga_akhir').val(parseInt(harga))
       $('#harga_akhir').autoNumeric('init');
 
     });
 
-    $('#option_diskon').on('change', function () {
+    $('#option_diskon').on('change', function() {
       var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
       if ($(this).val() == "Input Harga Manual") {
         $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(parseInt(harga)) 
+        $('#harga_akhir').val(parseInt(harga))
         $('#harga_akhir').autoNumeric('init');
         $('#input_harga_diskon').autoNumeric('init');
         $('#input_harga_diskon').show();
-      }else{
+      } else {
         var diskon = parseInt(harga) * parseInt($(this).val()) / 100;
         var harga_akhir = parseInt(harga - diskon);
         $('#harga_akhir').autoNumeric('destroy');
@@ -100,38 +101,38 @@
       // alert(parseInt($(this).val()))
     });
 
-    $('#input_harga_diskon').keypress(function () {
+    $('#input_harga_diskon').keypress(function() {
       $('.text_harga').text('Perhatikan Harga Yang Anda Masukkan!');
       var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
       const input = $(this).autoNumeric('get') + '0';
       if (parseInt(input) >= harga) {
         $('.text_harga').text('Diskon Melebihi Harga Awal!!!!');
         setTimeout(function() {
-        toastr.error(
-          "Diskon Melebihi Harga Awal!!!!"
-        );
-      }, 150)
+          toastr.error(
+            "Diskon Melebihi Harga Awal!!!!"
+          );
+        }, 150)
         $(this).val('');
         $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(parseInt(harga)) 
+        $('#harga_akhir').val(parseInt(harga))
         $('#harga_akhir').autoNumeric('init');
-      }else{
+      } else {
         var total = harga - parseInt(input)
         $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(total) 
+        $('#harga_akhir').val(total)
         $('#harga_akhir').autoNumeric('init');
 
       }
 
     });
 
-    $('#input_tambah_harga').on('keypress', function () {
+    $('#input_tambah_harga').on('keypress', function() {
       var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
       var tambah_harga = $(this).autoNumeric('get') + '0';
       harga_akhir = parseInt(harga) + parseInt(tambah_harga);
       var persentase = Math.floor(tambah_harga / harga * 100);
       if (persentase > 0) {
-        $('.text_harga_tambah').html('<div class="text_harga_tambah">Anda menaikkan ' + persentase + '% harga!'+"<br><strong>"+' Perbaikan akan di hentikan untuk menunggu persetujuan pelanggan '+"</strong><br>"+' Jika pelanggan menolak, silahkan kembalikan barang pelanggan, dan jika pelanggan menerima silahkan lanjutkan perbaikan</div>');
+        $('.text_harga_tambah').html('<div class="text_harga_tambah">Anda menaikkan ' + persentase + '% harga!' + "<br><strong>" + ' Perbaikan akan di hentikan untuk menunggu persetujuan pelanggan ' + "</strong><br>" + ' Jika pelanggan menolak, silahkan kembalikan barang pelanggan, dan jika pelanggan menerima silahkan lanjutkan perbaikan</div>');
         $('#harga_akhir').autoNumeric('destroy');
         $('#harga_akhir').val(harga_akhir);
         $('#harga_akhir').autoNumeric('init');
@@ -153,13 +154,17 @@
       }
     });
 
-    $('#keterangan_mitra').on('keypress', function () {
+    $('#keterangan_mitra').on('keypress', function() {
       $('.btn_ubah').show();
+    });
+
+    $('#ubah').on('hidden.bs.modal', function () {
+      location.reload()
     });
 
   });
 
-   // ================CHECK CONNECTION==============
+  // ================CHECK CONNECTION==============
 
   function checkConnection() {
     var status = navigator.onLine
@@ -198,19 +203,21 @@
     });
   }
 
-  function get_voucher (id) {
+  function get_voucher(id) {
     $.ajax({
-      url: '<?= base_url('mitra/getVoucherhp_ById') ?>',
-      type: 'post',
-      dataType: 'json',
-      data: {id: id},
-      success: function (data) {
-        $('.voucher-'+id).text(data[0].voucher_hp);
-      }
-    })
-    .fail(function() {
-      console.log("error");
-    });
+        url: '<?= base_url('mitra/getVoucherhp_ById') ?>',
+        type: 'post',
+        dataType: 'json',
+        data: {
+          id: id
+        },
+        success: function(data) {
+          $('.voucher-' + id).text(data[0].voucher_hp);
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      });
   }
 
   // ============== FUNCTION AMBIL DETAIL hp ==============
@@ -223,61 +230,110 @@
       async: true,
       dataType: 'json',
       data: {
-        id: id, jenis: jenis
+        id: id,
+        jenis: jenis
       },
       cache: true,
       success: function(data) {
         perbaikan = data;
-         $('.nama_pelanggan').text(data.nama.toUpperCase());
-         $('.hp_merk').text(data.merk_hp.toUpperCase())
-         $('.tanggal_diterima').text(data.tanggal);
-         $('.hp_tipe').text(data.tipe_hp);
-         $('.harga').text(data.harga);
+        $('.nama_pelanggan').text(data.nama.toUpperCase());
+        $('.hp_merk').text(data.merk_hp.toUpperCase())
+        $('.tanggal_diterima').text(data.tanggal);
+        $('.hp_tipe').text(data.tipe_hp);
+        $('.harga').text(data.harga);
         if (data.kerusakan_hp != null) {
           $('.hp_kerusakan').text(data.kerusakan_hp);
-        }else{
+        } else {
           $('.hp_kerusakan').text('-');
         }
         if (data.kerusakan_lain != '') {
           $('.hp_kerusakan_lain').text(data.kerusakan_lain);
-        }else{
+        } else {
           $('.hp_kerusakan_lain').text('-');
         }
         if (data.keterangan_mitra != '') {
           $('.keterangan_mitra_dtl').text(data.keterangan_mitra);
-        }else{
+        } else {
           $('.keterangan_mitra_dtl').text('-');
         }
-        
+
       }
     });
   }
 
-  function get_lama_perkiraan (id, jenis) {
-    detail_hp(id,jenis)
+  function get_lama_perkiraan(id, jenis) {
+    detail_hp(id, jenis)
+    $('.btn_ubah').val(id);
     $.ajax({
       url: '<?= base_url('mitra/get_lama_perkiraan_hp'); ?>',
       type: 'post',
       dataType: 'json',
-      data: {id: id},
-      success: function (data) {
+      data: {
+        id: id
+      },
+      success: function(data) {
         $.each(data, function(i, val) {
           let total_hari = val.waktu_hari.split(' ', 1);
           let berakhir = Math.floor(Math.floor(parseInt(val.berakhir) - Math.floor(moment())) / 86400000);
           let hari_terlewati = total_hari - berakhir;
           let persentase = Math.floor(hari_terlewati / total_hari * 100) + '%';
-          $('.persentase_waktu').attr('style', 'width:'+ persentase +';');
+          $('.persentase_waktu').attr('style', 'width:' + persentase + ';');
           $('.text_persentase_waktu').text(persentase);
         });
       }
-    });  
+    });
   }
 
-  function ubah_data () {
-    console.log($('.btn_ubah').val())
+  function ubah_data() {
+    const my_value = $('.btn_ubah').val();
+    let path = '';
+    const id_perbaikan = perbaikan.id_perbaikan;
+    const harga_akhir  = $('#harga_akhir').val();
+    const keterangan_mitra = $('#keterangan_mitra').val();
+    let data_json = {
+                  'id_perbaikan' : perbaikan.id_perbaikan,
+                  'harga'  : $('#harga_akhir').val(),
+                  'keterangan' : $('#keterangan_mitra').val()
+                 };
+    if (my_value == 'ubah_diskon') {
+      path = 'mitra/beri_diskon_hp';
+      $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
+         if (data == 'true') {
+           toastr.success(
+              "Diskon Berhasil Ditambahkan!!!!"
+            );
+           setTimeout(function () {
+             $('#ubah').modal('hide');
+           },3000);
+         }else{
+          toastr.error(
+              "Diskon Gagal Ditambahkan!!!"
+            );
+         }
+      });
+    }else if(my_value == 'ubah_tambah_harga'){
+      path = 'mitra/tambah_harga_hp';
+        $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
+           if (data == 'true') {
+             toastr.warning(
+                "Perbaikan Dihentikan Untuk Menunggu Persetujuan Kenaikan Harga!"
+              );
+             setTimeout(function () {
+               $('#ubah').modal('hide');
+             },2000);
+           }else{
+            toastr.error(
+                "Harga Gagal Di Tambahkan!"
+            );
+           }
+        });
+      }
+    
+    
   }
 
 </script>
+<?= $this->session->flashdata('message'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -297,7 +353,7 @@
   <section class="content">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Pengajuan Perbaikan</h3>
+        <h3 class="card-title">Perbaikan Yang Sedang Berlangsung</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -306,44 +362,96 @@
             <tr>
               <th style="width: 5%;">No</th>
               <th>Perbaikan</th>
-              <th>voucher</th>
-              <th>Edit</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Edit</th>
             </tr>
           </thead>
           <tbody>
             <?php $i = 1; ?>
             <?php foreach ($hp as $val) : ?>
-            <?php if ($val['id_status_perbaikan'] == 4) : ?>
-            <tr>
-              <script>get_voucher(<?= $val['id_perbaikan']; ?>)</script>
-              <td><?= $i; ?></td>
-              <td>
-                <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
-                <?php if ($val['id_tipe'] == 0) : ?>
-                <!-- ===== FUNCTION JAVASCRIPT ===== -->
-                <script>
-                hpttd(<?= $val['id_perbaikan']; ?>)
-                </script>
-                <!-- ======END OF JAVASCRIPT==== -->
-                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
-                <?php elseif ($val['id_tipe'] != 0) : ?>
-                <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
-                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
+              <?php if ($val['id_status_perbaikan'] == 4) : ?>
+                <tr>
+                  <script>
+                    get_voucher(<?= $val['id_perbaikan']; ?>)
+                  </script>
+                  <td><?= $i; ?></td>
+                  <td>
+                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
+                    <?php if ($val['id_tipe'] == 0) : ?>
+                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
+                      <script>
+                        hpttd(<?= $val['id_perbaikan']; ?>)
+                      </script>
+                      <!-- ======END OF JAVASCRIPT==== -->
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
+                    <?php elseif ($val['id_tipe'] != 0) : ?>
+                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
+                    <?php endif; ?>
+                  </td>
+                  <td class="voucher-<?= $val['id_perbaikan']; ?>"></td>
+                  <?php if ($val['id_tipe'] == 0) : ?>
+                    <td>
+                      <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#ubah" onclick="get_lama_perkiraan(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
+                    </td>
+                  <?php elseif ($val['id_tipe'] != 0) : ?>
+                    <td>
+                      <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#ubah" onclick="get_lama_perkiraan(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
+                    </td>
+                  <?php endif; ?>
                 <?php endif; ?>
-              </td>
-              <td class="voucher-<?= $val['id_perbaikan']; ?>"></td>
-              <?php if ($val['id_tipe'] == 0) : ?>
-              <td>
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#ubah" onclick="get_lama_perkiraan(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
-              </td>
-              <?php elseif ($val['id_tipe'] != 0) : ?>
-              <td>
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#ubah" onclick="get_lama_perkiraan(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
-              </td>
-              <?php endif; ?>
-              <?php endif; ?>
+                <?php $i++; ?>
               <?php endforeach; ?>
+                </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+        <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Menunggu Persetujuan Penambahan Harga</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 5%;">No</th>
+              <th>Perbaikan</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Status</th>
             </tr>
+          </thead>
+          <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($hp as $val) : ?>
+              <?php if ($val['id_status_perbaikan'] == 5) : ?>
+                <tr>
+                  <script>
+                    get_voucher(<?= $val['id_perbaikan']; ?>)
+                  </script>
+                  <td><?= $i; ?></td>
+                  <td>
+                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
+                    <?php if ($val['id_tipe'] == 0) : ?>
+                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
+                      <script>
+                        hpttd(<?= $val['id_perbaikan']; ?>)
+                      </script>
+                      <!-- ======END OF JAVASCRIPT==== -->
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'ttd')">Detail</button>
+                    <?php elseif ($val['id_tipe'] != 0) : ?>
+                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_perbaikan" style="float: right;" onclick="detail_hp(<?= $val['id_perbaikan']; ?>, 'normal')">Detail</button>
+                    <?php endif; ?>
+                  </td>
+                  <td class="voucher-<?= $val['id_perbaikan']; ?>"></td>
+                 <td style="color: red;">Menunggu Persetujuan</td>
+                <?php endif; ?>
+                <?php $i++; ?>
+              <?php endforeach; ?>
+                </tr>
           </tbody>
         </table>
       </div>
@@ -359,7 +467,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true">&times;</span>
         </button>
         <div class="container-fluid">
           <table class="table table-condensed">
@@ -429,10 +537,10 @@
             <button class="btn btn-dark btn_ubah_keterangan col-sm-5" type="button" style="margin: auto;">Ubah Keterangan
             </button>
             <button class="btn btn-dark btn_ubah_harga col-sm-5" type="button" style="margin: auto;">
-            Ubah Harga
+              Ubah Harga
             </button>
             <!-- ================ CARD PERSENTASE =============== -->
-            
+
             <div class="card col-sm-12 mt-3 card_persentase">
               <div class="card-header">
                 <h3 class="card-title"><code>Sisa Perkiraan Waktu Yang Anda Berikan</code></h3>
@@ -453,9 +561,9 @@
                 <span style="float: right;"></span>
               </div>
             </div>
-            
+
             <!-- ================== END OF CARD ============ -->
-            
+
             <!-- =============== CARD UBAH HARGA ============ -->
             <div class="card col-sm-12 mt-3 card_ubah_harga">
               <div class="card-header">
@@ -464,10 +572,10 @@
               <div class="card-body container-fluid">
                 <div class="row">
                   <button class="btn btn-success btn_diskon col-sm-5 mr-1" type="button" style="margin-right: 0; margin-left: auto;">
-                  Beri Diskon
+                    Beri Diskon
                   </button>
                   <button class="btn btn-warning btn_tambah_harga col-sm-5 ml-1" type="button" style="margin-right: auto; margin-left: 0;">
-                  Tambah Harga
+                    Tambah Harga
                   </button>
                 </div>
                 <div class="card_diskon mt-3">

@@ -281,4 +281,56 @@ class Mitra_model extends CI_model
 	{
 		return $this->db->get_where('tb_waktu_perbaikan_hp', ['id_perbaikan_hp' => $id])->result_array();
 	}
+	public function beri_diskon_laptop($data)
+	{
+		$value = ['id_notif_mitra' => null,	'notifikasi' => 'diskon',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$id = $data['id_perbaikan'];
+		$harga = $data['harga'];
+		$insert = $this->db->insert('tb_notif_mitra', $value);
+		$update = $this->db->query("UPDATE tb_perbaikan_laptop SET tb_perbaikan_laptop.harga = '$harga' WHERE tb_perbaikan_laptop.id_perbaikan = $id");
+		if ($insert > 0 && $update > 0) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+	}
+		public function tambah_harga_laptop($data)
+	{
+		$value = ['id_notif_mitra' => null,	'notifikasi' => 'tambah_harga',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$id = $data['id_perbaikan'];
+		$harga = $data['harga'];
+		$insert = $this->db->insert('tb_notif_mitra', $value);
+		$update = $this->db->query("UPDATE tb_perbaikan_laptop SET tb_perbaikan_laptop.id_status_perbaikan = 5, tb_perbaikan_laptop.harga = '$harga' WHERE tb_perbaikan_laptop.id_perbaikan = $id");
+		if ($insert > 0 && $update > 0) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+	}
+		public function beri_diskon_hp($data)
+	{
+		$value = ['id_notif_mitra' => null,	'notifikasi' => 'diskon',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$id = $data['id_perbaikan'];
+		$harga = $data['harga'];
+		$insert = $this->db->insert('tb_notif_mitra', $value);
+		$update = $this->db->query("UPDATE tb_perbaikan_hp SET tb_perbaikan_hp.harga = '$harga' WHERE tb_perbaikan_hp.id_perbaikan = $id");
+		if ($insert > 0 && $update > 0) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+	}
+		public function tambah_harga_hp($data)
+	{
+		$value = ['id_notif_mitra' => null,	'notifikasi' => 'tambah_harga',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$id = $data['id_perbaikan'];
+		$harga = $data['harga'];
+		$insert = $this->db->insert('tb_notif_mitra', $value);
+		$update = $this->db->query("UPDATE tb_perbaikan_hp SET tb_perbaikan_hp.id_status_perbaikan = 5, tb_perbaikan_hp.harga = '$harga' WHERE tb_perbaikan_hp.id_perbaikan = $id");
+		if ($insert > 0 && $update > 0) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+	}
 }
