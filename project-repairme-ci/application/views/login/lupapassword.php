@@ -7,7 +7,7 @@
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion" href="#support1">Langkah Pertama</a></h4>
+                            <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion" href="#support1">Langkah Langkah</a></h4>
                         </div>
                         <div class="panel-collapse collapse in" id="support1">
                             <div class="panel-body">
