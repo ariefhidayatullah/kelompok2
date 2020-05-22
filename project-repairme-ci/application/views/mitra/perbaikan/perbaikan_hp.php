@@ -292,6 +292,7 @@
     const keterangan_mitra = $('#keterangan_mitra').val();
     let data_json = {
                   'id_perbaikan' : perbaikan.id_perbaikan,
+                  'id_pelanggan' : perbaikan.id_pelanggan,
                   'harga'  : $('#harga_akhir').val(),
                   'keterangan' : $('#keterangan_mitra').val()
                  };
