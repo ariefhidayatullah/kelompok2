@@ -88,10 +88,10 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
-                  <a href="<?= base_url(); ?>pelanggan/perbaikan" class="nav-link">
+                <li class="nav-item" id="perbaikan">
+                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dalam Pengerjaan</p>
+                    <p>Perbaikan</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -167,5 +167,33 @@
       </div>
       <!-- /.sidebar -->
     </aside>
+     <div class="modal fade" id="modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Pilih Permintaan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="option_barang">
+            <!-- <p>One fine body&hellip;</p> -->
+            
+          </div>
+          <div class="modal-footer justify-content-between">
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
 
+    <script>
+      jQuery(document).ready(function($) {
+      $('#perbaikan').on('click', function (e) {
+        $('#option_barang a').remove();
+        $('#option_barang').append('<a href="<?= base_url(); ?>pelanggan/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>pelanggan/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+        });  
+      });
+    </script>
     

@@ -1,615 +1,521 @@
-<script src="<?= BASEURL; ?>/panel-master/plugins/moment/moment.min.js"></script>
- <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Perbaikan</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
-              <li class="breadcrumb-item active">Perbaikan</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-     <!-- Main content -->
-    <section class="content">
-      <?php Flasher::flash(); ?>
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Perbaikan Laptop</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
-        </div>
-        <div class="card-body p-0">
-          <table class="table table-striped projects">
-              <thead>
-                  <tr>
-                      <th style="width: 15%">
-                          Pengaju
-                      </th>
-                      <th style="width: 15%">
-                          Mitra
-                      </th>
-                      <th style="width: 10%">
-                          Laptop
-                      </th>
-                      <th style="width: 20%">
-                          Kerusakan
-                      </th>
-                      
-                      <th style="width: 5%;">
-                          Perkiraan
-                      </th>
-                      <th style="width: 15%;">
-                          Persentase Hari
-                      </th>
-                      <th style="width: 10%;">
-                          Biaya
-                      </th>
-                      <th style="width: 10%;">
-                        Keterangan Mitra
-                      </th>
-                  </tr>
-              </thead>
-            <?php for ($i=0; $i < count($data['perbaikan']['perbaikan_laptop']); $i++):?>
-              <?php if ($data['perbaikan']['perbaikan_laptop'][$i]['id_status_perbaikan'] == '4' || $data['perbaikan']['perbaikan_laptop'][$i]['id_status_perbaikan'] == '5'):?>
-              <tbody>
-                  <tr>
-                      <td>
-                          <a>
-                              <?= $_SESSION['login']['data']['nama']; ?>
-                          </a>                   
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan']['mitra'][$i][0]['nama_usaha']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan']['merk_laptop'][$i][0]['merk_laptop']; ?>
-                              <?= $data['perbaikan']['tipe_laptop'][$i][0]['tipe_laptop']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan']['kerusakan_laptop'][$i][0]['kerusakan_laptop']; ?>,
-                              <?= $data['perbaikan']['keterangan_lain'][$i]; ?>
-                          </ul>
-                      </td>
-                     
-                      <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan']['waktu'][$i][0]['waktu_hari']; ?>
-                          </ul>
-                      </td>
-                      <td >
-                         <ul class="list-inline">
-                          <button class="btn btn-dark btn-sm btn-p-laptop" data-toggle="modal" data-target="#progress" value="<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>">
-                        Persentase
-                    </button>
-                      </ul>
-                      </td>
-                      <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan']['perbaikan_laptop'][$i]['harga']; ?>
-                          </ul>
-                      </td>
-                       <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan']['perbaikan_laptop'][$i]['keterangan_mitra']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                        <?php if($data['perbaikan']['notif'][$i] != NULL): ?>
-                          <?php if($data['perbaikan']['notif'][$i][0]['dibaca'] == 'n'): ?>
-                            <script>
-                                $(document).ready(function(){
-                                  $(document).Toasts('create', {
-                                  title: 'Dari <?= $data['perbaikan']['mitra'][$i][0]['nama_usaha']; ?>',
-                                  body: 'Pesan Untuk Anda :<strong> <?= $_SESSION['login']['data']['nama']; ?></strong><br> Anda mendapatkan pesan terbaru, terkait perbaikan yang anda lakukan.',
-                                  class: 'bg-white',
-                                  subtitle: 'Notifikasi',
-                                  icon: 'fas fa-envelope fa-lg'
-                                })
-                                });
-                            </script>
-                            <?php endif; ?>
-                        <ul class="list-inline">
-                        <?php if ($data['perbaikan']['notif'][$i][0]['notifikasi'] == 'diskon'):?>
-                          <a class="btn btn-app dislap" data-toggle="modal" data-target="#diskonlap" id="<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan'];?>">
-                            <i class="fas fa-envelope"></i>Pesan
-                          </a>
-                        <?php endif; ?>
-                        <?php if ($data['perbaikan']['notif'][$i][0]['notifikasi'] == 'tambah_harga'):?>
-                          <a class="btn btn-app tmblap" data-toggle="modal" data-target="#tambahlap" id="<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan'];?>">
-                            <i class="fas fa-envelope"></i>Pesan
-                          </a>
-                        <?php endif; ?>
-                        </ul>
-                      
-                        <?php endif; ?>
-                      </td>
-                  </tr>
-              </tbody>
-              <?php endif; ?>
-            <?php endfor; ?>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-        
-         <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Perbaikan Handphone</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
-          </div>
-        </div>
-        <div class="card-body p-0">
-          <table class="table table-striped projects">
-              <thead>
-                  <tr>
-                      <th style="width: 15%">
-                          Pengaju
-                      </th>
-                      <th style="width: 15%">
-                          Mitra
-                      </th>
-                      <th style="width: 10%">
-                          Handphone
-                      </th>
-                      <th style="width: 20%">
-                          Kerusakan
-                      </th>
-                      
-                      <th style="width: 5%;">
-                          Perkiraan
-                      </th>
-                      <th style="width: 15%;">
-                          Persentase Hari
-                      </th>
-                      <th style="width: 10%;">
-                          Biaya
-                      </th>
-                      <th style="width: 10%;">
-                        Keterangan Mitra
-                      </th>
-                  </tr>
-              </thead>
-            <?php for ($i=0; $i < count($data['perbaikan2']['perbaikan_hp']); $i++):?>
-              <?php if ($data['perbaikan2']['perbaikan_hp'][$i]['id_status_perbaikan'] == '4' || $data['perbaikan2']['perbaikan_hp'][$i]['id_status_perbaikan'] == '5'):?>
-              <tbody>
-                  <tr>
-                      <td>
-                          <a>
-                              <?= $_SESSION['login']['data']['nama']; ?>
-                          </a>                   
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan2']['mitra'][$i][0]['nama_usaha']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan2']['merk_hp'][$i][0]['merk_hp']; ?>
-                              <?= $data['perbaikan2']['tipe_hp'][$i][0]['tipe_hp']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <?= $data['perbaikan2']['kerusakan_hp'][$i][0]['kerusakan_hp']; ?>,
-                              <?= $data['perbaikan2']['keterangan_lain'][$i]; ?>
-                          </ul>
-                      </td>
-                     
-                      <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan2']['waktu'][$i][0]['waktu_hari']; ?>
-                          </ul>
-                      </td>
-                      <td >
-                         <ul class="list-inline">
-                          <button class="btn btn-dark btn-sm btn-p-hp" data-toggle="modal" data-target="#progress" value="<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>">
-                        Persentase
-                    </button>
-                      </ul>
-                      </td>
-                      <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan2']['perbaikan_hp'][$i]['harga']; ?>
-                          </ul>
-                      </td>
-                       <td >
-                         <ul class="list-inline">
-                              <?= $data['perbaikan2']['perbaikan_hp'][$i]['keterangan_mitra']; ?>
-                          </ul>
-                      </td>
-                      <td>
-                        <?php if($data['perbaikan2']['notif'][$i] != NULL): ?>
-                          <?php if($data['perbaikan2']['notif'][$i][0]['dibaca'] == 'n'): ?>
-                            <script>
-                                $(document).ready(function(){
-                                  $(document).Toasts('create', {
-                                  title: 'Dari <?= $data['perbaikan2']['mitra'][$i][0]['nama_usaha']; ?>',
-                                  body: 'Pesan Untuk Anda :<strong> <?= $_SESSION['login']['data']['nama']; ?></strong><br> Anda mendapatkan pesan terbaru, terkait perbaikan yang anda lakukan.',
-                                  class: 'bg-white',
-                                  subtitle: 'Notifikasi',
-                                  icon: 'fas fa-envelope fa-lg'
-                                })
-                                });
-                            </script>
-                            <?php endif; ?>
-                        <ul class="list-inline">
-                        <?php if ($data['perbaikan2']['notif'][$i][0]['notifikasi'] == 'diskon2'):?>
-                          <a class="btn btn-app dishp" data-toggle="modal" data-target="#diskonhp" id="<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan'];?>">
-                            <i class="fas fa-envelope"></i>Pesan
-                          </a>
-                        <?php endif; ?>
-                        <?php if ($data['perbaikan2']['notif'][$i][0]['notifikasi'] == 'tambah_harga2'):?>
-                          <a class="btn btn-app tmbhp" data-toggle="modal" data-target="#tambahhp" id="<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan'];?>">
-                            <i class="fas fa-envelope"></i>Pesan
-                          </a>
-                        <?php endif; ?>
-                        </ul>
-                      
-                        <?php endif; ?>
-                      </td>
-                  </tr>
-              </tbody>
-              <?php endif; ?>
-            <?php endfor; ?>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-
-    <div class="modal fade" id="progress" tabindex="-1" role="dialog" aria-labelledby="progressLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="content" style="width: 30%; position: absolute; background-color: white; right: 30%; height: 100px;">
-          <div class="pers"   style="width: 90%; margin-top: 10px; margin-left: 10px;">
-            <p>Persentasi Waktu Berakhir :</p>
-            <div class="progress progress-sm">
-              
-              <div class="progress-bar hithari bg-success"></div>
-            </div>
-            <span class="badge bg-info persentase"></span>
-            <span class="badge bg-info waktuberakhir"></span>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-
-
-
-        <!-- Modal -->
-
-  <div class="modal fade" id="diskonlap" tabindex="-1" role="dialog" aria-labelledby="diskonlapLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="diskonlapLabel">Pemberitahuan</h5>
-    
-        </div>
-        <div class="modal-body">
-          Kepada : <?= $_SESSION['login']['data']['nama']; ?>
-          <br><br>
-          <strong>Anda Mendapatkan Diskon!!</strong>
-          <p>Selamat untuk pelanggan yang bernama <?= $_SESSION['login']['data']['nama']; ?>, anda telah mendapatkan
-            diskon dari mitra <strong class="namamitra_dislap"></strong></p>
-          <p>Harga perbaikan Setelah di Diskon adalah : <strong class="harga_dislap"></strong></p>
-          <p>Mitra <strong class="namamitra_dislap"></strong> memberi keterangan :  <strong class="pesan_dislap"></strong></p>
-          <p>Dan TerimaKasih telah Memilih Mitra <strong class="namamitra_dislap"></strong></p>
-
-      </div>
-      <div class="modal-footer">
-       
-        <button type="button" class="btn btn-block btn-warning btn-sm arsip_dislap" data-dismiss="modal" aria-label="Close">Arsipkan</button><br>
-        
-        <button class="btn btn-block btn-danger btn-sm hapus_dislap">Hapus</button>
-      </div>
-      <form action="<?= BASEURL; ?>/pelanggan/diskondibaca" method="POST" id="formdiskon">
-        <input type="text" name="idper_dislap" id="idper_dislap" hidden>
-      </form>
-      <form action="<?= BASEURL; ?>/pelanggan/hapusnotifdiskonlaptop" method="POST" id="formdiskonhapus">
-        <input type="text" name="idper_dislap2" id="idper_dislap2" hidden>
-      </form>
-    </div>
-  </div>
-</div>
-  
-  <div class="modal fade" id="tambahlap" tabindex="-1" role="dialog" aria-labelledby="tambahlapLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tambahlapLabel">Pemberitahuan</h5>
-    
-        </div>
-        <div class="modal-body">
-          Kepada : <?= $_SESSION['login']['data']['nama']; ?>
-          <br><br>
-          <strong>Mitra Mengajukan Penambahan Harga</strong>
-          <p>Perbaikan anda sementara terhenti karena mitra mengajukan penambahan harga, perbaikan membutuhkan biaya :</p>
-          <p>Harga perbaikan : <strong class="harga_tambahlap"></strong></p>
-          <p>Mitra <strong class="namamitra_tambahlap"></strong>, memberi keterangan :  <strong class="pesan_tambahlap"></strong></p>
-          <p style="color:red">Mitra menunggu respon cepat dari anda, jika anda menerima, silahkan tekan tombol setuju, dan jika tidak, perbaikan akan di hentikan dan silahkan ambil barang di Mitra tempat perbaikan.</p>
-          <p>Dan TerimaKasih telah Memilih Mitra <strong class="namamitra_tambahlap"></strong></p>
-
-      </div>
-      <div class="modal-footer">
-       
-        <button type="button" class="btn btn-block btn-success btn-sm lanjutlap" data-dismiss="modal" aria-label="Close">Ya, Setuju</button><br>
-        <button class="btn btn-block btn-danger btn-sm batalkanperbaikanlap">Tidak, Batalkan</button>
-      </div>
-      <form action="<?= BASEURL; ?>/pelanggan/lanjutperbaikan" method="POST" id="lanjutperbaikan">
-        <input type="text" name="idper_tambahlap" id="idper_tambahlap" hidden>
-      </form>
-      <form action="<?= BASEURL; ?>/pelanggan/batalkanperbaikanlaptop" method="POST" id="batalperbaikan">
-        <input type="text" name="idper_batallap" id="idper_batallap" hidden>
-      </form>
-    </div>
-  </div>
-</div>
-
-  <!-- diskon untuk hp -->
-
-    <div class="modal fade" id="diskonhp" tabindex="-1" role="dialog" aria-labelledby="diskonhpLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="diskonhpLabel">Pemberitahuan</h5>
-    
-        </div>
-        <div class="modal-body">
-          Kepada : <?= $_SESSION['login']['data']['nama']; ?>
-          <br><br>
-          <strong>Anda Mendapatkan Diskon!!</strong>
-          <p>Selamat untuk pelanggan yang bernama <?= $_SESSION['login']['data']['nama']; ?>, anda telah mendapatkan
-            diskon dari mitra <strong class="namamitra_dishp"></strong></p>
-          <p>Harga perbaikan Setelah di Diskon adalah : <strong class="harga_dishp"></strong></p>
-          <p>Mitra <strong class="namamitra_dishp"></strong> memberi keterangan :  <strong class="pesan_dishp"></strong></p>
-          <p>Dan TerimaKasih telah Memilih Mitra <strong class="namamitra_dishp"></strong></p>
-
-      </div>
-      <div class="modal-footer">
-       
-        <button type="button" class="btn btn-block btn-warning btn-sm arsip_dishp" data-dismiss="modal" aria-label="Close">Arsipkan</button><br>
-        
-        <button class="btn btn-block btn-danger btn-sm hapus_dishp">Hapus</button>
-      </div>
-      <form action="<?= BASEURL; ?>/pelanggan/diskondibaca2" method="POST" id="formdiskon2">
-        <input type="text" name="idper_dishp" id="idper_dishp" hidden>
-      </form>
-      <form action="<?= BASEURL; ?>/pelanggan/hapusnotifdiskonlaptop2" method="POST" id="formdiskonhapus2">
-        <input type="text" name="idper_dishp2" id="idper_dishp2" hidden>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="tambahhp" tabindex="-1" role="dialog" aria-labelledby="tambahhpLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tambahhpLabel">Pemberitahuan</h5>
-    
-        </div>
-        <div class="modal-body">
-          Kepada : <?= $_SESSION['login']['data']['nama']; ?>
-          <br><br>
-          <strong>Mitra Mengajukan Penambahan Harga</strong>
-          <p>Perbaikan anda sementara terhenti karena mitra mengajukan penambahan harga, perbaikan membutuhkan biaya :</p>
-          <p>Harga perbaikan : <strong class="harga_tambahhp"></strong></p>
-          <p>Mitra <strong class="namamitra_tambahhp"></strong>, memberi keterangan :  <strong class="pesan_tambahhp"></strong></p>
-          <p style="color:red">Mitra menunggu respon cepat dari anda, jika anda menerima, silahkan tekan tombol setuju, dan jika tidak, perbaikan akan di hentikan dan silahkan ambil barang di Mitra tempat perbaikan.</p>
-          <p>Dan TerimaKasih telah Memilih Mitra <strong class="namamitra_tambahhp"></strong></p>
-
-      </div>
-      <div class="modal-footer">
-       
-        <button type="button" class="btn btn-block btn-success btn-sm lanjuthp" data-dismiss="modal" aria-label="Close">Ya, Setuju</button><br>
-        <button class="btn btn-block btn-danger btn-sm batalkanperbaikanhp">Tidak, Batalkan</button>
-      </div>
-      <form action="<?= BASEURL; ?>/pelanggan/lanjutperbaikan2" method="POST" id="lanjutperbaikan2">
-        <input type="text" name="idper_tambahhp" id="idper_tambahhp" hidden>
-      </form>
-      <form action="<?= BASEURL; ?>/pelanggan/batalkanperbaikanhp" method="POST" id="batalperbaikan2">
-        <input type="text" name="idper_batalhp" id="idper_batalhp" hidden>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-  <script>
-    $(document).ready(function(){
-      
-      $('.dislap').click(function(){
-        <?php for ($i=0; $i < count($data['perbaikan']['perbaikan_laptop']); $i++):?>
-              if ("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>" === $(this).attr('id')) {
-                <?php if ($data['perbaikan']['notif'][$i] != NULL):?>
-                $('.namamitra_dislap').text("<?= $data['perbaikan']['mitra'][$i][0]['nama_usaha']; ?>");
-                $('.harga_dislap').text("<?= $data['perbaikan']['perbaikan_laptop'][$i]['harga']; ?>");
-                $('.pesan_dislap').text("<?= $data['perbaikan']['notif'][$i][0]['keterangan']; ?>");
-                $('#idper_dislap').val("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>");
-                $('#idper_dislap2').val("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>");
-              <?php endif; ?>
-              }
-            
-        <?php endfor; ?>
-      });
-
-      $('.arsip_dislap').click(function(){
-          $('#formdiskon').submit();
-      });
-
-      $('.hapus_dislap').click(function(){
-        $('#formdiskonhapus').submit();
-      });
-
-       $('.tmblap').click(function(){
-        <?php for ($i=0; $i < count($data['perbaikan']['perbaikan_laptop']); $i++):?>
-              if ("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>" === $(this).attr('id')) {
-                <?php if ($data['perbaikan']['notif'][$i] != NULL):?>
-                $('.namamitra_tambahlap').text("<?= $data['perbaikan']['mitra'][$i][0]['nama_usaha']; ?>");
-                $('.harga_tambahlap').text("<?= $data['perbaikan']['perbaikan_laptop'][$i]['harga']; ?>");
-                $('.pesan_tambahlap').text("<?= $data['perbaikan']['notif'][$i][0]['keterangan']; ?>");
-                $('#idper_tambahlap').val("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>");
-                $('#idper_batallap').val("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>");
-              <?php endif; ?>
-              }
-        <?php endfor; ?>
-      });
-    
-      $('.lanjutlap').click(function(){
-        $('#lanjutperbaikan').submit();
-      });
-
-      $('.batalkanperbaikanlap').click(function(){
-        $('#batalperbaikan').submit();
-      });
-
-      $('.dishp').click(function(){
-         <?php for ($i=0; $i < count($data['perbaikan2']['perbaikan_hp']); $i++):?>
-            if ("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>" === $(this).attr('id')) {
-              <?php if ($data['perbaikan2']['notif'][$i] != NULL):?>
-              $('.namamitra_dishp').text("<?= $data['perbaikan2']['mitra'][$i][0]['nama_usaha']; ?>");
-              $('.harga_dishp').text("<?= $data['perbaikan2']['perbaikan_hp'][$i]['harga']; ?>");
-              $('.pesan_dishp').text("<?= $data['perbaikan2']['notif'][$i][0]['keterangan']; ?>");
-              $('#idper_dishp').val("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>");
-              $('#idper_dishp2').val("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>");
-              $('#idper_batalhp').val("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>");
-            <?php endif; ?>
-            }
-          
-      <?php endfor; ?>
-      });
-
-      $('.arsip_dishp').click(function(){
-        $('#formdiskon2').submit();
-      });
-
-      $('.hapus_dishp').click(function(){
-        $('#formdiskonhapus2').submit();
-      });
-
-         $('.tmbhp').click(function(){
-        <?php for ($i=0; $i < count($data['perbaikan2']['perbaikan_hp']); $i++):?>
-              if ("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>" === $(this).attr('id')) {
-                <?php if ($data['perbaikan2']['notif'][$i] != NULL):?>
-                $('.namamitra_tambahhp').text("<?= $data['perbaikan2']['mitra'][$i][0]['nama_usaha']; ?>");
-                $('.harga_tambahhp').text("<?= $data['perbaikan2']['perbaikan_hp'][$i]['harga']; ?>");
-                $('.pesan_tambahhp').text("<?= $data['perbaikan2']['notif'][$i][0]['keterangan']; ?>");
-                $('#idper_tambahhp').val("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>");
-                $('#idper_batalhp').val("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>");
-              <?php endif; ?>
-              }
-        <?php endfor; ?>
-      });
-
-      $('.lanjuthp').click(function(){
-        $('#lanjutperbaikan2').submit();;
-      });
-
-      $('.batalkanperbaikanhp').click(function(){
-        $('#batalperbaikan2').submit();
-      });
-
-    });
-  </script>
-
-
+<!-- =============== JAVA SCRIPT =============== -->
 <script>
-  $(document).ready(function(){
-    $('.btn-p-laptop').click(function(){
-    <?php for ($i=0; $i < count($data['perbaikan']['perbaikan_laptop']); $i++):?>
-    <?php if ($data['perbaikan']['perbaikan_laptop'][$i]['id_status_perbaikan'] == 4):?>
-    if ("<?= $data['perbaikan']['perbaikan_laptop'][$i]['id_perbaikan']; ?>" === $(this).val()) {
-      var terakhir = "<?= $data['perbaikan']['waktu'][$i][0]['berakhir']; ?>";
-      //untuk mengambil sisa hari
-      var now = Math.floor(parseInt(terakhir) - Math.floor(moment())) / 86400000;
-      var ambilhari = "<?= $data['perbaikan']['waktu'][$i][0]['waktu_hari']; ?>";
-      let jmlHari = ambilhari.split(' ', 1);
-      let hariDilalui = parseInt(jmlHari) - Math.floor(now);
-      var persentase = Math.floor(hariDilalui) / parseInt(Math.floor(jmlHari)) * 100;
-      let get_harga_awal_lp = "<?= $data['perbaikan']['perbaikan_laptop'][$i]['harga']; ?>";
-      harga_awal_lp = get_harga_awal_lp;
-  // const countday;
-  // alert(Math.floor(persentase));
-    $('.waktuberakhir').text('waktu tinggal : '+Math.floor(now) + ' hari');
-    if (persentase <= 50) {
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.persentase').text(Math.floor(persentase) + '%');
-    }else if (persentase > 50 && persentase < 75) {
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.hithari').addClass('bg-warning');
-    $('.persentase').text(Math.floor(persentase) + '%')
-    }else{
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.hithari').addClass('bg-danger');
-    $('.persentase').text(Math.floor(persentase) + '%')
-    }
-    }
-  <?php endif; ?>
-  <?php endfor; ?>
+  // ================CHECK CONNECTION==============
+  jQuery(document).ready(function($) {
+    checkConnection()
   });
 
-  $('.btn-p-hp').click(function(){
-    <?php for ($i=0; $i < count($data['perbaikan2']['perbaikan_hp']); $i++):?>
-    <?php if ($data['perbaikan2']['perbaikan_hp'][$i]['id_status_perbaikan'] == 4):?>
-    if ("<?= $data['perbaikan2']['perbaikan_hp'][$i]['id_perbaikan']; ?>" === $(this).val()) {
-      var terakhir = "<?= $data['perbaikan2']['waktu'][$i][0]['berakhir']; ?>";
-      //untuk mengambil sisa hari
-      var now = Math.floor(parseInt(terakhir) - Math.floor(moment())) / 86400000;
-      var ambilhari = "<?= $data['perbaikan2']['waktu'][$i][0]['waktu_hari']; ?>";
-      let jmlHari = ambilhari.split(' ', 1);
-      let hariDilalui = parseInt(jmlHari) - Math.floor(now);
-      var persentase = Math.floor(hariDilalui) / parseInt(Math.floor(jmlHari)) * 100;
-      let get_harga_awal_lp = "<?= $data['perbaikan2']['perbaikan_hp'][$i]['harga']; ?>";
-      harga_awal_lp = get_harga_awal_lp;
-  // const countday;
-  // alert(Math.floor(persentase));
-    $('.waktuberakhir').text('waktu tinggal : '+Math.floor(now) + ' hari');
-    if (persentase <= 50) {
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.persentase').text(Math.floor(persentase) + '%');
-    }else if (persentase > 50 && persentase < 75) {
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.hithari').addClass('bg-warning');
-    $('.persentase').text(Math.floor(persentase) + '%')
-    }else{
-    $('.hithari').attr('style', 'width:' + persentase + '%;');
-    $('.hithari').addClass('bg-danger');
-    $('.persentase').text(Math.floor(persentase) + '%')
+  function checkConnection() {
+    var status = navigator.onLine
+    if (status) {
+      alert('connected')
+    } else {
+      setTimeout(function() {
+        toastr.warning(
+          "Anda Tidak Terhubung Ke Internet!!"
+        );
+      }, 150)
     }
-    }
-  <?php endif; ?>
-  <?php endfor; ?>
-  });
+  }
+
+  // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===
+
+  function laptopttd(id) {
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('pelanggan/laptopTtd'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        var text = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          text += data[i].merk_laptop + ' - ' + data[i].tipe_laptop;
+        }
+        $('#tipettd_' + id).text(text);
+      }
+    });
+  }
+
+  // ============== FUNCTION AMBIL DETAIL LAPTOP ==============
+
+  function detail_laptop(id) {
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('pelanggan/detail_laptop'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        var merk = '';
+        var tipe = '';
+        var kerusakan = '';
+        var kerusakan_lain = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          merk += data[i].merk;
+          tipe += data[i].tipe;
+          kerusakan += data[i].kerusakan;
+          kerusakan_lain += data[i].kerusakan_lain;
+        }
+        $('.laptop_merk').text(merk);
+        $('.laptop_tipe').text(tipe);
+        if (kerusakan == 'null') {
+          $('.laptop_kerusakan').text('-');
+        } else {
+          $('.laptop_kerusakan').text(kerusakan);
+        }
+
+        if (kerusakan_lain == '') {
+          $('.laptop_kerusakan_lain').text('-');
+        } else {
+          $('.laptop_kerusakan_lain').text(kerusakan_lain);
+        }
+
+      }
+    });
+  }
+
+  function detail_laptop_ttd(id) {
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('pelanggan/detail_laptop_ttd'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        var merk = '';
+        var tipe = '';
+        var kerusakan = '';
+        var kerusakan_lain = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          merk += data[i].merk;
+          tipe += data[i].tipe;
+          kerusakan += data[i].kerusakan;
+          kerusakan_lain += data[i].kerusakan_lain;
+        }
+        $('.laptop_merk').text(merk);
+        $('.laptop_tipe').text(tipe);
+        if (kerusakan == 'null') {
+          $('.laptop_kerusakan').text('-');
+        } else {
+          $('.laptop_kerusakan').text(kerusakan);
+        }
+
+        if (kerusakan_lain == '') {
+          $('.laptop_kerusakan_lain').text('-');
+        } else {
+          $('.laptop_kerusakan_lain').text(kerusakan_lain);
+        }
+
+      }
+    });
+  }
+
+  // ====================== FUNCTION DETAIL MITRA ==================
+
+  function detail_mitra(id) {
+    checkConnection()
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('pelanggan/detail_mitra'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        console.log(data);
+        var lat = data[0].lat
+        var lng = data[0].lng
+        var nama = data[0].nama_usaha.toUpperCase()
+
+        map(lat, lng, nama)
+        $('.nama_usaha').text(data[0].nama_usaha.toUpperCase())
+        $('.nama_mitra').text(data[0].nama.toUpperCase())
+        $('.keahlian').text(data[0].jenis.toUpperCase())
+        $('.alamat').text(data[0].alamat.toUpperCase())
+        $('.deskripsi').text(data[0].deskripsi.toUpperCase())
+        $('.rating').text(data[0].rating.toUpperCase())
+        $('.foto_usaha').attr('src', '<?= base_url("gallery/"); ?>' + data[0].foto_usaha)
+      }
+    });
+  }
+
+  function map(lat, lng, nama) {
+    setTimeout(function() {
+
+      $('#map').html('<div id="maps" style="height:100%; width:100%;"></div>');
+      var popup = L.popup();
+      var map = L.map('maps').setView([lat, lng], 17);
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      var marker = L.marker([lat, lng]).addTo(map).bindPopup(nama).openPopup();
+    }, 200);
+  }
 
 
-
-
-  });
+  // =================== FUNCTION UNTUK HP ===================
+  function hpttd(id) {
+    var kodes = id;
+    $.ajax({
+      type: 'POST',
+      url: "<?= base_url('pelanggan/hpTtd'); ?>",
+      async: true,
+      dataType: 'json',
+      data: {
+        kode: kodes
+      },
+      cache: false,
+      success: function(data) {
+        var text = '';
+        var i;
+        for (i = 0; i < data.length; i++) {
+          text += data[i].merk_hp + ' - ' + data[i].tipe_hp;
+        }
+        $('#tipettdhp_' + id).text(text);
+      }
+    });
+  }
 </script>
+
+<!-- ======================END OF JAVASCRIPT====================== -->
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Perbaikan</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
+            <li class="breadcrumb-item active">Pengajuan Perbaikan</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Perbaikan Laptop</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <script src="<?= base_url('assets/js/offline.min.js'); ?>"></script>
+        <link rel="stylesheet" href="<?= base_url('assets/css/offlinechrome.css'); ?>">
+        <table class="table table-bordered" id="tb_laptop">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Mitra</th>
+              <th style="width: 20%;">Tanggal</th>
+              <th style="width: 20%;">Status</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($laptop as $val) : ?>
+              <?php if ($val['id_status_perbaikan'] == 1 || $val['id_status_perbaikan'] == 2 || $val['id_status_perbaikan'] == 3) : ?>
+                <tr>
+                  <td><?= $i; ?></td>
+                  <td>
+                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
+                    <?php if ($val['id_tipe'] == 0) : ?>
+
+                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
+
+                      <script>
+                        laptopttd(<?= $val['id_perbaikan']; ?>)
+                      </script>
+
+                      <!-- ======END OF JAVASCRIPT==== -->
+
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)">Detail</button>
+
+                    <?php elseif ($val['id_tipe'] != 0) : ?>
+                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
+                    <?php endif; ?>
+
+                  </td>
+                  <td>
+                    <?= strtoupper($val['mitra']); ?>
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)">Detail</button>
+                  </td>
+                  <td><?= $val['tanggal']; ?></td>
+
+                  <?php $i += 1; ?>
+
+                  <!-- ============= BUTTON STATUS PERBAIKAN ============= -->
+
+                  <?php if ($val['id_status_perbaikan'] == 3) : ?>
+                    <td>
+                      <button class="btn btn-danger btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
+                        Mitra Menolak
+                      </button>
+                    </td>
+
+                  <?php elseif ($val['id_status_perbaikan'] == 1) : ?>
+                    <td>
+                      <button disabled class="btn btn-info btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
+                        Menunggu Persetujuan
+                      </button>
+                    </td>
+                  <?php elseif ($val['id_status_perbaikan'] == 2) : ?>
+                    <td>
+                      <button class="btn btn-success btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
+                        Ambil Voucher
+                      </button>
+                    </td>
+                  <?php endif; ?>
+                <?php endif; ?>
+              <?php endforeach; ?>
+              <!-- ========================= END OF BUTTON =============== -->
+                </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /.card -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Perbaikan Handphone</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Mitra</th>
+              <th style="width: 20%;">Tanggal</th>
+              <th style="width: 20%;">Status</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <?php $i = 1; ?>
+            <?php foreach ($hp as $val) : ?>
+              <tr>
+                <td><?= $i; ?></td>
+                <td>
+                  <span id="tipettdhp_<?= $val['id_perbaikan']; ?>"></span>
+                  <?php if ($val['id_tipe'] == 0) : ?>
+
+                    <!-- ===== FUNCTION JAVASCRIPT ===== -->
+
+                    <script>
+                      hpttd(<?= $val['id_perbaikan']; ?>)
+                    </script>
+
+                    <!-- ======END OF JAVASCRIPT==== -->
+
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)">Detail</button>
+
+                  <?php elseif ($val['id_tipe'] != 0) : ?>
+                    <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
+
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
+                  <?php endif; ?>
+
+                </td>
+                <td>
+                  <?= strtoupper($val['mitra']); ?>
+                  <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)">Detail</button>
+                </td>
+                <td><?= $val['tanggal']; ?></td>
+
+                <?php $i += 1; ?>
+
+                <!-- ============= BUTTON STATUS PERBAIKAN ============= -->
+
+                <?php if ($val['id_status_perbaikan'] == 3) : ?>
+                  <td>
+                    <button class="btn btn-danger btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                      Mitra Menolak
+                    </button>
+                  </td>
+
+                <?php elseif ($val['id_status_perbaikan'] == 1) : ?>
+                  <td>
+                    <button disabled class="btn btn-info btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                      Menunggu Persetujuan
+                    </button>
+                  </td>
+                <?php elseif ($val['id_status_perbaikan'] == 2) : ?>
+                  <td>
+                    <button class="btn btn-success btn-sm t-terimaHp" data-toggle="modal" data-target="#terimaHp" value="">
+                      Ambil Voucher
+                    </button>
+                  </td>
+                <?php endif; ?>
+              <?php endforeach; ?>
+              <!-- ========================= END OF BUTTON =============== -->
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer clearfix">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+<!-- ==========  BAGIAN MODAL ============= -->
+
+<div class="modal fade" id="detailLaptop">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="container-fluid">
+          <table class="table table-bordered">
+
+            <tr>
+              <th><b>Judul</b></th>
+              <th><b>Data</b></th>
+            </tr>
+
+            <tr>
+              <td>Jenis</td>
+              <td>Laptop</td>
+            </tr>
+            <tr>
+              <td>Merk</td>
+              <td class="laptop_merk"></td>
+            </tr>
+            <tr>
+              <td>Tipe</td>
+              <td class="laptop_tipe"></td>
+            </tr>
+            <tr>
+              <td>Kerusakan</td>
+              <td class="laptop_kerusakan"></td>
+            </tr>
+            <tr>
+              <td>Kerusakan Lain</td>
+              <td class="laptop_kerusakan_lain"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="detailMitra">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <table class="table table-bordered">
+          <div class="container-fluid">
+            <tr>
+              <th>Lokasi</th>
+              <th colspan="2" style="width: 40%;">Data</th>
+            </tr>
+            <tr>
+              <td rowspan="10">
+                <div id="map" style="height: 450px; display: block;">
+
+                </div>
+
+              </td>
+              <td style="width: 18%;">
+                <b>NAMA MITRA</b>
+              </td>
+              <td class="nama_usaha"> </td>
+            </tr>
+            <tr>
+              <td colspan="2"><img src="" class="foto_usaha"></td>
+            </tr>
+            <tr>
+              <td><b>NAMA PEMILIK</b></td>
+              <td class="nama_mitra"> </td>
+            </tr>
+            <tr>
+              <td><b>KEAHLIAN</b></td>
+              <td class="keahlian"> </td>
+            </tr>
+            <tr>
+              <td><b>ALAMAT</b></td>
+              <td class="alamat"></td>
+            </tr>
+            <tr>
+              <td><b>DESKRIPSI</b></td>
+              <td class="deskripsi"></td>
+            </tr>
+            <tr>
+              <td><b>RATING</b></td>
+              <td class="rating"></td>
+            </tr>
+
+
+
+
+
+          </div>
+        </table>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

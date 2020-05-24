@@ -28,23 +28,69 @@ class Pelanggan_model extends CI_model
 		$id_user = $preIdUser[0]['id_user'] + 1;
 
 		//query untuk input ke table tb_user;
-		$for_tbUser	= ['id_user' => $id_user, 'username' => $username, 'password' => $password];
+		$for_tbUser	= [
+			'id_user' => $id_user, 'username' => $username, 'password' => $password, 'is_actived' => 0,
+			'date_created' => time()
+		];
 		$insertUser = $this->db->insert('tb_user', $for_tbUser);
+
+		// siapkan token
+		$token = base64_encode(random_bytes(32));
+		$user_token = [
+			'username' => $username,
+			'token' => $token,
+			'date_created' => time()
+		];
+		$this->db->insert('tb_token', $user_token);
+		$this->_sendEmail($token, 'verify');
 
 		$for_tbPelanggan = ['id_pelanggan' => NULL, 'id_jenis' => $id_jenis, 'id_user' => $id_user, 'nama' => $nama, 'email' => $email, 'no_tlp' => $no_tlp, 'alamat' => $alamat];
 		$insertMitra = $this->db->insert('tb_pelanggan', $for_tbPelanggan);
 		// var_dump($for_tbPelanggan);die;
 
 		if ($insertUser && $insertMitra == 1) {
-			echo "sip, tinggal atur redirectnya";
-			die;
-			redirect(base_url());
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "Congratulation! your account has been created. Please activate your account",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
 		} else {
-			echo "gagal";
-			die;
-			redirect(base_url('mitra/registrasi'));
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({width: "auto", text: "maaf ada kesalahan, mohon untuk coba kembali",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect(base_url('pelanggan/registrasi'));
 		}
 	}
+
+	private function _sendEmail($token, $type)
+	{
+		$config = [
+			'protocol'  => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_user' => 'e41182271@student.polije.ac.id',
+			'smtp_pass' => 'E41182271',
+			'smtp_port' => 465,
+			'mailtype'  => 'html',
+			'charset'   => 'utf-8'
+		];
+
+		$this->email->set_newline("\r\n");
+		$this->email->initialize($config);
+
+		$this->email->from('e41182271@student.polije.ac.id', 'Repairme');
+		$this->email->to($this->input->post('email'));
+
+		if ($type == 'verify') {
+			$this->email->subject('Account Verification');
+			$this->email->message('Klik link ini untuk aktifasi akun anda : <a href="' . base_url() . 'pelanggan/verify?username=' . $this->input->post('username') . '&token=' . urlencode($token) . '">Activate</a>');
+		} else if ($type == 'forgot') {
+			$this->email->subject('Reset Password');
+			$this->email->message('Click this link to reset your password : <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
+		}
+
+		if ($this->email->send()) {
+			return true;
+		} else {
+			echo $this->email->print_debugger();
+			die;
+		}
+	}
+
 
 	public function pengajuanLaptop($id)
 	{
@@ -77,5 +123,13 @@ class Pelanggan_model extends CI_model
 		$data_pelanggan	= ['nama' => $nama, 'email' => $email, 'no_tlp' => $no, 'alamat' => $alamat];
 		$this->db->where('id_pelanggan', $id);
 		$this->db->update('tb_pelanggan', $data_pelanggan);
+	}
+	public function getVoucher($id,$jenis)
+	{
+		if ($jenis == 'laptop') {
+			return $this->db->get_where('tb_voucher_laptop', ['id_perbaikan_laptop' => $id])->result_array();
+		}else if ($jenis == 'hp') {
+			return $this->db->get_where('tb_voucher_hp', ['id_perbaikan_hp' => $id])->result_array();
+		}
 	}
 }

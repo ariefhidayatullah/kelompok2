@@ -30,6 +30,7 @@
 
 		<div class="col-sm-6 formLocate mt-80" style="padding: 0 3%; min-height: 500px;">
 			<h4 class="font-alt judul">Registrasi Pelanggan</h4>
+			<?= $this->session->flashdata('message'); ?>
 			<hr class="divider-w mb-20">
 			<form class="form" action="<?= base_url(); ?>pelanggan/insertpelanggan" method="POST">
 				<div class="dataDiri">

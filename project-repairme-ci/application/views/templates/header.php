@@ -6,14 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= $judul; ?></title>
-
-  <link href="<?= base_url(); ?>assets/home-master/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Templates-->
-
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="<?= base_url(); ?>assets/home-master/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
   <link href="<?= base_url(); ?>assets/home-master/assets/lib/animate.css/animate.css" rel="stylesheet">
@@ -98,3 +96,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+    jQuery(document).ready(function($) {
+      checkConnection()
+    });
+    function checkConnection() {
+        var status = navigator.onLine
+        if (status) {
+          $('head').append('<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">');
+        } else {
+        setTimeout(function() {
+          toastr.warning(
+          "Anda Tidak Terhubung Ke Internet!!"
+          );
+          }, 150)
+        }
+      }
+    </script>

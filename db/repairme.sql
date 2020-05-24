@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 02 Feb 2020 pada 13.38
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.1.32
+-- Host: localhost
+-- Generation Time: May 22, 2020 at 12:47 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -22,10 +22,20 @@ SET time_zone = "+00:00";
 -- Database: `repairme`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getPerbaikan` (IN `id_pel` INT(11))  BEGIN 
+SELECT tb_tipe_laptop.tipe_laptop AS tipe, tb_merk_laptop.merk_laptop AS merk, tb_mitra.nama_usaha as mitra, tanggal FROM tb_perbaikan_laptop JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra WHERE id_pelanggan = id_pel;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_admin`
+-- Table structure for table `tb_admin`
 --
 
 CREATE TABLE `tb_admin` (
@@ -38,7 +48,7 @@ CREATE TABLE `tb_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_admin`
+-- Dumping data for table `tb_admin`
 --
 
 INSERT INTO `tb_admin` (`id_admin`, `id_jenis`, `id_user`, `nama`, `email`, `no_tlp`) VALUES
@@ -47,7 +57,7 @@ INSERT INTO `tb_admin` (`id_admin`, `id_jenis`, `id_user`, `nama`, `email`, `no_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_jenis`
+-- Table structure for table `tb_jenis`
 --
 
 CREATE TABLE `tb_jenis` (
@@ -56,7 +66,7 @@ CREATE TABLE `tb_jenis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_jenis`
+-- Dumping data for table `tb_jenis`
 --
 
 INSERT INTO `tb_jenis` (`id_jenis`, `jenis`) VALUES
@@ -67,7 +77,7 @@ INSERT INTO `tb_jenis` (`id_jenis`, `jenis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_kerusakan_hp`
+-- Table structure for table `tb_kerusakan_hp`
 --
 
 CREATE TABLE `tb_kerusakan_hp` (
@@ -76,7 +86,7 @@ CREATE TABLE `tb_kerusakan_hp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_kerusakan_hp`
+-- Dumping data for table `tb_kerusakan_hp`
 --
 
 INSERT INTO `tb_kerusakan_hp` (`id_kerusakan_hp`, `kerusakan_hp`) VALUES
@@ -91,7 +101,7 @@ INSERT INTO `tb_kerusakan_hp` (`id_kerusakan_hp`, `kerusakan_hp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_kerusakan_laptop`
+-- Table structure for table `tb_kerusakan_laptop`
 --
 
 CREATE TABLE `tb_kerusakan_laptop` (
@@ -100,7 +110,7 @@ CREATE TABLE `tb_kerusakan_laptop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_kerusakan_laptop`
+-- Dumping data for table `tb_kerusakan_laptop`
 --
 
 INSERT INTO `tb_kerusakan_laptop` (`id_kerusakan_laptop`, `kerusakan_laptop`) VALUES
@@ -110,12 +120,13 @@ INSERT INTO `tb_kerusakan_laptop` (`id_kerusakan_laptop`, `kerusakan_laptop`) VA
 (5, 'Mati total'),
 (6, 'Hardisk rusak'),
 (7, 'Kursor Eror'),
-(8, 'Blue Screen');
+(8, 'Blue Screen'),
+(10, 'sdfsdfasdfds');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_merk_hp`
+-- Table structure for table `tb_merk_hp`
 --
 
 CREATE TABLE `tb_merk_hp` (
@@ -124,7 +135,7 @@ CREATE TABLE `tb_merk_hp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_merk_hp`
+-- Dumping data for table `tb_merk_hp`
 --
 
 INSERT INTO `tb_merk_hp` (`id_merk_hp`, `merk_hp`) VALUES
@@ -139,7 +150,7 @@ INSERT INTO `tb_merk_hp` (`id_merk_hp`, `merk_hp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_merk_laptop`
+-- Table structure for table `tb_merk_laptop`
 --
 
 CREATE TABLE `tb_merk_laptop` (
@@ -148,7 +159,7 @@ CREATE TABLE `tb_merk_laptop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_merk_laptop`
+-- Dumping data for table `tb_merk_laptop`
 --
 
 INSERT INTO `tb_merk_laptop` (`id_merk_laptop`, `merk_laptop`) VALUES
@@ -168,7 +179,7 @@ INSERT INTO `tb_merk_laptop` (`id_merk_laptop`, `merk_laptop`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_mitra`
+-- Table structure for table `tb_mitra`
 --
 
 CREATE TABLE `tb_mitra` (
@@ -191,21 +202,23 @@ CREATE TABLE `tb_mitra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_mitra`
+-- Dumping data for table `tb_mitra`
 --
 
 INSERT INTO `tb_mitra` (`id_mitra`, `id_jenis`, `id_user`, `jenis`, `nama`, `nama_usaha`, `email`, `alamat`, `lat`, `lng`, `no_tlp`, `foto_ktp`, `foto_usaha`, `foto_transaksi`, `deskripsi`, `rating`) VALUES
-(66, 2, 4, 'serbabisa', 'indah pertiwi', 'indahcell', 'indah@mail.com', 'kauman', '-7.913478948634584', '113.8200195532897', '081234567890', '5e094f771ecf9.jpeg', '5e094f771f56c.jpg', '5e09599a2ce1e.jpeg', '-', 0),
-(67, 2, 5, 'serbabisa', 'ari india', 'aricell', 'ari@mail.com', 'kauman bondowoso', '-7.914430034184133', '113.82056675307207', '081234567890', '5e09530645ecb.jpeg', '5e0953064690a.jpg', '5e09533dc6c8f.jpeg', '-', 0);
+(66, 2, 4, 'serbabisa', 'indah pertiwi', 'indahcell', 'indah@mail.com', 'kauman', '-7.913478948634584', '113.8200195532897', '081234567890', '5e094f771ecf9.jpeg', '5e09599a2ce1e.jpeg', '5e09599a2ce1e.jpeg', '-', 4),
+(67, 2, 5, 'serbabisa', 'ari india', 'aricell', 'ari@mail.com', 'kauman bondowoso', '-7.914430034184133', '113.82056675307207', '081234567890', '5e09530645ecb.jpeg', '5e0953064690a.jpg', '5e37b1b126508.png', '-', 0),
+(68, 2, 7, 'serbabisa', 'asefasdf', 'sdfsdfsd', 'asdfdsf@sdfdf.df', 'sdfsdfsd', '-7.913287668594195', '113.82072590697', '123213123213', 'foto_ktp_sdfsdfsd_id7', 'foto_usaha_sdfsdfsd_id7', NULL, '-', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_notif_mitra`
+-- Table structure for table `tb_notif_mitra`
 --
 
 CREATE TABLE `tb_notif_mitra` (
   `id_notif_mitra` int(11) NOT NULL,
+  `id_pelanggan` int(11) NOT NULL,
   `notifikasi` varchar(30) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `id_perbaikan` int(11) NOT NULL,
@@ -213,17 +226,19 @@ CREATE TABLE `tb_notif_mitra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_notif_mitra`
+-- Dumping data for table `tb_notif_mitra`
 --
 
-INSERT INTO `tb_notif_mitra` (`id_notif_mitra`, `notifikasi`, `keterangan`, `id_perbaikan`, `dibaca`) VALUES
-(29, 'diskon2', 'diskon tahun baru', 5007, 'n'),
-(30, 'tambah_harga2', 'beli alat', 5007, 'n');
+INSERT INTO `tb_notif_mitra` (`id_notif_mitra`, `id_pelanggan`, `notifikasi`, `keterangan`, `id_perbaikan`, `dibaca`) VALUES
+(71, 33, 'diskon_laptop', 'diskon hari raya', 1, 'n'),
+(72, 33, 'tambah_harga_laptop', 'ada biaya tambahan', 2, 'n'),
+(73, 33, 'diskon_hp', 'diskon hari raya', 1, 'n'),
+(74, 33, 'tambah_harga_hp', 'ada biaya tambahan', 2, 'n');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_notif_pelanggan`
+-- Table structure for table `tb_notif_pelanggan`
 --
 
 CREATE TABLE `tb_notif_pelanggan` (
@@ -237,7 +252,7 @@ CREATE TABLE `tb_notif_pelanggan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_paket`
+-- Table structure for table `tb_paket`
 --
 
 CREATE TABLE `tb_paket` (
@@ -247,7 +262,7 @@ CREATE TABLE `tb_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_paket`
+-- Dumping data for table `tb_paket`
 --
 
 INSERT INTO `tb_paket` (`id_paket`, `nama_paket`, `harga`) VALUES
@@ -257,7 +272,7 @@ INSERT INTO `tb_paket` (`id_paket`, `nama_paket`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_pelanggan`
+-- Table structure for table `tb_pelanggan`
 --
 
 CREATE TABLE `tb_pelanggan` (
@@ -271,17 +286,19 @@ CREATE TABLE `tb_pelanggan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_pelanggan`
+-- Dumping data for table `tb_pelanggan`
 --
 
 INSERT INTO `tb_pelanggan` (`id_pelanggan`, `id_jenis`, `id_user`, `nama`, `email`, `no_tlp`, `alamat`) VALUES
 (33, '3', '3', 'andika firman', 'andikafirman99@gmail.com', '087756476534', 'maesan bondowoso'),
-(34, '3', '6', 'ana afi', 'ana@mail.com', '081559855799', 'pal 9 bondowoso');
+(34, '3', '6', 'ana afi', 'ana@mail.com', '081559855799', 'pal 9 bondowoso'),
+(35, '3', '8', 'asfdsf', 'asdf@sadfs.df', '12312312312', 'sdfsdfdsfds'),
+(36, '3', '9', 'budi sentosa', 'budi@sentosa.com', '08723283234', 'bondowoso');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_perbaikan_hp`
+-- Table structure for table `tb_perbaikan_hp`
 --
 
 CREATE TABLE `tb_perbaikan_hp` (
@@ -290,24 +307,26 @@ CREATE TABLE `tb_perbaikan_hp` (
   `id_pelanggan` int(11) NOT NULL,
   `id_mitra` int(11) NOT NULL,
   `id_tipe_hp` int(11) NOT NULL,
-  `id_ttd_hp` int(11) NOT NULL,
   `id_kerusakan_hp` int(11) NOT NULL,
   `kerusakan_lain` varchar(30) NOT NULL,
   `keterangan_mitra` varchar(50) NOT NULL,
+  `tanggal` varchar(50) NOT NULL,
   `harga` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_perbaikan_hp`
+-- Dumping data for table `tb_perbaikan_hp`
 --
 
-INSERT INTO `tb_perbaikan_hp` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_hp`, `id_ttd_hp`, `id_kerusakan_hp`, `kerusakan_lain`, `keterangan_mitra`, `harga`) VALUES
-(5007, 5, 33, 66, 1, 0, 8, 'tercebur air', 'beli alat', 'Rp. 230.000,00');
+INSERT INTO `tb_perbaikan_hp` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_hp`, `id_kerusakan_hp`, `kerusakan_lain`, `keterangan_mitra`, `tanggal`, `harga`) VALUES
+(1, 4, 33, 66, 0, 1, 'adf', 'mungkin ada biaya tambahan', '15 Mei 2020', 'Rp. 100.000,00'),
+(2, 5, 33, 66, 1, 4, '', 'copot ya', '15 Mei 2020', 'Rp. 200.000,00'),
+(3, 1, 33, 67, 0, 0, 'rusak rusak parah', '', '10 Mei 2020', '0');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_perbaikan_laptop`
+-- Table structure for table `tb_perbaikan_laptop`
 --
 
 CREATE TABLE `tb_perbaikan_laptop` (
@@ -316,25 +335,29 @@ CREATE TABLE `tb_perbaikan_laptop` (
   `id_pelanggan` int(11) NOT NULL,
   `id_mitra` int(11) NOT NULL,
   `id_tipe_laptop` int(11) NOT NULL,
-  `id_ttd_laptop` int(11) NOT NULL,
   `id_kerusakan_laptop` int(11) NOT NULL,
   `kerusakan_lain` varchar(30) NOT NULL,
   `keterangan_mitra` varchar(50) NOT NULL,
+  `tanggal` varchar(50) NOT NULL,
   `harga` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_perbaikan_laptop`
+-- Dumping data for table `tb_perbaikan_laptop`
 --
 
-INSERT INTO `tb_perbaikan_laptop` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_laptop`, `id_ttd_laptop`, `id_kerusakan_laptop`, `kerusakan_lain`, `keterangan_mitra`, `harga`) VALUES
-(36, 8, 34, 67, 23, 0, 6, 'booting terus', 'mungkin ada biaya tambahan', 'Rp. 100.000,00'),
-(37, 8, 33, 66, 15, 0, 1, '', 'mungkin ada tambahan', 'Rp. 165.000,00');
+INSERT INTO `tb_perbaikan_laptop` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_laptop`, `id_kerusakan_laptop`, `kerusakan_lain`, `keterangan_mitra`, `tanggal`, `harga`) VALUES
+(1, 4, 33, 66, 0, 4, 'mudah ', '', '15 Mei 2020', 'Rp. 58.615,00'),
+(2, 5, 33, 66, 23, 0, 'as', '', '14 Mei 2020', 'Rp. 61.349,00'),
+(3, 1, 33, 66, 19, 4, 'oke', '', '09 Mei 2020', 'Rp. 51.349,00'),
+(4, 1, 33, 67, 0, 0, 'yolma', '', '10 Mei 2020', 'Rp. 51.349,00'),
+(5, 1, 36, 66, 0, 0, 'rusak dor', '', '11 Mei 2020', 'Rp. 51.349,00'),
+(6, 1, 33, 68, 0, 0, 'sangat rusak', '', '12 Mei 2020', 'Rp. 51.349,00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_rating`
+-- Table structure for table `tb_rating`
 --
 
 CREATE TABLE `tb_rating` (
@@ -345,10 +368,17 @@ CREATE TABLE `tb_rating` (
   `testimoni` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_rating`
+--
+
+INSERT INTO `tb_rating` (`id_rating`, `id_pelanggan`, `id_mitra`, `rating`, `testimoni`) VALUES
+(17, 33, 66, 4, '');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_status_perbaikan`
+-- Table structure for table `tb_status_perbaikan`
 --
 
 CREATE TABLE `tb_status_perbaikan` (
@@ -357,7 +387,7 @@ CREATE TABLE `tb_status_perbaikan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_status_perbaikan`
+-- Dumping data for table `tb_status_perbaikan`
 --
 
 INSERT INTO `tb_status_perbaikan` (`id_status_perbaikan`, `status_perbaikan`) VALUES
@@ -365,7 +395,7 @@ INSERT INTO `tb_status_perbaikan` (`id_status_perbaikan`, `status_perbaikan`) VA
 (2, 'Mitra Siap Memperbaiki'),
 (3, 'Mitra Menolak Perbaikan'),
 (4, 'Sedang Diperbaiki'),
-(5, 'Terdapat Perubahan'),
+(5, 'Di Hentikan Sementara'),
 (6, 'Perbaikan Dibatalkan'),
 (7, 'Perbaikan Selesai'),
 (8, 'Sudah Dijemput');
@@ -373,7 +403,7 @@ INSERT INTO `tb_status_perbaikan` (`id_status_perbaikan`, `status_perbaikan`) VA
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_tipe_hp`
+-- Table structure for table `tb_tipe_hp`
 --
 
 CREATE TABLE `tb_tipe_hp` (
@@ -383,7 +413,7 @@ CREATE TABLE `tb_tipe_hp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_tipe_hp`
+-- Dumping data for table `tb_tipe_hp`
 --
 
 INSERT INTO `tb_tipe_hp` (`id_tipe_hp`, `tipe_hp`, `id_merk_hp`) VALUES
@@ -392,12 +422,12 @@ INSERT INTO `tb_tipe_hp` (`id_tipe_hp`, `tipe_hp`, `id_merk_hp`) VALUES
 (3, 'Redmi Note 5', 2),
 (7, 'Note 10', 1),
 (9, 'redmi 6', 2),
-(10, 'Note pro 7', 2);
+(10, 'Note pro 7 j', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_tipe_laptop`
+-- Table structure for table `tb_tipe_laptop`
 --
 
 CREATE TABLE `tb_tipe_laptop` (
@@ -407,7 +437,7 @@ CREATE TABLE `tb_tipe_laptop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_tipe_laptop`
+-- Dumping data for table `tb_tipe_laptop`
 --
 
 INSERT INTO `tb_tipe_laptop` (`id_tipe_laptop`, `tipe_laptop`, `id_merk_laptop`) VALUES
@@ -421,59 +451,98 @@ INSERT INTO `tb_tipe_laptop` (`id_tipe_laptop`, `tipe_laptop`, `id_merk_laptop`)
 (22, 'Nitro 5', 7),
 (23, 'advest 0976', 8),
 (24, 'adv pro gaming', 8),
-(25, 'vivo01', 16);
+(25, 'vivo01', 16),
+(26, 'X4455T', 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_ttd_hp`
+-- Table structure for table `tb_token`
+--
+
+CREATE TABLE `tb_token` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_ttd_hp`
 --
 
 CREATE TABLE `tb_ttd_hp` (
   `id_ttd_hp` int(11) NOT NULL,
+  `id_perbaikan` int(11) NOT NULL,
   `merk_hp` varchar(20) NOT NULL,
   `tipe_hp` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_ttd_hp`
+--
+
+INSERT INTO `tb_ttd_hp` (`id_ttd_hp`, `id_perbaikan`, `merk_hp`, `tipe_hp`) VALUES
+(1, 1, 'samsul ', 'arf'),
+(2, 3, 'Xiaomi', 'jumbo');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_ttd_laptop`
+-- Table structure for table `tb_ttd_laptop`
 --
 
 CREATE TABLE `tb_ttd_laptop` (
   `id_ttd_laptop` int(11) NOT NULL,
+  `id_perbaikan` int(11) NOT NULL,
   `merk_laptop` varchar(20) NOT NULL,
   `tipe_laptop` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_ttd_laptop`
+--
+
+INSERT INTO `tb_ttd_laptop` (`id_ttd_laptop`, `id_perbaikan`, `merk_laptop`, `tipe_laptop`) VALUES
+(1, 1, 'usus', 'buntu'),
+(2, 4, 'Asus', 'snsv'),
+(3, 5, 'Asus', 'buntu'),
+(4, 6, 'sangat', 'buntu');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `is_actived` int(1) NOT NULL,
+  `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `password`) VALUES
-(1, 'admin', '$2y$10$dTTtjRn/BvzLnmIPN0ReG.9Q6qamYYeLydNRToD4GlZRtJBV1FM5.'),
-(3, 'andika99', '$2y$10$Dk3ng0oBjQuJHwQGtjm0j.mMg83lfaU7NZmpM9fam3oBe1AXo09wG'),
-(4, 'indahcell', '$2y$10$YoG2JzhvJaooAAtwKkj1veD/8Yj31ogJh/LidadryujAeuiCltzey'),
-(5, 'aricell', '$2y$10$HRXq5dFwqo49LidEq8eYJ.SKZyCgn7wxLyhiAN6kRMEzd363ojWji'),
-(6, 'anaafi', '$2y$10$wU4B4Tgt29TsYs8ZTXMNO.IjmtgBV5Uds9WFm4HOrwBTyUgjaGT5.');
+INSERT INTO `tb_user` (`id_user`, `username`, `password`, `is_actived`, `date_created`) VALUES
+(1, 'admin', '$2y$10$dTTtjRn/BvzLnmIPN0ReG.9Q6qamYYeLydNRToD4GlZRtJBV1FM5.', 0, 0),
+(3, 'andika99', '$2y$10$Dk3ng0oBjQuJHwQGtjm0j.mMg83lfaU7NZmpM9fam3oBe1AXo09wG', 1, 0),
+(4, 'indahcell', '$2y$10$YoG2JzhvJaooAAtwKkj1veD/8Yj31ogJh/LidadryujAeuiCltzey', 1, 0),
+(5, 'aricell', '$2y$10$HRXq5dFwqo49LidEq8eYJ.SKZyCgn7wxLyhiAN6kRMEzd363ojWji', 0, 0),
+(6, 'anaafi', '$2y$10$wU4B4Tgt29TsYs8ZTXMNO.IjmtgBV5Uds9WFm4HOrwBTyUgjaGT5.', 0, 0),
+(7, 'asdfasdf', '$2y$10$ez4gpELjtHIJ0vTOc8mBPuWJ5Y1MG8HHl6zix7t3/XwTEnVhndYUq', 0, 0),
+(8, 'okegoes', '$2y$10$dAahgiK3D/MslMXl9A8UnOLzU9jBTynY2Nm8h8GWEHZ7RLwWxYc46', 0, 0),
+(9, 'saih', '$2y$10$vucLTE0LwhABebvZbdJRS.JFSx5740QwO0k4ESl33LlpC/5E8Nejm', 1, 1589842859);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_voucher_hp`
+-- Table structure for table `tb_voucher_hp`
 --
 
 CREATE TABLE `tb_voucher_hp` (
@@ -483,16 +552,17 @@ CREATE TABLE `tb_voucher_hp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_voucher_hp`
+-- Dumping data for table `tb_voucher_hp`
 --
 
 INSERT INTO `tb_voucher_hp` (`id_voucher_hp`, `voucher_hp`, `id_perbaikan_hp`) VALUES
-(14, 'q2KpEDR', 5007);
+(15, '1aca8bk', 1),
+(16, 'mwt666p', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_voucher_laptop`
+-- Table structure for table `tb_voucher_laptop`
 --
 
 CREATE TABLE `tb_voucher_laptop` (
@@ -502,17 +572,17 @@ CREATE TABLE `tb_voucher_laptop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_voucher_laptop`
+-- Dumping data for table `tb_voucher_laptop`
 --
 
 INSERT INTO `tb_voucher_laptop` (`id_voucher_laptop`, `voucher_laptop`, `id_perbaikan_laptop`) VALUES
-(24, 'V1zbqrA', 36),
-(25, 'cSLtrLB', 37);
+(28, 'ehr5fly', 2),
+(29, '5fxt3mf', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_waktu_perbaikan_hp`
+-- Table structure for table `tb_waktu_perbaikan_hp`
 --
 
 CREATE TABLE `tb_waktu_perbaikan_hp` (
@@ -524,16 +594,17 @@ CREATE TABLE `tb_waktu_perbaikan_hp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_waktu_perbaikan_hp`
+-- Dumping data for table `tb_waktu_perbaikan_hp`
 --
 
 INSERT INTO `tb_waktu_perbaikan_hp` (`id_waktu_perbaikan_hp`, `waktu_tanggal`, `waktu_hari`, `berakhir`, `id_perbaikan_hp`) VALUES
-(6, '30-December-2019 sampai 6-January-2020', '7 hari', '1578329999999', 5007);
+(10, '20-May-2020 sampai 27-May-2020', '7 hari', '1590598799999', 1),
+(11, '20-May-2020 sampai 1-June-2020', '12 hari', '1591030799999', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_waktu_perbaikan_laptop`
+-- Table structure for table `tb_waktu_perbaikan_laptop`
 --
 
 CREATE TABLE `tb_waktu_perbaikan_laptop` (
@@ -545,17 +616,17 @@ CREATE TABLE `tb_waktu_perbaikan_laptop` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_waktu_perbaikan_laptop`
+-- Dumping data for table `tb_waktu_perbaikan_laptop`
 --
 
 INSERT INTO `tb_waktu_perbaikan_laptop` (`id_waktu_perbaikan_laptop`, `waktu_tanggal`, `waktu_hari`, `berakhir`, `id_perbaikan_laptop`) VALUES
-(22, '30-December-2019 sampai 6-January-2020', '7 hari', '1578329999999', 36),
-(23, '30-December-2019 sampai 13-January-2020', '14 hari', '1578934799999', 37);
+(29, '18-May-2020 sampai 25-May-2020', '7 hari', '1590425999999', 2),
+(31, '18-May-2020 sampai 30-May-2020', '12 hari', '1590857999999', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `verifikasi_mitra`
+-- Table structure for table `verifikasi_mitra`
 --
 
 CREATE TABLE `verifikasi_mitra` (
@@ -567,7 +638,7 @@ CREATE TABLE `verifikasi_mitra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `verifikasi_mitra`
+-- Dumping data for table `verifikasi_mitra`
 --
 
 INSERT INTO `verifikasi_mitra` (`id_verifikasi`, `id_mitra`, `lama`, `harga`, `tanggal_hari`) VALUES
@@ -580,275 +651,276 @@ INSERT INTO `verifikasi_mitra` (`id_verifikasi`, `id_mitra`, `lama`, `harga`, `t
 --
 
 --
--- Indeks untuk tabel `tb_admin`
+-- Indexes for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indeks untuk tabel `tb_jenis`
+-- Indexes for table `tb_jenis`
 --
 ALTER TABLE `tb_jenis`
   ADD PRIMARY KEY (`id_jenis`);
 
 --
--- Indeks untuk tabel `tb_kerusakan_hp`
+-- Indexes for table `tb_kerusakan_hp`
 --
 ALTER TABLE `tb_kerusakan_hp`
   ADD PRIMARY KEY (`id_kerusakan_hp`);
 
 --
--- Indeks untuk tabel `tb_kerusakan_laptop`
+-- Indexes for table `tb_kerusakan_laptop`
 --
 ALTER TABLE `tb_kerusakan_laptop`
   ADD PRIMARY KEY (`id_kerusakan_laptop`);
 
 --
--- Indeks untuk tabel `tb_merk_hp`
+-- Indexes for table `tb_merk_hp`
 --
 ALTER TABLE `tb_merk_hp`
   ADD PRIMARY KEY (`id_merk_hp`);
 
 --
--- Indeks untuk tabel `tb_merk_laptop`
+-- Indexes for table `tb_merk_laptop`
 --
 ALTER TABLE `tb_merk_laptop`
   ADD PRIMARY KEY (`id_merk_laptop`);
 
 --
--- Indeks untuk tabel `tb_mitra`
+-- Indexes for table `tb_mitra`
 --
 ALTER TABLE `tb_mitra`
   ADD PRIMARY KEY (`id_mitra`);
 
 --
--- Indeks untuk tabel `tb_notif_mitra`
+-- Indexes for table `tb_notif_mitra`
 --
 ALTER TABLE `tb_notif_mitra`
   ADD PRIMARY KEY (`id_notif_mitra`);
 
 --
--- Indeks untuk tabel `tb_notif_pelanggan`
+-- Indexes for table `tb_notif_pelanggan`
 --
 ALTER TABLE `tb_notif_pelanggan`
   ADD PRIMARY KEY (`id_notif_pelanggan`);
 
 --
--- Indeks untuk tabel `tb_paket`
+-- Indexes for table `tb_paket`
 --
 ALTER TABLE `tb_paket`
   ADD PRIMARY KEY (`id_paket`);
 
 --
--- Indeks untuk tabel `tb_pelanggan`
+-- Indexes for table `tb_pelanggan`
 --
 ALTER TABLE `tb_pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`);
 
 --
--- Indeks untuk tabel `tb_perbaikan_hp`
+-- Indexes for table `tb_perbaikan_hp`
 --
 ALTER TABLE `tb_perbaikan_hp`
   ADD PRIMARY KEY (`id_perbaikan`);
 
 --
--- Indeks untuk tabel `tb_perbaikan_laptop`
+-- Indexes for table `tb_perbaikan_laptop`
 --
 ALTER TABLE `tb_perbaikan_laptop`
-  ADD PRIMARY KEY (`id_perbaikan`);
+  ADD PRIMARY KEY (`id_perbaikan`),
+  ADD UNIQUE KEY `id_perbaikan` (`id_perbaikan`);
 
 --
--- Indeks untuk tabel `tb_rating`
+-- Indexes for table `tb_rating`
 --
 ALTER TABLE `tb_rating`
   ADD PRIMARY KEY (`id_rating`);
 
 --
--- Indeks untuk tabel `tb_status_perbaikan`
+-- Indexes for table `tb_status_perbaikan`
 --
 ALTER TABLE `tb_status_perbaikan`
   ADD PRIMARY KEY (`id_status_perbaikan`);
 
 --
--- Indeks untuk tabel `tb_tipe_hp`
+-- Indexes for table `tb_tipe_hp`
 --
 ALTER TABLE `tb_tipe_hp`
   ADD PRIMARY KEY (`id_tipe_hp`);
 
 --
--- Indeks untuk tabel `tb_tipe_laptop`
+-- Indexes for table `tb_tipe_laptop`
 --
 ALTER TABLE `tb_tipe_laptop`
   ADD PRIMARY KEY (`id_tipe_laptop`);
 
 --
--- Indeks untuk tabel `tb_ttd_hp`
+-- Indexes for table `tb_token`
+--
+ALTER TABLE `tb_token`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_ttd_hp`
 --
 ALTER TABLE `tb_ttd_hp`
   ADD PRIMARY KEY (`id_ttd_hp`);
 
 --
--- Indeks untuk tabel `tb_ttd_laptop`
+-- Indexes for table `tb_ttd_laptop`
 --
 ALTER TABLE `tb_ttd_laptop`
   ADD PRIMARY KEY (`id_ttd_laptop`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `tb_voucher_hp`
+-- Indexes for table `tb_voucher_hp`
 --
 ALTER TABLE `tb_voucher_hp`
   ADD PRIMARY KEY (`id_voucher_hp`);
 
 --
--- Indeks untuk tabel `tb_voucher_laptop`
+-- Indexes for table `tb_voucher_laptop`
 --
 ALTER TABLE `tb_voucher_laptop`
   ADD PRIMARY KEY (`id_voucher_laptop`);
 
 --
--- Indeks untuk tabel `tb_waktu_perbaikan_hp`
+-- Indexes for table `tb_waktu_perbaikan_hp`
 --
 ALTER TABLE `tb_waktu_perbaikan_hp`
   ADD PRIMARY KEY (`id_waktu_perbaikan_hp`);
 
 --
--- Indeks untuk tabel `tb_waktu_perbaikan_laptop`
+-- Indexes for table `tb_waktu_perbaikan_laptop`
 --
 ALTER TABLE `tb_waktu_perbaikan_laptop`
   ADD PRIMARY KEY (`id_waktu_perbaikan_laptop`);
 
 --
--- Indeks untuk tabel `verifikasi_mitra`
+-- Indexes for table `verifikasi_mitra`
 --
 ALTER TABLE `verifikasi_mitra`
   ADD PRIMARY KEY (`id_verifikasi`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_admin`
+-- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
   MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_kerusakan_hp`
+-- AUTO_INCREMENT for table `tb_kerusakan_hp`
 --
 ALTER TABLE `tb_kerusakan_hp`
   MODIFY `id_kerusakan_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_kerusakan_laptop`
+-- AUTO_INCREMENT for table `tb_kerusakan_laptop`
 --
 ALTER TABLE `tb_kerusakan_laptop`
-  MODIFY `id_kerusakan_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kerusakan_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_merk_hp`
+-- AUTO_INCREMENT for table `tb_merk_hp`
 --
 ALTER TABLE `tb_merk_hp`
   MODIFY `id_merk_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_merk_laptop`
+-- AUTO_INCREMENT for table `tb_merk_laptop`
 --
 ALTER TABLE `tb_merk_laptop`
   MODIFY `id_merk_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_mitra`
+-- AUTO_INCREMENT for table `tb_mitra`
 --
 ALTER TABLE `tb_mitra`
-  MODIFY `id_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_notif_mitra`
+-- AUTO_INCREMENT for table `tb_notif_mitra`
 --
 ALTER TABLE `tb_notif_mitra`
-  MODIFY `id_notif_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_notif_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_notif_pelanggan`
+-- AUTO_INCREMENT for table `tb_notif_pelanggan`
 --
 ALTER TABLE `tb_notif_pelanggan`
-  MODIFY `id_notif_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_notif_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_paket`
+-- AUTO_INCREMENT for table `tb_paket`
 --
 ALTER TABLE `tb_paket`
   MODIFY `id_paket` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_pelanggan`
+-- AUTO_INCREMENT for table `tb_pelanggan`
 --
 ALTER TABLE `tb_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_perbaikan_hp`
---
-ALTER TABLE `tb_perbaikan_hp`
-  MODIFY `id_perbaikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5008;
-
---
--- AUTO_INCREMENT untuk tabel `tb_perbaikan_laptop`
---
-ALTER TABLE `tb_perbaikan_laptop`
-  MODIFY `id_perbaikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT untuk tabel `tb_rating`
+-- AUTO_INCREMENT for table `tb_rating`
 --
 ALTER TABLE `tb_rating`
-  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_rating` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_tipe_hp`
+-- AUTO_INCREMENT for table `tb_tipe_hp`
 --
 ALTER TABLE `tb_tipe_hp`
   MODIFY `id_tipe_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_tipe_laptop`
+-- AUTO_INCREMENT for table `tb_tipe_laptop`
 --
 ALTER TABLE `tb_tipe_laptop`
-  MODIFY `id_tipe_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_tipe_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_voucher_hp`
+-- AUTO_INCREMENT for table `tb_token`
+--
+ALTER TABLE `tb_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `tb_voucher_hp`
 --
 ALTER TABLE `tb_voucher_hp`
-  MODIFY `id_voucher_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_voucher_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_voucher_laptop`
+-- AUTO_INCREMENT for table `tb_voucher_laptop`
 --
 ALTER TABLE `tb_voucher_laptop`
-  MODIFY `id_voucher_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_voucher_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_waktu_perbaikan_hp`
+-- AUTO_INCREMENT for table `tb_waktu_perbaikan_hp`
 --
 ALTER TABLE `tb_waktu_perbaikan_hp`
-  MODIFY `id_waktu_perbaikan_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_waktu_perbaikan_hp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_waktu_perbaikan_laptop`
+-- AUTO_INCREMENT for table `tb_waktu_perbaikan_laptop`
 --
 ALTER TABLE `tb_waktu_perbaikan_laptop`
-  MODIFY `id_waktu_perbaikan_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_waktu_perbaikan_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT untuk tabel `verifikasi_mitra`
+-- AUTO_INCREMENT for table `verifikasi_mitra`
 --
 ALTER TABLE `verifikasi_mitra`
   MODIFY `id_verifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
