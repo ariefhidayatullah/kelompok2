@@ -106,7 +106,7 @@
                                 <tbody>
                                     <?php $i = 1; ?>
                                     <?php foreach ($laptop as $lp) : ?>
-                                        <?php if ($lp['notifikasi'] == 'diskon') : ?>
+                                        <?php if ($lp['notifikasi'] == 'diskon_laptop') : ?>
                                             <tr>
                                                 <td>
                                                     <div class="icheck-primary">
@@ -125,7 +125,7 @@
                                                 </td>
                                             </tr>
                                         <?php endif; ?>
-                                        <?php if ($lp['notifikasi'] == 'tambah_harga') : ?>
+                                        <?php if ($lp['notifikasi'] == 'tambah_harga_laptop') : ?>
                                             <tr>
                                                 <td>
                                                     <div class="icheck-primary">
@@ -145,53 +145,8 @@
                                             </tr>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <!-- /.table -->
-                        </div>
-                        <!-- /.mail-box-messages -->
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </section>
-    <!-- /.content -->
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-3">
-            </div>
-            <!-- /.col -->
-            <div class="col-md-9">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">Pesan Hp</h3>
-
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="Search Mail">
-                                <div class="input-group-append">
-                                    <div class="btn btn-primary">
-                                        <i class="fas fa-search"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-tools -->
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <div class="table-responsive mailbox-messages">
-                            <table class="table table-hover table-striped">
-                                <tbody>
-                                    <?php $i = 1; ?>
                                     <?php foreach ($handphone as $hp) : ?>
-                                        <?php if ($hp['notifikasi'] == 'diskon2') : ?>
+                                        <?php if ($hp['notifikasi'] == 'diskon_hp') : ?>
                                             <tr>
                                                 <td>
                                                     <div class="icheck-primary">
@@ -210,7 +165,7 @@
                                                 </td>
                                             </tr>
                                         <?php endif; ?>
-                                        <?php if ($hp['notifikasi'] == 'tambah_harga2') : ?>
+                                        <?php if ($hp['notifikasi'] == 'tambah_harga_hp') : ?>
                                             <tr>
                                                 <td>
                                                     <div class="icheck-primary">
@@ -245,6 +200,7 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
+
 </div>
 
 <!-- diskon untuk laptop -->
