@@ -32,7 +32,7 @@
   <script src="<?= base_url(); ?>assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 </head>
 
-  
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
 
 
@@ -50,41 +50,13 @@
           <a href="<?= base_url(); ?>home/index" class="nav-link">Home</a>
         </li>
       </ul>
-     
 
 
-     <ul class="navbar-nav ml-auto" style="float: right;">
-      <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
+
+
+      <ul class="navbar-nav ml-auto">
         <li>
-          <a class="fa fa-sign-out-alt" href="<?= base_url('login/logout');?>"></a>
+          <a class="fa fa-sign-out-alt" href="<?= base_url('login/logout'); ?>"></a>
         </li>
       </ul>
     </nav>
@@ -214,7 +186,7 @@
           </div>
           <div class="modal-body" id="option_barang">
             <!-- <p>One fine body&hellip;</p> -->
-            
+
           </div>
           <div class="modal-footer justify-content-between">
           </div>
@@ -226,31 +198,31 @@
     <!-- /.modal -->
 
     <script>
-  // ================CHECK CONNECTION==============
-  jQuery(document).ready(function($) {
-    checkConnection()
-    $('#permintaan_perbaikan').on('click', function (e) {
-      $('#option_barang a').remove();
-      $('#option_barang').append('<a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/permintaanperbaikanhp" class="btn btn-primary">HANDPHONE</a>');
-    });
-    $('#perbaikan').on('click', function (e) {
-      $('#option_barang a').remove();
-      $('#option_barang').append('<a href="<?= base_url(); ?>mitra/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
-    });
-  });
+      // ================CHECK CONNECTION==============
+      jQuery(document).ready(function($) {
+        checkConnection()
+        $('#permintaan_perbaikan').on('click', function(e) {
+          $('#option_barang a').remove();
+          $('#option_barang').append('<a href="<?= base_url(); ?>mitra/permintaanperbaikan" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/permintaanperbaikanhp" class="btn btn-primary">HANDPHONE</a>');
+        });
+        $('#perbaikan').on('click', function(e) {
+          $('#option_barang a').remove();
+          $('#option_barang').append('<a href="<?= base_url(); ?>mitra/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+        });
+      });
 
-  
 
-  function checkConnection() {
-    var status = navigator.onLine
-    if (status) {
-      $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
-    } else {
-      setTimeout(function() {
-        toastr.warning(
-          "Anda Tidak Terhubung Ke Internet!!"
-        );
-      }, 150)
-    }
-  }
-</script>
+
+      function checkConnection() {
+        var status = navigator.onLine
+        if (status) {
+          $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
+        } else {
+          setTimeout(function() {
+            toastr.warning(
+              "Anda Tidak Terhubung Ke Internet!!"
+            );
+          }, 150)
+        }
+      }
+    </script>

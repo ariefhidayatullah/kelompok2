@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 
   <link href="<?= base_url(); ?>assets/home-master/assets/lib/animate.css/animate.css" rel="stylesheet">
   <link href="<?= base_url(); ?>assets/home-master/assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">

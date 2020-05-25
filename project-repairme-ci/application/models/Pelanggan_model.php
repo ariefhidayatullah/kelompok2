@@ -124,12 +124,22 @@ class Pelanggan_model extends CI_model
 		$this->db->where('id_pelanggan', $id);
 		$this->db->update('tb_pelanggan', $data_pelanggan);
 	}
-	public function getVoucher($id,$jenis)
+	public function getVoucher($id, $jenis)
 	{
 		if ($jenis == 'laptop') {
 			return $this->db->get_where('tb_voucher_laptop', ['id_perbaikan_laptop' => $id])->result_array();
-		}else if ($jenis == 'hp') {
+		} else if ($jenis == 'hp') {
 			return $this->db->get_where('tb_voucher_hp', ['id_perbaikan_hp' => $id])->result_array();
 		}
+	}
+
+	public function notifikasiLaptop($id)
+	{
+		return $this->db->query("SELECT * FROM tb_perbaikan_laptop INNER JOIN tb_notif_mitra ON tb_perbaikan_laptop.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_laptop.id_mitra WHERE id_pelanggan = $id")->result_array();
+	}
+
+	public function notifikasiHp($id)
+	{
+		return $this->db->query("SELECT * FROM tb_perbaikan_hp INNER JOIN tb_notif_mitra ON tb_perbaikan_hp.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_hp.id_mitra WHERE id_pelanggan = $id")->result_array();
 	}
 }
