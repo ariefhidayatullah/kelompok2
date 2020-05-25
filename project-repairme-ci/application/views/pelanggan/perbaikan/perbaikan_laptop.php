@@ -4,165 +4,9 @@
 
   // ================JAVASCRIPT UMUM===============
   jQuery(document).ready(function($) {
-    $('.card_ubah_harga').hide();
-    $('.card_diskon').hide();
-    $('.card_tambah_harga').hide();
-    $('#input_persentase').hide();
-    $('#input_harga_diskon').hide();
-    $('.harga_akhir').hide();
-    $('.keterangan_mitra').hide();
-    $('.btn_ubah').hide();
-    $('#input_persentase').ionRangeSlider({
-      min: 0,
-      max: 100,
-      type: 'single',
-      step: 1,
-      postfix: ' %',
-      prettify: false,
-      hasGrid: true
-    })
-
-    $('.btn_ubah_harga').on('click', function() {
-      $('.ubah_title').html('<code>Ubah Harga</code>');
-      $('.btn_diskon').show();
-      $('.btn_tambah_harga').show();
-      $('.card_persentase').hide();
-      $('.card_diskon').hide();
-      $('.card_tambah_harga').hide();
-      $('.card_ubah_harga').show();
-      $('.harga_akhir').hide();
-      $('.keterangan_mitra').hide();
-      $('.btn_ubah').hide();
-    });
-
-    $('.btn_ubah_keterangan').on('click', function() {
-      $('.ubah_title').html('<code>Ubah Keterangan</code>');
-      $('.btn_diskon').hide();
-      $('.btn_tambah_harga').hide();
-      $('.card_persentase').hide();
-      $('.card_ubah_harga').show();
-      $('.card_tambah_harga').hide();
-      $('#keterangan_mitra').val('');
-      $('.harga_akhir').hide();
-      $('.card_diskon').hide();
-      $('.keterangan_mitra').show();
-      $('.btn_ubah').val('ubah_keterangan');
-    });
-
-    $('.btn_diskon').on('click', function() {
-      $('.card_tambah_harga').hide();
-      $('.btn_ubah').hide();
-      $('.btn_ubah').val('ubah_diskon');
-      $('.harga_akhir').show();
-      $('.keterangan_mitra').show();
-      $('#harga_akhir').val('');
-      $('#keterangan_mitra').val('');
-      var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
-      $('.card_diskon').show();
-      $('#harga_akhir').autoNumeric('destroy');
-      $('#harga_akhir').val(parseInt(harga))
-      $('#harga_akhir').autoNumeric('init');
-    });
-
-    $('.btn_tambah_harga').on('click', function() {
-      $('.card_diskon').hide();
-      $('.btn_ubah').hide();
-      $('.btn_ubah').val('ubah_tambah_harga');
-      $('.harga_akhir').show();
-      $('.keterangan_mitra').show();
-      $('.card_tambah_harga').show();
-      $('#harga_akhir').val('');
-      $('#keterangan_mitra').val('');
-      $('#input_tambah_harga').autoNumeric('init');
-      var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
-      $('#harga_akhir').autoNumeric('destroy');
-      $('#harga_akhir').val(parseInt(harga))
-      $('#harga_akhir').autoNumeric('init');
-
-    });
-
-    $('#option_diskon').on('change', function() {
-      var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
-      if ($(this).val() == "Input Harga Manual") {
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(parseInt(harga))
-        $('#harga_akhir').autoNumeric('init');
-        $('#input_harga_diskon').autoNumeric('init');
-        $('#input_harga_diskon').show();
-      } else {
-        var diskon = parseInt(harga) * parseInt($(this).val()) / 100;
-        var harga_akhir = parseInt(harga - diskon);
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(harga_akhir);
-        $('#harga_akhir').autoNumeric('init');
-        $('#input_harga_diskon').hide();
-      }
-      // alert(parseInt($(this).val()))
-    });
-
-    $('#input_harga_diskon').keypress(function() {
-      $('.text_harga').text('Perhatikan Harga Yang Anda Masukkan!');
-      var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
-      const input = $(this).autoNumeric('get') + '0';
-      if (parseInt(input) >= harga) {
-        $('.text_harga').text('Diskon Melebihi Harga Awal!!!!');
-        setTimeout(function() {
-          toastr.error(
-            "Diskon Melebihi Harga Awal!!!!"
-          );
-        }, 150)
-        $(this).val('');
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(parseInt(harga))
-        $('#harga_akhir').autoNumeric('init');
-      } else {
-        var total = harga - parseInt(input)
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(total)
-        $('#harga_akhir').autoNumeric('init');
-
-      }
-
-    });
-
-    $('#input_tambah_harga').on('keypress', function() {
-      var harga = perbaikan.harga.split('Rp.').pop().split('.').join("").split(',')[0];
-      var tambah_harga = $(this).autoNumeric('get') + '0';
-      harga_akhir = parseInt(harga) + parseInt(tambah_harga);
-      var persentase = Math.floor(tambah_harga / harga * 100);
-      if (persentase > 0) {
-        $('.text_harga_tambah').html('<div class="text_harga_tambah">Anda menaikkan ' + persentase + '% harga!' + "<br><strong>" + ' Perbaikan akan di hentikan untuk menunggu persetujuan pelanggan ' + "</strong><br>" + ' Jika pelanggan menolak, silahkan kembalikan barang pelanggan, dan jika pelanggan menerima silahkan lanjutkan perbaikan</div>');
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_akhir').val(harga_akhir);
-        $('#harga_akhir').autoNumeric('init');
-        if (persentase > 50) {
-          setTimeout(function() {
-            toastr.warning(
-              "Perhatian, Anda Menaikkan Harga diatas 50%!!!!"
-            );
-          }, 150)
-        }
-        if (persentase >= 100) {
-          setTimeout(function() {
-            toastr.error(
-              "Perhatian, Anda Tidak Bisa Menaikkan Harga diatas 100%!!!!"
-            );
-          }, 150)
-          $('#harga_akhir').val('');
-        }
-      }
-    });
-
-    $('#keterangan_mitra').on('keypress', function() {
-      $('.btn_ubah').show();
-    });
-
-    $('#ubah').on('hidden.bs.modal', function () {
-      location.reload()
-    });
-
+    
   });
-
+  
   // ================CHECK CONNECTION==============
 
   function checkConnection() {
@@ -225,7 +69,7 @@
     checkConnection()
     $.ajax({
       type: 'POST',
-      url: "<?= base_url('mitra/perbaikan_detail_laptop'); ?>",
+      url: "<?= base_url('pelanggan/perbaikan_detail_laptop'); ?>",
       async: true,
       dataType: 'json',
       data: {
@@ -275,63 +119,16 @@
           let total_hari = val.waktu_hari.split(' ', 1);
           let berakhir = Math.floor(Math.floor(parseInt(val.berakhir) - Math.floor(moment())) / 86400000);
           let hari_terlewati = total_hari - berakhir;
+          let sisa_hari = total_hari - hari_terlewati;
           let persentase = Math.floor(hari_terlewati / total_hari * 100) + '%';
           $('.persentase_waktu').attr('style', 'width:' + persentase + ';');
           $('.text_persentase_waktu').text(persentase);
+          $('.total_hari').text(total_hari + ' Hari');
+          $('.sisa_hari').text(sisa_hari + ' Hari lagi');
         });
       }
     });
   }
-
-  function ubah_data() {
-    const my_value = $('.btn_ubah').val();
-    let path = '';
-    const id_perbaikan = perbaikan.id_perbaikan;
-    const harga_akhir  = $('#harga_akhir').val();
-    const keterangan_mitra = $('#keterangan_mitra').val();
-    let data_json = {
-                  'id_perbaikan' : perbaikan.id_perbaikan,
-                  'id_pelanggan' : perbaikan.id_pelanggan,
-                  'harga'  : $('#harga_akhir').val(),
-                  'keterangan' : $('#keterangan_mitra').val()
-                 };
-    if (my_value == 'ubah_diskon') {
-      path = 'mitra/beri_diskon_laptop';
-      $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
-         if (data == 'true') {
-           toastr.success(
-              "Diskon Berhasil Ditambahkan!!!!"
-            );
-           setTimeout(function () {
-             $('#ubah').modal('hide');
-           },3000);
-         }else{
-          toastr.error(
-              "Diskon Gagal Ditambahkan!!!"
-            );
-         }
-      });
-    }else if(my_value == 'ubah_tambah_harga'){
-      path = 'mitra/tambah_harga_laptop';
-        $.post('<?= base_url() ?>'+path, {data: data_json}, function(data) {
-           if (data == 'true') {
-             toastr.warning(
-                "Perbaikan Dihentikan Untuk Menunggu Persetujuan Kenaikan Harga!"
-              );
-             setTimeout(function () {
-               $('#ubah').modal('hide');
-             },2000);
-           }else{
-            toastr.error(
-                "Harga Gagal Di Tambahkan!"
-            );
-           }
-        });
-      }
-    
-    
-  }
-
 </script>
 <?= $this->session->flashdata('message'); ?>
 <div class="content-wrapper">
@@ -534,89 +331,36 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <button class="btn btn-dark btn_ubah_keterangan col-sm-5" type="button" style="margin: auto;">Ubah Keterangan
-            </button>
-            <button class="btn btn-dark btn_ubah_harga col-sm-5" type="button" style="margin: auto;">
-              Ubah Harga
-            </button>
             <!-- ================ CARD PERSENTASE =============== -->
 
-            <div class="card col-sm-12 mt-3 card_persentase">
-              <div class="card-header">
-                <h3 class="card-title"><code>Sisa Perkiraan Waktu Yang Anda Berikan</code></h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <p><code>Persentase</code></p>
+            <table class="table table-bordered mt-3">
+              <tr class="bg-gray-dark color-palette">
+                <th colspan="2" style="text-align: center;">
+                  <strong>Perkiraan Mitra</strong>
+                </th>
+              </tr>
+              <tr>
+                <td style="width: 30%;">Persentase Hari</td>
+                <td>
                 <div class="progress progress-sm active">
                   <div class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                     <span class="text_persentase_waktu"></span>
                   </div>
                 </div>
                 <span style="float: right;"></span>
-              </div>
-              <div class="card-body">
-                <p><code>Persentase Pengerjaan</code></p>
-                <input id="input_persentase" type="text" name="input_persentase" value="" class="irs-hidden-input" tabindex="-1" hidden>
-                <span style="float: right;"></span>
-              </div>
-            </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Total Hari</td>
+                <td class="total_hari"></td>
+              </tr>
+              <tr>
+                <td style="width: 30%">Sisa Hari</td>
+                <td class="sisa_hari"></td>
+              </tr>
+            </table>
 
             <!-- ================== END OF CARD ============ -->
-
-            <!-- =============== CARD UBAH HARGA ============ -->
-            <div class="card col-sm-12 mt-3 card_ubah_harga">
-              <div class="card-header">
-                <h3 class="card-title ubah_title"></h3>
-              </div>
-              <div class="card-body container-fluid">
-                <div class="row">
-                  <button class="btn btn-success btn_diskon col-sm-5 mr-1" type="button" style="margin-right: 0; margin-left: auto;">
-                    Beri Diskon
-                  </button>
-                  <button class="btn btn-warning btn_tambah_harga col-sm-5 ml-1" type="button" style="margin-right: auto; margin-left: 0;">
-                    Tambah Harga
-                  </button>
-                </div>
-                <div class="card_diskon mt-3">
-                  <div class="form-group mt-20">
-                    <select class="form-control" id="option_diskon">
-                      <option selected="true" disabled>Persentase Diskon</option>
-                      <option>Input Harga Manual</option>
-                      <option>3%</option>
-                      <option>5%</option>
-                      <option>10%</option>
-                      <option>20%</option>
-                      <option>30%</option>
-                      <option>40%</option>
-                      <option>50%</option>
-                      <option>60%</option>
-                      <option>70%</option>
-                    </select>
-                  </div>
-                  <div class="form-group mt-20">
-                    <input class="form-control" id="input_harga_diskon" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
-                    <p class="text_harga" style="color: red;"></p>
-                  </div>
-                </div>
-                <div class="card_tambah_harga mt-3">
-                  <div class="form-group mt-20">
-                    <input class="form-control" id="input_tambah_harga" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Jumlah Harga Rupiah Yang Ingin Di tambahkan">
-                    <p class="text_harga_tambah" style="color: red;"></p>
-                  </div>
-                </div>
-
-                <div class="form-group harga_akhir">
-                  <input class="form-control" id="harga_akhir" name="harga_akhir" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled>
-                </div>
-                <div class="form-group mt-20 keterangan_mitra">
-                  <input class="form-control" id="keterangan_mitra" name="keterangan_mitra" type="text" placeholder="Keterangan">
-                </div>
-                <div class="form-group mt-20">
-                  <button class="btn btn-dark btn_ubah" type="button" style="width: 100%;" onclick="ubah_data()">Ubah</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

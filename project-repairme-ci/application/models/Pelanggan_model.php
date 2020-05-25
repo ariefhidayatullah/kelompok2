@@ -124,12 +124,36 @@ class Pelanggan_model extends CI_model
 		$this->db->where('id_pelanggan', $id);
 		$this->db->update('tb_pelanggan', $data_pelanggan);
 	}
-	public function getVoucher($id,$jenis)
+	public function getVoucher($id, $jenis)
 	{
 		if ($jenis == 'laptop') {
 			return $this->db->get_where('tb_voucher_laptop', ['id_perbaikan_laptop' => $id])->result_array();
-		}else if ($jenis == 'hp') {
+		} else if ($jenis == 'hp') {
 			return $this->db->get_where('tb_voucher_hp', ['id_perbaikan_hp' => $id])->result_array();
 		}
+	}
+
+	// ========================== MODAL PERBAIKAN UTAMA =======================
+	
+	public function perbaikan_detail_laptop($id, $jenis)
+		{
+			if ($jenis == 'ttd') {
+				$data = $this->db->query("SELECT tb_perbaikan_laptop.*, tb_ttd_laptop.tipe_laptop, tb_ttd_laptop.merk_laptop, tb_mitra.nama_usaha as nama, tb_kerusakan_laptop.kerusakan_laptop FROM tb_perbaikan_laptop JOIN tb_ttd_laptop ON tb_ttd_laptop.id_perbaikan = tb_perbaikan_laptop.id_perbaikan JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
+				echo json_encode($data[0]);
+			}else if ($jenis == 'normal') {
+				$data = $this->db->query("SELECT tb_perbaikan_laptop.*, tb_tipe_laptop.tipe_laptop, tb_merk_laptop.merk_laptop, tb_mitra.nama_usaha as nama, tb_kerusakan_laptop.kerusakan_laptop FROM tb_perbaikan_laptop JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop JOIN tb_mitra ON tb_perbaikan_laptop.id_mitra = tb_mitra.id_mitra LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
+				echo json_encode($data[0]);
+			}
+			
+		}	
+
+	public function notifikasiLaptop($id)
+	{
+		return $this->db->query("SELECT * FROM tb_perbaikan_laptop INNER JOIN tb_notif_mitra ON tb_perbaikan_laptop.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_laptop.id_mitra WHERE id_pelanggan = $id")->result_array();
+	}
+
+	public function notifikasiHp($id)
+	{
+		return $this->db->query("SELECT * FROM tb_perbaikan_hp INNER JOIN tb_notif_mitra ON tb_perbaikan_hp.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_hp.id_mitra WHERE id_pelanggan = $id")->result_array();
 	}
 }
