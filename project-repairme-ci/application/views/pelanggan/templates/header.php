@@ -15,8 +15,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
   
@@ -190,10 +189,23 @@
 
     <script>
       jQuery(document).ready(function($) {
+        checkConnection()
       $('#perbaikan').on('click', function (e) {
         $('#option_barang a').remove();
         $('#option_barang').append('<a href="<?= base_url(); ?>pelanggan/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>pelanggan/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
         });  
       });
+    function checkConnection() {
+    var status = navigator.onLine
+    if (status) {
+    $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
+    } else {
+    setTimeout(function() {
+    toastr.warning(
+    "Anda Tidak Terhubung Ke Internet!!"
+    );
+    }, 150)
+    }
+    }
     </script>
     

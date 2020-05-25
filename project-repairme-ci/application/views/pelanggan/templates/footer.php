@@ -30,6 +30,7 @@
 <script src="<?= base_url(); ?>assets/panel-master/plugins/chart.js/Chart.min.js"></script>
 <!-- Toastr -->
 <script src="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.js"></script>
+<script src="<?= base_url(); ?>assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
 </body>
 </html>

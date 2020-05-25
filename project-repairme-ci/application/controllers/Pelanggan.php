@@ -196,7 +196,10 @@ class Pelanggan extends CI_Controller
             redirect('login');
         }
     }
-	
+	public function perbaikan_detail_laptop()
+    {
+        return $this->Pelanggan_model->perbaikan_detail_laptop($_POST['id'], $_POST['jenis']);
+    }
 }
 
 /* End of file Pelanggan.php */
