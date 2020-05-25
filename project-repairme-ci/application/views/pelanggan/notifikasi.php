@@ -1,6 +1,8 @@
 <script>
     function detail_notif(id) {
         checkConnection()
+        $('.form_balas').hide();
+        $('.kirim').hide();
         var kodes = id;
         $.ajax({
             type: 'POST',
@@ -30,7 +32,11 @@
 
             }
         });
-    }
+        $('.btn_balas').on('click', function() {
+            $('.form_balas').show();
+            $('.kirim').show();
+        });
+    };
 </script>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -222,18 +228,12 @@
                 <p>Dan TerimaKasih telah Memilih Mitra <strong class="namamitra_dislap"></strong></p>
 
             </div>
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-block btn-warning btn-sm arsip_dislap" data-dismiss="modal" aria-label="Close">Arsipkan</button><br>
-
-                <button class="btn btn-block btn-danger btn-sm hapus_dislap">Hapus</button>
+            <div class="modal-footer form-group">
+                <button type="button" class="btn btn-block btn-warning btn-sm btn_balas">balas .?</button>
+                <input type="text" name="idper_dislap" id="idper_dislap" class="form-control form_balas">
+                <button type="button" class="btn btn-block btn-success btn-sm kirim">Kirim!</button>
             </div>
-            <form action="<?= base_url(); ?>pelanggan/diskondibaca" method="POST" id="formdiskon">
-                <input type="text" name="idper_dislap" id="idper_dislap" hidden>
-            </form>
-            <form action="<?= base_url(); ?>pelanggan/hapusnotifdiskonlaptop" method="POST" id="formdiskonhapus">
-                <input type="text" name="idper_dislap2" id="idper_dislap2" hidden>
-            </form>
+
         </div>
     </div>
 </div>
