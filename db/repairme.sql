@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 20, 2020 at 08:27 AM
+-- Generation Time: May 22, 2020 at 12:47 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -218,11 +218,22 @@ INSERT INTO `tb_mitra` (`id_mitra`, `id_jenis`, `id_user`, `jenis`, `nama`, `nam
 
 CREATE TABLE `tb_notif_mitra` (
   `id_notif_mitra` int(11) NOT NULL,
+  `id_pelanggan` int(11) NOT NULL,
   `notifikasi` varchar(30) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `id_perbaikan` int(11) NOT NULL,
   `dibaca` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_notif_mitra`
+--
+
+INSERT INTO `tb_notif_mitra` (`id_notif_mitra`, `id_pelanggan`, `notifikasi`, `keterangan`, `id_perbaikan`, `dibaca`) VALUES
+(71, 33, 'diskon_laptop', 'diskon hari raya', 1, 'n'),
+(72, 33, 'tambah_harga_laptop', 'ada biaya tambahan', 2, 'n'),
+(73, 33, 'diskon_hp', 'diskon hari raya', 1, 'n'),
+(74, 33, 'tambah_harga_hp', 'ada biaya tambahan', 2, 'n');
 
 -- --------------------------------------------------------
 
@@ -308,8 +319,8 @@ CREATE TABLE `tb_perbaikan_hp` (
 --
 
 INSERT INTO `tb_perbaikan_hp` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_hp`, `id_kerusakan_hp`, `kerusakan_lain`, `keterangan_mitra`, `tanggal`, `harga`) VALUES
-(1, 4, 33, 66, 0, 1, 'adf', 'mungkin ada biaya tambahan', '15 Mei 2020', 'Rp. 120.000,00'),
-(2, 4, 33, 66, 1, 4, '', 'copot ya', '15 Mei 2020', 'Rp. 181.000,00'),
+(1, 4, 33, 66, 0, 1, 'adf', 'mungkin ada biaya tambahan', '15 Mei 2020', 'Rp. 100.000,00'),
+(2, 5, 33, 66, 1, 4, '', 'copot ya', '15 Mei 2020', 'Rp. 200.000,00'),
 (3, 1, 33, 67, 0, 0, 'rusak rusak parah', '', '10 Mei 2020', '0');
 
 -- --------------------------------------------------------
@@ -336,12 +347,12 @@ CREATE TABLE `tb_perbaikan_laptop` (
 --
 
 INSERT INTO `tb_perbaikan_laptop` (`id_perbaikan`, `id_status_perbaikan`, `id_pelanggan`, `id_mitra`, `id_tipe_laptop`, `id_kerusakan_laptop`, `kerusakan_lain`, `keterangan_mitra`, `tanggal`, `harga`) VALUES
-(1, 4, 33, 66, 0, 4, 'mudah ', '', '15 Mei 2020', 'Rp. 100.000,00'),
-(2, 4, 33, 66, 23, 0, 'as', '', '14 Mei 2020', 'Rp. 150.000,00'),
-(3, 1, 33, 66, 19, 4, 'oke', '', '09 Mei 2020', '0'),
-(4, 1, 33, 67, 0, 0, 'yolma', '', '10 Mei 2020', '0'),
-(5, 1, 36, 66, 0, 0, 'rusak dor', '', '11 Mei 2020', '0'),
-(6, 1, 33, 68, 0, 0, 'sangat rusak', '', '12 Mei 2020', '0');
+(1, 4, 33, 66, 0, 4, 'mudah ', '', '15 Mei 2020', 'Rp. 58.615,00'),
+(2, 5, 33, 66, 23, 0, 'as', '', '14 Mei 2020', 'Rp. 61.349,00'),
+(3, 1, 33, 66, 19, 4, 'oke', '', '09 Mei 2020', 'Rp. 51.349,00'),
+(4, 1, 33, 67, 0, 0, 'yolma', '', '10 Mei 2020', 'Rp. 51.349,00'),
+(5, 1, 36, 66, 0, 0, 'rusak dor', '', '11 Mei 2020', 'Rp. 51.349,00'),
+(6, 1, 33, 68, 0, 0, 'sangat rusak', '', '12 Mei 2020', 'Rp. 51.349,00');
 
 -- --------------------------------------------------------
 
@@ -384,7 +395,7 @@ INSERT INTO `tb_status_perbaikan` (`id_status_perbaikan`, `status_perbaikan`) VA
 (2, 'Mitra Siap Memperbaiki'),
 (3, 'Mitra Menolak Perbaikan'),
 (4, 'Sedang Diperbaiki'),
-(5, 'Terdapat Perubahan'),
+(5, 'Di Hentikan Sementara'),
 (6, 'Perbaikan Dibatalkan'),
 (7, 'Perbaikan Selesai'),
 (8, 'Sudah Dijemput');
@@ -446,6 +457,19 @@ INSERT INTO `tb_tipe_laptop` (`id_tipe_laptop`, `tipe_laptop`, `id_merk_laptop`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_token`
+--
+
+CREATE TABLE `tb_token` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_ttd_hp`
 --
 
@@ -496,22 +520,24 @@ INSERT INTO `tb_ttd_laptop` (`id_ttd_laptop`, `id_perbaikan`, `merk_laptop`, `ti
 CREATE TABLE `tb_user` (
   `id_user` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `is_actived` int(1) NOT NULL,
+  `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`id_user`, `username`, `password`) VALUES
-(1, 'admin', '$2y$10$dTTtjRn/BvzLnmIPN0ReG.9Q6qamYYeLydNRToD4GlZRtJBV1FM5.'),
-(3, 'andika99', '$2y$10$Dk3ng0oBjQuJHwQGtjm0j.mMg83lfaU7NZmpM9fam3oBe1AXo09wG'),
-(4, 'indahcell', '$2y$10$YoG2JzhvJaooAAtwKkj1veD/8Yj31ogJh/LidadryujAeuiCltzey'),
-(5, 'aricell', '$2y$10$HRXq5dFwqo49LidEq8eYJ.SKZyCgn7wxLyhiAN6kRMEzd363ojWji'),
-(6, 'anaafi', '$2y$10$wU4B4Tgt29TsYs8ZTXMNO.IjmtgBV5Uds9WFm4HOrwBTyUgjaGT5.'),
-(7, 'asdfasdf', '$2y$10$ez4gpELjtHIJ0vTOc8mBPuWJ5Y1MG8HHl6zix7t3/XwTEnVhndYUq'),
-(8, 'okegoes', '$2y$10$dAahgiK3D/MslMXl9A8UnOLzU9jBTynY2Nm8h8GWEHZ7RLwWxYc46'),
-(9, 'budiutomo', '$2y$10$YUX3HTHCvSdZWu1RpM9/iO3pDHCyjHaDXelwJavRe4B00VE10G/Vi');
+INSERT INTO `tb_user` (`id_user`, `username`, `password`, `is_actived`, `date_created`) VALUES
+(1, 'admin', '$2y$10$dTTtjRn/BvzLnmIPN0ReG.9Q6qamYYeLydNRToD4GlZRtJBV1FM5.', 0, 0),
+(3, 'andika99', '$2y$10$Dk3ng0oBjQuJHwQGtjm0j.mMg83lfaU7NZmpM9fam3oBe1AXo09wG', 1, 0),
+(4, 'indahcell', '$2y$10$YoG2JzhvJaooAAtwKkj1veD/8Yj31ogJh/LidadryujAeuiCltzey', 1, 0),
+(5, 'aricell', '$2y$10$HRXq5dFwqo49LidEq8eYJ.SKZyCgn7wxLyhiAN6kRMEzd363ojWji', 0, 0),
+(6, 'anaafi', '$2y$10$wU4B4Tgt29TsYs8ZTXMNO.IjmtgBV5Uds9WFm4HOrwBTyUgjaGT5.', 0, 0),
+(7, 'asdfasdf', '$2y$10$ez4gpELjtHIJ0vTOc8mBPuWJ5Y1MG8HHl6zix7t3/XwTEnVhndYUq', 0, 0),
+(8, 'okegoes', '$2y$10$dAahgiK3D/MslMXl9A8UnOLzU9jBTynY2Nm8h8GWEHZ7RLwWxYc46', 0, 0),
+(9, 'saih', '$2y$10$vucLTE0LwhABebvZbdJRS.JFSx5740QwO0k4ESl33LlpC/5E8Nejm', 1, 1589842859);
 
 -- --------------------------------------------------------
 
@@ -728,6 +754,12 @@ ALTER TABLE `tb_tipe_laptop`
   ADD PRIMARY KEY (`id_tipe_laptop`);
 
 --
+-- Indexes for table `tb_token`
+--
+ALTER TABLE `tb_token`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_ttd_hp`
 --
 ALTER TABLE `tb_ttd_hp`
@@ -819,7 +851,7 @@ ALTER TABLE `tb_mitra`
 -- AUTO_INCREMENT for table `tb_notif_mitra`
 --
 ALTER TABLE `tb_notif_mitra`
-  MODIFY `id_notif_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_notif_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `tb_notif_pelanggan`
@@ -856,6 +888,12 @@ ALTER TABLE `tb_tipe_hp`
 --
 ALTER TABLE `tb_tipe_laptop`
   MODIFY `id_tipe_laptop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `tb_token`
+--
+ALTER TABLE `tb_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tb_voucher_hp`

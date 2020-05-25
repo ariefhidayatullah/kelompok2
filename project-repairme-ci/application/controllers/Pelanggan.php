@@ -205,20 +205,6 @@ class Pelanggan extends CI_Controller
 		echo json_encode($data);
 	}
 
-	public function perbaikan()
-	{
-		$data['judul'] = 'Perbaikan';
-		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
-			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
-			$data['hp'] = $this->Pelanggan_model->pengajuanHp($this->session->userdata('userData')['id_pelanggan']);
-			$this->load->view('pelanggan/templates/header', $data);
-			$this->load->view('pelanggan/perbaikan/perbaikan', $data);
-			$this->load->view('pelanggan/templates/footer');
-		} else {
-			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
-			redirect('login');
-		}
-	}
 
 	public function notifikasi()
 	{
@@ -243,6 +229,22 @@ class Pelanggan extends CI_Controller
 		$kode = $this->input->post('kode');
 		$data = $this->Barang_model->detail_notif($kode);
 		echo json_encode($data);
+	}
+	// =========================== BAGIAN PERBAIKAN UTAMA ==========================
+
+	public function perbaikan_laptop()
+	{
+		$data['judul'] = 'Perbaikan';
+		$data['pelanggan'] = $this->Pelanggan_model->getPelNow();
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/perbaikan/perbaikan_laptop', $data);
+			$this->load->view('pelanggan/templates/footer');
+		} else {
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
+		}
 	}
 }
 

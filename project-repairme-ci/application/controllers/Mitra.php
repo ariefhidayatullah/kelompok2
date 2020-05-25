@@ -42,6 +42,11 @@ class Mitra extends CI_Controller
         }
     }
 
+    public function get_notif()
+    {
+        echo json_encode($this->Mitra_model->get_notif($_POST['id']));
+    }
+
     public function permintaanperbaikan()
     {
         $data['judul'] = 'Pengajuan Perbaikan';

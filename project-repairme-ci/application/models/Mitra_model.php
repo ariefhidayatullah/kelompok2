@@ -12,6 +12,11 @@ class Mitra_model extends CI_model
 		return $this->db->get_where('tb_mitra', ['id_mitra' => $id])->result_array();
 	}
 
+	public function get_notif($id)
+	{
+		return $this->db->get('tb_notif_mitra', ['id_pelanggan' => $id])->result_array();
+	}
+
 	public function inputMitra($data)
 	{
 		//persiapan data untuk dijadikan array
@@ -283,7 +288,7 @@ class Mitra_model extends CI_model
 	}
 	public function beri_diskon_laptop($data)
 	{
-		$value = ['id_notif_mitra' => null,	'notifikasi' => 'diskon',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$value = ['id_notif_mitra' => null, 'id_pelanggan' => $data['id_pelanggan'], 'notifikasi' => 'diskon_laptop',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
 		$id = $data['id_perbaikan'];
 		$harga = $data['harga'];
 		$insert = $this->db->insert('tb_notif_mitra', $value);
@@ -296,7 +301,7 @@ class Mitra_model extends CI_model
 	}
 		public function tambah_harga_laptop($data)
 	{
-		$value = ['id_notif_mitra' => null,	'notifikasi' => 'tambah_harga',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$value = ['id_notif_mitra' => null, 'id_pelanggan' => $data['id_pelanggan'], 'notifikasi' => 'tambah_harga_laptop',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
 		$id = $data['id_perbaikan'];
 		$harga = $data['harga'];
 		$insert = $this->db->insert('tb_notif_mitra', $value);
@@ -309,7 +314,7 @@ class Mitra_model extends CI_model
 	}
 		public function beri_diskon_hp($data)
 	{
-		$value = ['id_notif_mitra' => null,	'notifikasi' => 'diskon',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$value = ['id_notif_mitra' => null,	'id_pelanggan' => $data['id_pelanggan'], 'notifikasi' => 'diskon_hp',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
 		$id = $data['id_perbaikan'];
 		$harga = $data['harga'];
 		$insert = $this->db->insert('tb_notif_mitra', $value);
@@ -322,7 +327,7 @@ class Mitra_model extends CI_model
 	}
 		public function tambah_harga_hp($data)
 	{
-		$value = ['id_notif_mitra' => null,	'notifikasi' => 'tambah_harga',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
+		$value = ['id_notif_mitra' => null, 'id_pelanggan' => $data['id_pelanggan'], 'notifikasi' => 'tambah_harga_hp',	'keterangan' => $data['keterangan'], 'id_perbaikan' => $data['id_perbaikan'], 'dibaca' => 'n'];
 		$id = $data['id_perbaikan'];
 		$harga = $data['harga'];
 		$insert = $this->db->insert('tb_notif_mitra', $value);

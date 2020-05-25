@@ -63,6 +63,8 @@
 <script src="<?= base_url(); ?>assets/home-master/assets/js/main.js"></script>
 <script src="<?= base_url(); ?>assets/js/notiny/notiny.js"></script>
 <link href="<?= base_url(); ?>assets/js/notiny/notiny.css" rel="stylesheet">
+<!-- Toastr -->
+   <script src="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.js"></script>
 </body>
 
 </html>
