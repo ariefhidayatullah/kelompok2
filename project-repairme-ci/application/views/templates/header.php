@@ -98,18 +98,19 @@
     </div>
 
     <script>
-    jQuery(document).ready(function($) {
-      checkConnection()
-    });
-    function checkConnection() {
+      jQuery(document).ready(function($) {
+        checkConnection()
+      });
+
+      function checkConnection() {
         var status = navigator.onLine
         if (status) {
           $('head').append('<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">');
         } else {
-        setTimeout(function() {
-          toastr.warning(
-          "Anda Tidak Terhubung Ke Internet!!"
-          );
+          setTimeout(function() {
+            toastr.warning(
+              "Anda Tidak Terhubung Ke Internet!!"
+            );
           }, 150)
         }
       }

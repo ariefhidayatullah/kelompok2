@@ -1,22 +1,22 @@
 <!-- =============== JAVA SCRIPT =============== -->
 <script>
   // ================CHECK CONNECTION==============
-  jQuery(document).ready(function($) {
-    checkConnection()
-  });
+  // jQuery(document).ready(function($) {
+  //   checkConnection()
+  // });
 
-  function checkConnection() {
-    var status = navigator.onLine
-    if (status) {
+  // function checkConnection() {
+  //   var status = navigator.onLine
+  //   if (status) {
 
-    } else {
-      setTimeout(function() {
-        toastr.warning(
-          "Anda Tidak Terhubung Ke Internet!!"
-        );
-      }, 150)
-    }
-  }
+  //   } else {
+  //     setTimeout(function() {
+  //       toastr.warning(
+  //         "Anda Tidak Terhubung Ke Internet!!"
+  //       );
+  //     }, 150)
+  //   }
+  // }
 
 
   // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===

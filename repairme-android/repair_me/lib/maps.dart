@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyMapsPage extends StatefulWidget {
+  const MyMapsPage({Key key, this.animationController}) : super(key: key);
+
+  final AnimationController animationController;
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
@@ -109,7 +112,11 @@ class _BottomSheetContent extends StatelessWidget {
                   flex: 2,
                 ),
                 new RaisedButton(
-                  onPressed: () {},
+                  onPressed: () => {
+                    //Navigator.pushReplacement(
+                    //    context,
+                    //    MaterialPageRoute (builder: (context) => GoToLogin()))
+                         },
                   splashColor: Colors.lightGreenAccent,
                   color: Colors.greenAccent,
                   child: Text(
@@ -127,3 +134,4 @@ class _BottomSheetContent extends StatelessWidget {
     );
   }
 }
+

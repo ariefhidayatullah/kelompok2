@@ -122,7 +122,8 @@ class Barang_model extends CI_model
     {
         $id = $data['id_kerusakanlap_ubh'];
         $kerusakan = $data['kerusakanlap_ubh'];
-        var_dump($data);die;
+        var_dump($data);
+        die;
         $this->db->where('id_kerusakan_laptop', $id);
         return $this->db->update('tb_kerusakan_laptop', $kerusakan);
     }
@@ -184,7 +185,7 @@ class Barang_model extends CI_model
         return $kerusakan[0]['kerusakan_hp'];
     }
 
-        public function detail_laptop($id)
+    public function detail_laptop($id)
     {
         return $this->db->query("SELECT tb_merk_laptop.merk_laptop AS merk, tb_tipe_laptop.tipe_laptop AS tipe, tb_kerusakan_laptop.kerusakan_laptop as kerusakan, tb_perbaikan_laptop.kerusakan_lain FROM tb_perbaikan_laptop JOIN tb_tipe_laptop ON tb_perbaikan_laptop.id_tipe_laptop = tb_tipe_laptop.id_tipe_laptop JOIN tb_merk_laptop ON tb_tipe_laptop.id_merk_laptop = tb_merk_laptop.id_merk_laptop LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE id_perbaikan = $id")->result_array();
     }
@@ -193,8 +194,22 @@ class Barang_model extends CI_model
     {
         return $this->db->query("SELECT tb_ttd_laptop.merk_laptop as merk, tb_ttd_laptop.tipe_laptop as tipe, tb_kerusakan_laptop.kerusakan_laptop as kerusakan, tb_perbaikan_laptop.kerusakan_lain FROM tb_perbaikan_laptop JOIN tb_ttd_laptop ON tb_perbaikan_laptop.id_perbaikan = tb_ttd_laptop.id_perbaikan LEFT JOIN tb_kerusakan_laptop ON tb_perbaikan_laptop.id_kerusakan_laptop = tb_kerusakan_laptop.id_kerusakan_laptop WHERE tb_perbaikan_laptop.id_perbaikan = $id")->result_array();
     }
+    public function detail_hp($id)
+    {
+        return $this->db->query("SELECT tb_merk_hp.merk_hp AS merk, tb_tipe_hp.tipe_hp AS tipe, tb_kerusakan_hp.kerusakan_hp as kerusakan, tb_perbaikan_hp.kerusakan_lain FROM tb_perbaikan_hp JOIN tb_tipe_hp ON tb_perbaikan_hp.id_tipe_hp = tb_tipe_hp.id_tipe_hp JOIN tb_merk_hp ON tb_tipe_hp.id_merk_hp = tb_merk_hp.id_merk_hp LEFT JOIN tb_kerusakan_hp ON tb_perbaikan_hp.id_kerusakan_hp = tb_kerusakan_hp.id_kerusakan_hp WHERE id_perbaikan = $id")->result_array();
+    }
+
+    public function detail_hp_ttd($id)
+    {
+        return $this->db->query("SELECT tb_ttd_hp.merk_hp as merk, tb_ttd_hp.tipe_hp as tipe, tb_kerusakan_hp.kerusakan_hp as kerusakan, tb_perbaikan_hp.kerusakan_lain FROM tb_perbaikan_hp JOIN tb_ttd_hp ON tb_perbaikan_hp.id_perbaikan = tb_ttd_hp.id_perbaikan LEFT JOIN tb_kerusakan_hp ON tb_perbaikan_hp.id_kerusakan_hp = tb_kerusakan_hp.id_kerusakan_hp WHERE tb_perbaikan_hp.id_perbaikan = $id")->result_array();
+    }
     public function LaptopTtd($data)
     {
         return $this->db->get_where('tb_ttd_laptop', ['id_perbaikan' => $data])->result_array();
+    }
+
+    public function detail_notif($data)
+    {
+        return $this->db->query("SELECT * FROM tb_perbaikan_laptop INNER JOIN tb_notif_mitra ON tb_perbaikan_laptop.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_laptop.id_mitra WHERE id_notif_mitra = $data")->result_array();
     }
 }

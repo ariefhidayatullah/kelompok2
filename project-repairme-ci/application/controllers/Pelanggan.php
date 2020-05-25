@@ -139,9 +139,22 @@ class Pelanggan extends CI_Controller
 		$data['judul'] = 'Pengajuan Perbaikan';
 		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
 			$data['laptop'] = $this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']);
-			$data['hp'] = $this->Pelanggan_model->pengajuanHp($this->session->userdata('userData')['id_pelanggan']);
 			$this->load->view('pelanggan/templates/header', $data);
 			$this->load->view('pelanggan/perbaikan/pengajuan', $data);
+			$this->load->view('pelanggan/templates/footer');
+		} else {
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
+		}
+	}
+
+	public function pengajuanperbaikanhp()
+	{
+		$data['judul'] = 'Pengajuan Perbaikan';
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$data['hp'] = $this->Pelanggan_model->pengajuanHp($this->session->userdata('userData')['id_pelanggan']);
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/perbaikan/pengajuanhp', $data);
 			$this->load->view('pelanggan/templates/footer');
 		} else {
 			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
@@ -165,6 +178,18 @@ class Pelanggan extends CI_Controller
 	{
 		$kode = $this->input->post('kode');
 		$data = $this->Barang_model->detail_laptop_ttd($kode);
+		echo json_encode($data);
+	}
+	public function detail_hp()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Barang_model->detail_hp($kode);
+		echo json_encode($data);
+	}
+	public function detail_hp_ttd()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Barang_model->detail_hp_ttd($kode);
 		echo json_encode($data);
 	}
 	public function detail_mitra()
@@ -200,7 +225,31 @@ class Pelanggan extends CI_Controller
     {
         return $this->Pelanggan_model->perbaikan_detail_laptop($_POST['id'], $_POST['jenis']);
     }
-}
+
+	public function notifikasi()
+	{
+		$data['judul'] = 'notifikasi';
+		if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'pelanggan') {
+			$data['laptop'] = $this->Pelanggan_model->notifikasiLaptop($this->session->userdata('userData')['id_pelanggan']);
+			$data['handphone'] = $this->Pelanggan_model->notifikasiHp($this->session->userdata('userData')['id_pelanggan']);
+			// var_dump($this->session->userdata('userData')['nama']);
+			// die;
+			// $data['jumlah'] = $this->Pelanggan_model->count($data['laptop'][0]['id_perbaikan']);
+			$this->load->view('pelanggan/templates/header', $data);
+			$this->load->view('pelanggan/notifikasi', $data);
+			$this->load->view('pelanggan/templates/footer');
+		} else {
+			$this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
+			redirect('login');
+		}
+	}
+
+	public function detail_notif()
+	{
+		$kode = $this->input->post('kode');
+		$data = $this->Barang_model->detail_notif($kode);
+		echo json_encode($data);
+	}
 
 /* End of file Pelanggan.php */
 /* Location: ./application/controllers/Pelanggan.php */

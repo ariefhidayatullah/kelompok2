@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><?= $judul; ?></title>
-    <!-- jQuery -->
+  <!-- jQuery -->
   <script src="<?= base_url(); ?>assets/js/jquery-3.4.1.js"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/fontawesome-free/css/all.min.css">
@@ -18,7 +18,7 @@
     <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
-  
+
   <!-- untuk leafletjs -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
@@ -81,7 +81,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url(); ?>pelanggan/pengajuanperbaikan" class="nav-link">
+                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Pengajuan perbaikan</p>
                   </a>
@@ -161,23 +161,31 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item has-treeview">
+              <a href="<?= base_url(); ?>Pelanggan/notifikasi" class="nav-link">
+                <i class="nav-icon fas fa-map"></i>
+                <p>
+                  Notifikasi
+                </p>
+              </a>
+            </li>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
-     <div class="modal fade" id="modal-sm">
+    <div class="modal fade" id="modal-sm">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Pilih Permintaan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body" id="option_barang">
             <!-- <p>One fine body&hellip;</p> -->
-            
+
           </div>
           <div class="modal-footer justify-content-between">
           </div>
@@ -187,7 +195,30 @@
       <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade" id="modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Pilih Permintaan</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="option_barang">
+            <!-- <p>One fine body&hellip;</p> -->
+
+          </div>
+          <div class="modal-footer justify-content-between">
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
     <script>
+      // ================CHECK CONNECTION==============
       jQuery(document).ready(function($) {
         checkConnection()
       $('#perbaikan').on('click', function (e) {
@@ -208,4 +239,3 @@
     }
     }
     </script>
-    
