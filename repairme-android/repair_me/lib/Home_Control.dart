@@ -1,7 +1,7 @@
 import 'package:repairme/template/bottom_nav/tab_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:repairme/bottom_navigation.dart';
-import 'package:repairme/template/bottom_nav/fintness_app_theme.dart';
+import 'package:repairme/template/bottom_nav/bottom_bar_theme.dart';
 import 'package:repairme/Home.dart';
 
 import 'Home.dart';
@@ -11,15 +11,10 @@ import 'maps.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
-  final _title = "Repair Me";
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      title: _title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: Home(),
     );
   }
@@ -39,7 +34,7 @@ class _HomeState extends State<Home>
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   Widget tabBody = Container(
-    color: FintnessAppTheme.background,
+    color: BottomBarTheme.background,
   );
 
   @override
@@ -64,7 +59,7 @@ class _HomeState extends State<Home>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: FintnessAppTheme.background,
+      color: BottomBarTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: FutureBuilder<bool>(

@@ -1,7 +1,7 @@
 import 'package:repairme/template/bottom_nav/tab_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:repairme/bottom_navigation.dart';
-import 'package:repairme/template/bottom_nav/fintness_app_theme.dart';
+import 'package:repairme/template/bottom_nav/bottom_bar_theme.dart';
 import 'package:repairme/Home.dart';
 
 import 'Home.dart';
@@ -38,7 +38,7 @@ class _MapsControlState extends State<MapsControl>
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   Widget tabBody = Container(
-    color: FintnessAppTheme.background,
+    color: BottomBarTheme.background,
   );
 
 
@@ -67,7 +67,7 @@ class _MapsControlState extends State<MapsControl>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: FintnessAppTheme.background,
+      color: BottomBarTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: FutureBuilder<bool>(

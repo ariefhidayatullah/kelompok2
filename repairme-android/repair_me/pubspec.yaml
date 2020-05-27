@@ -44,7 +44,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - assets/fitness_app/
+    - assets/bottom_bar_theme/
     - assets/img/5e37b4a4bcaf4.jpeg
 
   # The following line ensures that the Material Icons font is
