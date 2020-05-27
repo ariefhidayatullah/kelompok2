@@ -1,22 +1,59 @@
 <!-- =============== JAVA SCRIPT =============== -->
 <script>
   // ================CHECK CONNECTION==============
-  //  jQuery(document).ready(function($) {
-  //    checkConnection()
-  //  });
+   jQuery(document).ready(function($) {
+    data_laptop()
+   });
 
-  //  function checkConnection() {
-  //     var status = navigator.onLine
-  //     if (status) {
-  //       alert('connected')    
-  //     }else{
-  //       setTimeout(function () {
-  //         toastr.warning(
-  //             "Anda Tidak Terhubung Ke Internet!!"
-  //           );
-  //       }, 150)
-  //     }
-  //   }
+   function data_laptop () {
+     $.ajax({
+       url: '<?= base_url(); ?>pelanggan/data_laptop',
+       type: 'get',
+       dataType: 'json',
+       cache: true,
+       success: function (data) {
+         $.each(data, function(index, val) {
+            // =================== ATTRIBUTE TABLE PENGAJUAN PERBAIKAN =================
+            if (val.id_status_perbaikan == 1 || val.id_status_perbaikan == 2 || val.id_status_perbaikan == 3 && $('#tabel_pengajuan tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+              let nomor = `<td>`+ parseInt(index+1) +`</td>`;
+              let mitra = `<td>`+ val.mitra +`
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(`+ val.id_mitra +`)">Detail</button>
+                  </td>`
+              if (val.id_tipe == 0) {
+                laptopttd(val.id_perbaikan)
+                $('#tabel_pengajuan').append(function () {
+                  return `<tr id="`+ val.id_perbaikan +`">
+                      `+ nomor +`
+                      <td>
+                      <span id="tipettd_`+ val.id_perbaikan +`"></span>
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(`+ val.id_perbaikan +`)">Detail</button>
+                      </td>
+                      `+ mitra +`
+                      
+                    </tr>`            
+                });
+              }
+            }
+         });
+       }
+     }).fail(function() {
+       console.log("error data laptop");
+     });
+     
+   }
+
+   function checkConnection() {
+      var status = navigator.onLine
+      if (status) {
+        alert('connected')    
+      }else{
+        setTimeout(function () {
+          toastr.warning(
+              "Anda Tidak Terhubung Ke Internet!!"
+            );
+        }, 150)
+      }
+    }
 
   // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===
 
@@ -259,67 +296,8 @@
 
             </tr>
           </thead>
-          <tbody>
-            <?php $i = 1; ?>
-            <?php foreach ($laptop as $val) : ?>
-              <?php if ($val['id_status_perbaikan'] == 1 || $val['id_status_perbaikan'] == 2 || $val['id_status_perbaikan'] == 3) : ?>
-                <tr>
-                  <td><?= $i; ?></td>
-                  <td>
-                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
-                    <?php if ($val['id_tipe'] == 0) : ?>
+          <tbody id="tabel_pengajuan">
 
-                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
-
-                      <script>
-                        laptopttd(<?= $val['id_perbaikan']; ?>)
-                      </script>
-
-                      <!-- ======END OF JAVASCRIPT==== -->
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)">Detail</button>
-
-                    <?php elseif ($val['id_tipe'] != 0) : ?>
-                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
-                    <?php endif; ?>
-
-                  </td>
-                  <td>
-                    <?= strtoupper($val['mitra']); ?>
-                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailMitra" style="float: right;" onclick="detail_mitra(<?= $val['id_mitra']; ?>)">Detail</button>
-                  </td>
-                  <td><?= $val['tanggal']; ?></td>
-
-                  <?php $i += 1; ?>
-
-                  <!-- ============= BUTTON STATUS PERBAIKAN ============= -->
-
-                  <?php if ($val['id_status_perbaikan'] == 3) : ?>
-                    <td>
-                      <button class="btn btn-danger btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
-                        Mitra Menolak
-                      </button>
-                    </td>
-
-                  <?php elseif ($val['id_status_perbaikan'] == 1) : ?>
-                    <td>
-                      <button disabled class="btn btn-info btn-sm t-terimaLaptop" data-toggle="modal" data-target="#terimaLaptop" value="">
-                        Menunggu Persetujuan
-                      </button>
-                    </td>
-                  <?php elseif ($val['id_status_perbaikan'] == 2) : ?>
-                    <td>
-                      <button class="btn btn-success btn-sm t-terimaLaptop" data-toggle="modal" data-target="#modal_voucher" onclick="ambil_voucher(<?= $val['id_perbaikan']; ?>, 'laptop')">
-                        Ambil Voucher
-                      </button>
-                    </td>
-                  <?php endif; ?>
-                <?php endif; ?>
-              <?php endforeach; ?>
-              <!-- ========================= END OF BUTTON =============== -->
-                </tr>
           </tbody>
         </table>
       </div>

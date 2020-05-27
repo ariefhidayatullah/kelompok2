@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
     <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+    <script src="<?= base_url(); ?>assets/js/moment-id.js"></script>
   <!-- Toastr -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/panel-master/plugins/toastr/toastr.min.css">
 
@@ -36,14 +37,30 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="<?= base_url(); ?>home" class="nav-link">Home</a>
+          <div class="waktu"></div>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li>
-          <a class="fa fa-sign-out-alt" href="<?= base_url('login/logout');
-                                              ?>"></a>
-        </li>
+      <ul class="navbar-nav ml-auto mr-3">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell" style="font-size: 150%;"></i>
+          <span class="jml_pesan_baru"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+          <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span> pesan baru untuk <?= strtoupper($this->session->userdata('userData')['nama']); ?></span>
+          <div class="dropdown-divider notif_atas"></div>
+          
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">Lihat Semua Pesan</a>
+        </div>
+      </li>
       </ul>
+      <ul class="navbar-nav">
+      <li  class="nav-item">
+        <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="<?= base_url('login/logout'); ?>"></a>
+          <!-- <span class="float-right text-muted text-sm">keluar</span> -->
+      </li>
+    </ul>
     </nav>
     <!-- /.navbar -->
     <!-- Main Sidebar Container -->
@@ -54,9 +71,7 @@
           <center>Repairme</center>
         </span>
       </a>
-      <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png" class="img-box elevation-2" alt="Foto Profile">
@@ -65,7 +80,6 @@
             <a href="#" class="d-block"><?= strtoupper($this->session->userdata('userData')['nama']); ?></a>
           </div>
         </div>
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
@@ -81,7 +95,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
+                  <a href="" class="nav-link" id="pengajuan_perbaikan" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Pengajuan perbaikan</p>
                   </a>
@@ -113,6 +127,7 @@
                 </li>
               </ul>
             </li>
+       
             <li class="nav-item has-treeview">
               <a href="" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
@@ -169,11 +184,13 @@
                 </p>
               </a>
             </li>
+               </ul>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
+  </div>
     <div class="modal fade" id="modal-sm">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -220,22 +237,59 @@
     <script>
       // ================CHECK CONNECTION==============
       jQuery(document).ready(function($) {
+        moment.locale('id')
         checkConnection()
-      $('#perbaikan').on('click', function (e) {
-        $('#option_barang a').remove();
-        $('#option_barang').append('<a href="<?= base_url(); ?>pelanggan/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>pelanggan/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
-        });  
+        setInterval(function () {
+          cek_pesan_baru("<?= $this->session->userdata('userData')['id_pelanggan']; ?>")
+        }, 1000)
+        $('#perbaikan').on('click', function (e) {
+          $('#option_barang a').remove();
+          $('#option_barang').append('<a href="<?= base_url(); ?>pelanggan/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>pelanggan/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+        });
+        $('#pengajuan_perbaikan').on('click', function (e) {
+          $('#option_barang a').remove();
+          $('#option_barang').append('<a href="<?= base_url(); ?>pelanggan/pengajuan_perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>pelanggan/pengajuan_perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+        });    
       });
-    function checkConnection() {
-    var status = navigator.onLine
-    if (status) {
-    $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
-    } else {
-    setTimeout(function() {
-    toastr.warning(
-    "Anda Tidak Terhubung Ke Internet!!"
-    );
-    }, 150)
-    }
-    }
+
+      function checkConnection() {
+      var status = navigator.onLine
+      if (status) {
+      $('head').append('<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">');
+      } else {
+      setTimeout(function() {
+      toastr.warning(
+      "Anda Tidak Terhubung Ke Internet!!"
+      );
+      }, 150)
+      }
+      }
+
+      function cek_pesan_baru(id) {
+        $.ajax({
+          url: '<?= base_url("pelanggan/cek_pesan_baru"); ?>',
+          type: 'post',
+          dataType: 'json',
+          data: {id: id},
+          cache: true,
+          success: function (data) {
+            if (data.length > 0) {
+              $('.jml_pesan_baru').addClass('badge badge-warning navbar-badge ');
+              $('.jml_pesan_baru').text(data.length);
+            }
+            
+            $.each(data, function(i, val) {
+              if (val.notifikasi == 'diskon_laptop' || val.notifikasi == 'diskon_hp') {
+                $('.notif_atas').after('<a href="#" class="dropdown-item"> <i class="fas fa-envelope mr-2"></i>Anda mendapat <Diskon! class=""></Diskon!> <span class="float-right text-muted text-sm">indahcell</span> </a>');
+                }else if (val.notifikasi == "tambah_harga_laptop" || val.notifikasi == 'tambah_harga_hp') {
+                  $('.notif_atas').after('<a href="#" class="dropdown-item"> <i class="fas fa-envelope mr-2"></i>Perbaikan sementara dihentikan... <span class="float-right text-muted text-sm">indahcell</span> </a>');
+                }
+                  if (i == 5) return false;
+            });
+          }
+        }).fail(function() {
+          console.log("cek pesan gagal!");
+        });
+        
+      }
     </script>

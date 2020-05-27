@@ -1,23 +1,171 @@
 <!-- =============== JAVA SCRIPT =============== -->
 <script>
   // ================CHECK CONNECTION==============
-  // jQuery(document).ready(function($) {
-  //   checkConnection()
-  // });
+  jQuery(document).ready(function($) {
+    $('#hargalaptop').autoNumeric('init');
+    data_laptop()
+    // interval === auto update data ===
 
-  // function checkConnection() {
-  //   var status = navigator.onLine
-  //   if (status) {
+    setInterval(function () {
+      data_laptop()
+    }, 1000); 
 
-  //   } else {
-  //     setTimeout(function() {
-  //       toastr.warning(
-  //         "Anda Tidak Terhubung Ke Internet!!"
-  //       );
-  //     }, 150)
-  //   }
-  // }
+    $('#form_terima_laptop').submit(function (e) {
+      $('#tanggal').val(moment().format("Do MMMM YYYY, HH:mm:ss"));
+      $('#terima_laptop').modal('hide');
+      e.preventDefault();
+      $.ajax({
+          url: '<?= base_url(); ?>mitra/terimaperbaikanlaptop',
+          type: 'post',
+          dataType: 'text',
+          data: $('#form_terima_laptop').serializeArray(),
+          success: function (data) {
+            if (data == 'success') {
+              setTimeout(function() {
+                toastr.success(
+                  "Perbaikan telah diterima!"
+                );
+              }, 100)
+            }
+          }
+        })
+    });
+  });
 
+
+  // ============ AMBIL DATA LAPTOP ==========
+
+  function data_laptop() {
+     let button_detail_laptop;
+     $.ajax({
+        url: '<?= base_url(); ?>mitra/data_laptop',
+        type: 'get',
+        dataType: 'json',
+        cache: true,
+        success: function (data) {
+          $.each(data, function(index, val) {
+
+            // ================ JIKA ADA PERUBAHAN HAPUS TR =============
+
+            if (val.id_perbaikan == $('#tabel_pengajuan tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 1) {
+              $('#tabel_pengajuan tr#'+val.id_perbaikan).remove();
+            }
+            if (val.id_perbaikan == $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 2) {
+              $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).remove();
+            }
+            if (val.id_perbaikan == $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 3) {
+              $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).remove();
+            }
+
+            // =================== ATTRIBUTE TABLE PENGAJUAN PERBAIKAN =================
+            if (val.id_status_perbaikan == 1 && $('#tabel_pengajuan tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+              let nomor = `<td>`+ parseInt(index+1) +`</td>`;
+              let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
+              let btn_proses = `<td><button class="btn btn-success btn-sm btn_terima_laptop" data-toggle="modal" data-target="#terima_laptop" onclick="detail_laptop_(`+val.id_perbaikan+`,`+ val.id_tipe+`);voucher()"> Terima </button>
+                    <button class="btn btn-danger btn-sm btn_tolak_laptop" data-toggle="modal" data-target="#tolak_laptop" onclick="detail_tolak(`+val.id_perbaikan+`)"> Tolak </button></td>`
+              if (val.id_tipe == 0){
+                  laptopttd(val.id_perbaikan)
+                  $('#tabel_pengajuan').append(function () {
+                    return `<tr id="`+ val.id_perbaikan +`">
+                      `+ nomor +`
+                      <td>
+                      <span id="tipettd_`+ val.id_perbaikan +`"></span>
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(`+ val.id_perbaikan +`)">Detail</button>
+                      </td>
+                      `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                      `+ btn_proses +`
+                    </tr>`              
+                  });
+              }
+              if (val.id_tipe != 0){
+                  $('#tabel_pengajuan').append(function () {
+                    return `<tr id="`+ val.id_perbaikan +`">
+                      `+ nomor +`
+                      <td>
+                      `+ val.merk.toUpperCase() +` - `+ val.tipe +`
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(`+ val.id_perbaikan +`)">Detail</button>
+                      </td>
+                      `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                      `+ btn_proses +`
+                    </tr>`              
+                  });
+              }
+            }
+
+            // ================== ATTRIBUTE TABLE PERBAIKAN DITERIMA =================
+
+            if (val.id_status_perbaikan == 2 && $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+              let nomor = `<td>`+ parseInt(index+1) +`</td>`;
+              let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
+              let proses = `<button class="btn btn-danger btn-sm")">Hapus</button>`
+                if (val.id_tipe == 0){
+                      laptopttd(val.id_perbaikan)
+                      $('#tabel_perbaikan_diterima').append(function () {
+                        return `<tr id="`+ val.id_perbaikan +`">
+                          `+ nomor +`
+                          <td>
+                          <span id="tipettd_`+ val.id_perbaikan +`"></span>
+                          <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(`+ val.id_perbaikan +`)">Detail</button>
+                          </td>
+                          `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                          <td>`+ proses +`</td>
+                        </tr>`              
+                      });
+                  }
+                  if (val.id_tipe != 0){
+                  $('#tabel_perbaikan_diterima').append(function () {
+                    return `<tr id="`+ val.id_perbaikan +`">
+                      `+ nomor +`
+                      <td>
+                      `+ val.merk.toUpperCase() +` - `+ val.tipe +`
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(`+ val.id_perbaikan +`)">Detail</button>
+                      </td>
+                      `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                      <td>`+ proses +`</td>
+                    </tr>`              
+                  });
+              }
+            }
+
+            if (val.id_status_perbaikan == 3 && $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+              let nomor = `<td>`+ parseInt(index+1) +`</td>`;
+              let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
+              let proses = `<button class="btn btn-danger btn-sm")">Hapus</button>`
+                if (val.id_tipe == 0){
+                      laptopttd(val.id_perbaikan)
+                      $('#tabel_perbaikan_ditolak').append(function () {
+                        return `<tr id="`+ val.id_perbaikan +`">
+                          `+ nomor +`
+                          <td>
+                          <span id="tipettd_`+ val.id_perbaikan +`"></span>
+                          <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(`+ val.id_perbaikan +`)">Detail</button>
+                          </td>
+                          `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                          <td>`+ proses +`</td>
+                        </tr>`              
+                      });
+                  }
+                  if (val.id_tipe != 0){
+                  $('#tabel_perbaikan_ditolak').append(function () {
+                    return `<tr id="`+ val.id_perbaikan +`">
+                      `+ nomor +`
+                      <td>
+                      `+ val.merk.toUpperCase() +` - `+ val.tipe +`
+                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(`+ val.id_perbaikan +`)">Detail</button>
+                      </td>
+                      `+ pelanggan +`<td class="tanggal">`+tanggal(val.tanggal)+`</td>
+                      <td>`+ proses +`</td>
+                    </tr>`              
+                  });
+              }
+            }
+
+          });
+        }
+      }).fail(function() {
+        console.log("data laptop error");
+      });
+  }
 
   // ====FUNCTION AMBIL DATA LAPTOP YG TIDAK TERDAFTAR===
 
@@ -207,18 +355,6 @@
     });
   }
 
-  // ====================== HARGA RUPIAH ==========================
-
-  jQuery(document).ready(function($) {
-    $('.btn_terima_laptop').on('click', function() {
-      $('#hargalaptop').autoNumeric('init');
-
-      var kode = voucher()
-
-      $('.kode_voucher').text(kode);
-      $('#voucherlaptop').val(kode);
-    });
-  });
 
   // ============================ VOUCHER ===========================
 
@@ -229,10 +365,19 @@
     for (var i = 0; i < 7; i++) {
       result += character.charAt(Math.floor(Math.random() * characterLength));
     }
-    return result;
+    $('.kode_voucher').text(result);
+    $('#voucherlaptop').val(result);
   }
+
+  // ======================== TANGGAL =====================
+  function tanggal (tanggal) {
+    var dariSekarang = moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
+    
+    return tanggal.split(',', 1) + ' - ' + dariSekarang;
+  }
+
 </script>
-<div class="content-wrapper">
+<div class="content-wrapper mt-5">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
@@ -254,12 +399,17 @@
   <section class="content">
 
     <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">Pengajuan Perbaikan</h3>
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Pengajuan Pelanggan</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+        </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th style="width: 10px">No</th>
@@ -270,66 +420,26 @@
 
             </tr>
           </thead>
-          <tbody>
-            <?php $i = 1; ?>
-            <?php foreach ($laptop as $val) : ?>
-              <?php if ($val['id_status_perbaikan'] == 1) : ?>
-                <tr>
-                  <td><?= $i; ?></td>
-                  <td>
-                    <span id="tipettd_<?= $val['id_perbaikan']; ?>"></span>
-                    <?php if ($val['id_tipe'] == 0) : ?>
-
-                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
-
-                      <script>
-                        laptopttd(<?= $val['id_perbaikan']; ?>)
-                      </script>
-
-                      <!-- ======END OF JAVASCRIPT==== -->
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $val['id_perbaikan']; ?>)">Detail</button>
-
-                    <?php elseif ($val['id_tipe'] != 0) : ?>
-                      <?= strtoupper($val['merk']); ?> - <?= $val['tipe']; ?>
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $val['id_perbaikan']; ?>)">Detail</button>
-                    <?php endif; ?>
-
-                  </td>
-                  <td>
-                    <?= strtoupper($val['pelanggan']); ?>
-                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(<?= $val['id_pelanggan']; ?>)">Detail</button>
-                  </td>
-                  <td><?= $val['tanggal']; ?></td>
-                  <td><button class="btn btn-success btn-sm btn_terima_laptop" data-toggle="modal" data-target="#terima_laptop" onclick="detail_laptop_(<?= $val['id_perbaikan'] ?>,<?= $val['id_tipe']; ?>)">
-                      Terima
-                    </button>
-                    <button class="btn btn-danger btn-sm btn_tolak_laptop" data-toggle="modal" data-target="#tolak_laptop" onclick="detail_tolak(<?= $val['id_perbaikan'] ?>)" style="width: 70px;">
-                      Tolak
-                    </button></td>
-                </tr>
-                <?php $i += 1; ?>
-              <?php endif; ?>
-            <?php endforeach; ?>
+          <tbody id="tabel_pengajuan">
+            
           </tbody>
         </table>
       </div>
       <!-- /.card-body -->
     </div>
     <!-- /.card -->
-    <div class="card">
-      <div class="card-header">
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
         <h3 class="card-title">Perbaikan diterima</h3>
 
         <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
           <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th style="width: 10px">No</th>
@@ -339,57 +449,24 @@
               <th style="width: 20%;">Proses</th>
             </tr>
           </thead>
-          <tbody>
-            <?php $b = 1; ?>
-            <?php foreach ($laptop as $value) : ?>
-              <?php if ($value['id_status_perbaikan'] == 2) : ?>
-                <tr>
-                  <td><?= $b; ?></td>
-                  <td><span id="tipettd_<?= $value['id_perbaikan']; ?>"></span>
-                    <?php if ($value['id_tipe'] == 0) : ?>
-
-                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
-
-                      <script>
-                        laptopttd(<?= $value['id_perbaikan']; ?>)
-                      </script>
-
-                      <!-- ======END OF JAVASCRIPT==== -->
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $value['id_perbaikan']; ?>)">Detail</button>
-
-                    <?php elseif ($value['id_tipe'] != 0) : ?>
-                      <?= strtoupper($value['merk']); ?> - <?= $value['tipe']; ?>
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $value['id_perbaikan']; ?>)">Detail</button>
-                    <?php endif; ?>
-                  </td>
-                  <td>
-                    <?= strtoupper($value['pelanggan']); ?>
-                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(<?= $value['id_pelanggan']; ?>)">Detail</button>
-                  </td>
-                  <td><?= $value['tanggal']; ?></td>
-                  <td>X</td>
-                </tr>
-              <?php endif; ?>
-            <?php endforeach; ?>
+          <tbody id="tabel_perbaikan_diterima">
           </tbody>
         </table>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
         <h3 class="card-title">Perbaikan Ditolak</h3>
 
         <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
           <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th style="width: 10px">No</th>
@@ -399,40 +476,8 @@
               <th style="width: 20%;">Proses</th>
             </tr>
           </thead>
-          <tbody>
-            <?php $a = 1; ?>
-            <?php foreach ($laptop as $valu) : ?>
-              <?php if ($valu['id_status_perbaikan'] == 3) : ?>
-                <tr>
-                  <td><?= $a; ?></td>
-                  <td><span id="tipettd_<?= $valu['id_perbaikan']; ?>"></span>
-                    <?php if ($valu['id_tipe'] == 0) : ?>
-
-                      <!-- ===== FUNCTION JAVASCRIPT ===== -->
-
-                      <script>
-                        laptopttd(<?= $valu['id_perbaikan']; ?>)
-                      </script>
-
-                      <!-- ======END OF JAVASCRIPT==== -->
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop_ttd(<?= $valu['id_perbaikan']; ?>)">Detail</button>
-
-                    <?php elseif ($valu['id_tipe'] != 0) : ?>
-                      <?= strtoupper($valu['merk']); ?> - <?= $valu['tipe']; ?>
-
-                      <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detailLaptop" style="float: right;" onclick="detail_laptop(<?= $valu['id_perbaikan']; ?>)">Detail</button>
-                    <?php endif; ?>
-                  </td>
-                  <td>
-                    <?= strtoupper($valu['pelanggan']); ?>
-                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(<?= $valu['id_pelanggan']; ?>)">Detail</button>
-                  </td>
-                  <td><?= $valu['tanggal']; ?></td>
-                  <td>X</td>
-                </tr>
-              <?php endif; ?>
-            <?php endforeach; ?>
+          <tbody id="tabel_perbaikan_ditolak">
+           
           </tbody>
         </table>
       </div>
@@ -447,15 +492,13 @@
 <div class="modal fade" id="detailLaptop">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <div class="container-fluid">
           <table class="table table-bordered">
-
-            <tr>
+            <tr class="bg-dark">
               <th><b>Judul</b></th>
               <th><b>Data</b></th>
             </tr>
@@ -500,7 +543,7 @@
         </button>
         <div class="container-fluid">
           <table class="table table-bordered">
-            <tr>
+            <tr class="bg-dark">
               <th><b>Judul</b></th>
               <th><b>Data</b></th>
             </tr>
@@ -540,10 +583,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url(); ?>mitra/terimaperbaikanlaptop" method="POST">
+      <form id="form_terima_laptop" method="post">
         <div class="modal-body">
-          <table class="table table-bordered" border="0">
-            <tr>
+          <table class="table table-bordered">
+            <tr class="bg-dark">
               <td style="text-align: center;"><b>Barang</b></td>
               <td><b>Laptop</b></td>
             </tr>
@@ -561,58 +604,10 @@
             </tr>
 
           </table>
-          <?php function tglIndo()
-          {
-            $data = date('m');
-            $date = date('d');
-            $year = date('Y');
-            switch ($data) {
-              case '01':
-                return " " . $date . ' Januari ' . $year;
-                break;
-              case '02':
-                return $date . ' Februari ' . $year;
-                break;
-              case '03':
-                return $date . ' Maret ' . $year;
-                break;
-              case '04':
-                return $date . ' April ' . $year;
-                break;
-              case '05':
-                return $date . ' Mei ' . $year;
-                break;
-              case '06':
-                return $date . ' Juni ' . $year;
-                break;
-              case '07':
-                return $date . ' Juli ' . $year;
-                break;
-              case '08':
-                return $date . ' Agustus ' . $year;
-                break;
-              case '09':
-                return $date . ' September ' . $year;
-                break;
-              case '10':
-                return $date . ' Oktober ' . $year;
-                break;
-              case '11':
-                return $date . ' November ' . $year;
-                break;
-              case '12':
-                return $date . ' Desember ' . $year;
-                break;
-              default:
-                return 'false';
-                break;
-            }
-            return $data;
-          } ?>
           <div class="form-group mt-20">
             <input type="text" id="id_perbaikan_laptop" name="id_perbaikan_laptop" hidden>
             <input type="text" id="voucherlaptop" name="voucherlaptop" hidden>
-            <input type="text" id="tanggal" name="tanggal" value="<?= tglIndo(); ?>" hidden>
+            <input type="text" id="tanggal" name="tanggal" hidden>
             <input class="form-control" id="hargalaptop" name="hargalaptop" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
           </div>
           <p class="hargalaptop" style="color: red;"></p>
@@ -652,7 +647,7 @@
         </div>
         <div class="form-group mt-20">
           <input class="form-control" id="ketpenolakanlaptop" name="ketpenolakanlaptop" type="text" placeholder="Alasan Anda">
-          <input type="text" id="tanggal" name="tanggal" value="<?= tglIndo(); ?>" hidden>
+          <input type="text" id="tanggal" name="tanggal" hidden>
         </div>
       </div>
       <div class="modal-footer">

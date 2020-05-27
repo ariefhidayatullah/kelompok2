@@ -8,6 +8,11 @@ class Pelanggan_model extends CI_model
 		return $this->db->get('tb_pelanggan')->result_array();
 	}
 
+	public function cek_pesan_baru($id)
+	{
+		return $this->db->query("SELECT * FROM tb_notif_mitra WHERE id_pelanggan = $id && dibaca = 'n'")->result_array();
+	}
+
 	public function inputpelanggan($data)
 	{
 		$id_jenis = 3;
@@ -149,11 +154,6 @@ class Pelanggan_model extends CI_model
 
 	public function notifikasiLaptop($id)
 	{
-		return $this->db->query("SELECT * FROM tb_perbaikan_laptop INNER JOIN tb_notif_mitra ON tb_perbaikan_laptop.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_laptop.id_mitra WHERE id_pelanggan = $id")->result_array();
-	}
-
-	public function notifikasiHp($id)
-	{
-		return $this->db->query("SELECT * FROM tb_perbaikan_hp INNER JOIN tb_notif_mitra ON tb_perbaikan_hp.id_perbaikan = tb_notif_mitra.id_perbaikan LEFT JOIN tb_mitra  ON tb_mitra.id_mitra = tb_perbaikan_hp.id_mitra WHERE id_pelanggan = $id")->result_array();
+		$laptop = $this->db->query();
 	}
 }

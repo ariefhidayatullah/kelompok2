@@ -47,33 +47,38 @@ class Mitra extends CI_Controller
         echo json_encode($this->Mitra_model->get_notif($_POST['id']));
     }
 
-    public function permintaanperbaikan()
+    public function pengajuan_perbaikan_laptop()
     {
         $data['judul'] = 'Pengajuan Perbaikan';
         $data['mitra'] = $this->Mitra_model->getMitraNow();
         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             $data['laptop'] = $this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']);
             $this->load->view('mitra/templates/header', $data);
-            $this->load->view('mitra/perbaikan/pengajuan', $data);
+            $this->load->view('mitra/perbaikan/pengajuan_laptop', $data);
             $this->load->view('mitra/templates/footer');
         } else {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
             redirect('login');
         }
     }
-    public function permintaanperbaikanhp()
+    public function pengajuan_perbaikan_hp()
     {
         $data['judul'] = 'Pengajuan Perbaikan';
         $data['mitra'] = $this->Mitra_model->getMitraNow();
         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             $data['hp'] = $this->Mitra_model->pengajuanHp($this->session->userdata('userData')['id_mitra']);
             $this->load->view('mitra/templates/header', $data);
-            $this->load->view('mitra/perbaikan/pengajuanhp', $data);
+            $this->load->view('mitra/perbaikan/pengajuan_hp', $data);
             $this->load->view('mitra/templates/footer');
         } else {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');
             redirect('login');
         }
+    }
+
+    public function data_laptop()
+    {
+        echo json_encode($this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']));
     }
 
     public function laptopTtd()
@@ -132,16 +137,11 @@ class Mitra extends CI_Controller
 
     public function terimaperbaikanlaptop()
     {
-        // var_dump($_POST);
         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             if ($this->Mitra_model->terimapengajuanlaptop($_POST) > 0) {
-                header('Location: ' . base_url() . 'mitra/permintaanperbaikan');
-                // Flasher::setFlash(' berhasil', 'diterima', 'success');
-                exit();
+               echo 'success';
             } else {
-                header('Location: ' . base_url() . 'mitra/permintaanperbaikan');
-                // Flasher::setFlash(' gagal', 'diterima', 'danger');
-                exit();
+                echo "!success";;
             }
         } else {
             $this->session->set_flashdata('message', '<script>$(document).ready(function(){$.notiny({text: "User Tidak Terdeteksi, Silahkan Login..",position: "right-top",animation_hide: "custom-hide-animation 20s forwards"});});</script>');

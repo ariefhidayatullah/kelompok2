@@ -138,10 +138,15 @@ class Mitra_model extends CI_model
 		$keterangan_lain = $data['ketlaptoplain'];
 		$voucher = $data['voucherlaptop'];
 		$tb_voucher_laptop = ['voucher_laptop' => $voucher, 'id_perbaikan_laptop' => $id];
-		$this->db->insert('tb_voucher_laptop', $tb_voucher_laptop);
+		$insert_voucher = $this->db->insert('tb_voucher_laptop', $tb_voucher_laptop);
 		$update = ['id_status_perbaikan' => 2, 'harga' => $harga, 'keterangan_mitra' => $keterangan_lain, 'tanggal' => $tanggal];
 		$this->db->where('id_perbaikan', $id);
-		return $this->db->update('tb_perbaikan_laptop', $update);
+		$update_perbaikan = $this->db->update('tb_perbaikan_laptop', $update);
+		if ($insert_voucher > 0 && $update_perbaikan > 0) {
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 	public function tolakpengajuanlaptop($data)

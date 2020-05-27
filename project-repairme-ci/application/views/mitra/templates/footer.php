@@ -1,16 +1,11 @@
-   <!-- Main Footer -->
-   <footer class="main-footer">
-     <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
-     Situs Untuk Mencari Tempat Perbaikan Terbaik.
-     <div class="float-right d-none d-sm-inline-block">
-       <b>Versi</b> 1.0.0
-     </div>
-   </footer>
-   </div>
-   <!-- ./wrapper -->
+<footer class="main-footer bg-dark">
+  <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
+  admin@repairme.com :)
+  <div class="float-right d-none d-sm-inline-block">
+    <b>Versi</b> 1.0.0
+  </div>
+</footer>
 
-   <!-- REQUIRED SCRIPTS -->
-   <!-- Bootstrap -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
    <!-- overlayScrollbars -->
    <script src="<?= base_url(); ?>assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
@@ -36,19 +31,6 @@
    <script src="<?= base_url(); ?>assets/js/notiny/notiny.js"></script>
    <link href="<?= base_url(); ?>assets/js/notiny/notiny.css" rel="stylesheet">
    <script src="<?= base_url(); ?>assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-   <script>
-     $(function() {
-       $("#example1").DataTable();
-       $('#example2').DataTable({
-         "paging": true,
-         "lengthChange": false,
-         "searching": false,
-         "ordering": true,
-         "info": true,
-         "autoWidth": false,
-       });
-     });
-   </script>
    </body>
-
+    
    </html>
