@@ -1,18 +1,20 @@
 module.exports = (app) => {
-    const notes = require('../controllers/mitra.controller.js');
+    const notes = require('../../controllers/api/api-mitra.controller.js');
 
-    // Create a new Note
+    // ========== RESTAPI ==========
+
+    // Menambah Mitra
     app.post('/api/mitra', notes.create);
 
-    // Retrieve all Notes
+    // Mencari Mitra
     app.get('/api/mitra', notes.findAll);
 
-    // Retrieve a single Note with noteId
+    // Mencari Mitra berdasarkan Id
     app.get('/api/mitra/:noteId', notes.findOne);
 
-    // Update a Note with noteId
+    // Update Mitra berdasarkan Id
     app.put('/api/mitra/:noteId', notes.update);
 
-    // Delete a Note with noteId
+    // Delete Mitra berdasarkan Id
     app.delete('/api/mitra/:noteId', notes.delete);
 }

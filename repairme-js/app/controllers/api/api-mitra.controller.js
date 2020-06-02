@@ -1,8 +1,7 @@
-const Mitra = require('../models/mitra.model.js');
+const Mitra = require('../../models/mitra.model.js');
 
-// Create and Save a new Mitra
+// ========== API ==========
 exports.create = (req, res) => {
-
     // Validate request
     if(!req.body) {
         return res.status(400).send({
@@ -12,7 +11,7 @@ exports.create = (req, res) => {
 
     // Create a Mitra
     const mitra = new Mitra({
-        title: req.body.nama, 
+        nama: req.body.nama, 
         nama_usaha: req.body.nama_usaha
     });
 

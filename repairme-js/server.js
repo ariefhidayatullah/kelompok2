@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+const ejs = require('ejs');
 
 // create express app
 const app = express();
@@ -9,6 +11,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
+
+//view engine for ejs
+app.set('view engine', 'ejs');
+
+//set views ke 
+app.set('views', path.join(__dirname, 'views'));
+app.use('/cssfile', express.static(__dirname + '/assets/css'));
+app.use('/vue', express.static(__dirname + '/assets/js/vueJs/vue.js'));
 
 // Configuring the database
 const dbConfig = require('./config/database.config.js');
@@ -27,12 +37,14 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-// define a simple route
-app.get('/', (req, res) => {
-    res.json({"message": "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."});
-});
+// Routing
+// important!!!!! => fungsi dari (app) buat ngirim variable app ke routes nya!
+require('./app/routes/home.routes')(app);
+require('./app/routes/api.router/api-mitra.routes.js')(app);
 
-require('./app/routes/mitra.routes.js')(app);
+app.get('/favicon.ico', (req,res) => {
+    res.status(204);
+});
 
 // listen for requests
 app.listen(3000, () => {
