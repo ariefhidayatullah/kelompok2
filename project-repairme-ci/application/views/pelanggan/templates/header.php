@@ -215,12 +215,9 @@
     <div class="modal fade" id="modal-sm">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Pilih Permintaan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
           <div class="modal-body" id="option_barang">
             <!-- <p>One fine body&hellip;</p> -->
 

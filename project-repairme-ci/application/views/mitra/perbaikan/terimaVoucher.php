@@ -265,17 +265,17 @@
 
 </script>
 <?= $this->session->flashdata('message'); ?>
-<div class="content-wrapper">
+<div class="content-wrapper mt-5">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Perbaikan</h1>
+          <h1>Terima Voucher</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
+            <li class="breadcrumb-item"><a href="#">Terima Voucher</a></li>
             <li class="breadcrumb-item active">Perbaikan</li>
           </ol>
         </div>
@@ -286,7 +286,7 @@
   <div class="container-fluid">
     <!-- container fluid -->
     <div class="row">
-      <div class="col-sm-3 ml-1">
+      <div class="col-sm-5 ml-1">
         <div class="card card-dark">
           <div class="card-header">
             <h3 class="card-title">Masukkan Voucher</h3>
@@ -302,7 +302,7 @@
           <!-- /.card-body -->
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <div class="card card-dark detail_pelanggan">
           <div class="card-header">
             <h3 class="card-title">Informasi Pelanggan</h3>
@@ -320,7 +320,7 @@
             <!-- /.card-body -->
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-11" style="margin-left: 0; margin-right: auto;">
         <div class="card card-dark data_barang">
           <div class="card-header">
             <h3 class="card-title">Informasi Barang</h3>
@@ -364,7 +364,8 @@
         <!-- /.card-body -->
       </div>
     </div>
-
+</div>
+</div>
   <!-- Modal -->
   <div class="modal fade" id="modal_terima_voucher" tabindex="-1" role="dialog" aria-labelledby="terimaLaptopLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

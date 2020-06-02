@@ -109,7 +109,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
@@ -126,7 +126,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url(); ?>mitra/voucher" class="nav-link">
+                <a href="<?= base_url(); ?>mitra/voucher" class="nav-link" id="voucher_sidebar">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Voucher Perbaikan</p>
                 </a>
@@ -194,35 +194,38 @@
       <div class="modal fade" id="modal-sm">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Pilih Permintaan</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" id="option_barang">
-              <!-- <p>One fine body&hellip;</p> -->
-
-            </div>
-            <div class="modal-footer justify-content-between">
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row" id="option_barang">
+                  
+                </div>
+              </div>
             </div>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal -->
       <script>
         // ================CHECK CONNECTION==============
         jQuery(document).ready(function($) {
           checkConnection()
+
+          //sidebar class 
+
+          $('a').removeClass('active');
+          let judul = "<?= $judul; ?>";
+          if (judul == "Pengajuan Perbaikan") {
+            $('#permintaan_perbaikan').addClass('active')
+          }else if(judul == "Terima Voucher"){
+            $('#voucher_sidebar').addClass('active');
+          }
+
           $('#permintaan_perbaikan').on('click', function(e) {
             $('#option_barang a').remove();
-            $('#option_barang').append('<a href="<?= base_url(); ?>mitra/pengajuan_perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/pengajuan_perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+            $('#option_barang').append('<a href="<?= base_url(); ?>mitra/pengajuan_perbaikan_laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a><a href="<?= base_url(); ?>mitra/pengajuan_perbaikan_hp" class="btn btn-grey btn-sm">HANDPHONE</a>');
           });
           $('#perbaikan').on('click', function(e) {
             $('#option_barang a').remove();
-            $('#option_barang').append('<a href="<?= base_url(); ?>mitra/perbaikan_laptop" class="btn btn-primary">LAPTOP</a><a href="<?= base_url(); ?>mitra/perbaikan_hp" class="btn btn-primary">HANDPHONE</a>');
+            $('#option_barang').append('<a href="<?= base_url(); ?>mitra/perbaikan_laptop" class="btn btn-dark btn-sm">LAPTOP</a><a href="<?= base_url(); ?>mitra/perbaikan_hp" class="btn btn-dark btn-sm">HANDPHONE</a>');
           });
         });
 

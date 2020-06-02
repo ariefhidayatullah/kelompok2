@@ -158,6 +158,11 @@ class Pelanggan extends CI_Controller
 		echo json_encode($this->Pelanggan_model->pengajuanLaptop($this->session->userdata('userData')['id_pelanggan']));
 	}
 
+	public function ambil_voucher()
+	{
+		echo json_encode($this->Pelanggan_model->ambil_voucher($_POST['id'],$_POST['jenis']));
+	}
+
 	public function pengajuan_perbaikan_hp()
 	{
 		$data['judul'] = 'Pengajuan Perbaikan';

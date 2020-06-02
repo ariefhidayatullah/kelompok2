@@ -8,7 +8,7 @@
 
     setInterval(function () {
       data_laptop()
-    }, 1000); 
+    }, 1); 
 
     $('#form_terima_laptop').submit(function (e) {
       $('#tanggal').val(moment().format("Do MMMM YYYY, HH:mm:ss"));
@@ -44,21 +44,34 @@
         cache: true,
         success: function (data) {
           $.each(data, function(index, val) {
+            console.log('oke')
 
             // ================ JIKA ADA PERUBAHAN HAPUS TR =============
 
             if (val.id_perbaikan == $('#tabel_pengajuan tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 1) {
+              
+              console.log("hapus tr status id = 1")
+              
               $('#tabel_pengajuan tr#'+val.id_perbaikan).remove();
             }
             if (val.id_perbaikan == $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 2) {
+
+              console.log("hapus tr status id = 2")
+              
               $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).remove();
             }
             if (val.id_perbaikan == $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).attr('id') && val.id_status_perbaikan != 3) {
+
+              console.log("hapus tr status id = 3")
+
               $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).remove();
             }
 
             // =================== ATTRIBUTE TABLE PENGAJUAN PERBAIKAN =================
             if (val.id_status_perbaikan == 1 && $('#tabel_pengajuan tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+
+              console.log("tambah tr status id = 1")
+
               let nomor = `<td>`+ parseInt(index+1) +`</td>`;
               let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
               let btn_proses = `<td><button class="btn btn-success btn-sm btn_terima_laptop" data-toggle="modal" data-target="#terima_laptop" onclick="detail_laptop_(`+val.id_perbaikan+`,`+ val.id_tipe+`);voucher()"> Terima </button>
@@ -95,6 +108,9 @@
             // ================== ATTRIBUTE TABLE PERBAIKAN DITERIMA =================
 
             if (val.id_status_perbaikan == 2 && $('#tabel_perbaikan_diterima tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+
+              console.log("tambah tr status id = 2")
+
               let nomor = `<td>`+ parseInt(index+1) +`</td>`;
               let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
               let proses = `<button class="btn btn-danger btn-sm")">Hapus</button>`
@@ -128,6 +144,9 @@
             }
 
             if (val.id_status_perbaikan == 3 && $('#tabel_perbaikan_ditolak tr#'+val.id_perbaikan).attr('id') != val.id_perbaikan) {
+
+              console.log("tambah tr status id = 3")
+
               let nomor = `<td>`+ parseInt(index+1) +`</td>`;
               let pelanggan = `<td>`+ val.pelanggan.toUpperCase() +` <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right;" onclick="detail_pelanggan(`+ val.id_pelanggan +`)">Detail</button></td>`;
               let proses = `<button class="btn btn-danger btn-sm")">Hapus</button>`

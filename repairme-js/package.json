@@ -1,0 +1,19 @@
+{
+  "name": "repairme",
+  "version": "1.0.0",
+  "description": "repairme restfulApi with expressJs, socket.io and vueJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bgs",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "latest",
+    "cors": "^2.8.5",
+    "ejs": "latest",
+    "express": "latest",
+    "mongoose": "latest",
+    "socket.io": "latest"
+  }
+}

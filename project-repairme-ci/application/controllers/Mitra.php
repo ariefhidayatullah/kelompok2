@@ -81,6 +81,11 @@ class Mitra extends CI_Controller
         echo json_encode($this->Mitra_model->pengajuanLaptop($this->session->userdata('userData')['id_mitra']));
     }
 
+    public function data_hp()
+    {
+        echo json_encode($this->Mitra_model->pengajuanHp($this->session->userdata('userData')['id_mitra']));
+    }
+
     public function laptopTtd()
     {
         $kode = $this->input->post('kode');
@@ -208,7 +213,7 @@ class Mitra extends CI_Controller
 
     public function voucher()
     {
-        $data['judul'] = 'Perbaikan';
+        $data['judul'] = 'Terima Voucher';
         if ($this->session->userdata('login') == true && $this->session->userdata('jenis') == 'mitra') {
             $data['mitra'] = $this->Mitra_model->getMitraNow();
             $this->load->view('mitra/templates/header', $data);
