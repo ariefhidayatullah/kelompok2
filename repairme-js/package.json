@@ -4,9 +4,9 @@
   "description": "repairme restfulApi with expressJs, socket.io and vueJs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.js"
   },
-  "author": "bgs",
+  "author": "repairme",
   "license": "ISC",
   "dependencies": {
     "body-parser": "latest",
@@ -14,6 +14,8 @@
     "ejs": "latest",
     "express": "latest",
     "mongoose": "latest",
+    "bcryptjs": "latest",
+    "jsonwebtoken": "latest",
     "socket.io": "latest"
   }
 }

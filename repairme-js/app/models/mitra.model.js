@@ -7,4 +7,4 @@ const MitraSchema = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Mitra', MitraSchema);
+module.exports = mongoose.model('Mitra', MitraSchema, 'mitra');
