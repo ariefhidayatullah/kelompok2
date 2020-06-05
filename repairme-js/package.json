@@ -9,13 +9,14 @@
   "author": "repairme",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "latest",
     "body-parser": "latest",
     "cors": "^2.8.5",
     "ejs": "latest",
     "express": "latest",
-    "mongoose": "latest",
-    "bcryptjs": "latest",
     "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "nodemon": "^2.0.4",
     "socket.io": "latest"
   }
 }

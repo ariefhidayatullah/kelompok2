@@ -4,4 +4,9 @@ module.exports = (app) => {
             judul: 'Home'
         });
     });
+    app.get('/perbaikan', (req, res) => {
+        res.render('perbaikan/index', {
+            judul: 'perbaikan'
+        });
+    });
 }

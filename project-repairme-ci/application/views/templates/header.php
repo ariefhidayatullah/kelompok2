@@ -23,7 +23,7 @@
   <link href="<?= base_url(); ?>assets/home-master/assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
   <link href="<?= base_url(); ?>assets/home-master/assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
   <!-- Moment JS --waktu-- -->
- <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
+  <script src="<?= base_url(); ?>assets/panel-master/plugins/moment/moment.min.js"></script>
   <script src="<?= base_url(); ?>assets/js/moment-id.js"></script>
   <!-- Main stylesheet and color file-->
   <link href="<?= base_url(); ?>assets/home-master/assets/css/style.css" rel="stylesheet">

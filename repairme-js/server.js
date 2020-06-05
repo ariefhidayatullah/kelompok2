@@ -7,7 +7,9 @@ const ejs = require('ejs');
 const app = express();
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
@@ -43,8 +45,10 @@ mongoose.connect(dbConfig.url, {
 // Routing
 // important!!!!! => fungsi dari (app) buat ngirim variable app ke routes nya!
 require('./app/routes/home.routes')(app);
-require('./app/routes/api.router/api-mitra.routes.js')(app);
+require('./app/routes/api-mitra.routes.js')(app);
+require('./app/routes/api-pelanggan.routes.js')(app);
 require('./app/routes/auth.routes')(app);
+require('./app/routes/mitra.routes')(app);
 
 app.get('/favicon.ico', (req, res) => {
     res.status(204);
