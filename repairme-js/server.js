@@ -42,7 +42,7 @@ mongoose.connect(dbConfig.url, {
 
 // Routing
 // important!!!!! => fungsi dari (app) buat ngirim variable app ke routes nya!
-require('./app/routes/home.routes')(app);
+require('./app/routes/home.routes')(app, express);
 require('./app/routes/api.router/api-mitra.routes.js')(app);
 require('./app/routes/auth.routes')(app);
 
