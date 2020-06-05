@@ -12,6 +12,12 @@ module.exports = (app, express) => {
     	res.send('page tentang-kami');
     });
 
+    router.get('/perbaikan', (req, res) => {
+        res.render('perbaikan/index', {
+            judul: 'perbaikan'
+        });
+    });
+
     app.use('/', router);
 
 }
