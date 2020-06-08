@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= judul %></title>
+
+    <link href="../assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="../assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../assets/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="../assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <link href="../assets/css/home.template.css/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="../assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
+
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main id="app">
+        <div class="page-loader">
+            <div class="loader">Repairme sedang memuat halaman...</div>
+        </div>
+        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span><span class="icon-bar"></span>
+                        <span class="icon-bar"></span></button><a class="navbar-brand" href="">RepairME</a>
+                </div>
+                <div class="collapse navbar-collapse" id="custom-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/mitra">Mitra</a></li>
+                        <li><a href="/tentangkami">tentang kami</a></li>
+                        <li><a class="fa fa-user" href="">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>  
+        <div class="container-fluid">
+        <div class="row mt-80">
+            <div class="col-sm-6">
+                <!-- tutorial pertama -->
+                <div class="tutorial" style="margin: 0 5%;">
+                    <h4 class="font-alt mb-0">Ketentuan Untuk Menjadi Mitra</h4>
+                    <hr class="divider-w mt-10 mb-20">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title font-alt">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#support1">Apa Saja Yang Dibutuhkan Untuk Menjadi Mitra RepairMe?</a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="support1">
+                                <div class="panel-body">
+                                    <p>1. Memiliki tempat usaha, perbaikan Laptop atau Handphone</p>
+                                    <p>2. Bertanggung jawab terhadap pelanggan</p>
+                                    <p>3. Siap membayar biaya pemasangan iklan, sesuai dengan paket yang sudah ada.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title font-alt">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#support2">Tutorial Registrasi</a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" id="support2">
+                                <div class="panel-body">
+                                    <p>1. Isi data diri dan usaha</p>
+                                    <p>2. Membayar biaya registrasi</p>
+                                    <p>3. Menunggu verifikasi dari admin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tutup dari col-atas -->
+            <div v-if="content === 'data_diri'" class="col-sm-6 mr-2">
+            <h4 class="font-alt judul">Registrasi Pelanggan</h4>
+            <hr class="divider-w mb-20">
+                <div class="dataDiri">
+                    <div class="form-group">
+                        <input @keyup="nama" v-model="pelanggan.nama" class="form-control" id="nama" type="text" name="nama" placeholder="nama lengkap anda" />
+                        <p class="nama" style="color: red;"></p>
+                    </div>
+                    <div class="form-group">
+                        <input @keyup="email" v-model="pelanggan.email" class="form-control" id="email" type="email" name="email" placeholder="Email" required />
+                        <p class="email" style="color: red;"></p>
+                    </div>
+                    <div class="form-group">
+                        <input @keyup="no_tlp" v-model="pelanggan.no_tlp" class="form-control" id="no_tlp" type="text" name="no_tlp" placeholder="Nomor Telefon Anda" />
+                        <p class="no_tlp" style="color: red;"></p>
+                    </div>
+                    <div class="form-group">
+                        <input v-model="pelanggan.alamat" class="form-control" id="alamat" type="text" name="alamat" placeholder="Alamat Lengkap" />
+                        <p class="alamat" style="color: red;"></p>
+                    </div>
+                    <button v-if="validasi.nama == true && validasi.email == true && validasi.no_tlp == true && pelanggan.alamat !== null" @click="button('userlogin')" class="btn btn-block btn-round btn-d selanjutnya" type="button">SELANJUTNYA</button>
+                </div>
+                </div>
+                <div v-if="content === 'userlogin'" class="col-sm-6 mr-2">
+                <h4 class="font-alt judul">Akun Login</h4>
+                <hr class="divider-w mb-20">
+                    <div class="userpass">
+                        <div class="form-group">
+                            <input class="form-control" v-model="pelanggan.email" disabled />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="password1" type="password" name="password1" placeholder="password" />
+                            <p class="password1" style="color: red;"></p>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="password2" type="password" name="password2" placeholder="ulangi password" />
+                            <p class="password2" style="color: red;"></p>
+                        </div>
+                        <button class="btn btn-block btn-round btn-d selanjutnya2" type="button">SELANJUTNYA</button>
+                        <button  v-if="pelanggan.password !== null" class="btn btn-g btn-round btn-block back" type="button" style="width: 100%;">Kembali</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+    
+    <!-- vue js -->
+    <script src="../assets/js/vueJs/vue.js"></script>
+    <script src="../assets/js/vueJs/axios.js"></script>
+
+    <script>
+        var vm = new Vue({
+          el: "#app",
+          data: {
+            content: 'data_diri',
+            info: null,
+            pelanggan: {
+                nama: null,
+                email: null,
+                no_tlp: null,
+                alamat: null,
+                password: null
+            },
+             validasi:{
+                nama: false,
+                email: false,
+                no_tlp: false
+            },
+            },
+            mounted() {
+                axios.get('../api/user/email')
+                .then(response => (this.info = response.data))
+            },
+            methods: {
+                button: function (value) {
+                    return this.content = value;
+                },
+                nama: function () {
+                    var regex = /^[a-z A-Z]+$/;
+                    if (regex.test($('#nama').val()) !== true) {
+                        var correct = $('#nama').val().replace(/[^a-zA-Z]+/, '');
+                        $('#nama').val(correct);
+                    }else if ($('#nama').val().length < 5) {
+                        $('.nama').text('Anda Yakin Nama Anda Terdiri Dari '+ $('#nama').val().length + ' Huruf?');
+                        this.validasi.nama = true;
+                    }else{
+                        $('.nama').text('');
+                    }
+                },
+                email: function () {
+                    let email = $('#email').val();
+                    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if ($('#email').val().match(valid)){
+                        $('.email').text('');
+                        this.validasi.email = true;
+                    }else{
+                        $('.email').text('Isi Email dengan Benar!');
+                        this.validasi.email = false;
+                    }
+
+                    $.each(this.info, function(index, val) {
+                        if ($('#email').val() == val._id) {
+                            $('.email').text('Anda tidak dapat menggunakan email ini!');
+                            vm._data.validasi.email = false;
+                        }
+                    });
+                },
+                no_tlp: function () {
+                    var regex = /^[0-9]+$/;
+                    if (regex.test($('#no_tlp').val()) !== true) {
+                        var correct = $('#no_tlp').val().replace(/[^0-9]+/, '');
+                        $('#no_tlp').val(correct)
+                    }if ($('#no_tlp').val().length < 12) {
+                        $('.no_tlp').text('Nomor telepon anda kurang dari 12');
+                        this.validasi.no_tlp = false;
+                    }
+                    else{
+                        this.validasi.no_tlp = true;
+                        $('.no_tlp').text('');
+                    }
+                },
+                password: function (){
+                    if ($('#password1').val().length < 8) {
+                        $('.password1').text('Password Minimal 8 digit'); 
+                    }else{
+                        $('.password1').text('');
+
+                         if ($('#password2').val() != $('#password1').val()) {
+                            $('.password2').text('Password Tidak Sama');
+                        }else{
+                            $('.password2').text('');
+                            return vm._data.pelanggan.password = $('#password2').val();
+                        }
+                    }
+                   
+                },
+            }
+        });
+    </script>
+
+    <!-- JavaScripts -->
+    <script src="../assets/lib/jquery/dist/jquery.js"></script>
+    <script src="../assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/lib/wow/dist/wow.js"></script>
+    <script src="../assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../assets/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="../assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../assets/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../assets/lib/smoothscroll.js"></script>
+    <script src="../assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="../assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../assets/js/home.template.js/js/plugins.js"></script>
+    <script src="../assets/js/home.template.js/js/main.js"></script>
+
+</body>
+</html>

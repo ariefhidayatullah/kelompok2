@@ -1,117 +1,133 @@
 const Mitra = require('../../models/mitra.model.js');
+const User = require('../../models/user.model.js');
+const bcrypt = require('bcryptjs');
+
 
 // ========== API ==========
-exports.create = (req, res) => {
-    // Validate request
-    if(!req.body) {
-        return res.status(400).send({
-            message: "Data Mitra Kosong"
-        });
-    }
+//storage upload
 
-    // Create a Mitra
+
+exports.create = (req, res, next) => {
+
+    console.log(req.body);
+
+    // Data Mitra
     const mitra = new Mitra({
-        nama: req.body.nama, 
-        nama_usaha: req.body.nama_usaha
+        _id: req.body.email,
+        nama : req.body.nama,
+        no_tlp: req.body.no_tlp,
+        jenis_usaha: req.body.jenis_usaha,
+        nama_usaha: req.body.nama_usaha,
+        alamat: req.body.alamat,
+        lat : req.body.lat, 
+        lng : req.body.lng,
+        foto_ktp: req.body.foto_ktp,
+        foto_usaha: req.body.foto_usaha,
+        verifikasi: 'Belum Terverifikasi'
     });
 
-    // Save Mitra in the database
+    //data login
+    const user = new User({
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+        jenis: "mitra"
+    })
+
+    //save ke database
+    user.save()
     mitra.save()
-    .then(data => {
-        res.send(data);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Error pada saat menyimpan data mitra."
-        });
-    });
+
 };
 
-// Retrieve and return all notes from the database.
+// Cari semua data
 exports.findAll = (req, res) => {
     Mitra.find()
-    .then(notes => {
-        res.send(notes);
+    .then(mitra => {
+        res.send(mitra);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving notes."
+            message: err.message || "Some error occurred while retrieving mitra."
         });
     });
 };
 
-// Find a single note with a noteId
-exports.findOne = (req, res) => {
-    res.send(req.params)
-    // Mitra.findById(req.params.noteId)
-    // .then(note => {
-    //     if(!note) {
-    //         return res.status(404).send({
-    //             message: "Mitra not found with id " + req.params.noteId
-    //         });            
-    //     }
-    //     res.send(note);
-    // }).catch(err => {
-    //     if(err.kind === 'ObjectId') {
-    //         return res.status(404).send({
-    //             message: "Mitra not found with id " + req.params.noteId
-    //         });                
-    //     }
-    //     return res.status(500).send({
-    //         message: "Error retrieving note with id " + req.params.noteId
-    //     });
-    // });
+//cari email
+exports.findEmail = (req, res) => {
+    Mitra.find({},{_id: 1})
+    .then(mitra => {
+        res.send(mitra);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Server repairme error."
+        });
+    });
 };
 
-// Update a note identified by the noteId in the request
-exports.update = (req, res) => {
-    // Validate Request
-    if(!req.body.content) {
-        return res.status(400).send({
-            message: "Mitra content can not be empty"
-        });
-    }
-
-    // Find note and update it with the request body
-    Mitra.findByIdAndUpdate(req.params.noteId, {
-        title: req.body.title || "Untitled Mitra",
-        content: req.body.content
-    }, {new: true})
-    .then(note => {
-        if(!note) {
+// Cari Mitra Berdasarkan ID
+exports.findOne = (req, res) => {
+    Mitra.findById(req.params.mitraId)
+    .then(mitra => {
+        if(!mitra) {
             return res.status(404).send({
-                message: "Mitra not found with id " + req.params.noteId
-            });
+                message: "Mitra tidak ditemukan dengan id " + req.params.mitraId
+            });            
         }
-        res.send(note);
+        res.send(mitra);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Mitra not found with id " + req.params.noteId
+                message: "Mitra tidak ditemukan dengan id " + req.params.mitraId
             });                
         }
         return res.status(500).send({
-            message: "Error updating note with id " + req.params.noteId
+            message: "error 500, server ditolak dengan id" + req.params.mitraId
         });
     });
 };
 
-// Delete a note with the specified noteId in the request
-exports.delete = (req, res) => {
-    Mitra.findByIdAndRemove(req.params.noteId)
-    .then(note => {
-        if(!note) {
+// Update Mitra
+exports.update = (req, res) => {
+    Mitra.findByIdAndUpdate(req.params.mitraId, {
+        nama: req.body.nama,
+        nama_usaha: req.body.nama_usaha
+    }, {new: true})
+    .then(mitra => {
+        if(!mitra) {
             return res.status(404).send({
-                message: "Mitra not found with id " + req.params.noteId
+                message: "Mitra tidak ditemukan dengan id " + req.params.mitraId
+            });
+        }
+        res.send(mitra);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Mitra tidak ditemukan dengan id " + req.params.mitraId
+            });                
+        }
+        return res.status(500).send({
+            message: "Error update mitra dengan id " + req.params.mitraId
+        });
+    });
+};
+
+// Delete a mitra with the specified mitraId in the request
+exports.delete = (req, res) => {
+    Mitra.findByIdAndRemove(req.params.mitraId)
+    .then(mitra => {
+        if(!mitra) {
+            return res.status(404).send({
+                message: "Mitra not found with id " + req.params.mitraId
             });
         }
         res.send({message: "Mitra deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Mitra not found with id " + req.params.noteId
+                message: "Mitra not found with id " + req.params.mitraId
             });                
         }
         return res.status(500).send({
-            message: "Could not delete note with id " + req.params.noteId
+            message: "Could not delete mitra with id " + req.params.mitraId
         });
     });
 };

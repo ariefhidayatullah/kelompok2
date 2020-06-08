@@ -1,7 +1,19 @@
-module.exports = (app) => {
-    app.get('/mitra/registrasi', (req, res) => {
+const path = require('path');
+
+module.exports = (app, express) => {
+
+    const router = express.Router();
+
+    router.get('/', (req, res) => {
+        res.send(req.url);
+    });
+    
+    router.get('/registrasi', (req, res) => {
         res.render('mitra/registrasi', {
-            judul: 'Home'
+            judul: 'Registrasi Mitra'
         });
     });
+
+    app.use('/mitra', router);
+
 }

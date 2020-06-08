@@ -5,18 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= judul %></title>
-    <link href="./lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./lib/animate.css/animate.css" rel="stylesheet">
-    <link href="./lib/animate.css/animate.css" rel="stylesheet">
-   <!--  <link href="./lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="./lib/et-line-font/et-line-font.css" rel="stylesheet"> -->
-    <link href="./lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="./lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="./lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="./lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="./lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <link href="./css/home.template.css/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="./css/home.template.css/css/colors/default.css" rel="stylesheet">
+    <link href="./assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="./assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="./assets/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="./assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="./assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="./assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="./assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <link href="./assets/css/home.template.css/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="./assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
 </head>
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -37,12 +40,15 @@
                         <li><a href="">Home</a></li>
                         <li><a href="">Mitra</a></li>
                         <li><a href="/tentang-kami">tentang kami</a></li>
+                        <li><a href="" class="fa fa-address-card" data-toggle="modal"
+                                data-target="#exampleModal">Registrasi</a></li>
+                        <li><a class="fa fa-user" href="">Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <section class="home-section home-parallax home-fade home-full-height bg-dark-30" id="home"
-            data-background="./images/fix.jpeg">
+            data-background="./assets/images/fix.jpeg">
             <div class="titan-caption">
                 <div class="caption-content">
                     <div class="font-alt mb-40 titan-title-size-3">
@@ -67,7 +73,7 @@
                     <div class="row multi-columns-row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="features-item">
-                                <img src="./images/icon/users.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/users.png" alt="member" width="128px" height="128px">
                                 <h3 class="features-title font-alt">Banyak Mitra Terpercaya</h3>
                                 <p>Mitra yang bergabung dengan kami sudah terpercaya, jika ada mitra yang tidak memenuhi
                                     peraturan yang sudah ditentukan oleh pihak RepairMe maka mitra tidak bisa melakukan
@@ -76,7 +82,7 @@
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="features-item">
-                                <img src="./images/icon/waktu.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/waktu.png" alt="member" width="128px" height="128px">
                                 <h3 class="features-title font-alt">Tepat Waktu</h3>
                                 <p>Perbaikan Hp atau Laptop anda akan diselesaikan dengan jangka waktu yang sudah
                                     ditentukan oleh mitra yang akan memperbaiki kerusakan Hp atau Laptop anda.</p>
@@ -84,14 +90,14 @@
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="features-item">
-                                <img src="./images/icon/promo1.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/promo1.png" alt="member" width="128px" height="128px">
                                 <h3 class="features-title font-alt">Banyak Promo</h3>
                                 <p>Banyak Promo yang akan ditawarkan kepada Pelanggan maupun kepada Mitra</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="features-item">
-                                <img src="./images/icon/list1.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/list1.png" alt="member" width="128px" height="128px">
                                 <h3 class="features-title font-alt">Bergaransi</h3>
                                 <p>Pelanggan dapat menggunakan garansi setelah perbaikan selesai</p>
                             </div>
@@ -108,7 +114,7 @@
                     <div class="row">
                         <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
                             <div class="team-item">
-                                <img src="./images/icon/maps.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/maps.png" alt="member" width="128px" height="128px">
                                 <div class="team-descr font-alt">
                                     <div class="team-name">LangKah Pertama</div>
                                     <div class="team-role">Pilih Mitra dengan click salah satu lokasi maka profil mitra
@@ -118,7 +124,7 @@
                         </div>
                         <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
                             <div class="team-item">
-                                <img src="./images/icon/hp.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/hp.png" alt="member" width="128px" height="128px">
                                 <div class="team-descr font-alt">
                                     <div class="team-name">Langkah Ke-dua</div>
                                     <div class="team-role">pilih Merk dan Tipe Handphone atau Laptop anda yang rusak
@@ -129,7 +135,7 @@
                         </div>
                         <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
                             <div class="team-item">
-                                <img src="./images/icon/setuju.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/setuju.png" alt="member" width="128px" height="128px">
                                 <div class="team-descr font-alt">
                                     <div class="team-name">Langkah Ke-tiga</div>
                                     <div class="team-role">Pelanggan menunggu persetujuan dari Mitra</div>
@@ -138,7 +144,7 @@
                         </div>
                         <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
                             <div class="team-item">
-                                <img src="./images/icon/sepeda.png" alt="member" width="128px" height="128px">
+                                <img src="./assets/images/icon/sepeda.png" alt="member" width="128px" height="128px">
                                 <div class="team-descr font-alt">
                                     <div class="team-name">Langkah Ke-lima</div>
                                     <div class="team-role">Setelah Mitra menyetujui permintaan maka, barang dikirim ke
@@ -231,22 +237,52 @@
     </main>
 
     <!-- JavaScripts -->
-    <script src="./lib/jquery/dist/jquery.js"></script>
-    <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./lib/wow/dist/wow.js"></script>
-    <script src="./lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="./lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="./lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="./lib/flexslider/jquery.flexslider.js"></script>
-    <script src="./lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="./lib/smoothscroll.js"></script>
-    <script src="./lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="./lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="./js/home.template.js/js/plugins.js"></script>
-    <script src="./js/home.template.js/js/main.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+        var socket = io();
+    </script>
+
+    <script src="./assets/lib/jquery/dist/jquery.js"></script>
+    <script src="./assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./assets/lib/wow/dist/wow.js"></script>
+    <script src="./assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="./assets/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="./assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="./assets/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="./assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="./assets/lib/smoothscroll.js"></script>
+    <script src="./assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="./assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="./assets/js/home.template.js/js/plugins.js"></script>
+    <script src="./assets/js/home.template.js/js/main.js"></script>
 </body>
 
 </html>
 </body>
 
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5>Anda akan bergabung sebagai?</h5>
+            </div>
+            <div class="modal-body">
+
+                <a href="/pelanggan/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
+                    Pelanggan</a>
+
+                <a href="/mitra/registrasi" class="btn btn-round btn-b tombol-mitra"
+                    style="width: 280px;">Gabung Menjadi Mitra</a>
+            </div>
+        </div>
+    </div>
+</div>

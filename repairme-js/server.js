@@ -1,10 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const ejs = require('ejs');
-
-// create express app
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http); //socket io 
+const mysql = require('mysql');
+const path = require('path');
+const bodyParser = require('body-parser');
+
+//set view engine jadi ejs
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -14,24 +18,12 @@ app.use(bodyParser.urlencoded({
 // parse requests of content-type - application/json
 app.use(bodyParser.json())
 
-//view engine for ejs
-app.set('view engine', 'ejs');
-
-//set views ke 
-app.set('views', path.join(__dirname, 'views'));
-app.use('/css', express.static(__dirname + '/assets/css'));
-app.use('/vue', express.static(__dirname + '/assets/js/vueJs/vue.js'));
-app.use('/lib', express.static(__dirname + '/assets/lib'));
-app.use('/images', express.static(__dirname + '/assets/images'));
-app.use('/js', express.static(__dirname + '/assets/js'));
-
-// Configuring the database
-const dbConfig = require('./config/database.config.js');
+//database ---!!---
+const dbConfig = require('./config/database.config.js'); //database
 const mongoose = require('mongoose');
-
 mongoose.Promise = global.Promise;
 
-// Connecting to the database
+//connect database
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -42,19 +34,27 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-// Routing
-// important!!!!! => fungsi dari (app) buat ngirim variable app ke routes nya!
+// io.on('connection', (socket) => {
+//     Mitra.find()
+//     socket.emit('mitra', function () {
+//         return Mitra;
+//     });
+// });
 
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+//     socket.on('disconnect', () => {
+//         console.log('user disconnected');
+//     });
+// });
+
+app.use('/assets', express.static(__dirname + '/assets/'));
+
+require('./app/routes/api/api-mitra.routes.js')(app, express);
 require('./app/routes/home.routes')(app, express);
-require('./app/routes/api.router/api-mitra.routes.js')(app);
-require('./app/routes/auth.routes')(app);
-require('./app/routes/mitra.routes')(app);
-
-app.get('/favicon.ico', (req, res) => {
-    res.status(204);
-});
-
-// listen for requests
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+require('./app/routes/mitra.routes')(app, express);
+require('./app/routes/pelanggan.routes')(app, express);
+require('./app/routes/user.routes')(app, express);
+http.listen(3000, () => {
+    console.log('listening on *:3000');
 });

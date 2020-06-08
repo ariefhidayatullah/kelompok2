@@ -1,15 +1,13 @@
-const bcrypt = require('bcryptjs');
 const User = require('../models/user.model.js');
-const jwt = require('jsonwebtoken')
 
-exports.create = (req, res) => {
-	const user = new User({
-        email: req.body.email
-    });
-    
-    // let hash = bcrypt.hashSync(user.email);
 
-    let token = jwt.sign({_id: user._id, email: user.email}, "secret")
-    
-    res.send(token);
+exports.findAllEmail = (req, res) => {
+	User.find({}, {email:1})
+	.then(data => {
+		res.send(data)
+	}).catch(err => {
+		res.status(500).send({
+			message: err.message || "Server repairme error."
+		})
+	})	
 }

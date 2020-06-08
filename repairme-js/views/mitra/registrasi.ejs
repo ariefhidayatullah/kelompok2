@@ -5,23 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= judul %></title>
-    <link href="./lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./lib/animate.css/animate.css" rel="stylesheet">
-    <link href="./lib/animate.css/animate.css" rel="stylesheet">
+
+    <link href="../assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="../assets/lib/animate.css/animate.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="./lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="./lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="./lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="./lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="./lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <link href="./css/home.template.css/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="./css/home.template.css/css/colors/default.css" rel="stylesheet">
+    <link href="../assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
+    <link href="../assets/lib/flexslider/flexslider.css" rel="stylesheet">
+    <link href="../assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="../assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="../assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <link href="../assets/css/home.template.css/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="../assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
+
+    <!-- untuk leafletjs -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
 </head>
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+    <main id="app">
         <div class="page-loader">
             <div class="loader">Repairme sedang memuat halaman...</div>
         </div>
@@ -35,30 +41,18 @@
                 </div>
                 <div class="collapse navbar-collapse" id="custom-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Mitra</a></li>
-                        <li><a href="">tentang kami</a></li>
-                    </ul>
-                </div>
-                <div class="collapse navbar-collapse" id="custom-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Mitra</a></li>
-                        <li><a href="">tentang kami</a></li>
-                        <li><a class="fa fa-address-card" href="" data-toggle="modal"
-                                data-target="#exampleModal">Registrasi</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/mitra">Mitra</a></li>
+                        <li><a href="/tentangkami">tentang kami</a></li>
                         <li><a class="fa fa-user" href="">Login</a></li>
-                        <li><a href="">Dasboard pelanggan</a></li>
-                    </ul>
-                    </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>  
 
         <div class="container-fluid">
             <div class="row mt-20">
-                <div class="col-sm-7">
+                <div class="col-sm-6">
                     <!-- tutorial pertama -->
                     <div class="tutorial mt-80" style="margin: 0 5%;">
                         <h4 class="font-alt mb-0">Ketentuan Untuk Menjadi Mitra</h4>
@@ -66,13 +60,29 @@
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion"
-                                            href="#support1">Apa Saja Yang Dibutuhkan Untuk Menjadi Mitra RepairME?</a>
+                                    <h4 class="panel-title font-alt">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#support1">Apa Saja Yang Dibutuhkan Untuk Menjadi Mitra RepairMe?</a>
                                     </h4>
                                 </div>
-                                <div class="panel-collapse collapse in" id="support1">
+                                <div class="panel-collapse collapse" id="support1">
                                     <div class="panel-body">
-                                        Siap membayar biaya pemasangan iklan, sesuai dengan paket yang sudah ada.
+                                        <p>1. Memiliki tempat usaha, perbaikan Laptop atau Handphone</p>
+                                        <p>2. Bertanggung jawab terhadap pelanggan</p>
+                                        <p>3. Siap membayar biaya pemasangan iklan, sesuai dengan paket yang sudah ada.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title font-alt">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#support2">Tutorial Registrasi</a>
+                                    </h4>
+                                </div>
+                                <div class="panel-collapse collapse" id="support2">
+                                    <div class="panel-body">
+                                        <p>1. Isi data diri dan usaha</p>
+                                        <p>2. Membayar biaya registrasi</p>
+                                        <p>3. Menunggu verifikasi dari admin.</p>
                                     </div>
                                 </div>
                             </div>
@@ -80,524 +90,372 @@
                     </div>
                 </div>
                 <!-- tutup dari col-atas -->
-                <div class="col-sm-5">
+                <div class="col-sm-6 mr-2">
+                                            
                     <!-- tombol setuju -->
-                    <div class="mt-80 syarat" style="margin:0 4%;">
+                    <div class="mt-80" v-if=" content === 'ketentuan' ">
                         <h4 class="font-alt mb-0">Setuju Dengan semua ketentuan?</h4>
                         <hr class="divider-w mt-10 mb-20">
-                        <button class="btn btn-block btn-round btn-d mt-10 setuju" type="button">SAYA SETUJU</button>
-                        <a href="<?= base_url(); ?>" class="btn btn-block btn-round btn-d mt-10 batal"
+                        <button @click="button('data_diri')" class="btn btn-block btn-round btn-d mt-10" type="button">SAYA SETUJU</button>
+                        <a href="" class="btn btn-block btn-round btn-d mt-10 batal"
                             type="button">SAYA TIDAK SETUJU</a>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- bagian kedua -->
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="tutorial2 mt-80" style="margin:0 5%;">
-                        <h4 class="font-alt mb-0">Ketentuan Pengisian Registrasi</h4>
-                        <hr class="divider-w mt-10 mb-20">
-                        <div class="panel-group" id="accordion2">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion2"
-                                            href="#support12">Bagaimana cara mengisi data diri yang baik?</a></h4>
-                                </div>
-                                <div class="panel-collapse collapse in" id="support12">
-                                    <div class="panel-body">
-                                        Isi form registrasi dengan benar, pastikan data yang anda masukkakan valid dan
-                                        dapat dpertangggung jawabkan..
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse"
-                                            data-parent="#accordion2" href="#support22">Bagaimana cara menentukan lokasi
-                                            mitra?</a></h4>
-                                </div>
-                                <div class="panel-collapse collapse" id="support22">
-                                    <div class="panel-body">Jika sudah melakukan registrasi, Mitra harus verifikasi
-                                        dengan membayar biaya iklan.
-                                        <p></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- data diri -->
-
-                <div class="col-sm-6">
-                    <div class="formLocate mt-80" style="margin: 0 4%; min-height: 400px;">
+                    
+                    <!-- data diri -->
+                    <div class="mt-80" v-else-if=" content === 'data_diri' ">
                         <h4 class="font-alt judul">Data Diri</h4>
                         <hr class="divider-w mb-20">
-                        <form class="form" id="regisMitra" action="<?=base_url();?>mitra/insertMitra" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="dataDiri">
-                                <div class="form-group">
-                                    <input class="form-control" id="nama" type="text" name="nama"
-                                        placeholder="nama lengkap anda" />
-                                    <p class="nama" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="email" type="email" name="email" placeholder="Email"
-                                        required />
-                                    <p class="email" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="no_telpon" type="text" name="no_telpon"
-                                        placeholder="Nomor Telefon Anda" />
-                                    <p class="no_telpon" style="color: red;"></p>
-                                </div>
-                                <button class="btn btn-block btn-round btn-d selanjutnya"
-                                    type="button">SELANJUTNYA</button>
+                        <div class="dataDiri">
+                            <div class="form-group">
+                                <input @keyup="nama" v-model="mitra.nama" class="form-control" id="nama" type="text" name="nama"
+                                    placeholder="nama lengkap anda" />
+                                <p class="nama" style="color: red;"></p>
                             </div>
-
-                            <!-- jenis usaha -->
-
-                            <div class="jenisUsaha">
-                                <div class="row text-center">
-                                    <div class="col-sm-4">
-                                        <i class="fa fa-laptop fa-10x" style="font-size: 42px;"></i>
-                                        <button class="btn btn-block btn-round btn-d btnlaptop mt-10"
-                                            type="button">LAPTOP</button>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <i class="fa fa-tablet fa-10x" style="font-size: 42px;"></i>
-                                        <button class="btn btn-block btn-round btn-d btnhp mt-10"
-                                            type="button">HANDPHONE</button>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <i class="fa fa-gears fa-10x" style="font-size: 42px;"></i>
-                                        <button class="btn btn-block btn-round btn-d btnserbabisa mt-10"
-                                            type="button">SERBA BISA</button>
-                                    </div>
-                                </div>
-                                <input id="jenis" name="jenis" type="text" hidden>
-                                <input id="deskripsi" name="deskripsi" type="text" value="-" hidden>
-                                <button class="btn btn-g btn-round btn-block back1 mt-20" type="button">Kembali</button>
-
+                            <div class="form-group">
+                                <input @keyup="email" v-model="mitra.email" class="form-control" id="email" type="email" name="email" placeholder="Email"
+                                    required />
+                                <p class="email" style="color: red;"></p>
                             </div>
-
-
-                            <!-- data usaha -->
-
-                            <div class="dataUsaha">
-                                <div class="form-group">
-                                    <input class="form-control" id="nama_usaha" type="text" name="nama_usaha"
-                                        placeholder="Nama Usaha Anda" />
-                                    <p class="nama_usaha" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="alamat" type="text" name="alamat"
-                                        placeholder="Alamat Tempat usaha anda" />
-                                    <p class="alamat" style="color: red;"></p>
-                                </div>
-                                <button class="btn btn-block btn-round btn-d selanjutnya2"
-                                    type="button">SELANJUTNYA</button>
-                                <button class="btn btn-g btn-round btn-block back2" type="button"
-                                    style="width: 100%;">Kembali</button>
+                            <div class="form-group">
+                                <input @keyup="no_tlp" v-model="mitra.no_tlp" class="form-control" id="no_tlp" type="text" name="no_tlp"
+                                placeholder="Nomor Telefon Anda" required/>
+                                <p class="no_tlp" style="color: red;"></p>
                             </div>
-
-                            <!-- data usaha -->
-
-                            <div class="dataLokasi">
-                                <p class="map" style="color: red;"></p>
-                                <div id="map" style="width: 100%; height: 350px; border: 1px solid black;">
-                                    <script>
-                                        var map = L.map('map').setView([-7.91346, 113.82145], 18);
-                                        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                        }).addTo(map);
-
-                                        var popup = L.popup();
-                                        var lokasiLat;
-                                        var lokasiLong;
-                                        var marker = L.marker([-7.91346, 113.82145]).addTo(map).bindPopup(
-                                            "Tekan area peta di titik usaha anda!").openPopup();
-
-                                        function onMapClick(e) {
-                                            marker.setLatLng(e.latlng);
-                                            marker.bindPopup("Lokasi Usaha anda disini : " + e.latlng.toString())
-                                                .openPopup();
-                                            lokasiLat = e.latlng.lat;
-                                            lokasiLong = e.latlng.lng;
-                                            $('#lat').attr('value', lokasiLat);
-                                            $('#lng').attr('value', lokasiLong);
-                                        }
-                                        map.on('click', onMapClick);
-                                    </script>
-                                </div>
-                                <input id="lat" name="lat" type="text" hidden>
-                                <input id="lng" name="lng" type="text" hidden>
-                                <button class="btn btn-block btn-round btn-d selanjutnya3"
-                                    type="button">SELANJUTNYA</button>
-                                <button class="btn btn-g btn-round btn-block back3" type="button"
-                                    style="width: 100%;">Kembali</button>
-                            </div>
-
-
-                            <div class="upload">
-                                <div class="form-group">
-                                    <p>foto KTP</p>
-                                    <input id="foto_ktp" name="foto_ktp" type="file" required>
-                                    <p class="foto_ktp" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <p>foto Tempat Usaha</p>
-                                    <input id="foto_usaha" name="foto_usaha" type="file" required>
-                                    <p class="foto_usaha" style="color: red;"></p>
-                                </div>
-                                <button class="btn btn-block btn-round btn-d selanjutnya5"
-                                    type="button">SELANJUTNYA</button>
-                                <button class="btn btn-g btn-round btn-block back5" type="button"
-                                    style="width: 100%;">Kembali</button>
-                            </div>
-
-
-                            <!-- untuk username dan password -->
-
-
-
-                            <div class="userpass">
-                                <div class="form-group">
-                                    <input class="form-control" id="username" type="text" name="username"
-                                        placeholder="Username anda" />
-                                    <p class="username" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="password1" type="password" name="password1"
-                                        placeholder="password" />
-                                    <p class="password1" style="color: red;"></p>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" id="password2" type="password" name="password2"
-                                        placeholder="ulangi password" />
-                                    <p class="password2" style="color: red;"></p>
-                                </div>
-                                <button class="btn btn-block btn-round btn-d selanjutnya4"
-                                    type="button">SELANJUTNYA</button>
-                                <button class="btn btn-g btn-round btn-block back4" type="button"
-                                    style="width: 100%;">Kembali</button>
-                            </div>
-
-
-                            <div class="finish et-icons">
-                                <span class="box1" style="width: 50%;">
-                                    <span class="icon-happy" aria-hidden="true" style="width: 100%;">
-                                        <button class="btn btn-block btn-round btn-d submit text-center"
-                                            type="submit">YA SAYA SIAP!</button>
-                                    </span>
-                                </span>
-                                <span class="box1" style="width: 50%;">
-                                    <span class="icon-sad" aria-hidden="true" style="width: 100%;">
-                                        <button class="btn btn-block btn-round btn-d batal text-center"
-                                            type="button">TIDAK, BATALKAN!</button>
-                                    </span>
-                                </span>
-                                <br><br><br><br><br>
-                                <button class="btn btn-g btn-round btn-block back6" type="button">Kembali Ke Form
-                                    Sebelumnya</button>
-                            </div>
-                        </form>
+                            <button v-if="validasi.nama == true && validasi.email == true && validasi.no_tlp == true" @click="button('jenis_usaha')" class="btn btn-block btn-round btn-d selanjutnya"
+                                type="button">SELANJUTNYA</button>
+                        </div>
                     </div>
+                    
+                    <div class="mt-80" v-else-if=" content === 'jenis_usaha' ">
+                        <h4 class="font-alt judul">Jenis Usaha</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="row text-center">
+                            <div class="col-sm-4">
+                                <i class="fa fa-laptop fa-10x" style="font-size: 42px;"></i>
+                                <button @click="jenis_usaha('laptop'); button('data_usaha');" class="btn btn-block btn-round btn-d btnlaptop mt-10"
+                                type="button">LAPTOP</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <i class="fa fa-tablet fa-10x" style="font-size: 42px;"></i>
+                                <button @click="jenis_usaha('hp'); button('data_usaha')" class="btn btn-block btn-round btn-d btnhp mt-10"
+                                type="button">HANDPHONE</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <i class="fa fa-gears fa-10x" style="font-size: 42px;"></i>
+                                <button @click="jenis_usaha('serbabisa'); button('data_usaha')" class="btn btn-block btn-round btn-d btnserbabisa mt-10"
+                                type="button">SERBA BISA</button>
+                            </div>
+                        </div>
+                        <input id="jenis" name="jenis" type="text" hidden>
+                        <input id="deskripsi" name="deskripsi" type="text" value="-" hidden>
+                        <button @click="button('data_diri')" class="btn btn-g btn-round btn-block mt-20" type="button">Kembali</button>
+                    </div>
+                    
+                    <!-- data usaha -->
+                    <div class="mt-80" v-else-if=" content === 'data_usaha' ">
+                        <h4 class="font-alt judul">Data Usaha</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="data_usaha">
+                            <div class="form-group">
+                                <input v-model="mitra.nama_usaha" class="form-control" id="nama_usaha" type="text" name="nama_usaha"
+                                    placeholder="Nama Usaha Anda" />
+                            </div>
+                            <div class="form-group">
+                                <input v-model="mitra.alamat" class="form-control" id="alamat" type="text" name="alamat"
+                                    placeholder="Alamat Tempat usaha anda" />
+                                <p class="alamat" style="color: red;"></p>
+                            </div>
+                            <button v-if="mitra.nama_usaha !== null && mitra.alamat !== null" @click="button('data_lokasi');initMap();" class="btn btn-block btn-round btn-d" type="button">SELANJUTNYA</button>
+                            <button @click="button('jenis_usaha')" class="btn btn-g btn-round btn-block" type="button"
+                                style="width: 100%;">Kembali</button>
+                        </div>
+                    </div>
+
+                    <!-- data lokasi -->
+                    <div class="mt-80 data_lokasi" v-show=" content === 'data_lokasi' ">
+                        <h4 class="font-alt judul">Lokasi Tempat Usaha</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="data_lokasi">
+                            <p class="map" style="color: red;"></p>
+                            <div id="map" style="width: 100%; height: 350px; border: 1px solid black;">
+                                
+                            </div>
+                            <button v-if="mitra.lat !== null && mitra.lng !== null" @click="button('akun_login'); removeMap();" class="btn btn-block btn-round btn-d" type="button">SELANJUTNYA</button>
+                            <button @click="button('data_usaha');" class="btn btn-g btn-round btn-block" type="button" style="width: 100%;">Kembali</button>
+                        </div>
+                    </div>
+                    
+                    <!-- upload file -->
+                    <div class="mt-80" v-if=" content === 'upload_file' ">
+                        <h4 class="font-alt judul">Upload Foto</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="upload_file">
+                            <div class="form-group">
+                                <p>foto KTP</p>
+                                <form  id="upload_ktp" action="../api/mitra/upload_ktp" method="post" enctype="multipart/form-data">
+                                <input @change="foto_ktp" id="foto_ktp" name="foto_ktp" type="file" required>
+                                </form>
+                                <p class="foto_ktp" style="color: red;"></p>
+                            </div>
+                            <div class="form-group">
+                                <p>foto Tempat Usaha</p>
+                                <form id="upload_usaha" action="../api/mitra/upload_usaha" method="post" enctype="multipart/form-data">
+                                <input @change="foto_usaha" id="foto_usaha" name="foto_usaha" type="file" required>
+                                </form>
+                                <p class="foto_usaha" style="color: red;"></p>
+                            </div>
+                            <button v-if="mitra.foto_ktp !== null & mitra.foto_usaha !== null" @click.prevent="button('akun_login'); postdata();" class="btn btn-block btn-round btn-d selanjutnya5"
+                                type="button">SELANJUTNYA</button>
+                            <button @click="button('data_lokasi'); showMap();" class="btn btn-g btn-round btn-block back5" type="button"
+                                style="width: 100%;">Kembali</button>
+                        </div>
+                    </div>
+                        
+                    <!-- akun login -->
+                   <div class="mt-80" v-else-if=" content === 'akun_login' ">
+                        <h4 class="font-alt judul">Data Login</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="login">
+                            <div class="form-group">
+                                <input v-model="this.mitra.email" class="form-control" id="emailConfirm" type="text" name="emailConfirm" disabled/>
+                            </div>
+                            <div class="form-group">
+                                <input @keyup="password" class="form-control" id="password1" type="password" name="password1"
+                                    placeholder="password" />
+                                <p class="password1" style="color: red;"></p>
+                            </div>
+                            <div class="form-group">
+                                <input @keyup="password" class="form-control" id="password2" type="password" name="password2"
+                                    placeholder="ulangi password" />
+                                <p class="password2" style="color: red;"></p>
+                            </div>
+                            <button v-if="mitra.password !== null" @click="button('setuju_ketentuan')" class="btn btn-block btn-round btn-d selanjutnya4"
+                                type="button">SELANJUTNYA</button>
+                            <button @click="button('data_lokasi')" class="btn btn-g btn-round btn-block back4" type="button"
+                                style="width: 100%;">Kembali</button>
+                        </div>
+                   </div>
+                    
+                    <!-- setuju ketentuan -->
+                    <div class="mt-80" v-else-if=" content === 'setuju_ketentuan' ">
+                        <h4 class="font-alt judul">Apakah anda siap mengikuti persyaratan RepairMe?</h4>
+                        <hr class="divider-w mb-20">
+                        <div class="finish et-icons">
+                            <span class="box1" style="width: 50%;">
+                                <span class="icon-happy" aria-hidden="true" style="width: 100%;">
+                                    <button @click="postdata" class="btn btn-block btn-round btn-d submit text-center"
+                                        type="submit">YA SAYA SIAP!</button>
+                                </span>
+                            </span>
+                            <span class="box1" style="width: 50%;">
+                                <span @click="button('akun_login')" class="icon-sad" aria-hidden="true" style="width: 100%;">
+                                    <button class="btn btn-block btn-round btn-d batal text-center"
+                                        type="button">TIDAK, BATALKAN!</button>
+                                </span>
+                            </span>
+                            <br><br><br><br><br>
+                            <button @click="button('akun_login')" class="btn btn-g btn-round btn-block back6" type="button">Kembali Ke Form
+                                Sebelumnya</button>
+                        </div>
+                    </div>
+
+                    <!-- penutup -->
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                // $('.syarat').hide();
-                // $('.tutorial').hide();			
-                // $('.dataDiri').hide();
-
-                $('.formLocate').hide();
-                $('.tutorial2').hide();
-                $('.jenisUsaha').hide();
-                $('.dataUsaha').hide();
-                $('.dataLokasi').hide();
-                $('.userpass').hide();
-                $('.upload').hide();
-                $('.finish').hide();
-                $('.batal').click(function () {
-                    alert('Mohon Maaf Anda Harus Mengikuti Persyaratan Dan Peraturan Kami!');
-                });
-                $('.setuju').click(function () {
-                    $('.syarat').hide();
-                    $('.tutorial').hide();
-                    $('.dataDiri').show();
-                    $('.tutorial2').show();
-                    $('.formLocate').show();
-                });
-
-                function invalid() {
-                    alert('oke');
-                }
-
-
-                // Validasi Nama Lengkap
-                $('#nama').on('keyup', function () {
-                    var regex = /^[a-z A-Z]+$/;
-                    if (regex.test(this.value) !== true) {
-                        this.value = this.value.replace(/[^a-zA-Z]+/, '');
-                    } else if ($(this).val().length < 5) {
-                        $('.nama').text('Anda Yakin Nama Anda Terdiri Dari ' + $(this).val().length +
-                            ' Huruf?');
-                    } else {
-                        $('.nama').text('');
-                    }
-                    if ($(this).val().length == 0) {
-                        $('.nama').text('Nama Harus Di isi!');
-                    }
-                });
-
-                // validasi email
-                var email;
-                $('#email').on('keyup', function () {
-
-
-                    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!this.value.match(valid)) {
-                        $('.email').text('Isi Email dengan Benar!');
-                        email = false;
-                    } else if ($(this).val() == "<?= $mitra['email']; ?>") {
-                        $('.email').text('Email Sudah Terdaftar!');
-                        email = false;
-                    } else {
-                        $('.email').text('');
-                        email = true;
-                    }
-                });
-
-                // validasi nomor telepon
-                $('#no_telpon').on('keyup', function () {
-                    var regex = /^[0-9]+$/;
-                    if (regex.test(this.value) !== true) {
-                        this.value = this.value.replace(/[^0-9]+/, '');
-                    }
-                    if ($(this).val().length < 12) {
-                        $('.no_telpon').text('salah');
-                    } else {
-                        $('.no_telpon').text('');
-                    }
-                });
-                $('.selanjutnya').on('click', function () {
-                    if ($('#nama').val() === '') {
-                        $('.nama').text('Nama Harus Di isi!');
-                    } else if ($('#email').val() === '') {
-                        $('.email').text('Email Harus Di isi!');
-                    } else if ($('#no_telpon').val() === '') {
-                        $('.no_telpon').text('Nomor Harus Di isi!');
-                    } else if (email == false) {
-                        $('.email').text('Isi Email dengan Benar!');
-                    } else {
-                        $('.dataDiri').hide();
-                        $('.jenisUsaha').show();
-                        $('.judul').text('Mitra Dapat Memperbaiki Apa?');
-                    }
-                });
-
-                // untuk jenis mitra
-                $('.btnlaptop').on('click', function () {
-                    $('#jenis').attr('value', 'laptop');
-                    $('.dataUsaha').show();
-                    $('.jenisUsaha').hide();
-                    $('.judul').text('Data Tempat Usaha');
-                });
-                $('.btnhp').on('click', function () {
-                    $('#jenis').attr('value', 'hp');
-                    $('.dataUsaha').show();
-                    $('.jenisUsaha').hide();
-                    $('.judul').text('Data Tempat Usaha');
-                });
-                $('.btnserbabisa').on('click', function () {
-                    $('#jenis').attr('value', 'serbabisa');
-                    $('.jenisUsaha').hide();
-                    $('.dataUsaha').show();
-                    $('.judul').text('Data Tempat Usaha');
-                });
-
-                // validasi data tempat usaha
-                $('#nama_usaha').on('keyup', function () {
-                    $('.nama_usaha').text('');
-                });
-                $('#alamat').on('keyup', function () {
-                    $('.alamat').text('');
-                });
-                $('.selanjutnya2').on('click', function () {
-                    if ($('#nama_usaha').val() === '') {
-                        $('.nama_usaha').text('Nama Usaha Harus Di isi!');
-                    } else if ($('#alamat').val() === '') {
-                        $('.alamat').text('Alamat Harus Di isi!');
-                    } else {
-                        $('.dataUsaha').hide();
-                        $('.dataLokasi').show();
-                        $('.judul').text('Lokasi Tempat Usaha');
-                    }
-                });
-
-                // validasi dataLokasi mitra
-                $('#map').on('click', function () {
-                    $('.map').text('');
-                });
-                $('.selanjutnya3').on('click', function () {
-                    // $('.dataLokasi').hide();	
-                    if ($('#lat').val() === '' && $('#lng').val() === '') {
-                        $('.map').text('Pilih Lokasi Usaha Anda dengan cara klik area peta!');
-                    } else {
-                        $('.dataLokasi').hide();
-                        $('.upload').show();
-                        $('.judul').text('Unggah foto Data Diri dan usaha');
-                    }
-                });
-
-
-                // validasi file upload 
-
-                $('#foto_ktp').on('change', function () {
-                    var filename = this.files[0].name.split('.').pop();
-                    if ((this).files[0].size > 2000000) {
-                        $('.foto_ktp').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
-                        var kel = $(this).val(null);
-                    } else if (filename != 'jpeg' && filename != 'jpg' && filename != 'png') {
-                        $('.foto_ktp').text('Format Gambar Tidak Benar!');
-                        var kel = $(this).val(null);
-                    } else {
-                        $('.foto_ktp').text('');
-                    }
-
-                });
-
-                $('#foto_usaha').on('change', function () {
-                    var filename = this.files[0].name.split('.').pop();
-                    if ((this).files[0].size > 2000000) {
-                        $('.foto_usaha').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
-                        var kel = $(this).val(null);
-                    } else if (filename != 'jpeg' && filename != 'jpg' && filename != 'png') {
-                        $('.foto_usaha').text('Format Gambar Tidak Benar!');
-                        var kel = $(this).val(null);
-                    } else {
-                        $('.foto_usaha').text('');
-                    }
-
-                });
-
-                $('.selanjutnya5').on('click', function () {
-                    if ($('#foto_ktp').val() === '') {
-                        $('.foto_ktp').text('Upload Foto Ktp anda');
-                    } else if ($('#foto_usaha').val() === '') {
-                        $('.foto_usaha').text('Upload Foto Usaha anda');
-                    } else {
-                        $('.upload').hide();
-                        $('.userpass').show();
-                        $('.judul').text('Akun Login');
-                    }
-                });
-
-
-                // validasi username dan password untuk login
-                var username;
-                $('#username').on('keyup', function () {
-                    if ($(this).val() < 1) {
-                        $('.username').text('Username Harus Diisi');
-                    } else if ($(this).val() == "<?= $user['username']; ?>") {
-                        $('.username').text('Username tidak bisa dipakai');
-                        username = false;
-                    } else {
-                        $('.username').text('');
-                    }
-
-                });
-                var passv;
-                $('#password1').on('keyup', function () {
-                    if ($(this).val().length < 8) {
-                        $('.password1').text('Password Minimal 8 digit');
-                        passv = false;
-                    } else {
-                        $('.password1').text('');
-                        passv = true;
-                    }
-                });
-                var passvalid;
-                $('#password2').on('keyup', function () {
-                    if ($(this).val() != $('#password1').val()) {
-                        $('.password2').text('Password Tidak Sama');
-                        passvalid = false;
-                    } else {
-                        $('.password2').text('');
-                        passvalid = true;
-                    }
-                });
-                $('.selanjutnya4').on('click', function () {
-                    if ($('#username').val() === '') {
-                        $('.username').text('Username Harus Di Isi!');
-                    } else if ($('#password1').val() === '') {
-                        $('.password1').text('Password Harus Di Isi!');
-                    } else if ($('#password2').val() === '') {
-                        $('.password2').text('Password Harus Di Isi!');
-                    } else if (passvalid == false) {
-                        $('.password2').text('Password Harus sama');
-                    } else if (passv == false) {
-                        $('.password1').text('Password Minimal 8 Digit');
-                    } else {
-                        $('.userpass').hide();
-                        $('.judul').text('Apakah Anda Siap menjadi Mitra RepairMe?');
-                        $('.finish').show();
-                    }
-                });
-
-
-
-
-                // untuk button back
-                $('.back1').on('click', function () {
-                    $('.jenisUsaha').hide();
-                    $('.dataDiri').show();
-                });
-                $('.back2').on('click', function () {
-                    $('.dataUsaha').hide();
-                    $('.jenisUsaha').show();
-                });
-                $('.back3').on('click', function () {
-                    $('.dataLokasi').hide();
-                    $('.dataUsaha').show();
-                });
-                $('.back5').on('click', function () {
-                    $('.upload').hide();
-                    $('.dataLokasi').show();
-                });
-                $('.back4').on('click', function () {
-                    $('.userpass').hide();
-                    $('.upload').show();
-                });
-                $('.back6').on('click', function () {
-                    $('.finish').hide();
-                    $('.userpass').show();
-                });
-
-            });
-        </script>
         <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
+    
+    <!-- vue js -->
+    <script src="../assets/js/vueJs/vue.js"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="../assets/js/vueJs/axios.js"></script>
+    <script src="../assets/js/socket.io/socket.io.js"></script>
+
+    <script>
+
+        var vm = new Vue({
+        
+          el: "#app",
+          data: {
+            content: 'ketentuan',
+            info: null,
+            mitra: {
+                nama: null,
+                email: null,
+                no_tlp: null,
+                jenis_usaha: null,
+                nama_usaha: null,
+                alamat: null,
+                lat: null,
+                lng: null,
+                foto_ktp: null,
+                foto_usaha: null,
+                password: null
+            },
+            validasi: {
+                nama: false,
+                email: false,
+                no_tlp: false,
+            }
+          },
+          mounted() {
+            axios.get('../api/user/email')
+            .then(response => (this.info = response.data))
+            
+            },
+          methods: {
+            button: function(value) {
+                return this.content = value;
+            },
+            nama: function () {
+                var regex = /^[a-z A-Z]+$/;
+                if (regex.test($('#nama').val()) !== true) {
+                    var correct = $('#nama').val().replace(/[^a-zA-Z]+/, '');
+                    $('#nama').val(correct);
+                }else if ($('#nama').val().length < 5) {
+                    $('.nama').text('Anda Yakin Nama Anda Terdiri Dari '+ $('#nama').val().length + ' Huruf?');
+                    this.validasi.nama = true;
+                }else{
+                    $('.nama').text('');
+                }
+            },
+            email: function () {
+                let email = $('#email').val();
+                var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if ($('#email').val().match(valid)){
+                    $('.email').text('');
+                    this.validasi.email = true;
+                }else{
+                    $('.email').text('Isi Email dengan Benar!');
+                    this.validasi.email = false;
+                }
+
+                $.each(this.info, function(index, val) {
+                    if ($('#email').val() == val._id) {
+                        $('.email').text('Anda tidak dapat menggunakan email ini!');
+                        vm._data.validasi.email = false;
+                    }
+                });
+
+            },
+            no_tlp: function () {
+                var regex = /^[0-9]+$/;
+                if (regex.test($('#no_tlp').val()) !== true) {
+                    var correct = $('#no_tlp').val().replace(/[^0-9]+/, '');
+                    $('#no_tlp').val(correct)
+                }if ($('#no_tlp').val().length < 12) {
+                    $('.no_tlp').text('Nomor telepon anda kurang dari 12');
+                    this.validasi.no_tlp = false;
+                }
+                else{
+                    this.validasi.no_tlp = true;
+                    $('.no_tlp').text('');
+                }
+            },
+            jenis_usaha: function (value) {
+                this.mitra.jenis_usaha = value;
+            },
+            initMap: function () {
+                setTimeout(function() {
+                    const map = L.map('map').setView([-7.91346, 113.82145], 18);
+                    const tileLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    let popup = L.popup();
+                    let lokasiLat;
+                    let lokasiLong;
+
+                    let marker = L.marker([-7.91346, 113.82145]).addTo(map).bindPopup("Tekan area peta di titik usaha anda!").openPopup();
+
+                    function onMapClick(e) {
+                        marker.setLatLng(e.latlng);
+                        marker.bindPopup("Lokasi Usaha anda disini : " + e.latlng.toString()).openPopup();
+                        lokasiLat = e.latlng.lat;
+                        lokasiLong = e.latlng.lng;
+                        vm._data.mitra.lat = lokasiLat;
+                        vm._data.mitra.lng = lokasiLong;
+                    }
+                    map.on('click', onMapClick);
+                }, 1000);
+            },
+            removeMap: function () {
+                // $('.data_lokasi').hide();
+            },
+            showMap: function () {
+                // $('.data_lokasi').show();
+            },
+            foto_ktp: function () {
+            var filename = $('#foto_ktp').prop('files')[0].name.split('.').pop();
+                if ($('#foto_ktp').prop('files')[0].size > 2000000) {
+                    $('.foto_ktp').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
+                    var kel = $('#foto_ktp').val(null);
+                }else if(filename != 'jpeg' && filename != 'jpg' && filename != 'png'){
+                    $('.foto_ktp').text('Format Gambar Tidak Benar!');
+                    var kel = $('#foto_ktp').val(null);
+                }else{
+                    $('.foto_ktp').text('');
+                    return this.mitra.foto_ktp = $('#foto_ktp').prop('files')[0].name;
+                }
+            },
+            foto_usaha: function () {
+            var filename = $('#foto_usaha').prop('files')[0].name.split('.').pop();
+                if ($('#foto_usaha').prop('files')[0].size > 2000000) {
+                    $('.foto_usaha').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
+                    var kel = $('#foto_usaha').val(null);
+                }else if(filename != 'jpeg' && filename != 'jpg' && filename != 'png'){
+                    $('.foto_usaha').text('Format Gambar Tidak Benar!');
+                    var kel = $('#foto_usaha').val(null);
+                }else{
+                    $('.foto_usaha').text('');
+                    return this.mitra.foto_usaha = $('#foto_usaha').prop('files')[0].name;
+                }
+            },   
+            password: function (){
+                if ($('#password1').val().length < 8) {
+                    $('.password1').text('Password Minimal 8 digit'); 
+                }else{
+                    $('.password1').text('');
+
+                     if ($('#password2').val() != $('#password1').val()) {
+                        $('.password2').text('Password Tidak Sama');
+                    }else{
+                        $('.password2').text('');
+                        return vm._data.mitra.password = $('#password2').val();
+                    }
+                }
+               
+            },
+            postdata:function (){
+                axios({
+                    method: 'post',
+                    url: '../api/mitra',
+                    data: vm._data.mitra,
+                    headers: {'Content-Type': 'application/json'},
+                }).then((response) => {
+                    console.log(response)
+                })
+            }         
+
+            }
+        });
+    </script>
 
     <!-- JavaScripts -->
-    <script src="./lib/jquery/dist/jquery.js"></script>
-    <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./lib/wow/dist/wow.js"></script>
-    <script src="./lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="./lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="./lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="./lib/flexslider/jquery.flexslider.js"></script>
-    <script src="./lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="./lib/smoothscroll.js"></script>
-    <script src="./lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="./lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="./js/home.template.js/js/plugins.js"></script>
-    <script src="./js/home.template.js/js/main.js"></script>
+    <script src="../assets/lib/jquery/dist/jquery.js"></script>
+    <script src="../assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/lib/wow/dist/wow.js"></script>
+    <script src="../assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="../assets/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="../assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="../assets/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="../assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="../assets/lib/smoothscroll.js"></script>
+    <script src="../assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="../assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="../assets/js/home.template.js/js/plugins.js"></script>
+    <script src="../assets/js/home.template.js/js/main.js"></script>
 </body>
 
 </html>
