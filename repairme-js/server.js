@@ -5,6 +5,11 @@ const io = require('socket.io')(http); //socket io
 const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+
+app.use(session({secret: "repairme"}));
+app.use(flash());
 
 //set view engine jadi ejs
 app.set('views', path.join(__dirname, 'views'));
@@ -50,11 +55,14 @@ mongoose.connect(dbConfig.url, {
 
 app.use('/assets', express.static(__dirname + '/assets/'));
 
+require('./app/routes/api/api-pelanggan.routes.js')(app, express);
 require('./app/routes/api/api-mitra.routes.js')(app, express);
 require('./app/routes/home.routes')(app, express);
 require('./app/routes/mitra.routes')(app, express);
 require('./app/routes/pelanggan.routes')(app, express);
 require('./app/routes/user.routes')(app, express);
+require('./app/routes/admin.routes')(app, express);
+
 http.listen(3000, () => {
     console.log('listening on *:3000');
 });

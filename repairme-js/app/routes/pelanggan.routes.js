@@ -1,5 +1,5 @@
 module.exports = (app, express) => {
-
+    
     const router = express.Router();
 
     router.get('/', (req, res) => {
@@ -11,6 +11,9 @@ module.exports = (app, express) => {
             judul: 'Registrasi Pelanggan'
         });
     });
+
+
+
 
     app.use('/pelanggan', router);
 

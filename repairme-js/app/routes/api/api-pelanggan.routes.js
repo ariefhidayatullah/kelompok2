@@ -1,20 +1,23 @@
-module.exports = (app) => {
+module.exports = (app, express) => {
     const pelanggan = require('../../controllers/api/api-pelanggan.controller.js');
+    const router = express.Router();
 
     // ========== RESTAPI ==========
 
     // Menambah pelanggan
-    app.post('/api/pelanggan', pelanggan.create);
+    router.post('/', pelanggan.create);
 
     // Mencari pelanggan
-    app.get('/api/pelanggan', pelanggan.findAll);
+    router.get('/', pelanggan.findAll);
 
     // Mencari pelanggan berdasarkan Id
-    app.get('/api/pelanggan/:noteId', pelanggan.findOne);
+    router.get('/:noteId', pelanggan.findOne);
 
     // Update pelanggan berdasarkan Id
-    app.put('/api/pelanggan/:noteId', pelanggan.update);
+    router.put('/:noteId', pelanggan.update);
 
     // Delete pelanggan berdasarkan Id
-    app.delete('/api/pelanggan/:noteId', pelanggan.delete);
+    router.delete('/:noteId', pelanggan.delete);
+
+    app.use('/api/pelanggan', router);
 }

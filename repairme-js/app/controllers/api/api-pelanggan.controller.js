@@ -1,28 +1,31 @@
 const Pelanggan = require('../../models/pelanggan.model.js');
+const User = require('../../models/user.model.js');
+const bcrypt = require('bcryptjs');
 
 // ========== API ==========
+
 exports.create = (req, res) => {
-    // Validate request
-    if (!req.body) {
-        return res.status(400).send({
-            message: "Data pelanggan Kosong"
-        });
-    }
 
     // Create a pelanggan
     const pelanggan = new Pelanggan({
-        nama: req.body.nama
+        _id: req.body.email,
+        nama : req.body.nama,
+        no_tlp: req.body.no_tlp,
+        alamat: req.body.alamat,
+        verifikasi: 'Belum Terverifikasi'
     });
 
+    //data login
+    const user = new User({
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+        jenis: "pelanggan"
+    })
+
     // Save pelanggan in the database
+    user.save()
     pelanggan.save()
-        .then(data => {
-            res.send(data);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Error pada saat menyimpan data pelanggan."
-            });
-        });
+
 };
 
 // Retrieve and return all notes from the database.

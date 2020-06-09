@@ -118,15 +118,33 @@
                             <input class="form-control" v-model="pelanggan.email" disabled />
                         </div>
                         <div class="form-group">
-                            <input class="form-control" id="password1" type="password" name="password1" placeholder="password" />
+                            <input @keyup="password" class="form-control" id="password1" type="password" name="password1" placeholder="password" />
                             <p class="password1" style="color: red;"></p>
                         </div>
                         <div class="form-group">
-                            <input class="form-control" id="password2" type="password" name="password2" placeholder="ulangi password" />
+                            <input @keyup="password" class="form-control" id="password2" type="password" name="password2" placeholder="ulangi password" />
                             <p class="password2" style="color: red;"></p>
                         </div>
-                        <button class="btn btn-block btn-round btn-d selanjutnya2" type="button">SELANJUTNYA</button>
-                        <button  v-if="pelanggan.password !== null" class="btn btn-g btn-round btn-block back" type="button" style="width: 100%;">Kembali</button>
+                        <button @click="button('postdata')" v-if="pelanggan.password !== null" class="btn btn-block btn-round btn-d selanjutnya2" type="button">SELANJUTNYA</button>
+                        <button class="btn btn-g btn-round btn-block back" type="button" style="width: 100%;">Kembali</button>
+                    </div>
+                </div>
+                <div v-if="content === 'postdata'" class="col-sm-6 mr-2">
+                <h4 class="font-alt judul">Akun Login</h4>
+                <hr class="divider-w mb-20">
+                    <div class="finish et-icons">
+                        <span class="box1" style="width: 50%;">
+                            <span class="icon-happy" aria-hidden="true" style="width: 100%;">
+                                <button @click="postdata" class="btn btn-block btn-round btn-d submit" type="submit">YA SAYA SIAP!</button>
+                            </span>
+                        </span>
+                        <span class="box1" style="width: 50%;">
+                            <span class="icon-sad" aria-hidden="true" style="width: 100%;">
+                                <button class="btn btn-block btn-round btn-d batal" type="button">TIDAK, BATALKAN!</button>
+                            </span>
+                        </span>
+                        <br><br><br><br><br>
+                        <button class="btn btn-g btn-round btn-block back6" type="button" style="width: 100%;">Kembali Ke Form Sebelumnya</button>
                     </div>
                 </div>
             </div>
@@ -224,6 +242,16 @@
                     }
                    
                 },
+                postdata: function () {
+                    axios({
+                        method: 'post',
+                        url: '../api/pelanggan',
+                        data: vm._data.pelanggan,
+                        headers: {'Content-Type': 'application/json'},
+                    }).then((response) => {
+                        console.log(response)
+                    })
+                }
             }
         });
     </script>
