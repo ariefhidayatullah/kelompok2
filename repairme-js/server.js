@@ -8,7 +8,11 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-app.use(session({secret: "repairme"}));
+app.use(session({
+    secret: "repairme",
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(flash());
 
 //set view engine jadi ejs
@@ -57,6 +61,7 @@ app.use('/assets', express.static(__dirname + '/assets/'));
 
 require('./app/routes/api/api-pelanggan.routes.js')(app, express);
 require('./app/routes/api/api-mitra.routes.js')(app, express);
+require('./app/routes/api/api-barang.routes.js')(app, express);
 require('./app/routes/home.routes')(app, express);
 require('./app/routes/mitra.routes')(app, express);
 require('./app/routes/pelanggan.routes')(app, express);
