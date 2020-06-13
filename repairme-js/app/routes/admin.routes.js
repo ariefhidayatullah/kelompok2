@@ -32,6 +32,8 @@ module.exports = (app, express) => {
 		});
 	});
 
+
+
 	app.use('/admin', router);
 
 }

@@ -13,6 +13,11 @@ module.exports = (app, express) => {
     // Mencari barang
     router.get('/', barang.findAll);
 
+    //find barang
+    router.get('/laptop', barang.findAllLaptop);
+
+    router.put('/laptop', barang.updateLaptop);
+
 
     // // Mencari barang berdasarkan Id
     // router.get('/:noteId', barang.findOne);
