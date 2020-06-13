@@ -12,8 +12,15 @@ module.exports = (app, express) => {
     // Mencari barang
     router.get('/', barang.findAll);
 
+<<<<<<< HEAD
     //kerusakan
     router.post('/kerusakan/:jenis', barang.insertKerusakan);
+=======
+    //find barang
+    router.get('/laptop', barang.findAllLaptop);
+
+    router.put('/laptop', barang.updateLaptop);
+>>>>>>> caa07e5ef6fcc48e236bb471819a3c8c57e5813b
 
 
     // // Mencari barang berdasarkan Id
