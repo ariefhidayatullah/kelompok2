@@ -59,7 +59,7 @@
 						role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
 	with font-awesome or any other icon font library -->
-<<<<<<< HEAD
+
 	<li class="nav-item">
 		<a href="./admin" class="nav-link active">
 			<i class="nav-icon fas fa-tachometer-alt"></i>
@@ -165,128 +165,6 @@
 </div>
 <!-- /.sidebar -->
 </aside>
-<div id="app" class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1>Tambah Daftar Laptop Baru</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="#">admin</a></li>
-						<li class="breadcrumb-item"><a href="#">Barang</a></li>
-						<li class="breadcrumb-item active">Tambah Daftar Laptop Baru</li>
-					</ol>
-				</div>
-=======
-						<li class="nav-item">
-							<a href="./admin" class="nav-link active">
-								<i class="nav-icon fas fa-tachometer-alt"></i>
-								<p>
-									Data Cepat
-								</p>
-							</a>
-						</li>
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-tools"></i>
-								<p>
-									Barang
-									<i class="fas fa-angle-left right"></i>
-									<span class="badge badge-info right">2</span>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="/admin/laptop" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Data Laptop</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="/admin/handphone" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Data Handphone</p>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item has-treeview">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fas fa-tools"></i>
-								<p>
-									Kerusakan
-									<i class="fas fa-angle-left right"></i>
-									<span class="badge badge-info right">2</span>
-								</p>
-							</a>
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="./admin/tambahkerusakanlaptop" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Tambah Kerusakan Laptop</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="./admin/tambahkerusakanhp" class="nav-link">
-										<i class="far fa-circle nav-icon"></i>
-										<p>Tambah Kerusakan Hp</p>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a href="./admin/perbaikan" class="nav-link">
-								<i class="nav-icon fas fa-poll-h"></i>
-								<p>
-									Data Perbaikan
-									<span class="right badge badge-warning">Edit</span>
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="./admin/dataMitra" class="nav-link">
-								<i class="nav-icon fas fa-user"></i>
-								<p>
-									Data Mitra
-									<span class="right badge badge-warning">Edit</span>
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="./admin/dataPelanggan" class="nav-link">
-								<i class="nav-icon fas fa-user"></i>
-								<p>
-									Data Pelanggan
-									<span class="right badge badge-warning">Edit</span>
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="./admin/paket" class="nav-link">
-								<i class="nav-icon fas fa-poll-h"></i>
-								<p>
-									Paket Biaya Iklan
-									<span class="right badge badge-light">Edit</span>
-								</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="./admin/permintaanverifikasi" class="nav-link">
-								<i class="nav-icon fas fa-user"></i>
-								<p>
-									Konfirmasi Mitra
-									<span class="right badge badge-warning">Baru</span>
-								</p>
-							</a>
-						</li>
-						<!-- /.sidebar-menu -->
->>>>>>> caa07e5ef6fcc48e236bb471819a3c8c57e5813b
-			</div>
-			<!-- /.sidebar -->
-		</aside>
 		<div id="app" class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
@@ -382,7 +260,7 @@
 															@click="update(tipe._id, tipe.tipe, tipe.merk)">
 															update
 														</button></td>
-													<td><a href="" class="btn btn-danger btn-sm">Hapus</a>
+													<td><button @click="deleteLaptop(tipe._id)" class="btn btn-danger btn-sm">Hapus</button>
 													</td>
 												</tr>
 											</tbody>
@@ -567,12 +445,29 @@
 					updateLaptop: function () {
 						axios({
 							method: 'put',
-							url: '../api/barang/laptop',
-							data: vm._data.updateType,
+							url: '../api/barang/laptop/' + vm._data.updateType._id,
+							data: {
+								tipe: vm._data.updateType.tipe,
+								merk: vm._data.updateType.merk,
+							},
 							headers: {
 								'Content-Type': 'application/json'
 							},
 						}).then((response) => {
+							this.getData();
+							if (response.data.status == "success") {
+								this.success(response.data.message);
+							} else if (response.data.status == "error") {
+								this.error(response.data.message);
+							}
+						})
+					},
+					deleteLaptop : function (id) {
+						axios({
+							method: 'delete',
+							url: '../api/barang/laptop/' + id
+						})
+						.then(response => {
 							this.getData();
 							if (response.data.status == "success") {
 								this.success(response.data.message);

@@ -60,20 +60,10 @@ exports.findMerkByJenis = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-<<<<<<< HEAD
+
     res.send('oke');
 }
 
-//kerusakan
-
-exports.insertKerusakan = (req, res) => {
-    if (req.params.jenis === 'laptop') {
-        console.log(req.body);
-    }   
-}
-=======
-    res.send("oke");
-};
 
 exports.findAllLaptop = (req, res) => {
     Barang.Laptop.find({}).then((response) => {
@@ -82,15 +72,115 @@ exports.findAllLaptop = (req, res) => {
 };
 
 exports.updateLaptop = (req, res) => {
-
-    console.log(req.body);
-    Barang.Laptop.update({
-        _id: req.body._id
-    }, {
-        tipe: req.body.tipe,
-        merk: req.body.merk
-    }, {
-        new: true
+    Barang.Laptop.findByIdAndUpdate(req.params.id, {
+    merk: req.body.merk,
+    tipe: req.body.tipe
+    }, {new: true})
+    .then((response) => {
+        res.send({
+            response: response,
+            status: "success",
+            message: "Berhasil Diubah!",
+        });
     })
+    .catch((err) => {
+        res.send({
+            response: err,
+            status: "error",
+            message: "Gagal Diubah!",
+        });
+    });
 };
->>>>>>> caa07e5ef6fcc48e236bb471819a3c8c57e5813b
+
+exports.deleteLaptop = (req, res) => {
+    console.log(req.params.id)
+    Barang.Laptop.findByIdAndRemove(req.params.id)
+    .then((response) => {
+        res.send({
+            response: response,
+            status: "success",
+            message: "Berhasil Dihapus!",
+        });
+    })
+    .catch((err) => {
+        res.send({
+            response: err,
+            status: "error",
+            message: "Gagal Dihapus!",
+        });
+    });
+   
+};
+
+//kerusakan
+
+exports.insertKerusakan = (req, res) => {
+    const kerusakan = new Barang.Kerusakan({
+        kerusakan: req.body.kerusakan,
+        jenis: req.body.jenis
+    })
+    kerusakan.save()
+    .then((response) => {
+        res.send({
+            response: response,
+            status: "success",
+            message: "Berhasil Ditambahkan",
+        });
+    })
+    .catch((err) => {
+        res.send({
+            response: err,
+            status: "error",
+            message: "Gagal Menambahkan!",
+        });
+    });
+};
+
+exports.findKerusakan = (req, res) => {
+    Barang.Kerusakan.find({jenis: req.params.jenis})
+    .then(response => {
+        res.send(response)
+    })
+}
+
+exports.updateKerusakan = (req, res) => {
+    if (req.params.jenis == 'laptop') {
+        Barang.Kerusakan.findByIdAndUpdate(req.body.id, {
+        kerusakan: req.body.kerusakan,
+        jenis: 'laptop'
+        }, {new: true})
+        .then((response) => {
+            res.send({
+                response: response,
+                status: "success",
+                message: "Berhasil Diubah!",
+            });
+        })
+        .catch((err) => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal Diubah!",
+            });
+        });
+    }
+};
+
+exports.deleteKerusakan = (req, res) => {
+    Barang.Kerusakan.findByIdAndRemove(req.params.id)
+    .then((response) => {
+        res.send({
+            response: response,
+            status: "success",
+            message: "Berhasil Dihapus!",
+        });
+    })
+    .catch((err) => {
+        res.send({
+            response: err,
+            status: "error",
+            message: "Gagal Dihapus!",
+        });
+    });
+   
+};

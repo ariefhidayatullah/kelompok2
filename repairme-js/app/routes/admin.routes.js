@@ -32,15 +32,12 @@ module.exports = (app, express) => {
 		});
 	});
 
-<<<<<<< HEAD
 	router.get('/kerusakan_laptop', (req, res) => {
 		res.render('./admin/kerusakan/laptop', {
 			judul: 'Kerusakan Laptop'
 		})
 	})
-=======
 
->>>>>>> caa07e5ef6fcc48e236bb471819a3c8c57e5813b
 
 	app.use('/admin', router);
 

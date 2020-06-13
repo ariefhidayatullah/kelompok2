@@ -162,9 +162,9 @@
 </div>
 <!-- /.sidebar -->
 </aside>
-<div class="content-wrapper">
+<div id="app" class="content-wrapper">
 <!-- Content Header (Page header) -->
-<section id="app" class="content-header">
+<section class="content-header">
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
@@ -182,7 +182,7 @@
 	</section>
 	<!-- Main content -->
 	<!-- Main content -->
-	<section class="content">
+	<section id="app" class="content">
 		<!-- Default box -->
 		<div class="card">
 			<div class="card-header">
@@ -199,18 +199,16 @@
 					<div class="col-sm-12">
 					</div>
 				</div>
-				<form action="../api/barang/kerusakan/laptop" method="POST">
 					<div class="form-group">
 						<div class="row">
 							<div class="col-sm-6 offset-sm-1 mt-3">
-								<input type="text" class="form-control" id="kerusakan" placeholder="Kerusakan" name="kerusakan">
+								<input type="text" v-model="kerusakan" class="form-control" id="kerusakan" placeholder="Kerusakan" name="kerusakan">
 							</div>
 							<div class="col-sm-4 mt-3">
-								<button type="submit" class="btn btn-block btn-success" id="submit">TAMBAH KERUSAKAN BARU</button>
+								<button @click="addNew" type="submit" class="btn btn-block btn-success" id="submit">TAMBAH KERUSAKAN BARU</button>
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
 			<!-- /.card-body -->
 		</div>
@@ -233,27 +231,53 @@
 							<table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 								<thead>
 									<tr role="row">
-										<th>No</th>
+										<th style="width: 10px;">No</th>
 										<th>Kerusakan</th>
 										<th>Ubah</th>
 										<th>Hapus</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><?= $kerusakann['id_kerusakan_laptop']; ?></td>
-										<td><?= $kerusakann['kerusakan_laptop']; ?></td>
+									<tr v-for="(kerusakan, index) in dataKerusakan">
+										<td>{{ index + 1 }}</td>
+										<td> {{ kerusakan.kerusakan }} </td>
 										<td>
-											<button class="btn btn-success btn-sm btn-u-kerusakanlap" data-toggle="modal" data-target="#modalubahlap" value="<?= $kerusakann['id_kerusakan_laptop']; ?>">
+											<button @click="updateData(kerusakan._id, kerusakan.kerusakan)" class="btn btn-success btn-sm btn-u-kerusakanlap" data-toggle="modal" data-target="#modalubahlap">
 											update
 											</button>
 										</td>
-										<td><a href="<?= base_url(); ?>admin/deleteKerusakanlaptop/<?= $kerusakann['id_kerusakan_laptop']; ?>" class="btn btn-danger btn-sm">Hapus</a></td>
+										<td><a @click="deleteKerusakan(kerusakan._id)" class="btn btn-danger btn-sm">Hapus</a></td>
 									</tr>
 								</tbody>
+							</table>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="modal fade" id="modalubahlap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel2">Kerusakan Laptop</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div v-if="updateKerusakan.kerusakan !== null" class="modal-body">
+
+				        <!-- isi dari class modal -->
+
+				     <input type="text" class="form-control" id="id_kerusakanlap_ubh" name="id_kerusakanlap_ubh" hidden>
+
+				          <input v-model="updateKerusakan.kerusakan" type="text" id="kerusakanlap_ubh" name="kerusakanlap_ubh" class="form-control mt-20">
+				          <div class="modal-footer">
+				            <button @click="updateKerusakanSubmit" name="submit" id="submit" class="btn btn-secondary">update</button>
+				          </div>
+				      
+
+				      </div>
+				    </div>
+				  </div>
 				</div>
 			</section>
 			<!-- /.content-wrapper -->
@@ -266,14 +290,109 @@
 				<b>Versi</b> 1.0.0
 			</div>
 		</footer>
-		</div>
+	</div>
 		<!-- ./wrapper -->
 		<!-- vue js -->
 		<script src="../assets/js/vueJs/vue.js"></script>
 		<script src="../assets/js/vueJs/axios.js"></script>
 		<script>
 			var vm = new Vue({
-				el: "#app"
+				el: "#app",
+				data: {
+					kerusakan: null,
+					dataKerusakan: null,
+					updateKerusakan: {
+						id: null,
+						kerusakan: null
+					}
+				},
+				mounted(){
+					this.getData();
+				},
+				methods : {
+					getData: function () {
+						axios({
+							method: 'get',
+							url: '/api/barang/kerusakan/laptop'
+						}).then(response => {
+							return vm._data.dataKerusakan = response.data;
+						})
+					},
+					warning: function (message) {
+						setTimeout(function () {
+							toastr.warning(
+								message
+							);
+						}, 10);
+					},
+					success: function (success) {
+						setTimeout(function () {
+							toastr.success(
+								success
+							);
+						}, 10);
+					},
+					error: function (error) {
+						setTimeout(function () {
+							toastr.error(
+								error
+							);
+						}, 10);
+					},
+					addNew: function () {
+						axios({
+							method: 'post',
+							url: '/api/barang/kerusakan',
+							data: {
+								kerusakan : vm._data.kerusakan,
+								jenis: 'laptop'
+							},
+							header: {'Content-Type': 'application/json'}
+						}).then(response => {
+							this.getData();
+							if (response.data.status == "success") {
+								this.success(response.data.message);
+							} else if (response.data.status == "error") {
+								this.error(response.data.message);
+							}
+						})
+					},
+					updateData: function (id, kerusakan) {
+						this.updateKerusakan.id = id;
+						this.updateKerusakan.kerusakan = kerusakan;
+					},
+					updateKerusakanSubmit: function () {
+						axios({
+							method: 'put',
+							url: '/api/barang/kerusakan/laptop',
+							data: vm._data.updateKerusakan,
+							header: {'Content-Type': 'application/json'}
+						}).then(response => {
+							this.getData();
+							$('#modalubahlap').modal('toggle');
+							if (response.data.status == "success") {
+								this.success(response.data.message);
+							} else if (response.data.status == "error") {
+								this.error(response.data.message);
+							}
+							$('#modalubahlap').modal('toggle');
+						})
+					},
+					deleteKerusakan: function (id) {
+						axios({
+							method: 'delete',
+							url: '../api/barang/kerusakan/' + id
+						})
+						.then(response => {
+							this.getData();
+							if (response.data.status == "success") {
+								this.success(response.data.message);
+							} else if (response.data.status == "error") {
+								this.error(response.data.message);
+							}
+						})
+					}
+				}
 			})
 		</script>
 		<script src="../assets/panel-master/plugins/jquery/jquery.js"></script>
@@ -288,48 +407,3 @@
 		<script src="../assets/panel-master/plugins/chart.js/Chart.min.js"></script>
 	</body>
 </html>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
-	aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel2">Tambah Merk Laptop Baru</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<label for="merk">Merk Laptop Baru</label>
-				<input v-model="newMerk.merk" id="merk" type="text" name="merk"
-				placeholder="Isi Dengan Merk Laptop Baru" class="form-control">
-				<br><br>
-				<button v-if="newMerk.merk !== null" @click="addNewMerk" class="btn btn-secondary">Tambah</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /.content-wrapper -->
-<div class="modal fade" id="modalubahlaptop" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel2" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel2">Tipe Laptop</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<!-- isi dari class modal -->
-				<form action="<?= base_url(); ?>admin/edittipeLaptop" method="POST">
-					<input type="text" class="form-control" id="tipe_lp_lm" name="tipe_lp_lm" hidden>
-					<input type="text" id="tipelaptop_ubh" name="tipelaptop_ubh" class="form-control mt-20">
-					<div class="modal-footer">
-						<button type="submit" name="submit" class="btn btn-secondary">update</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
