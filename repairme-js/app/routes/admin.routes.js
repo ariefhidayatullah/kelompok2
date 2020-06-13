@@ -32,6 +32,12 @@ module.exports = (app, express) => {
 		});
 	});
 
+	router.get('/kerusakan_laptop', (req, res) => {
+		res.render('./admin/kerusakan/laptop', {
+			judul: 'Kerusakan Laptop'
+		})
+	})
+
 	app.use('/admin', router);
 
 }

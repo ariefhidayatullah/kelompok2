@@ -9,9 +9,11 @@ module.exports = (app, express) => {
     router.get('/merk/:jenis', barang.findMerkByJenis);
     //tambah laptop
     router.post('/laptop', barang.insertLaptop);
-
     // Mencari barang
     router.get('/', barang.findAll);
+
+    //kerusakan
+    router.post('/kerusakan/:jenis', barang.insertKerusakan);
 
 
     // // Mencari barang berdasarkan Id

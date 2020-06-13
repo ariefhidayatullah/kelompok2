@@ -49,3 +49,11 @@ exports.findMerkByJenis = (req, res) => {
 exports.findAll = (req, res) => {
     res.send('oke');
 }
+
+//kerusakan
+
+exports.insertKerusakan = (req, res) => {
+    if (req.params.jenis === 'laptop') {
+        console.log(req.body);
+    }   
+}

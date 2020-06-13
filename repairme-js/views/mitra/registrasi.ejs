@@ -332,7 +332,7 @@
               }
 
               $.each(this.info, function(index, val) {
-                if ($('#email').val() == val._id) {
+                if ($('#email').val() == val.email) {
                   $('.email').text('Anda tidak dapat menggunakan email ini!');
                   vm._data.validasi.email = false;
                 }
