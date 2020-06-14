@@ -13,16 +13,32 @@ module.exports = (app, express) => {
     router.get('/', barang.findAll);
 
 
+    // Menambah barang
+    router.post('/merk_hp', barang.insertMerkHp);
+    //tambah laptop
+    router.post('/hp', barang.insertHp);
+
+
+
     //kerusakan
     router.post('/kerusakan/', barang.insertKerusakan);
+    router.post('/kerusakanhp/', barang.insertKerusakan);
     router.get('/kerusakan/:jenis', barang.findKerusakan);
     router.put('/kerusakan/:jenis', barang.updateKerusakan);
+    router.get('/kerusakanhp/:jenis', barang.findKerusakanHp);
+    router.put('/kerusakanhp/:jenis', barang.updateKerusakanHp);
     router.delete('/kerusakan/:id', barang.deleteKerusakan);
+
 
     //router laptop
     router.get('/laptop', barang.findAllLaptop);
     router.put('/laptop/:id', barang.updateLaptop);
     router.delete('/laptop/:id', barang.deleteLaptop);
+
+    //router Handphone
+    router.get('/handphone', barang.findAllHandphone);
+    router.put('/hp/:id', barang.updateHandphone);
+    router.delete('/hp/:id', barang.deleteHandphone);
 
 
     // // Mencari barang berdasarkan Id

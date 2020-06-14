@@ -32,12 +32,27 @@ module.exports = (app, express) => {
 		});
 	});
 
+	router.get('/handphone', (req, res) => {
+		res.render('./admin/barang/hp', {
+			judul: 'Data handphone',
+			message: req.flash('message'),
+			success: req.flash('success'),
+			error: req.flash('error')
+		});
+	});
+
 	router.get('/kerusakan_laptop', (req, res) => {
 		res.render('./admin/kerusakan/laptop', {
 			judul: 'Kerusakan Laptop'
 		})
-	})
+	});
 
+
+	router.get('/kerusakan_handphone', (req, res) => {
+		res.render('./admin/kerusakan/hp', {
+			judul: 'Kerusakan Laptop'
+		})
+	})
 
 	app.use('/admin', router);
 

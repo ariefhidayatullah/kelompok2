@@ -15,6 +15,14 @@ const LaptopSchema = mongoose.Schema({
     timestamps: true
 });
 
+const HpSchema = mongoose.Schema({
+    tipe: String,
+    merk: String,
+    keterangan_hp: String
+}, {
+    timestamps: true
+});
+
 const KerusakanSchema = mongoose.Schema({
     kerusakan: String,
     jenis: String,
@@ -23,7 +31,8 @@ const KerusakanSchema = mongoose.Schema({
 });
 
 module.exports = {
-    Merk : mongoose.model('Merk', MerkSchema, 'merk_barang'),
-    Laptop : mongoose.model('Laptop', LaptopSchema, 'laptop'),
-    Kerusakan : mongoose.model('Kerusakan', KerusakanSchema, 'kerusakan'),
+    Merk: mongoose.model('Merk', MerkSchema, 'merk_barang'),
+    Laptop: mongoose.model('Laptop', LaptopSchema, 'laptop'),
+    Hp: mongoose.model('Hp', HpSchema, 'hp'),
+    Kerusakan: mongoose.model('Kerusakan', KerusakanSchema, 'kerusakan'),
 }
