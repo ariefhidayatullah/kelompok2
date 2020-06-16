@@ -25,6 +25,18 @@ exports.auth = (req, res) => {
 							"jenis": result[0].jenis
 						}
 						res.redirect('/admin');
+					}else if(result[0].jenis === "mitra"){
+						req.session.user = {
+							"email": result[0].email,
+							"jenis": result[0].jenis
+						}
+						res.redirect('/mitra');
+					}else if(result[0].jenis === "pelanggan"){
+						req.session.user = {
+							"email": result[0].email,
+							"jenis": result[0].jenis
+						}
+						res.redirect('/pelanggan');
 					}
 				}else{
 					req.flash('message', "Password yang anda masukkan salah!");

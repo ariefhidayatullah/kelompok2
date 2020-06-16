@@ -180,7 +180,7 @@
                 <div id="map" style="width: 100%; height: 350px; border: 1px solid black;">
 
                 </div>
-                <button v-if="mitra.lat !== null && mitra.lng !== null" @click="button('akun_login'); removeMap();" class="btn btn-block btn-round btn-d" type="button">SELANJUTNYA</button>
+                <button v-if="mitra.lat !== null && mitra.lng !== null" @click="button('upload_file'); removeMap();" class="btn btn-block btn-round btn-d" type="button">SELANJUTNYA</button>
                 <button @click="button('data_usaha');" class="btn btn-g btn-round btn-block" type="button" style="width: 100%;">Kembali</button>
               </div>
             </div>
@@ -190,21 +190,23 @@
               <h4 class="font-alt judul">Upload Foto</h4>
               <hr class="divider-w mb-20">
               <div class="upload_file">
+                <form id="form_foto_ktp" action="/api/mitra/upload_ktp" method="post" enctype="multipart/form-data" @submit.prevent>
                 <div class="form-group">
                   <p>foto KTP</p>
-                  <form  id="upload_ktp" action="../api/mitra/upload_ktp" method="post" enctype="multipart/form-data">
-                    <input @change="foto_ktp" id="foto_ktp" name="foto_ktp" type="file" required>
-                  </form>
+                  <input style="display: inline-block;" @change="foto_ktp($event)" ref="foto_ktp" id="foto_ktp" name="foto_ktp" type="file" required>
+                  <button v-if="validasi.foto_ktp !== false" class="btn btn-round btn-d" style="width: 50%; display: inline-block;" @click="upload_my_ktp" ref="btn_foto_ktp">Upload Foto Ktp</button>
                   <p class="foto_ktp" style="color: red;"></p>
                 </div>
+                </form>
+                <form id="form_foto_usaha" action="/api/mitra/upload_usaha" method="post" enctype="multipart/form-data" @submit.prevent>
                 <div class="form-group">
-                  <p>foto Tempat Usaha</p>
-                  <form id="upload_usaha" action="../api/mitra/upload_usaha" method="post" enctype="multipart/form-data">
-                    <input @change="foto_usaha" id="foto_usaha" name="foto_usaha" type="file" required>
-                  </form>
+                  <p>foto usaha</p>
+                  <input style="display: inline-block;" @change="foto_usaha($event)" ref="foto_usaha" id="foto_usaha" name="foto_usaha" type="file" required>
+                  <button v-if="validasi.foto_usaha !== false" class="btn btn-round btn-d" style="width: 50%; display: inline-block;" @click="upload_my_usaha" ref="btn_foto_usaha">Upload Foto usaha</button>
                   <p class="foto_usaha" style="color: red;"></p>
                 </div>
-                <button v-if="mitra.foto_ktp !== null & mitra.foto_usaha !== null" @click.prevent="button('akun_login'); postdata();" class="btn btn-block btn-round btn-d selanjutnya5"
+                </form>
+                <button v-if="validasi.vm_ktp !== false && validasi.vm_usaha !== false" @click="button('akun_login');" class="btn btn-block btn-round btn-d selanjutnya5"
                 type="button">SELANJUTNYA</button>
                 <button @click="button('data_lokasi'); showMap();" class="btn btn-g btn-round btn-block back5" type="button"
                 style="width: 100%;">Kembali</button>
@@ -231,7 +233,7 @@
                 </div>
                 <button v-if="mitra.password !== null" @click="button('setuju_ketentuan')" class="btn btn-block btn-round btn-d selanjutnya4"
                 type="button">SELANJUTNYA</button>
-                <button @click="button('data_lokasi')" class="btn btn-g btn-round btn-block back4" type="button"
+                <button @click="button('upload_file')" class="btn btn-g btn-round btn-block back4" type="button"
                 style="width: 100%;">Kembali</button>
               </div>
             </div>
@@ -297,7 +299,12 @@
               nama: false,
               email: false,
               no_tlp: false,
-            }
+              foto_ktp: false,
+              foto_usaha: false,
+              vm_ktp: false,
+              vm_usaha: false
+            },
+            myfile: null
           },
           mounted() {
             axios.get('../api/user/email')
@@ -386,7 +393,7 @@
             showMap: function () {
               // $('.data_lokasi').show();
             },
-            foto_ktp: function () {
+            foto_ktp: function (event) {
               var filename = $('#foto_ktp').prop('files')[0].name.split('.').pop();
               if ($('#foto_ktp').prop('files')[0].size > 2000000) {
                 $('.foto_ktp').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
@@ -396,10 +403,11 @@
                 var kel = $('#foto_ktp').val(null);
               }else{
                 $('.foto_ktp').text('');
+                this.validasi.foto_ktp = true;
                 return this.mitra.foto_ktp = $('#foto_ktp').prop('files')[0].name;
               }
             },
-            foto_usaha: function () {
+            foto_usaha: function (event) {
               var filename = $('#foto_usaha').prop('files')[0].name.split('.').pop();
               if ($('#foto_usaha').prop('files')[0].size > 2000000) {
                 $('.foto_usaha').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
@@ -409,6 +417,7 @@
                 var kel = $('#foto_usaha').val(null);
               }else{
                 $('.foto_usaha').text('');
+                this.validasi.foto_usaha = true;
                 return this.mitra.foto_usaha = $('#foto_usaha').prop('files')[0].name;
               }
             },
@@ -427,6 +436,62 @@
               }
 
             },
+            upload_my_ktp: function () {
+              var data = new FormData();
+              data.append('foto_ktp', this.$refs.foto_ktp.files[0])
+              $('#form_foto_ktp').submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                  url: '/api/mitra/upload_ktp',
+                  type: 'POST',
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  method: 'POST',
+                  data: data,
+                })
+                .done(function(response) {
+                  vm.mitra.foto_ktp = response.number + '-' + vm.mitra.foto_ktp;
+                  vm.$refs.foto_ktp.style.display = 'none';
+                  vm.$refs.btn_foto_ktp.className = 'btn btn-round btn-success';
+                  vm.$refs.btn_foto_ktp.textContent = 'Berhasil';
+                  vm.$refs.btn_foto_ktp.disabled = true;
+                  vm.validasi.vm_ktp = true;
+                })
+                .fail(function() {
+                  console.log("error");
+                });
+                
+              });
+            },
+            upload_my_usaha: function () {
+              var data = new FormData();
+              data.append('foto_usaha', this.$refs.foto_usaha.files[0])
+              $('#form_foto_usaha').submit((e) => {
+                e.preventDefault()
+                $.ajax({
+                  url: '/api/mitra/upload_usaha',
+                  type: 'POST',
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  method: 'POST',
+                  data: data,
+                })
+                .done(function(response) {
+                  vm.mitra.foto_usaha = response.number + '-' + vm.mitra.foto_usaha;
+                  vm.$refs.foto_usaha.style.display = 'none';
+                  vm.$refs.btn_foto_usaha.className = 'btn btn-round btn-success';
+                  vm.$refs.btn_foto_usaha.textContent = 'Berhasil';
+                  vm.$refs.btn_foto_usaha.disabled = true;
+                  vm.validasi.vm_usaha = true;
+                })
+                .fail(function() {
+                  console.log("error");
+                });
+                
+              });
+            },
             postdata:function (){
               axios({
                 method: 'post',
@@ -435,6 +500,7 @@
                 headers: {'Content-Type': 'application/json'},
               }).then((response) => {
                 console.log(response)
+                alert('oke')
               })
             }
 

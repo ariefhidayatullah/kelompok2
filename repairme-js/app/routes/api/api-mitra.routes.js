@@ -1,25 +1,34 @@
 module.exports = (app, express) => {
     const mitra = require('../../controllers/api/api-mitra.controller.js');
-    const multer = require('multer');
     const router = express.Router();
+    const bcrypt = require('bcryptjs');
 
     // ========== RESTAPI ==========
+    const multer = require('multer');
+
+    let myRand = 0;
+    let foto_ktp_name = null;
+    let foto_usaha_name = null;
 
     const storage_ktp = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, 'assets/images/mitra/foto_ktp')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + ' - '+ file.originalname)
-        }
-    })
+            destination: function (req, file, cb) {
+                cb(null, 'assets/images/mitra/foto_ktp')
+            },
+            filename: function (req, file, cb) {
+                myRand = Math.floor(Math.random() * 10000)
+                cb(null, myRand + '-' + file.originalname);
+                foto_ktp_name = myRand + '-' + file.originalname;
+            }
+        })
 
-    const storage_usaha = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, 'assets/images/mitra/foto_usaha')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + ' - '+ file.originalname)
+        const storage_usaha = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, 'assets/images/mitra/foto_usaha')
+            },
+            filename: function (req, file, cb) {
+                myRand = Math.floor(Math.random() * 10000)
+                cb(null, myRand + '-' + file.originalname);
+                foto_usaha_name = myRand + '-' + file.originalname;
         }
     })
 
@@ -30,10 +39,12 @@ module.exports = (app, express) => {
     // Menambah Mitra
     router.post('/', mitra.create);
 
-    router.post('/upload_ktp', upload_ktp.single('foto_ktp'), (req, res, next) => {
-        next();
+    router.post('/upload_ktp', upload_ktp.single('foto_ktp'), (req, res) => {
+        res.send({number: myRand})
     });
-    router.post('/upload_usaha', upload_usaha.single('foto_usaha'));
+    router.post('/upload_usaha', upload_usaha.single('foto_usaha'), (req, res) => {
+        res.send({number: myRand})
+    });
 
     // Mencari Mitra
     router.get('/', mitra.findAll);

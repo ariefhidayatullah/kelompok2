@@ -2,14 +2,7 @@ const Mitra = require('../../models/mitra.model.js');
 const User = require('../../models/user.model.js');
 const bcrypt = require('bcryptjs');
 
-
-// ========== API ==========
-//storage upload
-
-
 exports.create = (req, res, next) => {
-
-    console.log(req.body);
 
     // Data Mitra
     const mitra = new Mitra({
