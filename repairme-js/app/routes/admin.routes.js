@@ -54,6 +54,18 @@ module.exports = (app, express) => {
 		})
 	})
 
+	router.get('/paket', (req, res) => {
+		res.render('./admin/paket/index', {
+			judul: 'Paket Biaya Iklan'
+		})
+	})
+
+	router.get('/permintaan_verifikasi', (req, res) => {
+		res.render('./admin/paket/permintaan_verifikasi', {
+			judul: 'Paket Biaya Iklan'
+		})
+	})
+
 	app.use('/admin', router);
 
 }

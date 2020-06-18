@@ -19,298 +19,316 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
   <div id="app" class="wrapper">
     <div v-if="mitra !== null ">
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
-      <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="../home/index" class="nav-link">Home</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto mr-3">
-        <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
-            <i class="far fa-bell" style="font-size: 150%;"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <li  class="nav-item">
-          <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
-          <!-- <span class="float-right text-muted text-sm">keluar</span> -->
-        </li>
-      </ul>
-    </nav>
-    <aside class="main-sidebar sidebar-dark-light elevation-2">
-      <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
-        <img src="../assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Mitra RepairMe</span>
-      </a>
-      <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <!-- <img src="" class="img-box elevation-2" alt="Foto Usaha Mitra"> -->
-        </div>
-        <div v-if="mitra !== null" class="info">
-          <a class="float-right">{{ mitra.nama }}</a>
-        </div>
-      </div>
-        <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#verifikasiModal">Belum Terverifikasi</a>
-      <!-- Sidebar Menu -->
-      <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="/" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Beranda <span class="right badge badge-success">Data Cepat</span>
-              </p>
-            </a>
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-cart"></i>
-              <p>
-                Perbaikan
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Permintaan Perbaikan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/voucher" class="nav-link" id="voucher_sidebar">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Voucher Perbaikan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="perbaikan">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perbaikan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/batalperbaikan" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perbaikan Dibatalkan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/selesaiperbaikan" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Barang Selesai Di Perbaiki</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/riwayatperbaikan" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Riwayat Perbaikan</p>
-                </a>
-              </li>
-            </ul>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="../home/index" class="nav-link">Home</a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Profile Mitra
-                <i class="fas fa-angle-left right"></i>
-                <span class="right badge badge-warning">Edit</span>
-              </p>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell" style="font-size: 150%;"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/profile" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/deskripsi" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ubah Profile</p>
-                </a>
-              </li>
-            </ul>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
+            <!-- <span class="float-right text-muted text-sm">keluar</span> -->
           </li>
         </ul>
       </nav>
-      <!-- /.sidebar -->
-    </aside>
-</div>
- <!-- Content Wrapper. Contains page content -->
-  <div  class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Profile</h1>
+      <aside class="main-sidebar sidebar-dark-light elevation-2">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+          <img src="../assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Mitra RepairMe</span>
+        </a>
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <!-- <img src="" class="img-box elevation-2" alt="Foto Usaha Mitra"> -->
+            </div>
+            <div v-if="mitra !== null" class="info">
+              <a class="float-right">{{ mitra.nama }}</a>
+            </div>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User Profile</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div v-if="mitra !== null" class="row">
-          <div class="col-sm-3">
-
-            <!-- Profile Image -->
-            <div class="card card-dark card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-box"
-                       src=""
-                       alt="User profile picture">
-                </div>
-               
-                <h3 class="profile-username text-center"></h3>
-                  
-                <p class="text-muted text-center text-sm"></p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Nama Mitra</b>
-                    <a class="float-right"> {{mitra.nama}} </a>
+          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'"
+            class="btn btn-danger btn-sm" data-toggle="modal" data-target="#verifikasiModal">Belum Terverifikasi</a>
+          <!-- Sidebar Menu -->
+          <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu"
+              data-accordion="false">
+              <li class="nav-item">
+                <a href="/" class="nav-link active">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Beranda <span class="right badge badge-success">Data Cepat</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Perbaikan
+                    <i class="fas fa-angle-left right"></i>
+                    <span class="badge badge-info right">6</span>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Permintaan Perbaikan</p>
+                    </a>
                   </li>
-                  <li class="list-group-item">
-                    <b>E-mail</b> <a class="float-right"></a>
+                  <li class="nav-item">
+                    <a href="/voucher" class="nav-link" id="voucher_sidebar">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Voucher Perbaikan</p>
+                    </a>
                   </li>
-                  <li class="list-group-item">
-                    <b>No Telfon</b> <a class="float-right"></a>
+                  <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="perbaikan">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Perbaikan</p>
+                    </a>
                   </li>
-                <input type="text" id="id_mitra1" hidden>
+                  <li class="nav-item">
+                    <a href="/batalperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Perbaikan Dibatalkan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/selesaiperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Barang Selesai Di Perbaiki</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/riwayatperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Riwayat Perbaikan</p>
+                    </a>
+                  </li>
                 </ul>
-               
-                  <a href="/home/paket" class="btn btn-info btn-blmverifikasi"><b>Verifikasi</b></a>
-           
-
-              </div>
-              <!-- /.card-body -->
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Profile Mitra
+                    <i class="fas fa-angle-left right"></i>
+                    <span class="right badge badge-warning">Edit</span>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/profile" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Profile</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/deskripsi" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Ubah Profile</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar -->
+      </aside>
+    </div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Profile</h1>
             </div>
-
-            <div class="card card-dark">
-              <div class="card-header">
-                <h3 class="card-title">Tentang Mitra</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Deskripsi</strong>
-                 <?php foreach ($data['mitra'] as $mitra):?>
-                <p class="text-muted">
-               
-                  <?= $mitra['deskripsi']; ?>
-
-                 <a class="btn btn-dark" href="<?= BASEURL; ?>/mitra/deskripsi" role="button">Update Deskripsi</a>
-                 
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi Usaha</strong>
-
-                <p class="text-muted">   <?= $mitra['alamat']; ?></p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Jenis Perbaikan</strong>
-
-                <p class="text-muted">
-                     <?= $mitra['jenis']; ?>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i>Rating</strong>
-                  <img style="vertical-align: middle;"src="http://localhost/Kelompok-1/project-repairme/public/img/images/star.png" height="20px" width="20px"  />
-                <p class="text-muted"><?= $mitra['rating']; ?></p>
-                <?php endforeach; ?>
-              </div>
-              <!-- /.card-body -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">User Profile</li>
+              </ol>
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
-          <div class="col-sm-7">
-            <div class="card card-dark">
-              <div class="card-header">
-                <h3 class="card-title">Pemberitahuan</h3>
-              </div>
-             
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post">
-                      <div class="user-block">
-                      </div>
-                      <!-- /.user-block -->
-                      <li>
-                       Jika mitra masih belum terverifikasi, maka mitra tidak bisa memasang iklan di website.
-                       Untuk verifikasi silahkan Klik Tombol "Belum Verifikasi".
-                      </li>
-                    </div>
-                    <!-- /.post -->
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div v-if="mitra !== null" class="row">
+            <div class="col-sm-3">
+
+              <!-- Profile Image -->
+              <div class="card card-dark card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img class="profile-user-img img-fluid img-box"
+                      :src="'../assets/images/mitra/foto_usaha/' + mitra.foto_usaha" alt="User profile picture">
+                  </div>
+                  <h3 class="profile-username text-center"></h3>
+                  <p class="text-muted text-center text-sm"></p>
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Nama Mitra</b>
+                      <a class="float-right"> {{mitra.nama}} </a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>E-mail</b>
+                      <a class="float-right">{{mitra._id}}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>No Telfon</b>
+                      <a class="float-right">{{mitra.no_tlp}}</a>
+                    </li>
+                    <input type="text" id="id_mitra1" hidden>
+                  </ul>
+                  <button type="button" class="btn btn-block btn-secondary" data-toggle="modal"
+                    data-target="#exampleModal2">Verifikasi</button>
                 </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+                <!-- /.card-body -->
+              </div>
             </div>
-            <!-- /.nav-tabs-custom -->
+            <div class="col-sm-3">
+              <div class="card card-dark">
+                <div class="card-header">
+                  <h3 class="card-title">Tentang Mitra</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <strong><i class="fas fa-book mr-1"></i> Deskripsi</strong>
+                  <p class="text-muted">
+                    <a class="btn btn-dark" href="<?= BASEURL; ?>/mitra/deskripsi" role="button">Update Deskripsi</a>
+                  </p>
+                  <hr>
+                  <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi Usaha</strong>
+                  <p class="text-muted"></p>
+                  <hr>
+                  <strong><i class="fas fa-pencil-alt mr-1"></i> Jenis Perbaikan: {{ mitra.jenis_usaha }}</strong>
+                  <p class="text-muted"></p>
+                  <hr>
+                  <strong><i class="far fa-file-alt mr-1"></i>Rating</strong>
+                  <img style="vertical-align: middle;"
+                    src="http://localhost/Kelompok-1/project-repairme/public/img/images/star.png" height="20px"
+                    width="20px" />
+                  <p class="text-muted"></p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Daftar Paket Iklan</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th>Paket</th>
+                        <th>Harga</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="tipe in paket">
+                        <td>{{tipe.paket}}</td>
+                        <td>{{tipe.harga}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+
+
           </div>
-          <!-- /.col -->
+      </section>
+    </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel2">Paket Verfikasi</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="paket">Pilih Haga </label>
+            <select @change="optionMerk" class="form-control" id="optionMerk">
+              <option selected="selected">Harga :</option>
+              <option v-for="paket in paket" :value="paket.paket">{{ paket.harga }}</option>
+            </select><br>
+            <label for="paket">Nama Paket </label>
+            <input type="text" name="nama_paket" id="nama_paket" class="form-control" v-model="nama_paket"><br>
+            <form id="form_foto_bukti" action="/api/mitra/upload_bukti" method="post" enctype="multipart/form-data"
+              @submit.prevent>
+              <label for="paket">Upload Bukti pembayaran </label> <br>
+              <div class="row">
+                <div class="col">
+                  <input @change="bukti($event)" ref="bukti_pembayaran" id="bukti_pembayaran" name="bukti_pembayaran"
+                    type="file" required>
+                </div>
+                <div class="col">
+                  <button v-if="validasi.bukti_pembayaran !== false" class="btn btn-primary" @click="upload_bukti"
+                    ref="btn_foto_bukti">Upload Foto Ktp</button>
+                </div>
+              </div>
+              <p class="bukti_pembayaran" style="color: red;"></p>
+            </form> <br> <br>
+            <button class="btn btn-secondary" @click="kirim_bukti">Kirim!</button>
+          </div>
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
+      </div>
+    </div>
     <!-- end of content -->
-</div>
+  </div>
+
+  <!-- Modal -->
 
 
-  
+
   <footer class="main-footer bg-dark">
     <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
     admin@repairme.com :)
@@ -318,7 +336,8 @@
       <b>Versi</b> 1.0.0
     </div>
   </footer>
-  
+
+
   <!-- javascript -->
   <script src="../assets/js/vueJs/vue.js"></script>
   <script src="../assets/js/vueJs/axios.js"></script>
@@ -346,38 +365,126 @@
 
 </html>
 
+<script>
+  var vm = new Vue({
 
-  <div class="modal fade" id="modal-sm">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="container-fluid">
-            <div class="row" id="option_barang">
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    var vm = new Vue({
-    
-      el: "#app",
-      data: {
-        mitra: null,
-        myfile: null
+    el: "#app",
+    data: {
+      paket: null,
+      mitra: null,
+      nama_paket: null,
+      email: '<%= email %>',
+      bukti_pembayaran: null,
+      validasi: {
+        bukti_pembayaran: false
       },
-      mounted(){
-        axios({
-          method: 'get',
-          url: '/api/mitra/' + '<%= email %>'  
-        }).then(response => {
-          this.mitra = response.data;
-        })
-      }
-    
-    })
-  </script>
+      myfile: null
+    },
+    mounted() {
+      axios({
+        method: 'get',
+        url: '/api/mitra/' + '<%= email %>'
+      }).then(response => {
+        this.mitra = response.data;
+      })
 
+      axios({
+        method: 'get',
+        url: '../api/barang/paket'
+      }).then((response) => {
+        return this.paket = response.data;
+      })
+    },
+    methods: {
+      optionMerk: function () {
+        return this.nama_paket = $('#optionMerk').val();
+      },
+      bukti: function (event) {
+        var filename = $('#bukti_pembayaran').prop('files')[0].name.split('.').pop();
+        if ($('#bukti_pembayaran').prop('files')[0].size > 2000000) {
+          $('.bukti_pembayaran').text('Ukuran Gambar Tidak Boleh Melebihi 2MB!');
+          var kel = $('#bukti_pembayaran').val(null);
+        } else if (filename != 'jpeg' && filename != 'jpg' && filename != 'png') {
+          $('.bukti_pembayaran').text('Format Gambar Tidak Benar!');
+          var kel = $('#bukti_pembayaran').val(null);
+        } else {
+          $('.bukti_pembayaran').text('');
+          this.validasi.bukti_pembayaran = true;
+          return this.bukti_pembayaran = $('#bukti_pembayaran').prop('files')[0].name;
+        }
+      },
+      upload_bukti: function () {
+        var data = new FormData();
+        data.append('bukti_pembayaran', this.$refs.bukti_pembayaran.files[0])
+        $('#form_foto_bukti').submit((e) => {
+          e.preventDefault()
+          $.ajax({
+              url: '/api/mitra/upload_bukti',
+              type: 'POST',
+              cache: false,
+              contentType: false,
+              processData: false,
+              method: 'POST',
+              data: data,
+            })
+            .done(function (response) {
+              vm.bukti_pembayaran = response.number + '-' + vm.bukti_pembayaran;
+              vm.$refs.bukti_pembayaran.style.display = 'none';
+              vm.$refs.btn_foto_bukti.className = 'btn btn-round btn-success';
+              vm.$refs.btn_foto_bukti.textContent = 'Berhasil';
+              vm.$refs.btn_foto_bukti.disabled = true;
+            })
+            .fail(function () {
+              console.log("error");
+            });
+
+        });
+      },
+      warning: function (message) {
+        setTimeout(function () {
+          toastr.warning(
+            message
+          );
+        }, 10);
+      },
+      success: function (success) {
+        setTimeout(function () {
+          toastr.success(
+            success
+          );
+        }, 10);
+      },
+      error: function (error) {
+        setTimeout(function () {
+          toastr.error(
+            error
+          );
+        }, 10);
+      },
+      kirim_bukti: function () {
+        axios({
+          method: 'post',
+          url: '../api/mitra/bukti',
+          data: {
+            nama_paket: vm._data.nama_paket,
+            email: vm._data.email,
+            bukti_pembayaran: vm._data.bukti_pembayaran
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then((response) => {
+          $('#exampleModal2').modal('toggle');
+          if (response.data.status == "success") {
+            this.success(response.data.message);
+          } else if (response.data.status == "error") {
+            this.error(response.data.message);
+          }
+        })
+      },
+    }
+
+
+
+  })
+</script>

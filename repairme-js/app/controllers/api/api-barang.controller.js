@@ -1,4 +1,5 @@
 const Barang = require("../../models/barang.model.js");
+const Pakett = require("../../models/paket.model.js");
 const {
     response
 } = require("express");
@@ -10,6 +11,30 @@ exports.insertMerk = (req, res) => {
     });
 
     merk
+        .save()
+        .then((response) => {
+            res.send({
+                response: response,
+                status: "success",
+                message: "Berhasil Ditambahkan",
+            });
+        })
+        .catch((err) => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal Menambahkan!",
+            });
+        });
+};
+
+exports.insertPaket = (req, res) => {
+    const paket = new Pakett.Paket({
+        paket: req.body.paket,
+        harga: req.body.harga
+    });
+
+    paket
         .save()
         .then((response) => {
             res.send({
@@ -122,6 +147,12 @@ exports.findAllHandphone = (req, res) => {
     })
 };
 
+exports.findAllPaket = (req, res) => {
+    Pakett.Paket.find({}).then((response) => {
+        res.send(response);
+    })
+};
+
 exports.updateLaptop = (req, res) => {
     Barang.Laptop.findByIdAndUpdate(req.params.id, {
             merk: req.body.merk,
@@ -192,6 +223,49 @@ exports.updateHandphone = (req, res) => {
 exports.deleteHandphone = (req, res) => {
     console.log(req.params.id)
     Barang.Hp.findByIdAndRemove(req.params.id)
+        .then((response) => {
+            res.send({
+                response: response,
+                status: "success",
+                message: "Berhasil Dihapus!",
+            });
+        })
+        .catch((err) => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal Dihapus!",
+            });
+        });
+
+};
+
+exports.updatePaket = (req, res) => {
+    Pakett.Paket.findByIdAndUpdate(req.params.id, {
+            paket: req.body.paket,
+            harga: req.body.harga
+        }, {
+            new: true
+        })
+        .then((response) => {
+            res.send({
+                response: response,
+                status: "success",
+                message: "Berhasil Diubah!",
+            });
+        })
+        .catch((err) => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal Diubah!",
+            });
+        });
+};
+
+exports.deletePaket = (req, res) => {
+    console.log(req.params.id)
+    Pakett.Paket.findByIdAndRemove(req.params.id)
         .then((response) => {
             res.send({
                 response: response,

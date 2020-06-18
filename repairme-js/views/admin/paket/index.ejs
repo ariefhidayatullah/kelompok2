@@ -171,13 +171,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Tambah Daftar Handphone Baru</h1>
+                            <h1>Tambah Daftar Paket Baru</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">admin</a></li>
-                                <li class="breadcrumb-item"><a href="#">Barang</a></li>
-                                <li class="breadcrumb-item active">Tambah Daftar Handphone Baru</li>
+                                <li class="breadcrumb-item"><a href="#">paket</a></li>
+                                <li class="breadcrumb-item active">Tambah Daftar paket Baru</li>
                             </ol>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                         <!-- Default box -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tambah Daftar Handphone</h3>
+                                <h3 class="card-title">Tambah Daftar Paket</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"
                                         data-toggle="tooltip" title="Collapse">
@@ -209,28 +209,16 @@
                                 </div>
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div v-if="merk !== null" class="col-sm-6 offset-sm-1 mt-3">
-                                            <select @change="optionMerk" class="form-control" id="optionMerk">
-                                                <option selected="selected">Merk</option>
-                                                <option v-for="merk in merk">{{ merk.merk }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4 mt-3">
-                                            <button type="button" class="btn btn-block btn-secondary"
-                                                data-toggle="modal" data-target="#exampleModal2">TAMBAH MERK</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-sm-6 offset-sm-1 mt-3">
-                                            <input type="text" name="tipelaptop" class="form-control" id="tipelaptop"
-                                                placeholder="Tipe Laptop Baru" v-model="tipe" enable>
-                                            <input type="text" name="merkchoosed" v-model="choosed" hidden>
+                                            <input type="text" name="paket" class="form-control" id="paket"
+                                                placeholder="Nama Paket Baru" v-model="paket" enable> <br>
+                                            <input type="text" name="harga" class="form-control" id="harga"
+                                                placeholder="Harga Paket Baru" v-model="harga" enable>
                                         </div>
                                         <div class="col-sm-4 mt-3">
-                                            <button type="submit" id="tambahtipe" @click="inserttipe"
+                                            <button type="submit" id="insertpaket" @click="insertpaket"
                                                 class="btn btn-block btn-success">TAMBAH
-                                                BARANG</button>
+                                                PAKET</button>
                                         </div>
                                     </div>
 
@@ -245,22 +233,22 @@
                                             role="grid" aria-describedby="example2_info">
                                             <thead>
                                                 <tr role="row">
-                                                    <th>Tipe Handphone</th>
-                                                    <th>Merk Handphone</th>
+                                                    <th>Paket</th>
+                                                    <th>Harga</th>
                                                     <th>Ubah Data</th>
                                                     <th>Hapus Data</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr role="row" class="odd" v-for="tipe in dataType">
-                                                    <td>{{tipe.tipe}}</td>
-                                                    <td>{{tipe.merk}}</td>
+                                                <tr role="row" class="odd" v-for="pkt in dataType">
+                                                    <td>{{pkt.paket}}</td>
+                                                    <td>{{pkt.harga}}</td>
                                                     <td><button class="btn btn-success btn-sm btn-u-ubahlap"
-                                                            data-toggle="modal" data-target="#modalubahhp"
-                                                            @click="update(tipe._id, tipe.tipe, tipe.merk)">
+                                                            data-toggle="modal" data-target="#modalubahpaket"
+                                                            @click="update(pkt._id, pkt.paket, pkt.harga)">
                                                             update
                                                         </button></td>
-                                                    <td><button @click="deleteHp(tipe._id)"
+                                                    <td><button @click="deletePaket(pkt._id)"
                                                             class="btn btn-danger btn-sm">Hapus</button>
                                                     </td>
                                                 </tr>
@@ -279,35 +267,12 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+            <div class="modal fade" id="modalubahpaket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">Tambah Merk Handphone Baru</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <label for="merk">Merk Handphone Baru</label>
-                            <input v-model="newMerk.merk" id="merk" type="text" name="merk"
-                                placeholder="Isi Dengan Merk handphone Baru" class="form-control">
-                            <br><br>
-                            <button v-if="newMerk.merk !== null" @click="addNewMerk"
-                                class="btn btn-secondary">Tambah</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.content-wrapper -->
-            <div class="modal fade" id="modalubahhp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">Tipe Handphone</h5>
+                            <h5 class="modal-title" id="exampleModalLabel2">Paket</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -315,12 +280,12 @@
                         <div v-if="updateType !== null" class="modal-body">
                             <!-- isi dari class modal -->
                             <input type="text" id="tipehp_ubh" name="tipehp_ubh" class="form-control mb-3"
-                                v-model="updateType.merk" readonly>
+                                v-model="updateType.paket" readonly>
                             <input type="text" class="form-control" id="tipe_hp_lm" name="tipe_hp_lm"
-                                v-model="updateType.tipe">
+                                v-model="updateType.harga">
                             <div class="modal-footer">
                                 <button type="submit" name="submit" class="btn btn-secondary"
-                                    @click="updateHp">update</button>
+                                    @click="updatePaket">update</button>
                             </div>
                         </div>
                     </div>
@@ -343,9 +308,8 @@
             var vm = new Vue({
                 el: "#app",
                 data: {
-                    merk: null,
-                    choosed: null,
-                    tipe: null,
+                    paket: null,
+                    harga: null,
                     dataType: null,
                     updateType: null,
                     newMerk: {
@@ -368,7 +332,7 @@
 
                         axios({
                             method: 'get',
-                            url: '../api/barang/handphone'
+                            url: '../api/barang/paket'
                         }).then((response) => {
                             return vm._data.dataType = response.data;
                         })
@@ -398,31 +362,13 @@
                             );
                         }, 10);
                     },
-                    addNewMerk: function () {
+                    insertpaket: function () {
                         axios({
                             method: 'post',
-                            url: '../api/barang/merk',
-                            data: vm._data.newMerk,
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                        }).then((response) => {
-                            this.getData();
-                            $('#exampleModal2').modal('toggle');
-                            if (response.data.status == "success") {
-                                this.success(response.data.message);
-                            } else if (response.data.status == "error") {
-                                this.error(response.data.message);
-                            }
-                        })
-                    },
-                    inserttipe: function () {
-                        axios({
-                            method: 'post',
-                            url: '../api/barang/hp',
+                            url: '../api/barang/paket',
                             data: {
-                                tipe_hp: vm._data.tipe,
-                                merk_hp: vm._data.choosed
+                                paket: vm._data.paket,
+                                harga: vm._data.harga
                             },
                             headers: {
                                 'Content-Type': 'application/json'
@@ -436,27 +382,27 @@
                             }
                         })
                     },
-                    update: function (id, tipe, merk) {
+                    update: function (id, paket, harga) {
                         return this.updateType = {
                             _id: id,
-                            tipe: tipe,
-                            merk: merk
+                            paket: paket,
+                            harga: harga
                         }
                     },
-                    updateHp: function () {
+                    updatePaket: function () {
                         axios({
                             method: 'put',
-                            url: '../api/barang/hp/' + vm._data.updateType._id,
+                            url: '../api/barang/paket/' + vm._data.updateType._id,
                             data: {
-                                tipe: vm._data.updateType.tipe,
-                                merk: vm._data.updateType.merk,
+                                paket: vm._data.updateType.paket,
+                                harga: vm._data.updateType.harga,
                             },
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                         }).then((response) => {
                             this.getData();
-                            $('#modalubahhp').modal('toggle');
+                            $('#modalubahpaket').modal('toggle');
                             if (response.data.status == "success") {
                                 this.success(response.data.message);
                             } else if (response.data.status == "error") {
@@ -464,10 +410,10 @@
                             }
                         })
                     },
-                    deleteHp: function (id) {
+                    deletePaket: function (id) {
                         axios({
                                 method: 'delete',
-                                url: '../api/barang/hp/' + id
+                                url: '../api/barang/paket/' + id
                             })
                             .then(response => {
                                 this.getData();

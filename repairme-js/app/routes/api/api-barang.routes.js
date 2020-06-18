@@ -15,8 +15,10 @@ module.exports = (app, express) => {
 
     // Menambah barang
     router.post('/merk_hp', barang.insertMerkHp);
-    //tambah laptop
+    //tambah handphone
     router.post('/hp', barang.insertHp);
+    //tambah paket
+    router.post('/paket', barang.insertPaket);
 
 
 
@@ -39,6 +41,11 @@ module.exports = (app, express) => {
     router.get('/handphone', barang.findAllHandphone);
     router.put('/hp/:id', barang.updateHandphone);
     router.delete('/hp/:id', barang.deleteHandphone);
+
+    //router Paket
+    router.get('/paket', barang.findAllPaket);
+    router.put('/paket/:id', barang.updatePaket);
+    router.delete('/paket/:id', barang.deletePaket);
 
 
     // // Mencari barang berdasarkan Id
