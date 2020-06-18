@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= judul %></title>
-      <link href="./assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
-      <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
+      <link href="/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/assets/lib/animate.css/animate.css" rel="stylesheet">
+      <link href="/assets/lib/animate.css/animate.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-      <link href="./assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-      <link href="./assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
-      <link href="./assets/lib/flexslider/flexslider.css" rel="stylesheet">
-      <link href="./assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-      <link href="./assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-      <link href="./assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-      <link href="./assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-      <link href="./assets/css/home.template.css/css/style.css" rel="stylesheet">
-      <link id="color-scheme" href="./assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
+      <link href="/assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="/assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
+      <link href="/assets/lib/flexslider/flexslider.css" rel="stylesheet">
+      <link href="/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
+      <link href="/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
+      <link href="/assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+      <link href="/assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+      <link href="/assets/css/home.template.css/css/style.css" rel="stylesheet">
+      <link id="color-scheme" href="/assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
       <!-- untuk leafletjs -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
         <style>
@@ -42,11 +42,11 @@
 </head>
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+    <main id="app">
         <div class="page-loader">
             <div class="loader">Repairme sedang memuat halaman...</div>
         </div>
-        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+          <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
@@ -54,14 +54,21 @@
                         <span class="icon-bar"></span><span class="icon-bar"></span>
                         <span class="icon-bar"></span></button><a class="navbar-brand" href="">RepairME</a>
                 </div>
-                <div class="collapse navbar-collapse" id="custom-collapse">
+                 <div class="collapse navbar-collapse" id="custom-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><a href="">Mitra</a></li>
-                        <li><a href="">tentang kami</a></li>
-                        <li><a class="fa fa-address-card" href="" data-toggle="modal"
-                                data-target="#exampleModal">Registrasi</a></li>
-                        <li><a class="fa fa-user" href="">Login</a></li>
+                        <li><a href="/tentang-kami">tentang kami</a></li>
+                        <li v-if="session.email === 'false'">
+                            <a href="" class="fa fa-address-card" data-toggle="modal"
+                                data-target="#exampleModal">Registrasi</a>
+                        </li>
+                        <li v-if="session.email === 'false'">
+                            <a class="fa fa-user" href="/login">Login</a>
+                        </li>
+                        <li  v-if="session.email !== 'false'">
+                            <a class="fa fa-out" href="/logout">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -81,17 +88,17 @@
                     </div>
                     <div class="modal-body">
 
-                        <a href="/mitra/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
+                        <a href="/pelanggan/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
                             Pelanggan</a>
 
-                        <a href="<?= base_url(); ?>mitra/registrasi" class="btn btn-round btn-b tombol-mitra"
+                        <a href="/mitra/registrasi" class="btn btn-round btn-b tombol-mitra"
                             style="width: 280px;">Gabung Menjadi Mitra</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="app" class="container-fluid">
+        <div class="container-fluid">
             <div class="row mt-70">
                 <div class="col-sm-8">
                     <div id="map" style="min-height: 550px; min-width: 150px; border: solid black 1px;">
@@ -100,7 +107,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="tutorial">
+                    <div v-if="mitraChoosed === null" class="tutorial">
                         <h4 class="font-alt mb-0">Tutorial</h4>
                         <hr class="divider-w mt-10 mb-20">
                         <div class="panel-group" id="accordion">
@@ -132,9 +139,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="miniProfile">
+                    <div v-if="mitraChoosed !== null" class="miniProfile">
                         <div class="col-sm-12">
-                            <h4 class="font-alt mb-0 namaMitra">Mitra</h4>
+                            <h4 class="font-alt mb-0 namaMitra">Mitra {{mitraChoosed.nama_usaha}} </h4>
                             <hr class="divider-w mt-10 mb-20">
                             <ul class="nav nav-tabs font-alt" role="tablist">
                                 <li class="active"><a href="#description" data-toggle="tab"><span
@@ -143,7 +150,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="description">
-                                    <img class="fotoMitra" src="" alt="" width="678px" height="452px">
+                                    <img class="fotoMitra" :src="'/assets/images/mitra/foto_usaha/' + mitraChoosed.foto_usaha" alt="" width="678px" height="452px">
                                     <p class="font-alt mb-0 descMitra"></p>
                                     <div>
                                         <p class="font-alt mb-0 " style="display: inline-block;">Rating :<p
@@ -154,16 +161,11 @@
                                     <!-- <i class="fa fa-star star"></i> -->
 
                                 </div>
-
+                             <a :href="'/perbaikan/' + mitraChoosed._id" class="btn btn-d btn-round btn-block mb-70">Pilih Mitra</a>
                             </div>
                         </div>
                     </div>
-                    <div class="pilihMitra">
-                        <form action="<?= base_url(); ?>perbaikan/barangkerusakan" method="POST">
-                            <input type="text" id="id" name="id" hidden>
-                            <button class="btn btn-d btn-round btn-block mb-70" type="submit">Pilih Mitra</button>
-                        </form>
-                    </div>
+            
                     <!-- tutup container oke -->
                 </div>
             </div>
@@ -172,24 +174,50 @@
         <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
     <!-- vue js -->
-    <script src="../assets/js/vueJs/vue.js"></script>
+    <script src="/assets/js/vueJs/vue.js"></script>
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-    <script src="../assets/js/vueJs/axios.js"></script>
+    <script src="/assets/js/vueJs/axios.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
     <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
     <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
-    <script>
+    <!-- JavaScripts -->
+    <script src="/assets/lib/jquery/dist/jquery.js"></script>
+    <script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/lib/wow/dist/wow.js"></script>
+    <script src="/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+    <script src="/assets/lib/isotope/dist/isotope.pkgd.js"></script>
+    <script src="/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="/assets/lib/flexslider/jquery.flexslider.js"></script>
+    <script src="/assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="/assets/lib/smoothscroll.js"></script>
+    <script src="/assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    <script src="/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+    <script src="/assets/js/home.template.js/js/plugins.js"></script>
+    <script src="/assets/js/home.template.js/js/main.js"></script>
+</body>
+
+</html>
+</body>
+
+</html>
+
+  <script>
         var vm = new Vue({
         
             el: "#app",
             data: {
-                mitra: null
+                session: {
+                    email: null
+                },
+                mitra: null,
+                mitraChoosed: null
             },
             mounted(){
+                this.session.email = "<%= sessionEmail %>";
                 this.getData();
                 setTimeout(function() {
                     vm.maps();
-                }, 10);
+                }, 400);
             },
             methods: {
                 getData: function () {
@@ -217,24 +245,24 @@
                         $('.pointer').fadeOut('slow');
                     }, 3400);
                     var bigRed = new L.Icon({
-                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                        iconSize: [25, 41],
+                        iconUrl: '/assets/images/leaflet/marker-icon-2x-red.png',
+                        shadowUrl: '/assets/images/leaflet/marker-shadow.png',
+                        iconSize: [35, 55],
                         iconAnchor: [12, 41],
                         popupAnchor: [1, -34],
-                        shadowSize: [41, 41]
+                        shadowSize: [55, 55]
                       });
                     var yellow = new L.Icon({
-                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconUrl: '/assets/images/leaflet/marker-icon-yellow.png',
+                        shadowUrl: '/assets/images/leaflet/marker-shadow.png',
                         iconSize: [25, 41],
                         iconAnchor: [12, 41],
                         popupAnchor: [1, -34],
                         shadowSize: [41, 41]
                       });
                     var green = new L.Icon({
-                        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconUrl: '/assets/images/leaflet/marker-icon-green.png',
+                        shadowUrl: '/assets/images/leaflet/marker-shadow.png',
                         iconSize: [25, 41],
                         iconAnchor: [12, 41],
                         popupAnchor: [1, -34],
@@ -245,15 +273,25 @@
                             var popup = L.popup();
                             var marker = L.marker([val.lat, val.lng], {icon: bigRed}).addTo(map)
                             marker.bindPopup('<b style="font-size: 24px;">' + val.nama_usaha.toUpperCase() + '</b>' + '<br> <center>Serba Bisa</center>');
-                        }else if (val.jenis_usaha === 'laptop') {
+                            $(marker).click(function() {
+                                vm.mitraChoosed = val
+                            });
+                        }
+                        if (val.jenis_usaha === 'laptop') {
                             var popup = L.popup();
                             var marker = L.marker([val.lat, val.lng], {icon: yellow}).addTo(map)
                             marker.bindPopup('<b style="font-size: 24px;">' + val.nama_usaha.toUpperCase() + '</b>' + '<br><center>Laptop</center>');
+                            $(marker).click(function() {
+                                vm.mitraChoosed = val
+                            });
                         }
-                        else if (val.jenis_usaha === 'hp') {
+                        if (val.jenis_usaha === 'handphone') {
                             var popup = L.popup();
                             var marker = L.marker([val.lat, val.lng], {icon: green}).addTo(map)
                             marker.bindPopup('<b style="font-size: 24px;">' + val.nama_usaha.toUpperCase() + '</b>' + '<br><center>Handphone</center>');
+                            $(marker).click(function() {
+                                vm.mitraChoosed = val
+                            });
                         }
                     });
                 }
@@ -261,24 +299,3 @@
         
         })
     </script>
-
-    <!-- JavaScripts -->
-    <script src="./assets/lib/jquery/dist/jquery.js"></script>
-    <script src="./assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./assets/lib/wow/dist/wow.js"></script>
-    <script src="./assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="./assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="./assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="./assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="./assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="./assets/lib/smoothscroll.js"></script>
-    <script src="./assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="./assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="./assets/js/home.template.js/js/plugins.js"></script>
-    <script src="./assets/js/home.template.js/js/main.js"></script>
-</body>
-
-</html>
-</body>
-
-</html>

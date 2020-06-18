@@ -23,7 +23,7 @@
 </head>
 
 <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
+    <main id="app">
         <div class="page-loader">
             <div class="loader">Repairme sedang memuat halaman...</div>
         </div>
@@ -40,9 +40,16 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="">Mitra</a></li>
                         <li><a href="/tentang-kami">tentang kami</a></li>
-                        <li><a href="" class="fa fa-address-card" data-toggle="modal"
-                                data-target="#exampleModal">Registrasi</a></li>
-                        <li><a class="fa fa-user" href="/login">Login</a></li>
+                        <li v-if="session.email === 'false'">
+                            <a href="" class="fa fa-address-card" data-toggle="modal"
+                                data-target="#exampleModal">Registrasi</a>
+                        </li>
+                        <li v-if="session.email === 'false'">
+                            <a class="fa fa-user" href="/login">Login</a>
+                        </li>
+                        <li  v-if="session.email !== 'false'">
+                            <a class="fa fa-out" href="/logout">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -238,9 +245,25 @@
 
     <!-- JavaScripts -->
     <script src="/socket.io/socket.io.js"></script>
-
+    <script src="/assets/js/vueJs/vue.js"></script>
+    <script src="/assets/js/vueJs/axios.js"></script>
     <script>
         var socket = io();
+    </script>
+    <script>
+        var vm = new Vue({
+        
+          el: "#app",
+          data: {
+            session: {
+                email: null
+            }
+          },
+          mounted(){
+            this.session.email = "<%= sessionEmail %>";
+          }
+        
+        })
     </script>
 
     <script src="./assets/lib/jquery/dist/jquery.js"></script>
