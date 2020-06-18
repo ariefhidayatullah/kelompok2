@@ -121,6 +121,17 @@ exports.findAllHandphone = (req, res) => {
         res.send(response);
     })
 };
+exports.findLaptopByMerk = (req, res) => {
+    Barang.Laptop.find({merk: req.params.merk}).then((response) => {
+        res.send(response);
+    })
+};
+
+exports.findAllHandphone = (req, res) => {
+    Barang.Hp.find({}).then((response) => {
+        res.send(response);
+    })
+};
 
 exports.updateLaptop = (req, res) => {
     Barang.Laptop.findByIdAndUpdate(req.params.id, {

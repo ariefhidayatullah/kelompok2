@@ -33,6 +33,7 @@ module.exports = (app, express) => {
     //router laptop
     router.get('/laptop', barang.findAllLaptop);
     router.put('/laptop/:id', barang.updateLaptop);
+    router.get('/laptop/:merk', barang.findLaptopByMerk);
     router.delete('/laptop/:id', barang.deleteLaptop);
 
     //router Handphone

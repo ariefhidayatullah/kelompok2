@@ -61,14 +61,23 @@ mongoose.connect(dbConfig.url, {
 
 app.use('/assets', express.static(__dirname + '/assets/'));
 
+//api routes
 require('./app/routes/api/api-pelanggan.routes.js')(app, express);
 require('./app/routes/api/api-mitra.routes.js')(app, express);
 require('./app/routes/api/api-barang.routes.js')(app, express);
+require('./app/routes/api/api-barang.routes.js')(app, express);
+require('./app/routes/api/api-perbaikan.routes.js')(app, express);
+
+//frontend routes
 require('./app/routes/home.routes')(app, express);
 require('./app/routes/mitra.routes')(app, express);
 require('./app/routes/pelanggan.routes')(app, express);
 require('./app/routes/user.routes')(app, express);
 require('./app/routes/admin.routes')(app, express);
+
+app.use((req, res) => {
+    res.status(404).redirect('/')
+});
 
 http.listen(3000, () => {
     console.log('listening on *:3000');
