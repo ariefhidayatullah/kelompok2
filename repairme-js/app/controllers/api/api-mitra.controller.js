@@ -154,7 +154,7 @@ exports.insertBukti = (req, res, next) => {
 };
 
 // Cari semua Bukti
-exports.temukanBukti = (req, res) => {
+exports.findBukti = (req, res) => {
     console.log(Paket)
     // Paket.Verifikasi.find({}).then((response) => {
     //     res.send(response);

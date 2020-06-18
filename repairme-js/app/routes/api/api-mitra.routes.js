@@ -92,7 +92,7 @@ module.exports = (app, express) => {
     router.post('/bukti', mitra.insertBukti);
 
     // Mencari Verivikasi
-    router.get('/temukanBukti', mitra.temukanBukti);
+    // router.get('/verifikasi', mitra.findBukti);
 
     app.use('/api/mitra', router);
 }

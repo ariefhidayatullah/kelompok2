@@ -363,14 +363,7 @@
                 mounted() {
                     axios({
                         method: 'get',
-                        url: '/api/mitra/temukanBukti'
-                    }).then(response => {
-                        this.mitra = response.data;
-                    })
-
-                    axios({
-                        method: 'get',
-                        url: '../api/barang/paket'
+                        url: '../api/barang/verifikasi'
                     }).then((response) => {
                         return this.paket = response.data;
                     })
