@@ -23,7 +23,7 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = -7.91346;
 const LONGITUDE = 113.82145;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 0.0722;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class CustomTiles extends React.Component {
