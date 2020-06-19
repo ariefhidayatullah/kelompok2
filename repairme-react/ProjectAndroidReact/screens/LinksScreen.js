@@ -1,74 +1,120 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Alert, Linking, Dimensions } from 'react-native';
+import { Map, TileLayer, Marker, Popup } from 'react-native-webview-leaflet';
+
 
 export default function LinksScreen() {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <OptionButton
-        icon="md-school"
-        label="Read the Expo documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}
-      />
-
-      <OptionButton
-        icon="md-compass"
-        label="Read the React Navigation documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://reactnavigation.org')}
-      />
-
-      <OptionButton
-        icon="ios-chatboxes"
-        label="Ask a question on the forums"
-        onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
-        isLastOption
-      />
-    </ScrollView>
+    <CustomTiles />
   );
 }
 
-function OptionButton({ icon, label, onPress, isLastOption }) {
-  return (
-    <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-        </View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{label}</Text>
-        </View>
+import MapView, {
+  MAP_TYPES,
+  PROVIDER_DEFAULT,
+  ProviderPropType,
+  UrlTile,
+} from 'react-native-maps';
+
+const { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = -7.91346;
+const LONGITUDE = 113.82145;
+const LATITUDE_DELTA = 0.0722;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+class CustomTiles extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+    };
+  }
+
+  get mapType() {
+    // MapKit does not support 'none' as a base map
+    return this.props.provider === PROVIDER_DEFAULT
+      ? MAP_TYPES.STANDARD
+      : MAP_TYPES.NONE;
+  }
+
+  render() {
+    const { region } = this.state;
+    return (
+      <View style={styles.container}>
+        <MapView
+          provider={this.props.provider}
+          mapType={this.mapType}
+          style={styles.map}
+          initialRegion={region}
+        >
+          <UrlTile
+            urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            zIndex={-1}
+          />
+        </MapView>
+        {/* <View style={styles.buttonContainer}>
+          <View style={styles.bubble}>
+            <Text>Custom Tiles</Text>
+          </View>
+        </View> */}
       </View>
-    </RectButton>
-  );
+    );
+  }
 }
+
+CustomTiles.propTypes = {
+  provider: ProviderPropType,
+};
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  bubble: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
   },
-  contentContainer: {
-    paddingTop: 15,
+  latlng: {
+    width: 200,
+    alignItems: 'stretch',
   },
-  optionIconContainer: {
-    marginRight: 12,
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    marginHorizontal: 10,
   },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    backgroundColor: 'transparent',
   },
 });
+
+export { CustomTiles };
