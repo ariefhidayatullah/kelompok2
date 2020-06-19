@@ -10,7 +10,8 @@ const PaketSchema = mongoose.Schema({
 const VerifikasiSchema = mongoose.Schema({
     nama_paket: String,
     bukti_pembayaran: String,
-    email: String
+    email: String,
+    status: String
 }, {
     timestamps: true
 });

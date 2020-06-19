@@ -49,9 +49,6 @@ module.exports = (app, express) => {
     router.put('/paket/:id', barang.updatePaket);
     router.delete('/paket/:id', barang.deletePaket);
 
-    router.get('/verifikasi', mitra.findBukti);
-
-
     // // Mencari barang berdasarkan Id
     // router.get('/:noteId', barang.findOne);
 

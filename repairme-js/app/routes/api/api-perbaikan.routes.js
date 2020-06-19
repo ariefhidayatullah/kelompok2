@@ -4,5 +4,12 @@ module.exports = (app, express) => {
 
     router.post('/', perbaikan.newPerbaikan);
     router.get('/', perbaikan.findAllPerbaikan);
+
+    //pelanggan
+
+    router.get('/pelanggan/:id', perbaikan.findPerbaikanPelanggan);
+
+    //mitra
+
     app.use('/api/perbaikan', router);
 }

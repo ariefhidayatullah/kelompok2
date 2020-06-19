@@ -22,3 +22,21 @@ exports.findAllPerbaikan = (req, res) => {
 	})
 }
 
+exports.findPerbaikanPelanggan = (req, res) => {
+	console.log('oke')
+	Perbaikan.Perbaikan.aggregate(
+	[
+	    {"$match" : {pelanggan: req.params.id}},
+	    {
+	        "$lookup" : {
+	                from: "mitra",
+	                localField: "mitra",
+	                foreignField: "_id",
+	                as: "data_mitra"
+	            }
+	    }
+	]
+	).then((response) => {
+	    res.send(response);
+	})
+}
