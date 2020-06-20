@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
 const PelangganSchema = mongoose.Schema({
-    _id : String,
-    nama : String,
+    _id: String,
+    nama: String,
     no_tlp: String,
-    alamat: String,
-    verifikasi: String
+    alamat: String
 }, {
     timestamps: true
 });

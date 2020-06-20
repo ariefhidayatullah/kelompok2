@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="../assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
   <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="../assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+  <!-- untuk leafletjs -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
 </head>
 
 
@@ -241,7 +243,8 @@
                   </p>
                   <hr>
                   <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi Usaha</strong>
-                  <p class="text-muted"></p>
+                  <div id="map" style="min-height: 400px; min-width: 150px; border: solid black 1px;">
+                  </div>
                   <hr>
                   <strong><i class="fas fa-pencil-alt mr-1"></i> Jenis Perbaikan: {{ mitra.jenis_usaha }}</strong>
                   <p class="text-muted"></p>
@@ -340,6 +343,7 @@
 
   <!-- javascript -->
   <script src="../assets/js/vueJs/vue.js"></script>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
   <script src="../assets/js/vueJs/axios.js"></script>
   <!-- jQuery -->
   <script src="../assets/js/jquery-3.4.1.js"></script>
@@ -394,6 +398,9 @@
       }).then((response) => {
         return this.paket = response.data;
       })
+      setTimeout(() => {
+        vm.maps()
+      }, 400);
     },
     methods: {
       optionMerk: function () {
@@ -482,6 +489,15 @@
           }
         })
       },
+
+      maps() {
+        var map = L.map('map').setView([vm.mitra.lat, vm.mitra.lng], 17);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var marker = L.marker([vm.mitra.lat, vm.mitra.lng]).addTo(map);
+        marker.bindPopup(vm.mitra.nama_usaha).openPopup();
+      }
     }
 
 
