@@ -471,7 +471,7 @@
       kirim_bukti: function () {
         axios({
           method: 'post',
-          url: '../api/mitra/bukti',
+          url: '/api/verifikasi/mitra',
           data: {
             nama_paket: vm._data.nama_paket,
             email: vm._data.email,

@@ -88,11 +88,15 @@ module.exports = (app, express) => {
     // Delete Mitra berdasarkan Id
     router.delete('/:mitraId', mitra.delete);
 
+    app.use('/api/mitra', router);
+
     //tambah Verivikasi
-    router.post('/bukti', mitra.insertBukti);
+    app.post('/api/verifikasi/mitra', mitra.insertBukti);
 
     // Mencari Verivikasi
-    // router.get('/verifikasi', mitra.findBukti);
+    app.get('/api/verifikasi/mitra', mitra.findBukti);
 
-    app.use('/api/mitra', router);
+    //mitra terverifikasi
+
+    app.put('/api/verifikasi/terverifikasi/:email', mitra.terverifikasi);
 }

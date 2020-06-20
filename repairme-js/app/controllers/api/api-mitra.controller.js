@@ -136,7 +136,8 @@ exports.insertBukti = (req, res, next) => {
     const paket = new Paket.Verifikasi({
         nama_paket: req.body.nama_paket,
         bukti_pembayaran: req.body.bukti_pembayaran,
-        email: req.body.email
+        email: req.body.email,
+        status: "Belum Terverifikasi"
     });
 
     paket
@@ -155,8 +156,38 @@ exports.insertBukti = (req, res, next) => {
 
 // Cari semua Bukti
 exports.findBukti = (req, res) => {
-    console.log(Paket)
-    // Paket.Verifikasi.find({}).then((response) => {
-    //     res.send(response);
-    // })
-};
+    Paket.Verifikasi.aggregate(
+    [
+        {"$match" : {status: "Belum Terverifikasi"}},
+        {
+            "$lookup" : {
+                    from: "mitra",
+                    localField: "email",
+                    foreignField: "_id",
+                    as: "data_mitra"
+                }
+        }
+    ]
+    ).then((response) => {
+        res.send(response);
+    })
+}
+
+exports.terverifikasi = (req, res, next) => {
+    Paket.Verifikasi.updateMany({email: req.params.email }, { $set: {status: "Terverifikasi"}})
+    .then(() => {
+        Mitra.updateMany({_id: req.params.email }, { $set: {verifikasi: "Terverifikasi"}})
+        .then((response) => {
+            res.send({
+                response: response,
+                status: "success",
+                message: "Berhasil Terverifikasi!",
+            });
+        })
+        .catch((err) => {
+            req.flash("error", "Gagal!");
+        });
+    })
+    
+
+}
