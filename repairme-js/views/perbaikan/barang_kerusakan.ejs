@@ -36,559 +36,592 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span><span class="icon-bar"></span>
             <span class="icon-bar"></span></button><a class="navbar-brand" href="">RepairME</a>
+        </div>
+        <div class="collapse navbar-collapse" id="custom-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
+            <li><a href="">Mitra</a></li>
+            <li><a href="/tentang-kami">tentang kami</a></li>
+            <li v-if="session.email === 'false'">
+              <a href="" class="fa fa-address-card" data-toggle="modal" data-target="#exampleModal">Registrasi</a>
+            </li>
+            <li v-if="session.email === 'false'">
+              <a class="fa fa-user" href="/login">Login</a>
+            </li>
+            <li v-if="session.email !== 'false'">
+              <a class="fa fa-out" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h5>Anda akan bergabung sebagai?</h5>
           </div>
-           <div class="collapse navbar-collapse" id="custom-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="">Mitra</a></li>
-                        <li><a href="/tentang-kami">tentang kami</a></li>
-                        <li v-if="session.email === 'false'">
-                            <a href="" class="fa fa-address-card" data-toggle="modal"
-                                data-target="#exampleModal">Registrasi</a>
-                        </li>
-                        <li v-if="session.email === 'false'">
-                            <a class="fa fa-user" href="/login">Login</a>
-                        </li>
-                        <li  v-if="session.email !== 'false'">
-                            <a class="fa fa-out" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-          </div>
-        </nav>
+          <div class="modal-body">
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <h5>Anda akan bergabung sebagai?</h5>
-            </div>
-            <div class="modal-body">
-
-              <a href="/mitra/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
+            <a href="/mitra/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
               Pelanggan</a>
 
-              <a href="<?= base_url(); ?>mitra/registrasi" class="btn btn-round btn-b tombol-mitra"
-                style="width: 280px;">Gabung Menjadi Mitra</a>
+            <a href="<?= base_url(); ?>mitra/registrasi" class="btn btn-round btn-b tombol-mitra"
+              style="width: 280px;">Gabung Menjadi Mitra</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT================!!!!!!!! -->
+
+    <div class="container-fluid">
+      <div v-if="mitra !== null" class="row">
+        <div v-if="content === 'pertama'" class="step-pertama">
+          <!-- banyak javascript, tolong perhatikan -->
+          <div class="col-sm-4" style="padding: 0 3%;">
+            <div class="lokasiMitra mt-80">
+              <h4 class="font-alt mb-0">Lokasi mitra</h4>
+              <hr class="divider-w mt-10 mb-20">
+            </div>
+            <div id="map" style="min-height: 400px; min-width: 150px; border: solid black 1px;">
+            </div>
+          </div>
+          <!-- data review -->
+          <div class="col-sm-4" style="padding: 0 3%;">
+            <div class="namaMitra mt-80">
+              <h4 class="font-alt mb-0 namaMitra">{{mitra.nama_usaha}}</h4>
+              <hr class="divider-w mt-10 mb-20">
+            </div>
+            <div class="miniProfile">
+              <div class="col-sm-12">
+                <ul class="nav nav-tabs font-alt" role="tablist">
+                  <li><a href="#description" data-toggle="tab"><span class="icon-tools-2"></span>Deskripsi</a></li>
+                  <li class="active"><a href="#data-sheet" data-toggle="tab"><span class="icon-tools-2"></span>Data</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane" id="description">
+                    <img class="fotoMitra" :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" alt=""
+                      width="478px" height="252px">
+                    <p>{{mitra.deskripsi}}</p>
+                  </div>
+                  <div class="tab-pane active" id="data-sheet">
+                    <table class="table table-striped ds-table table-responsive">
+                      <tbody>
+                        <tr>
+                          <th>Mitra</th>
+                          <th>Informasi</th>
+                        </tr>
+                        <tr>
+                          <td>Nama Usaha</td>
+                          <td>{{ mitra.nama_usaha.toUpperCase() }}</td>
+                        </tr>
+                        <tr>
+                          <td>Jenis Perbaikan</td>
+                          <td>{{ mitra.jenis_usaha.toUpperCase() }}</td>
+                        </tr>
+                        <tr>
+                          <td>No Telfon</td>
+                          <td>{{ mitra.no_tlp}}</td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td>{{ mitra._id }}</td>
+                        </tr>
+                        <tr>
+                          <td>Alamat Usaha</td>
+                          <td>{{ mitra.alamat }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
+            </div>
+            <!-- terakhir col -->
+          </div>
+          <!-- form -->
+          <div class="col-sm-4" style="min-height: 500px;">
+            <div class="mt-80">
+              <h4 class="font-alt mb-0 namaMitra">Barang Dan Kerusakan</h4>
+              <hr class="divider-w mt-10 mb-20">
+            </div>
+            <div class="barang et-icons">
+              <p>Pilih Barang Yang Ingin Di Perbaiki?</p>
+              <span v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" class="box1"
+                style="width: 50%;">
+                <span class="icon-laptop" aria-hidden="true" style="width:100%;">
+                  <button @click="pilihBarang('laptop'); stepView('kedua');"
+                    class="btn btn-block btn-round btn-d tlaptop" type="button" style="margin-top: 3px;"
+                    value="laptop">LAPTOP</button></span>
+              </span>
+              <span v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" class="box1"
+                style="width: 50%;">
+                <span class="icon-phone" aria-hidden="true" style="width: 100%;">
+                  <button @click="pilihBarang('handphone'); stepView('kedua');"
+                    class="btn btn-block btn-round btn-d thp" type="button" style="margin-top: 3px;"
+                    value="hp">HANDPHONE</button>
+                </span>
+              </span>
             </div>
           </div>
         </div>
 
-        <!-- CONTENT================!!!!!!!! -->
-        
-        <div class="container-fluid">
-          <div v-if="mitra !== null" class="row">
-            <div v-if="content === 'pertama'" class="step-pertama">
-              <!-- banyak javascript, tolong perhatikan -->
-              <div class="col-sm-4" style="padding: 0 3%;">
-                <div class="lokasiMitra mt-80">
-                  <h4 class="font-alt mb-0">Lokasi mitra</h4>
-                  <hr class="divider-w mt-10 mb-20">
-                </div>
-                <div id="map" style="min-height: 400px; min-width: 150px; border: solid black 1px;">
-                </div>
-              </div>
-              <!-- data review -->
-              <div class="col-sm-4" style="padding: 0 3%;">
-                <div class="namaMitra mt-80">
-                  <h4 class="font-alt mb-0 namaMitra">{{mitra.nama_usaha}}</h4>
-                  <hr class="divider-w mt-10 mb-20">
-                </div>
-                <div class="miniProfile">
-                  <div class="col-sm-12">
-                    <ul class="nav nav-tabs font-alt" role="tablist">
-                      <li><a href="#description" data-toggle="tab"><span class="icon-tools-2"></span>Deskripsi</a></li>
-                      <li class="active"><a href="#data-sheet" data-toggle="tab"><span class="icon-tools-2"></span>Data</a></li>
-                    </ul>
-                    <div class="tab-content">
-                      <div class="tab-pane" id="description">
-                        <img class="fotoMitra" :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" alt="" width="478px" height="252px">
-                        <p>{{mitra.deskripsi}}</p>
-                      </div>
-                      <div class="tab-pane active" id="data-sheet">
-                        <table class="table table-striped ds-table table-responsive">
-                          <tbody>
-                            <tr>
-                              <th>Mitra</th>
-                              <th>Informasi</th>
-                            </tr>
-                            <tr>
-                              <td>Nama Usaha</td>
-                              <td>{{ mitra.nama_usaha.toUpperCase() }}</td>
-                            </tr>
-                            <tr>
-                              <td>Jenis Perbaikan</td>
-                              <td>{{ mitra.jenis_usaha.toUpperCase() }}</td>
-                            </tr>
-                            <tr>
-                              <td>No Telfon</td>
-                              <td>{{ mitra.no_tlp}}</td>
-                            </tr>
-                            <tr>
-                              <td>Email</td>
-                              <td>{{ mitra._id }}</td>
-                            </tr>
-                            <tr>
-                              <td>Alamat Usaha</td>
-                              <td>{{ mitra.alamat }}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+        <!-- step kedua -->
+
+        <!-- tutup step pertama -->
+        <div v-if="content === 'kedua'" class="step-kedua">
+          <!-- tutorial pertama -->
+          <div class="col-sm-4" style="padding: 0 3%;">
+            <div class="tutorial mt-80">
+              <h4 class="font-alt mb-0">Tutorial</h4>
+              <hr class="divider-w mt-10 mb-20">
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion"
+                        href="#support1">Bagaimana Jika Merk Tidak Ada DI Daftar?</a></h4>
+                  </div>
+                  <div class="panel-collapse collapse in" id="support1">
+                    <div class="panel-body">
+                      Pilih merk hp yang akan ada perbaiki, jika merk hp yang akan anda perbaiki tidak ada maka pilih
+                      "Tidak Ada di Daftar" dan masukkan merk hp anda .
                     </div>
                   </div>
                 </div>
-                <!-- terakhir col -->
-              </div>
-              <!-- form -->
-              <div class="col-sm-4" style="min-height: 500px;">
-                <div class="mt-80">
-                  <h4 class="font-alt mb-0 namaMitra">Barang Dan Kerusakan</h4>
-                  <hr class="divider-w mt-10 mb-20">
-                </div>
-                <div class="barang et-icons">
-                  <p>Pilih Barang Yang Ingin Di Perbaiki?</p>
-                  <span v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" class="box1" style="width: 50%;">
-                    <span class="icon-laptop" aria-hidden="true" style="width:100%;">
-                      <button @click="pilihBarang('laptop'); stepView('kedua');" class="btn btn-block btn-round btn-d tlaptop" type="button" style="margin-top: 3px;" value="laptop">LAPTOP</button></span>
-                    </span>
-                    <span v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" class="box1" style="width: 50%;">
-                      <span class="icon-phone" aria-hidden="true" style="width: 100%;">
-                        <button @click="pilihBarang('handphone'); stepView('kedua');" class="btn btn-block btn-round btn-d thp" type="button" style="margin-top: 3px;" value="hp">HANDPHONE</button>
-                      </span>
-                    </span>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse"
+                        data-parent="#accordion" href="#support2"> Bagaimana Jika Tipe Tidak Ada DI Daftar?</a></h4>
                   </div>
-                </div>
-              </div>
-
-              <!-- step kedua -->
-
-              <!-- tutup step pertama -->
-              <div v-if="content === 'kedua'" class="step-kedua">
-                <!-- tutorial pertama -->
-                <div class="col-sm-4" style="padding: 0 3%;">
-                  <div class="tutorial mt-80">
-                    <h4 class="font-alt mb-0">Tutorial</h4>
-                    <hr class="divider-w mt-10 mb-20">
-                    <div class="panel-group" id="accordion">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion" href="#support1">Bagaimana Jika Merk Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse in" id="support1">
-                          <div class="panel-body">
-                            Pilih merk hp yang akan ada perbaiki, jika merk hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan merk hp anda .
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#support2"> Bagaimana Jika Tipe Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse" id="support2">
-                          <div class="panel-body">Pilih tipe hp yang akan anda perbaiki, jika tipe hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan tipe hp anda .
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#support3"> Bagaimana Jika Kerusakan Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse" id="support3">
-                          <div class="panel-body">Pilih Kerusakan hp yang akan anda perbaiki, jika Kerusakan hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan Kerusakan hp anda .
-                          </div>
-                        </div>
-                      </div>
+                  <div class="panel-collapse collapse" id="support2">
+                    <div class="panel-body">Pilih tipe hp yang akan anda perbaiki, jika tipe hp yang akan anda perbaiki
+                      tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan tipe hp anda .
                     </div>
                   </div>
                 </div>
-                <!-- end of col -->
-                <div class="col-sm-4" style="padding: 0 3%;">
-                  <div class="namaMitra mt-70">
-                    <h4 class="font-alt mb-0 namaMitra">Detail Mitra Dan Barang</h4>
-                    <hr class="divider-w mt-10 mb-20" >
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse"
+                        data-parent="#accordion" href="#support3"> Bagaimana Jika Kerusakan Tidak Ada DI Daftar?</a>
+                    </h4>
                   </div>
-                  <div class="detail">
-                    <div class="row miniProfile">
-                      <div class="col-sm-12">
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="data-sheet">
-                            <table class="table table-striped ds-table table-responsive">
-                              <tbody>
-                                <tr>
-                                  <th>Mitra</th>
-                                  <th>Informasi</th>
-                                </tr>
-                                <tr>
-                                  <td>Nama Usaha</td>
-                                  <td>{{ mitra.nama_usaha.toUpperCase() }}</td>
-                                </tr>
-                                <tr>
-                                  <td>Jenis Perbaikan</td>
-                                  <td>{{ mitra.jenis_usaha.toUpperCase() }}</td>
-                                </tr>
-                                <tr>
-                                  <td>No Telfon</td>
-                                  <td>{{ mitra.no_tlp}}</td>
-                                </tr>
-                                <tr>
-                                  <td>Email</td>
-                                  <td>{{ mitra._id }}</td>
-                                </tr>
-                                <tr>
-                                  <td>Alamat Usaha</td>
-                                  <td>{{ mitra.alamat }}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row miniProfile">
-                      <div class="col-sm-12">
-                        <div class="tab-content">
-                          <div class="tab-pane active" id="data-sheet">
-                            <table class="table table-striped ds-table table-responsive">
-                              <tbody>
-                                <tr>
-                                  <th>Barang</th>
-                                  <th>Informasi</th>
-                                </tr>
-                                <tr>
-                                  <td>Barang Yang Dipilih</td>
-                                  <td>{{perbaikan.jenis_barang.toUpperCase()}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- end of col -->
-                <div class="col-sm-4" style="padding: 0 5%; min-height: 500px;">
-                  <div v-if="kerusakan.view === null" class="col-sm-12 container">
-                    <div class="mt-70">
-                      <h4 class="font-alt mb-0 namaMitra">Merk Dan Tipe</h4>
-                      <hr class="divider-w mt-10 mb-20">
-                    </div>
-                    <div class="row">
-                      <select @change="selectMerk" ref="selectMerk" class="form-control">
-                        <option selected="selected" disabled>MERK</option>
-                        <option style="color: red;" value="false">tidak ada di daftar</option>
-
-                        <option v-for="merk in barang.merk">{{ merk.merk }}</option>
-
-                      </select>
-                      <div class="form-group mt-20">
-                        <input v-if="barang.newMerk === true" v-model="perbaikan.merk" class="form-control" id="merklaptopbaru" name="merklaptopbaru" type="text" placeholder="Merk Laptop Anda">
-                      </div>
-                      <select v-if="perbaikan.merk !== null && barang.newMerk === false" @change="selectTipe" ref="selectTipe" class="form-control">
-                        <option selected="selected" disabled>Tipe</option>
-                        <option style="color: red;" value="false">tidak ada di daftar</option>
-                        
-                        <option v-for="tipe in barang.tipe">{{ tipe.tipe }}</option>
-
-                      </select>
-                      <div class="form-group mt-20">
-                        <input v-if="barang.newTipe === true || barang.newMerk === true" v-model="perbaikan.tipe" class="form-control" id="tipelaptopbaru" name="tipelaptopbaru" type="text" placeholder="tipe Laptop Anda">
-                      </div>
-                      <button @click="kerusakanView(true)" v-if="perbaikan.merk !== null && perbaikan.tipe !== null" class="btn btn-block btn-round btn-d next1" style="width: 100%; margin-top: 30px;">SELANJUTNYA</button>
-                    </div>
-                  </div>
-
-                  <div v-show="kerusakan.view === true" class="container_kerusakan_laptop col-sm-12">
-                    <div class="mt-70">
-                      <h4 class="font-alt mb-0">Kerusakan</h4>
-                      <hr class="divider-w mt-10 mb-20">
-                    </div>
-                    <div class="row">
-                      <select @change="selectKerusakan" ref="selectKerusakan" class="form-control">
-                        <option selected disabled>Kerusakan</option>
-                        <option style="color: red;" value="false">tidak ada di daftar</option>
-
-                        <option v-for="kerusakan in barang.kerusakan">{{ kerusakan.kerusakan }}</option>
-
-                      </select>
-
-                      <div v-if="barang.newKerusakan === true" class="form-group mt-20">
-                        <input class="form-control" id="newKerusakan" name="newKerusakan" type="text" placeholder="Kerusakan Barang" v-model="perbaikan.kerusakan">
-                      </div>
-                      <div class="form-group mt-20">
-                        <input class="form-control" type="text" placeholder="Keterangan lain" v-model="perbaikan.keterangan_lain">
-                      </div>
-                      <button @click="stepView('ketiga')" v-if="barang.kerusakan !== null" class="btn btn-block btn-round btn-d next3" style="width: 100%; margin-top: 30px;">SELANJUTNYA</button>
+                  <div class="panel-collapse collapse" id="support3">
+                    <div class="panel-body">Pilih Kerusakan hp yang akan anda perbaiki, jika Kerusakan hp yang akan anda
+                      perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan Kerusakan hp anda .
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- step ketiga -->
-
-
-              <div v-if="content === 'ketiga'" class="container-fluid">
-                <div class="col-sm-6">
-                  <div class="tutorial mt-80">
-                    <h4 class="font-alt mb-0">Bagaimana Langkah Setelah Pengajuan ?</h4>
-                    <hr class="divider-w mt-10 mb-20">
-                    <div class="panel-group" id="accordion">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion" href="#support1">Bagaimana Jika Merk Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse in" id="support1">
-                          <div class="panel-body">
-                            Pilih merk hp yang akan ada perbaiki, jika merk hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan merk hp anda .
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#support2"> Bagaimana Jika Tipe Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse" id="support2">
-                          <div class="panel-body">Pilih tipe hp yang akan anda perbaiki, jika tipe hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan tipe hp anda .
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#support3"> Bagaimana Jika Kerusakan Tidak Ada DI Daftar?</a></h4>
-                        </div>
-                        <div class="panel-collapse collapse" id="support3">
-                          <div class="panel-body">Pilih Kerusakan hp yang akan anda perbaiki, jika Kerusakan hp yang akan anda perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan Kerusakan hp anda .
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mt-80">
-                  <ul class="nav nav-tabs font-alt" role="tablist">
-
-                    <li><a class="active"><span class="icon-tools-2"></span>Detail Pengajuan Perbaikan</a></li>
-
-                  </ul>
+            </div>
+          </div>
+          <!-- end of col -->
+          <div class="col-sm-4" style="padding: 0 3%;">
+            <div class="namaMitra mt-70">
+              <h4 class="font-alt mb-0 namaMitra">Detail Mitra Dan Barang</h4>
+              <hr class="divider-w mt-10 mb-20">
+            </div>
+            <div class="detail">
+              <div class="row miniProfile">
+                <div class="col-sm-12">
                   <div class="tab-content">
                     <div class="tab-pane active" id="data-sheet">
                       <table class="table table-striped ds-table table-responsive">
                         <tbody>
-                          <tr >
-                            <th class="col-sm-2">KETERANGAN</th>
-                            <th class="col-sm-8">INFORMASI</th>
-                          </tr>
-                          <tr>  
-                            <td>NAMA PELANGGAN</td>
-                            <td>{{ pelanggan.nama.toUpperCase() }}</td>
+                          <tr>
+                            <th>Mitra</th>
+                            <th>Informasi</th>
                           </tr>
                           <tr>
-                            <td>MITRA</td>
+                            <td>Nama Usaha</td>
                             <td>{{ mitra.nama_usaha.toUpperCase() }}</td>
                           </tr>
                           <tr>
-                            <td>JENIS BARANG</td>
-                            <td>{{ perbaikan.jenis_barang.toUpperCase() }}</td>
+                            <td>Jenis Perbaikan</td>
+                            <td>{{ mitra.jenis_usaha.toUpperCase() }}</td>
                           </tr>
                           <tr>
-                            <td>MERK BARANG</td>
-                            <td>{{ perbaikan.merk }}</td>
-                        </tr>
-                        <tr>
-                          <td>TIPE BARANG</td>
-                          <td>{{ perbaikan.tipe }}</td>
-                      </tr>
-                      <tr>
-                        <td>KERUSAKAN</td>
-                        <td>{{ perbaikan.kerusakan }}</td>
+                            <td>No Telfon</td>
+                            <td>{{ mitra.no_tlp}}</td>
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td>{{ mitra._id }}</td>
+                          </tr>
+                          <tr>
+                            <td>Alamat Usaha</td>
+                            <td>{{ mitra.alamat }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row miniProfile">
+                <div class="col-sm-12">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="data-sheet">
+                      <table class="table table-striped ds-table table-responsive">
+                        <tbody>
+                          <tr>
+                            <th>Barang</th>
+                            <th>Informasi</th>
+                          </tr>
+                          <tr>
+                            <td>Barang Yang Dipilih</td>
+                            <td>{{perbaikan.jenis_barang.toUpperCase()}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of col -->
+          <div class="col-sm-4" style="padding: 0 5%; min-height: 500px;">
+            <div v-if="kerusakan.view === null" class="col-sm-12 container">
+              <div class="mt-70">
+                <h4 class="font-alt mb-0 namaMitra">Merk Dan Tipe</h4>
+                <hr class="divider-w mt-10 mb-20">
+              </div>
+              <div class="row">
+                <select @change="selectMerk" ref="selectMerk" class="form-control">
+                  <option selected="selected" disabled>MERK</option>
+                  <option style="color: red;" value="false">tidak ada di daftar</option>
+
+                  <option v-for="merk in barang.merk">{{ merk.merk }}</option>
+
+                </select>
+                <div class="form-group mt-20">
+                  <input v-if="barang.newMerk === true" v-model="perbaikan.merk" class="form-control"
+                    id="merklaptopbaru" name="merklaptopbaru" type="text" placeholder="Merk Laptop Anda">
+                </div>
+                <select v-if="perbaikan.merk !== null && barang.newMerk === false" @change="selectTipe" ref="selectTipe"
+                  class="form-control">
+                  <option selected="selected" disabled>Tipe</option>
+                  <option style="color: red;" value="false">tidak ada di daftar</option>
+
+                  <option v-for="tipe in barang.tipe">{{ tipe.tipe }}</option>
+
+                </select>
+                <div class="form-group mt-20">
+                  <input v-if="barang.newTipe === true || barang.newMerk === true" v-model="perbaikan.tipe"
+                    class="form-control" id="tipelaptopbaru" name="tipelaptopbaru" type="text"
+                    placeholder="tipe Laptop Anda">
+                </div>
+                <button @click="kerusakanView(true)" v-if="perbaikan.merk !== null && perbaikan.tipe !== null"
+                  class="btn btn-block btn-round btn-d next1"
+                  style="width: 100%; margin-top: 30px;">SELANJUTNYA</button>
+              </div>
+            </div>
+
+            <div v-show="kerusakan.view === true" class="container_kerusakan_laptop col-sm-12">
+              <div class="mt-70">
+                <h4 class="font-alt mb-0">Kerusakan</h4>
+                <hr class="divider-w mt-10 mb-20">
+              </div>
+              <div class="row">
+                <select @change="selectKerusakan" ref="selectKerusakan" class="form-control">
+                  <option selected disabled>Kerusakan</option>
+                  <option style="color: red;" value="false">tidak ada di daftar</option>
+
+                  <option v-for="kerusakan in barang.kerusakan">{{ kerusakan.kerusakan }}</option>
+
+                </select>
+
+                <div v-if="barang.newKerusakan === true" class="form-group mt-20">
+                  <input class="form-control" id="newKerusakan" name="newKerusakan" type="text"
+                    placeholder="Kerusakan Barang" v-model="perbaikan.kerusakan">
+                </div>
+                <div class="form-group mt-20">
+                  <input class="form-control" type="text" placeholder="Keterangan lain"
+                    v-model="perbaikan.keterangan_lain">
+                </div>
+                <button @click="stepView('ketiga')" v-if="barang.kerusakan !== null"
+                  class="btn btn-block btn-round btn-d next3"
+                  style="width: 100%; margin-top: 30px;">SELANJUTNYA</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- step ketiga -->
+
+
+        <div v-if="content === 'ketiga'" class="container-fluid">
+          <div class="col-sm-6">
+            <div class="tutorial mt-80">
+              <h4 class="font-alt mb-0">Bagaimana Langkah Setelah Pengajuan ?</h4>
+              <hr class="divider-w mt-10 mb-20">
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a data-toggle="collapse" data-parent="#accordion"
+                        href="#support1">Bagaimana Jika Merk Tidak Ada DI Daftar?</a></h4>
+                  </div>
+                  <div class="panel-collapse collapse in" id="support1">
+                    <div class="panel-body">
+                      Pilih merk hp yang akan ada perbaiki, jika merk hp yang akan anda perbaiki tidak ada maka pilih
+                      "Tidak Ada di Daftar" dan masukkan merk hp anda .
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse"
+                        data-parent="#accordion" href="#support2"> Bagaimana Jika Tipe Tidak Ada DI Daftar?</a></h4>
+                  </div>
+                  <div class="panel-collapse collapse" id="support2">
+                    <div class="panel-body">Pilih tipe hp yang akan anda perbaiki, jika tipe hp yang akan anda perbaiki
+                      tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan tipe hp anda .
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title font-alt"><a class="collapsed" data-toggle="collapse"
+                        data-parent="#accordion" href="#support3"> Bagaimana Jika Kerusakan Tidak Ada DI Daftar?</a>
+                    </h4>
+                  </div>
+                  <div class="panel-collapse collapse" id="support3">
+                    <div class="panel-body">Pilih Kerusakan hp yang akan anda perbaiki, jika Kerusakan hp yang akan anda
+                      perbaiki tidak ada maka pilih "Tidak Ada di Daftar" dan masukkan Kerusakan hp anda .
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 mt-80">
+            <ul class="nav nav-tabs font-alt" role="tablist">
+
+              <li><a class="active"><span class="icon-tools-2"></span>Detail Pengajuan Perbaikan</a></li>
+
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="data-sheet">
+                <table class="table table-striped ds-table table-responsive">
+                  <tbody>
+                    <tr>
+                      <th class="col-sm-2">KETERANGAN</th>
+                      <th class="col-sm-8">INFORMASI</th>
+                    </tr>
+                    <tr>
+                      <td>NAMA PELANGGAN</td>
+                      <td>{{ pelanggan.nama.toUpperCase() }}</td>
+                    </tr>
+                    <tr>
+                      <td>MITRA</td>
+                      <td>{{ mitra.nama_usaha.toUpperCase() }}</td>
+                    </tr>
+                    <tr>
+                      <td>JENIS BARANG</td>
+                      <td>{{ perbaikan.jenis_barang.toUpperCase() }}</td>
+                    </tr>
+                    <tr>
+                      <td>MERK BARANG</td>
+                      <td>{{ perbaikan.merk }}</td>
+                    </tr>
+                    <tr>
+                      <td>TIPE BARANG</td>
+                      <td>{{ perbaikan.tipe }}</td>
+                    </tr>
+                    <tr>
+                      <td>KERUSAKAN</td>
+                      <td>{{ perbaikan.kerusakan }}</td>
                     </tr>
                     <tr>
                       <td>KETERANGAN LAIN</td>
                       <td>{{ perbaikan.keterangan_lain }}</td>
-                  </tr>
-                  <tr>
-                    <td>WAKTU PENGAJUAN</td>
-                    <td>{{ barang.tanggal }}</td>
-                  </tr>
-                </tbody>
-              </table>
+                    </tr>
+                    <tr>
+                      <td>WAKTU PENGAJUAN</td>
+                      <td>{{ barang.tanggal }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <button @click="postData()" class="btn btn-block btn-round btn-d"
+              style="width: 100%; margin-top: 30px;">KIRIM PENGAJUAN</button>
           </div>
-          <button @click="postData()" class="btn btn-block btn-round btn-d" style="width: 100%; margin-top: 30px;">KIRIM PENGAJUAN</button>
         </div>
+
       </div>
-
     </div>
-  </div>
-</div>
-<div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-</main>
-<!-- vue js -->
-<script src="/assets/js/vueJs/vue.js"></script>
-<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-<script src="/assets/js/vueJs/axios.js"></script>
-<script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
-<script src="/assets/js/moment-id.js"></script>
-<script>
-  var vm = new Vue({
+    </div>
+    <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+  </main>
+  <!-- vue js -->
+  <script src="/assets/js/vueJs/vue.js"></script>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  <script src="/assets/js/vueJs/axios.js"></script>
+  <script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
+  <script src="/assets/js/moment-id.js"></script>
+  <script>
+    var vm = new Vue({
 
-    el: "#app",
-    data: {
-      session: {
-        email: null
-      },
-      content: 'pertama',
-      mitra: null,
-      pelanggan: null,
-      perbaikan: {
+      el: "#app",
+      data: {
+        session: {
+          email: null
+        },
+        content: 'pertama',
         mitra: null,
         pelanggan: null,
-        jenis_barang: null,
-        merk: null,
-        tipe: null,
-        kerusakan: null,
-        keterangan_lain: null,
-        tanggal: null
-      },
-      barang: {
-        merk: null,
-        tipe: null,
-        newMerk: null,
-        newTipe: null,
-        newKerusakan: null,
-        kerusakan: null,
-        tanggal: null
-      },
-      kerusakan: {
-        view: null
-      }
-    },
-    mounted(){
-      this.session.email = "<%= sessionEmail %>";
-      this.getData();
-      setTimeout(() => {
-        vm.maps()
-      }, 400);
-      this.barang.tanggal = moment().format("Do MMMM YYYY");   
-    },
-    methods: {
-      getData(){
-        const idMitra = "<%= idMitra %>";
-        axios.get('/api/mitra/' + idMitra)
-        .then(response => {
-          return vm.mitra = response.data; 
-        })
-        if (this.session.email !== 'false') {
-          axios.get('/api/pelanggan/' + this.session.email)
-          .then(response => {
-            return vm.pelanggan = response.data; 
-          })
+        perbaikan: {
+          mitra: null,
+          pelanggan: null,
+          jenis_barang: null,
+          merk: null,
+          tipe: null,
+          kerusakan: null,
+          keterangan_lain: null,
+          tanggal: null
+        },
+        barang: {
+          merk: null,
+          tipe: null,
+          newMerk: null,
+          newTipe: null,
+          newKerusakan: null,
+          kerusakan: null,
+          tanggal: null
+        },
+        kerusakan: {
+          view: null
         }
       },
-      maps(){
-        var map = L.map('map').setView([this.mitra.lat, this.mitra.lng], 17);
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        var marker = L.marker([this.mitra.lat, this.mitra.lng]).addTo(map);
-        marker.bindPopup(this.mitra.nama_usaha).openPopup();
+      mounted() {
+        this.session.email = "<%= sessionEmail %>";
+        this.getData();
+        setTimeout(() => {
+          vm.maps()
+        }, 400);
+        this.barang.tanggal = moment().format("Do MMMM YYYY");
       },
-      pilihBarang(barang){
-        this.perbaikan.jenis_barang = barang;
-        axios.get('/api/barang/merk/' + barang).then(response => {
-          vm.barang.merk = response.data;
-        })
-        axios.get('/api/barang/kerusakan/' + barang).then(response => {
-          vm.barang.kerusakan = response.data;
-        })
-      },
-      stepView(change){
-        this.perbaikan.mitra = this.mitra._id;
-        this.perbaikan.pelanggan =this.session.email;
-        return this.content = change;
-      },
-      selectMerk(){
-        let val = this.$refs.selectMerk.value;
-        if (val === 'false') {
-          this.perbaikan.merk = null;
-          this.perbaikan.tipe = null;
-          this.barang.newMerk = true;
-        }else{
-          this.perbaikan.merk = null;
-          this.perbaikan.tipe = null;
-          this.barang.newMerk = false;
-          this.perbaikan.merk = val;
+      methods: {
+        getData() {
+          const idMitra = "<%= idMitra %>";
+          axios.get('/api/mitra/' + idMitra)
+            .then(response => {
+              return vm.mitra = response.data;
+            })
+          if (this.session.email !== 'false') {
+            axios.get('/api/pelanggan/' + this.session.email)
+              .then(response => {
+                return vm.pelanggan = response.data;
+              })
+          }
+        },
+        maps() {
+          var map = L.map('map').setView([this.mitra.lat, this.mitra.lng], 17);
+          L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+          var marker = L.marker([this.mitra.lat, this.mitra.lng]).addTo(map);
+          marker.bindPopup(this.mitra.nama_usaha).openPopup();
+        },
+        pilihBarang(barang) {
+          this.perbaikan.jenis_barang = barang;
+          axios.get('/api/barang/merk/' + barang).then(response => {
+            vm.barang.merk = response.data;
+          })
+          axios.get('/api/barang/kerusakan/' + barang).then(response => {
+            vm.barang.kerusakan = response.data;
+          })
+        },
+        stepView(change) {
+          this.perbaikan.mitra = this.mitra._id;
+          this.perbaikan.pelanggan = this.session.email;
+          return this.content = change;
+        },
+        selectMerk() {
+          let val = this.$refs.selectMerk.value;
+          if (val === 'false') {
+            this.perbaikan.merk = null;
+            this.perbaikan.tipe = null;
+            this.barang.newMerk = true;
+          } else {
+            this.perbaikan.merk = null;
+            this.perbaikan.tipe = null;
+            this.barang.newMerk = false;
+            this.perbaikan.merk = val;
 
-          axios.get('/api/barang/laptop/' + val, {
-            cache: true
+            axios.get('/api/barang/laptop/' + val, {
+              cache: true
+            }).then(response => {
+              return this.barang.tipe = response.data;
+            })
+
+          }
+        },
+        selectTipe() {
+          let val = this.$refs.selectTipe.value;
+          if (val === 'false') {
+            this.perbaikan.tipe = null;
+            this.barang.newTipe = true;
+          } else {
+            this.perbaikan.tipe = null;
+            this.barang.newTipe = false;
+            this.perbaikan.tipe = val;
+          }
+        },
+        kerusakanView(event) {
+          this.kerusakan.view = event;
+        },
+        selectKerusakan() {
+          let val = this.$refs.selectKerusakan.value;
+          if (val === 'false') {
+            this.perbaikan.kerusakan = null;
+            this.barang.newKerusakan = true;
+          } else {
+            this.perbaikan.kerusakan = null;
+            this.barang.newKerusakan = false;
+            this.perbaikan.kerusakan = val;
+          }
+        },
+        postData() {
+          this.perbaikan.tanggal = moment().format("Do MMMM YYYY, HH:mm:ss");
+          axios.post('/api/perbaikan', vm.perbaikan, {
+            header: {
+              'Content-Type': 'application/json'
+            }
           }).then(response => {
-            return this.barang.tipe =  response.data;
+            console.log(response)
           })
-
         }
-      },
-      selectTipe(){
-        let val = this.$refs.selectTipe.value;
-        if (val === 'false') {
-          this.perbaikan.tipe = null;
-          this.barang.newTipe = true;
-        }else{
-          this.perbaikan.tipe = null;
-          this.barang.newTipe = false;
-          this.perbaikan.tipe = val;
-        }
-      },
-      kerusakanView(event){
-        this.kerusakan.view = event;
-      },
-      selectKerusakan(){
-        let val = this.$refs.selectKerusakan.value;
-        if (val === 'false') {
-          this.perbaikan.kerusakan = null;
-          this.barang.newKerusakan = true;
-        }else{
-          this.perbaikan.kerusakan = null;
-          this.barang.newKerusakan = false;
-          this.perbaikan.kerusakan = val;
-        }
-      },
-      postData(){
-        this.perbaikan.tanggal = moment().format("Do MMMM YYYY, HH:mm:ss");
-        axios.post('/api/perbaikan', vm.perbaikan, { 
-          header: 
-          { 'Content-Type': 'application/json'}
-        }).then(response =>{
-          console.log(response)
-        })
       }
-    }
-  })
-</script>
-<!-- JavaScripts -->
-<script src="/assets/lib/jquery/dist/jquery.js"></script>
-<script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/assets/lib/wow/dist/wow.js"></script>
-<script src="/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-<script src="/assets/lib/isotope/dist/isotope.pkgd.js"></script>
-<script src="/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-<script src="/assets/lib/flexslider/jquery.flexslider.js"></script>
-<script src="/assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-<script src="/assets/lib/smoothscroll.js"></script>
-<script src="/assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-<script src="/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-<script src="/assets/js/home.template.js/js/plugins.js"></script>
-<script src="/assets/js/home.template.js/js/main.js"></script>
+    })
+  </script>
+  <!-- JavaScripts -->
+  <script src="/assets/lib/jquery/dist/jquery.js"></script>
+  <script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/assets/lib/wow/dist/wow.js"></script>
+  <script src="/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
+  <script src="/assets/lib/isotope/dist/isotope.pkgd.js"></script>
+  <script src="/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
+  <script src="/assets/lib/flexslider/jquery.flexslider.js"></script>
+  <script src="/assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="/assets/lib/smoothscroll.js"></script>
+  <script src="/assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+  <script src="/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
+  <script src="/assets/js/home.template.js/js/plugins.js"></script>
+  <script src="/assets/js/home.template.js/js/main.js"></script>
 </body>
 
 </html>
 </body>
-</html>
 
+</html>

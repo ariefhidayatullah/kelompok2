@@ -9,10 +9,9 @@ exports.create = (req, res) => {
     // Create a pelanggan
     const pelanggan = new Pelanggan({
         _id: req.body.email,
-        nama : req.body.nama,
+        nama: req.body.nama,
         no_tlp: req.body.no_tlp,
-        alamat: req.body.alamat,
-        verifikasi: 'Belum Terverifikasi'
+        alamat: req.body.alamat
     });
 
     //data login

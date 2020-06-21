@@ -26,5 +26,5 @@ const KeteranganSchema = mongoose.Schema({
 
 module.exports = {
 	Perbaikan: mongoose.model('Perbaikan', PerbaikanSchema, 'perbaikan'),
-    Keterangan: mongoose.model('Keterangan', KeteranganSchema, 'keteranganr'),
+    Keterangan: mongoose.model('Keterangan', KeteranganSchema, 'keterangan'),
 }

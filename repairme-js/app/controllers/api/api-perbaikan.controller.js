@@ -16,15 +16,15 @@ exports.newPerbaikan = (req, res) => {
 	    voucher: null
 	})
 
-	perbaikan.save();
-	res.send('oke');
-}
+  perbaikan.save();
+  res.send("oke");
+};
 
 exports.findAllPerbaikan = (req, res) => {
-	Perbaikan.Perbaikan.find({}).then(response => {
-		res.send(response);
-	})
-}
+  Perbaikan.Perbaikan.find({}).then((response) => {
+    res.send(response);
+  });
+};
 
 exports.findPerbaikanPelanggan = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
@@ -104,3 +104,4 @@ exports.putPerbaikanMitra = (req, res) => {
         });
     });
 }
+
