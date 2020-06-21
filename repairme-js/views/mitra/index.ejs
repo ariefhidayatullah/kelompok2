@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title><%= judul %></title>
-  <link rel="stylesheet" href="../assets/panel-master/plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="../assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <link rel="stylesheet" href="../assets/panel-master/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="../assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
-  <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
-  <link rel="stylesheet" href="../assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
 </head>
 
 
@@ -68,14 +68,14 @@
     <aside class="main-sidebar sidebar-dark-light elevation-2">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-        <img src="../assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Mitra RepairMe</span>
       </a>
       <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <!-- <img src="" class="img-box elevation-2" alt="Foto Usaha Mitra"> -->
+          <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
         </div>
         <div v-if="mitra !== null" class="info">
           <a class="float-right">{{ mitra.nama }}</a>
@@ -87,7 +87,7 @@
       <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/" class="nav-link active">
+            <a href="/mitra" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Beranda <span class="right badge badge-success">Data Cepat</span>
@@ -183,28 +183,28 @@
   </footer>
   
   <!-- javascript -->
-  <script src="../assets/js/vueJs/vue.js"></script>
-  <script src="../assets/js/vueJs/axios.js"></script>
+  <script src="/assets/js/vueJs/vue.js"></script>
+  <script src="/assets/js/vueJs/axios.js"></script>
   <!-- jQuery -->
-  <script src="../assets/js/jquery-3.4.1.js"></script>
-  <script src="../assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <script src="../assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-  <script src="../assets/panel-master/plugins/raphael/raphael.min.js"></script>
-  <script src="../assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-  <script src="../assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-  <script src="../assets/panel-master/dist/js/adminlte.js"></script>
+  <script src="/assets/js/jquery-3.4.1.js"></script>
+  <script src="/assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="/assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="/assets/panel-master/plugins/raphael/raphael.min.js"></script>
+  <script src="/assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="/assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+  <script src="/assets/panel-master/dist/js/adminlte.js"></script>
   <!-- ChartJS -->
-  <script src="../assets/panel-master/plugins/chart.js/Chart.min.js"></script>
+  <script src="/assets/panel-master/plugins/chart.js/Chart.min.js"></script>
   <!-- Toastr -->
-  <script src="../assets/panel-master/plugins/toastr/toastr.min.js"></script>
-  <script src="../assets/js/notiny/notiny.js"></script>
-  <link href="../assets/js/notiny/notiny.css" rel="stylesheet">
-  <script src="../assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-  <script src="../assets/panel-master/plugins/moment/moment.min.js"></script>
-  <script src="../assets/js/moment-id.js"></script>
+  <script src="/assets/panel-master/plugins/toastr/toastr.min.js"></script>
+  <script src="/assets/js/notiny/notiny.js"></script>
+  <link href="/assets/js/notiny/notiny.css" rel="stylesheet">
+  <script src="/assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+  <script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
+  <script src="/assets/js/moment-id.js"></script>
   <!-- date-range-picker -->
-  <script src="../assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+  <script src="/assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 </body>
 
 </html>
@@ -216,7 +216,8 @@
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row" id="option_barang">
-              
+              <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+              <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
             </div>
           </div>
         </div>

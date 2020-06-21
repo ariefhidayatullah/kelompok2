@@ -17,7 +17,10 @@ exports.create = (req, res, next) => {
         lng: req.body.lng,
         foto_ktp: req.body.foto_ktp,
         foto_usaha: req.body.foto_usaha,
-        verifikasi: 'Belum Terverifikasi'
+        verifikasi: 'Belum Terverifikasi',
+        deskripsi: '',
+        rating: 0
+
     });
 
     //data login

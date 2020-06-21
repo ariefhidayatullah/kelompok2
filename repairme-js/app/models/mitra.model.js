@@ -13,7 +13,7 @@ const MitraSchema = mongoose.Schema({
     foto_usaha: String,
     verifikasi: String,
     deskripsi: String,
-    rating: String
+    rating: Number
 
 }, {
     timestamps: true
