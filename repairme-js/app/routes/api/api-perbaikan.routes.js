@@ -10,6 +10,12 @@ module.exports = (app, express) => {
     router.get('/pelanggan/:id', perbaikan.findPerbaikanPelanggan);
 
     //mitra
+    router.get('/mitra/:id', perbaikan.findPerbaikanMitra);
+
+    //mitra berdasarkan status nya
+    router.get('/mitra/:email/:status/:jenis', perbaikan.findPerbaikanMitraStatus);
+    //ganti status perbaikan ex= terima mitra dll
+    router.post('/mitra/:id/', perbaikan.putPerbaikanMitra);
 
     app.use('/api/perbaikan', router);
 }
