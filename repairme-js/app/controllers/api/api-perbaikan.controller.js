@@ -12,7 +12,6 @@ exports.newPerbaikan = (req, res) => {
 	    tanggal:req.body.tanggal,
 	    status: "Menunggu Persetujuan",
 	    harga: null,
-	    keterangan_lain: null,
 	    voucher: null
 	})
 
@@ -49,7 +48,7 @@ exports.findPerbaikanPelanggan = (req, res) => {
 exports.findPerbaikanPelangganStatus = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
 	[
-	    {"$match" : {pelanggan: req.params.email, status: req.params.status,
+	    {"$match" : {pelanggan: req.params.email,
 	     jenis_barang: req.params.jenis}},
 	    {
 	        "$lookup" : {
@@ -103,7 +102,6 @@ exports.findPerbaikanMitraStatus = (req, res) => {
 }
 
 exports.putPerbaikanMitra = (req, res) => {
-	console.log(req.body)
 	Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
 		status: req.body.status,
 		harga: req.body.harga,

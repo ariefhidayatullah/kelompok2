@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title><%= judul %></title>
+  <link rel="stylesheet" href="/assets/panel-master/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
+  <div  id="app" class="wrapper">
+    <div v-if="mitra !== null">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="../home/index" class="nav-link">Home</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mr-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell" style="font-size: 150%;"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li  class="nav-item">
+            <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
+            <!-- <span class="float-right text-muted text-sm">keluar</span> -->
+          </li>
+        </ul>
+      </nav>
+      <aside class="main-sidebar sidebar-dark-light elevation-2">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Mitra RepairMe</span>
+        </a>
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
+            </div>
+            <div v-if="mitra !== null" class="info">
+              <a class="float-right">{{ mitra.nama }}</a>
+            </div>
+          </div>
+          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
+          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'" class="btn btn-success btn-sm">Terverifikasi</button>
+          <!-- Sidebar Menu -->
+          <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item">
+                <a href="/" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Beranda <span class="right badge badge-success">Data Cepat</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-shopping-cart"></i>
+                  <p>
+                    Perbaikan
+                    <i class="fas fa-angle-left right"></i>
+                    <span class="badge badge-info right">6</span>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="" class="nav-link active" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Permintaan Perbaikan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/voucher" class="nav-link" id="voucher_sidebar">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Voucher Perbaikan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="perbaikan">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Perbaikan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/batalperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Perbaikan Dibatalkan</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/selesaiperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Barang Selesai Di Perbaiki</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/riwayatperbaikan" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Riwayat Perbaikan</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="" class="nav-link">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p>
+                    Profile Mitra
+                    <i class="fas fa-angle-left right"></i>
+                    <span class="right badge badge-warning">Edit</span>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="/mitra/profile" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Profile</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="deskripsi" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Ubah Profile</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar -->
+        </aside>
+      </div>
+
+      <!-- ============CONTENT======== -->
+
+      <div class="content-wrapper mt-5">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Perbaikan</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
+                  <li class="breadcrumb-item active">Pengajuan Perbaikan</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+          <div v-if="perbaikan.menunggu !== null" class="card">
+            <div class="card-header bg-dark" data-card-widget="collapse">
+              <h3 class="card-title">Pengajuan Pelanggan</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">No</th>
+                    <th style="width: 30%;">Barang</th>
+                    <th style="width: 30%;">Pelanggan</th>
+                    <th style="width: 20%;">Tanggal Pengajuan</th>
+                    <th style="width: 20%;">Proses</th>
+
+                  </tr>
+                </thead>
+                <tbody id="tabel_pengajuan">
+                  <tr v-for="(value, index) in perbaikan.menunggu">
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                      {{ value.merk.toUpperCase() }} - {{ value.tipe }} 
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
+                        </div>
+                        <div class="col-sm-6">
+                          <button @click="modal_tolak_pengajuan(value)" class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+          <div class="card collapsed-card">
+            <div class="card-header bg-dark" data-card-widget="collapse">
+              <h3 class="card-title">Perbaikan diterima</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">No</th>
+                    <th style="width: 30%;">Barang</th>
+                    <th style="width: 30%;">Pelanggan</th>
+                    <th style="width: 20%;">Tanggal Diterima</th>
+                    <th style="width: 20%;">Voucher</th>
+                  </tr>
+                </thead>
+                <tbody id="tabel_perbaikan_diterima">
+                  <tr v-for="(value, index) in perbaikan.diterima">
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                      {{ value.merk.toUpperCase() }} - {{ value.tipe }} 
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+                    </td>
+                    <td>
+                      {{ value.voucher }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card collapsed-card">
+            <div class="card-header bg-dark" data-card-widget="collapse">
+              <h3 class="card-title">Perbaikan Ditolak</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">No</th>
+                    <th style="width: 30%;">Barang</th>
+                    <th style="width: 30%;">Pelanggan</th>
+                    <th style="width: 20%;">Tanggal Ditolak</th>
+                    <th style="width: 20%;">Proses</th>
+                  </tr>
+                </thead>
+                <tbody id="tabel_perbaikan_ditolak">
+                    <tr v-for="(value, index) in perbaikan.ditolak">
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                      {{ value.merk.toUpperCase() }} - {{ value.tipe }} 
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                      <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+                    </td>
+                    <td>
+                      {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ==========  BAGIAN MODAL ============= -->
+
+      <div class="modal fade" id="detail_barang">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="container-fluid">
+                <table class="table table-bordered">
+                  <tr class="bg-dark">
+                    <th><b>Judul</b></th>
+                    <th><b>Data</b></th>
+                  </tr>
+
+                  <tr>
+                    <td>Jenis</td>
+                    <td ref="jenis"></td>
+                  </tr>
+                  <tr>
+                    <td>Merk</td>
+                    <td ref="merk"></td>
+                  </tr>
+                  <tr>
+                    <td>Tipe</td>
+                    <td ref="tipe"></td>
+                  </tr>
+                  <tr>
+                    <td>Kerusakan</td>
+                    <td ref="kerusakan"></td>
+                  </tr>
+                  <tr>
+                    <td>Keterangan Lain</td>
+                    <td ref="keterangan_lain"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      
+      <div class="modal fade" id="detail_pelanggan">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <div class="container-fluid">
+                <table class="table table-bordered">
+                  <tr class="bg-dark">
+                    <th><b>Judul</b></th>
+                    <th><b>Data</b></th>
+                  </tr>
+                  <tr>
+                    <td>Nama</td>
+                    <td ref="nama_pelanggan"></td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td ref="email__pelanggan"></td>
+                  </tr>
+                  <tr>
+                    <td>No Telpon</td>
+                    <td ref="no_tlp_pelanggan"></td>
+                  </tr>
+                  <tr>
+                    <td>Alamat</td>
+                    <td ref="alamat_pelanggan"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!-- Modal -->
+      <div class="modal fade" id="terima_perbaikan" tabindex="-1" role="dialog" aria-labelledby="terimaHandphoneLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="terimaHandphoneLabel">Terima Pengajuan Handphone</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <tr class="bg-dark">
+                  <td style="text-align: center;"><b>Barang</b></td>
+                  <td><b>Handphone</b></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;"><b>Merk & Tipe</b></td>
+                  <td style="font-weight: bold;" ref="modal_terima_barang"></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;"><b>Kerusakan</b></td>
+                  <td style="font-weight: bold;" ref="modal_terima_kerusakan"></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;"><b>Voucher</b></td>
+                  <td ref="modal_terima_kode_voucher" style="font-size: 16px; font-weight: bold;"></td>
+                </tr>
+
+              </table>
+              <div class="form-group mt-20">
+                <input class="form-control" id="hargahandphone" ref="hargahandphone" name="hargahandphone" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah" @keyup="hargaChange()">
+              </div>
+              <p class="hargahandphone" v-if="post_data.harga !== null && post_data.harga !== 'Rp.'" style="color: red;">Harga yang ada masukkan : {{ post_data.harga }}</p>
+              <div class="form-group mt-20">
+                <input class="form-control" id="kethandphonelain" name="kethandphonelain" type="text" placeholder="Keterangan Lain" v-model="post_data.keterangan_lain">
+              </div>
+            </div>
+            <div v-if="post_data.keterangan_lain !== null && post_data.keterangan_lain !== '' && post_data.harga !== null && post_data.harga !== 'Rp.'" class="modal-footer">
+              <button type="submit" @click="terima_perbaikan()" class="btn btn-block btn-outline-success btn-sm">Terima Permintaan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="tolak_perbaikan" tabindex="-1" role="dialog" aria-labelledby="tolak_perbaikan" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tolakHandphoneLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <select @change="selectPenolakan()" ref="selectPenolakan" class="form-control">
+                  <option selected="true" disabled="">Alasan Penolakan</option>
+                  <option>Teknisi Belum Ready</option>
+                  <option>Permintaan Masih Penuh</option>
+                  <option>Permintaan Tidak Benar</option>
+                  <option style="color: red;" value="false">Alasan Lain</option>
+                </select>
+              </div>
+              <div class="form-group mt-20">
+                <input v-if="perbaikan.Keterangan === true" v-model="post_data.keterangan_lain" class="form-control" id="alasan_penolakan" name="alasan_penolakan" type="text" placeholder="Alasan Anda">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button @click="post_data_penolakan()" type="submit" class="btn btn-danger">Tolak Permintaan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END ID APP -->
+    </div>
+
+
+    <footer class="main-footer bg-dark">
+      <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
+      admin@repairme.com :)
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Versi</b> 1.0.0
+      </div>
+    </footer>
+
+    <!-- javascript -->
+    <script src="/assets/js/vueJs/vue.js"></script>
+    <script src="/assets/js/vueJs/axios.js"></script>
+    <!-- jQuery -->
+    <script src="/assets/js/jquery-3.4.1.js"></script>
+    <script src="/assets/js/autoNumeric.js"></script>
+    <script src="/assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/assets/panel-master/plugins/raphael/raphael.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/assets/panel-master/dist/js/adminlte.js"></script>
+    <!-- ChartJS -->
+    <script src="/assets/panel-master/plugins/chart.js/Chart.min.js"></script>
+    <!-- Toastr -->
+    <script src="/assets/panel-master/plugins/toastr/toastr.min.js"></script>
+    <script src="/assets/js/notiny/notiny.js"></script>
+    <link href="/assets/js/notiny/notiny.css" rel="stylesheet">
+    <script src="/assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
+    <script src="/assets/js/moment-id.js"></script>
+    <!-- date-range-picker -->
+    <script src="/assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+  </body>
+
+  </html>
+
+
+  <div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row" id="option_barang">
+              <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+              <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+
+      el: "#app",
+      data: {
+        mitra: null,
+        myfile: null,
+        perbaikan: {
+          menunggu: null,
+          diterima: null,
+          ditolak: null,
+          Keterangan: false
+        },
+        post_data:{
+          status: null,
+          harga: null,
+          keterangan_lain: null,
+          id: null,
+          voucher: null
+        }
+      },
+      mounted(){
+        this.getData()
+        this.getPerbaikan()
+      },
+      methods: { 
+        getData(){
+          axios({
+            method: 'get',
+            url: '/api/mitra/' + '<%= email %>'  
+          }).then(response => {
+            this.mitra = response.data;
+          })
+        },
+        warning: function (message) {
+          setTimeout(function () {
+            toastr.warning(
+              message
+              );
+          }, 10);
+        },
+        success: function (success) {
+          setTimeout(function () {
+            toastr.success(
+              success
+              );
+          }, 10);
+        },
+        error: function (error) {
+          setTimeout(function () {
+            toastr.error(
+              error
+              );
+          }, 10);
+        },
+        getPerbaikan(){
+          axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Menunggu Persetujuan/handphone')
+          .then(response => {
+            this.perbaikan.menunggu = response.data
+          })
+          axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Mitra Siap Memperbaiki/handphone')
+          .then(response => {
+            this.perbaikan.diterima = response.data
+          })
+          axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Mitra Menolak Perbaikan/handphone')
+          .then(response => {
+            this.perbaikan.ditolak = response.data
+          })
+
+        },
+        tanggal(tanggal){
+          return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
+        modal_detail_barang(value){
+          this.$refs.jenis.textContent = value.jenis_barang.toUpperCase()
+          this.$refs.merk.textContent = value.merk.toUpperCase()
+          this.$refs.tipe.textContent = value.tipe
+          this.$refs.kerusakan.textContent = value.kerusakan
+          if (value.keterangan_lain) {
+            this.$refs.keterangan_lain.textContent = value.keterangan_lain
+          }else {
+            this.$refs.keterangan_lain.textContent = '-Tidak Ada-'
+          }
+        },
+        modal_detail_pelanggan(value){
+          this.$refs.nama_pelanggan.textContent = value.nama.toUpperCase()
+          this.$refs.email__pelanggan.textContent = value._id
+          this.$refs.no_tlp_pelanggan.textContent = value.no_tlp
+          this.$refs.alamat_pelanggan.textContent = value.alamat
+        },
+        modal_terima_pengajuan(value){
+          this.$refs.modal_terima_barang.textContent =  value.merk.toUpperCase() + ' - ' + value.tipe
+          if (value.keterangan_lain) {
+            this.$refs.modal_terima_kerusakan.textContent = value.kerusakan + ' - ' + value.keterangan_lain
+          }else{
+            this.$refs.modal_terima_kerusakan.textContent = value.kerusakan
+          }
+          this.$refs.modal_terima_kode_voucher.textContent = ''
+          const character = 'abcdefghijklmnopqrstuvwxyz0123456789';
+          const characterLength = character.length;
+          for (var i = 0; i < 7; i++) {
+            this.$refs.modal_terima_kode_voucher.textContent += character.charAt(Math.floor(Math.random() * characterLength));
+          }
+          this.post_data.status = "Mitra Siap Memperbaiki"
+          this.post_data.id = value._id
+          this.post_data.voucher = this.$refs.modal_terima_kode_voucher.textContent
+          $('#hargahandphone').autoNumeric('destroy');
+          $('#hargahandphone').val('');
+          $('#hargahandphone').autoNumeric('init');
+        },
+        hargaChange(){
+          return this.post_data.harga = this.$refs.hargahandphone.value
+        },
+        terima_perbaikan(){
+          axios.post('/api/perbaikan/mitra/' + this.post_data.id, vm.post_data, {
+            header: {
+              'Content-Type':'application/json'
+            }
+          })
+          .then(response => {
+            this.getPerbaikan();
+            $('#terima_perbaikan').modal('toggle');
+            if (response.data.status == "success") {
+              this.success(response.data.message);
+            } else if (response.data.status == "error") {
+              this.error(response.data.message);
+            }
+          })
+        },
+        modal_tolak_pengajuan(value){
+          this.post_data.status = null
+          this.post_data.harga = null
+          this.post_data.voucher = null
+          this.post_data.keterangan_lain = null
+          this.post_data.status = 'Mitra Menolak Perbaikan'
+          this.post_data.id = value._id
+
+        },
+        selectPenolakan(){
+          if (this.$refs.selectPenolakan.value === 'false') {
+            this.perbaikan.Keterangan = true
+          }else{
+            this.perbaikan.Keterangan = false
+            this.post_data.keterangan_lain = this.$refs.selectPenolakan.value
+          }
+        },
+        post_data_penolakan(){
+          axios.post('/api/perbaikan/mitra/' + this.post_data.id, vm.post_data, {
+            header: {
+              'Content-Type':'application/json'
+            }
+          })
+          .then(response => {
+            this.getPerbaikan();
+            $('#tolak_perbaikan').modal('toggle');
+            if (response.data.status == "success") {
+              this.success(response.data.message);
+            } else if (response.data.status == "error") {
+              this.error(response.data.message);
+            }
+          })
+        }
+
+      }
+
+    })
+  </script>
+

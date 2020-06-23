@@ -559,7 +559,7 @@
             this.barang.newMerk = false;
             this.perbaikan.merk = val;
 
-            axios.get('/api/barang/laptop/' + val, {
+            axios.get('/api/barang/'+ this.perbaikan.jenis_barang +'/' + val, {
               cache: true
             }).then(response => {
               return this.barang.tipe = response.data;

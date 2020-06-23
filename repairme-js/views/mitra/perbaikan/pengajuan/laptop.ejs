@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
 </head>
 
-
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
   <div  id="app" class="wrapper">
     <div v-if="mitra !== null">
@@ -267,7 +266,7 @@
                     <th style="width: 30%;">Barang</th>
                     <th style="width: 30%;">Pelanggan</th>
                     <th style="width: 20%;">Tanggal Diterima</th>
-                    <th style="width: 20%;">Proses</th>
+                    <th style="width: 20%;">Voucher</th>
                   </tr>
                 </thead>
                 <tbody id="tabel_perbaikan_diterima">
@@ -285,14 +284,7 @@
                       {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
                     </td>
                     <td>
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
-                        </div>
-                        <div class="col-sm-6">
-                          <button class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
-                        </div>
-                      </div>
+                      {{ value.voucher }}
                     </td>
                   </tr>
                 </tbody>
@@ -338,10 +330,7 @@
                     <td>
                       <div class="row">
                         <div class="col-sm-6">
-                          <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
-                        </div>
-                        <div class="col-sm-6">
-                          <button class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
+                          <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
                         </div>
                       </div>
                     </td>
