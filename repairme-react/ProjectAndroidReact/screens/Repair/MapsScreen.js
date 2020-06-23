@@ -1,14 +1,12 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import { StyleSheet, Text, View, Alert, Linking, Dimensions } from 'react-native';
-import { Map, TileLayer, Marker, Popup } from 'react-native-webview-leaflet';
 
-
-export default function LinksScreen() {
-  return (
-    <CustomTiles />
-  );
+export default class MapsScreen extends React.Component {
+  render(){
+    return (
+      <CustomTiles />
+    );
+  }
 }
 
 import MapView, {
