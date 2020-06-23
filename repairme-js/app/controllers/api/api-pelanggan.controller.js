@@ -11,7 +11,8 @@ exports.create = (req, res) => {
         _id: req.body.email,
         nama: req.body.nama,
         no_tlp: req.body.no_tlp,
-        alamat: req.body.alamat
+        alamat: req.body.alamat,
+        foto_profile: 'pelanggan.png'
     });
 
     //data login

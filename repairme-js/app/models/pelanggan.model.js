@@ -4,7 +4,8 @@ const PelangganSchema = mongoose.Schema({
     _id: String,
     nama: String,
     no_tlp: String,
-    alamat: String
+    alamat: String,
+    foto_profile: String
 }, {
     timestamps: true
 });

@@ -26,10 +26,31 @@ exports.findAllPerbaikan = (req, res) => {
   });
 };
 
+// ========================= PELANGGAN ====================
+
 exports.findPerbaikanPelanggan = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
 	[
 	    {"$match" : {pelanggan: req.params.id}},
+	    {
+	        "$lookup" : {
+	                from: "mitra",
+	                localField: "mitra",
+	                foreignField: "_id",
+	                as: "data_mitra"
+	            }
+	    }
+	]
+	).then((response) => {
+	    res.send(response);
+	})
+}
+
+exports.findPerbaikanPelangganStatus = (req, res) => {
+	Perbaikan.Perbaikan.aggregate(
+	[
+	    {"$match" : {pelanggan: req.params.email, status: req.params.status,
+	     jenis_barang: req.params.jenis}},
 	    {
 	        "$lookup" : {
 	                from: "mitra",
@@ -86,7 +107,7 @@ exports.putPerbaikanMitra = (req, res) => {
 	Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
 		status: req.body.status,
 		harga: req.body.harga,
-		keterangan_lain: req.body.keterangan_lain,
+		keterangan_mitra: req.body.keterangan_lain,
 		voucher: req.body.voucher
 	}
 	}).then((response) => {
