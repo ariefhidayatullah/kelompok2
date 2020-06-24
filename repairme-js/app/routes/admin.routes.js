@@ -66,6 +66,19 @@ module.exports = (app, express) => {
 		})
 	})
 
+
+	router.get('/data_mitra', (req, res) => {
+		res.render('./admin/data/data_mitra', {
+			judul: 'Data Mitra'
+		})
+	})
+
+	router.get('/data_pelanggan', (req, res) => {
+		res.render('./admin/data/data_pelanggan', {
+			judul: 'Data Pelanggan'
+		})
+	})
+
 	app.use('/admin', router);
 
 }

@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const MitraSchema = mongoose.Schema({
-	_id : String,
-    nama : String,
+    _id: String,
+    nama: String,
     no_tlp: String,
     jenis_usaha: String,
     nama_usaha: String,
     alamat: String,
-    lat : String, 
-    lng : String,
+    lat: String,
+    lng: String,
     foto_ktp: String,
     foto_usaha: String,
     verifikasi: String,
@@ -19,4 +19,6 @@ const MitraSchema = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Mitra', MitraSchema, 'mitra');
+module.exports = {
+    Mitra: mongoose.model('Mitra', MitraSchema, 'mitra')
+};

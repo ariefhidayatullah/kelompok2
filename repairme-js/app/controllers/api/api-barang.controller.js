@@ -1,4 +1,6 @@
 const Barang = require("../../models/barang.model.js");
+const Mitra = require("../../models/mitra.model.js");
+const Pelanggan = require("../../models/pelanggan.model.js");
 const Pakett = require("../../models/paket.model.js");
 const {
     response
@@ -146,8 +148,43 @@ exports.findAllHandphone = (req, res) => {
         res.send(response);
     })
 };
+exports.findAllPelanggan = (req, res) => {
+    Pelanggan.Pelanggan.find({}).then((response) => {
+        res.send(response);
+    })
+};
+exports.findAllMitra = (req, res) => {
+    Mitra.Mitra.aggregate(
+        [{
+            "$lookup": {
+                from: "user",
+                localField: "email",
+                foreignField: "_id",
+                as: "data_mitra"
+            }
+        }]
+    ).then((response) => {
+        res.send(response);
+    })
+};
+// exports.findAllPelanggan = (req, res) => {
+//     Pelanggan.Pelanggan.aggregate(
+//         [{
+//             "$lookup": {
+//                 from: "user",
+//                 localField: "email",
+//                 foreignField: "_id",
+//                 as: "data_pelanggan"
+//             }
+//         }]
+//     ).then((response) => {
+//         res.send(response);
+//     })
+// };
 exports.findLaptopByMerk = (req, res) => {
-    Barang.Laptop.find({merk: req.params.merk}).then((response) => {
+    Barang.Laptop.find({
+        merk: req.params.merk
+    }).then((response) => {
         res.send(response);
     })
 };

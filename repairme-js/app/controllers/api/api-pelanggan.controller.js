@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 exports.create = (req, res) => {
 
     // Create a pelanggan
-    const pelanggan = new Pelanggan({
+    const pelanggan = new Pelanggan.Pelanggan({
         _id: req.body.email,
         nama: req.body.nama,
         no_tlp: req.body.no_tlp,

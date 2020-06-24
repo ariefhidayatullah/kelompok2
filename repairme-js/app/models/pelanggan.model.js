@@ -9,4 +9,6 @@ const PelangganSchema = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Pelanggan', PelangganSchema, 'pelanggan');
+module.exports = {
+    Pelanggan: mongoose.model('Pelanggan', PelangganSchema, 'pelanggan')
+};

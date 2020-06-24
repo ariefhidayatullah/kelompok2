@@ -22,7 +22,11 @@ module.exports = (app, express) => {
         });
     });
 
-
+    router.get('/profile', (req, res) => {
+        res.render('pelanggan/profile', {
+            judul: 'profile'
+        });
+    });
 
 
     app.use('/pelanggan', router);
