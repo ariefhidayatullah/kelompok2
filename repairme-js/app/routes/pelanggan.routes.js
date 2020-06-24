@@ -21,6 +21,11 @@ module.exports = (app, express) => {
         });
     });
 
+    router.get('/profile', (req, res) => {
+        res.render('pelanggan/profile', {
+            judul: 'profile'
+        });
+    });
     router.get('/pengajuan/:jenis', (req, res) => {
         if (req.session.user) {
             if (req.session.user.jenis === 'pelanggan') {
@@ -29,18 +34,18 @@ module.exports = (app, express) => {
                         judul: 'Pengajuan Perbaikan',
                         email: req.session.user.email
                     })
-                }else if(req.params.jenis === "handphone"){
+                } else if (req.params.jenis === "handphone") {
                     res.render('pelanggan/perbaikan/pengajuan/handphone', {
                         judul: 'Pengajuan Perbaikan',
                         email: req.session.user.email
                     })
-                }else {
+                } else {
                     next()
                 }
-            }else {
+            } else {
                 next()
             }
-        }else{
+        } else {
             res.redirect('/login');
         }
     })

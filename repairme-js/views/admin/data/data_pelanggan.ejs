@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= judul %></title>
+    <link rel="stylesheet" href="../assets/panel-master/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="../assets/panel-master/dist/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="../assets/home/index" class="nav-link">Home</a>
+                </li>
+            </ul>
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <li>
+                    <i class="fa fa-sign-out-alt"> </i>
+                    <a></a>
+                </li>
+            </ul>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-light elevation-2">
+            <!-- Brand Logo -->
+            <a href="index3.html" class="brand-link">
+                <img class="profile-user-img img-fluid img-circle" src="../assets/panel-master/dist/img/user1.png"
+                    alt="User profile picture" width="100px" height="100px">
+                <span class="brand-text font-weight-light">Dashboard Admin</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="info">
+                        <a href="#" class="d-block">ADMIN</a>
+                    </div>
+                </div>
+                <!-- Sidebar Menu -->
+                <nav class="mt-4">
+                    <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview"
+                        role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+	with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a href="./admin" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Data Cepat
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tools"></i>
+                                <p>
+                                    Barang
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/laptop" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Data Laptop</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/handphone" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Data Handphone</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tools"></i>
+                                <p>
+                                    Kerusakan
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/kerusakan_laptop" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tambah Kerusakan Laptop</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/kerusakan_handphone" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tambah Kerusakan Hp</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/perbaikan" class="nav-link">
+                                <i class="nav-icon fas fa-poll-h"></i>
+                                <p>
+                                    Data Perbaikan
+                                    <span class="right badge badge-warning">Edit</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/data_mitra" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Data Mitra
+                                    <span class="right badge badge-warning">Edit</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/data_pelanggan" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Data Pelanggan
+                                    <span class="right badge badge-warning">Edit</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/paket" class="nav-link">
+                                <i class="nav-icon fas fa-poll-h"></i>
+                                <p>
+                                    Paket Biaya Iklan
+                                    <span class="right badge badge-light">Edit</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/permintaan_verifikasi" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Konfirmasi Mitra
+                                    <span class="right badge badge-warning">Baru</span>
+                                </p>
+                            </a>
+                        </li>
+                        <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- untuk report  -->
+        <div id="app" class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Data Pelanggan</h1>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="#">pelanggan</a></li>
+                                <li class="breadcrumb-item active">Daftar Pelanggan</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Default box -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Daftar Mitra</h3>
+                                    <br>
+                                    <i class="fas fa-file-download" style="display: inline-block;"></i>
+                                    <a href="#" id="unduhdata">Unduh Data</a>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                            data-toggle="tooltip" title="Collapse">
+                                            <i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove"
+                                            data-toggle="tooltip" title="Remove">
+                                            <i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+
+                                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="dataTables_length" id="example1_length"></div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div id="example1_filter" class="dataTables_filter"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="datapelanggan"
+                                                    class="table table-bordered table-striped dataTable" role="grid"
+                                                    aria-describedby="example1_info">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Browser: activate to sort column ascending"
+                                                                style="width: 200px;">Nama</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending"
+                                                                style="width: 194px;">Email</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending"
+                                                                style="width: 194px;">No Telepon</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending"
+                                                                style="width: 225px;">Alamat</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example1"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending"
+                                                                style="width: 219px;">Opsi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr role="row" class="odd" v-for="data in pelanggan">
+                                                            <td>{{data.nama}}</td>
+                                                            <td>{{data._id}}</td>
+                                                            <td>{{data.no_tlp}}</td>
+                                                            <td>{{data.alamat}}</td>
+                                                            <td><button class="btn btn-danger btn-sm">Hapus</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            </section>
+            <footer class="main-footer">
+                <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
+                Situs Untuk Mencari Tempat Perbaikan Terbaik.
+                <div class="float-right d-none d-sm-inline-block">
+                    <b>Versi</b> 1.0.0
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="../assets/js/vueJs/vue.js"></script>
+    <script src="../assets/js/vueJs/axios.js"></script>
+    <!-- javascript vue -->
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                pelanggan: null
+            },
+            mounted() {
+                axios({
+                    method: 'get',
+                    url: '../api/barang/pelanggan'
+                }).then((response) => {
+                    return vm._data.pelanggan = response.data;
+                })
+            }
+        })
+    </script>
+    <!-- ./wrapper -->
+    <script src="../assets/panel-master/plugins/jquery/jquery.js"></script>
+    <script src="../assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="../assets/panel-master/plugins/toastr/toastr.min.js"></script>
+    <script src="../assets/panel-master/dist/js/adminlte.js"></script>
+    <script src="../assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="../assets/panel-master/plugins/raphael/raphael.min.js"></script>
+    <script src="../assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="../assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="../assets/panel-master/plugins/chart.js/Chart.min.js"></script>
+</body>
+
+</html>

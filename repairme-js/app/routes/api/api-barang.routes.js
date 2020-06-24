@@ -50,6 +50,11 @@ module.exports = (app, express) => {
     router.put('/paket/:id', barang.updatePaket);
     router.delete('/paket/:id', barang.deletePaket);
 
+    // router data
+    router.get('/mitra', barang.findAllMitra);
+
+    router.get('/pelanggan', barang.findAllPelanggan);
+
     // // Mencari barang berdasarkan Id
     // router.get('/:noteId', barang.findOne);
 
