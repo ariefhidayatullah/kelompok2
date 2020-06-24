@@ -38,7 +38,7 @@ exports.create = (req, res, next) => {
 
 // Cari semua data
 exports.findAll = (req, res) => {
-    Mitra.find()
+    Mitra.Mitra.find()
         .then(mitra => {
             res.send(mitra);
         }).catch(err => {
@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
 
 //cari email
 exports.findEmail = (req, res) => {
-    Mitra.find({}, {
+    Mitra.Mitra.find({}, {
             _id: 1
         })
         .then(mitra => {
@@ -64,7 +64,7 @@ exports.findEmail = (req, res) => {
 
 // Cari Mitra Berdasarkan ID
 exports.findOne = (req, res) => {
-    Mitra.findById(req.params.mitraId)
+    Mitra.Mitra.findById(req.params.mitraId)
         .then(mitra => {
             if (!mitra) {
                 return res.status(404).send({
@@ -86,7 +86,7 @@ exports.findOne = (req, res) => {
 
 // Update Mitra
 exports.update = (req, res) => {
-    Mitra.findByIdAndUpdate(req.params.mitraId, {
+    Mitra.Mitra.findByIdAndUpdate(req.params.mitraId, {
             nama: req.body.nama,
             nama_usaha: req.body.nama_usaha
         }, {
@@ -113,7 +113,7 @@ exports.update = (req, res) => {
 
 // Delete a mitra with the specified mitraId in the request
 exports.delete = (req, res) => {
-    Mitra.findByIdAndRemove(req.params.mitraId)
+    Mitra.Mitra.findByIdAndRemove(req.params.mitraId)
         .then(mitra => {
             if (!mitra) {
                 return res.status(404).send({
@@ -160,37 +160,52 @@ exports.insertBukti = (req, res, next) => {
 // Cari semua Bukti
 exports.findBukti = (req, res) => {
     Paket.Verifikasi.aggregate(
-    [
-        {"$match" : {status: "Belum Terverifikasi"}},
-        {
-            "$lookup" : {
+        [{
+                "$match": {
+                    status: "Belum Terverifikasi"
+                }
+            },
+            {
+                "$lookup": {
                     from: "mitra",
                     localField: "email",
                     foreignField: "_id",
                     as: "data_mitra"
                 }
-        }
-    ]
+            }
+        ]
     ).then((response) => {
         res.send(response);
     })
 }
 
 exports.terverifikasi = (req, res, next) => {
-    Paket.Verifikasi.updateMany({email: req.params.email }, { $set: {status: "Terverifikasi"}})
-    .then(() => {
-        Mitra.updateMany({_id: req.params.email }, { $set: {verifikasi: "Terverifikasi"}})
-        .then((response) => {
-            res.send({
-                response: response,
-                status: "success",
-                message: "Berhasil Terverifikasi!",
-            });
+    Paket.Verifikasi.updateMany({
+            email: req.params.email
+        }, {
+            $set: {
+                status: "Terverifikasi"
+            }
         })
-        .catch((err) => {
-            req.flash("error", "Gagal!");
-        });
-    })
-    
+        .then(() => {
+            Mitra.updateMany({
+                    _id: req.params.email
+                }, {
+                    $set: {
+                        verifikasi: "Terverifikasi"
+                    }
+                })
+                .then((response) => {
+                    res.send({
+                        response: response,
+                        status: "success",
+                        message: "Berhasil Terverifikasi!",
+                    });
+                })
+                .catch((err) => {
+                    req.flash("error", "Gagal!");
+                });
+        })
+
 
 }

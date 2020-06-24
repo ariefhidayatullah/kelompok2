@@ -40,8 +40,6 @@
                         <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span> pesan baru
                             untuk</span>
                         <div class="dropdown-divider notif_atas"></div>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">Lihat Semua Pesan</a>
                     </div>
                 </li>
             </ul>
@@ -56,7 +54,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-light elevation-2">
             <!-- Brand Logo -->
-            <a href="<?= base_url('pelanggan'); ?>" class="brand-link">
+            <a href="" class="brand-link">
                 <span class="brand-text font-weight-light">
                     <center>Repairme</center>
                 </span>
@@ -218,7 +216,8 @@
 
             el: "#app",
             data: {
-                pelanggan: null
+                pelanggan: null,
+                data: '<%= email %>'
             },
             mounted() {
                 axios({

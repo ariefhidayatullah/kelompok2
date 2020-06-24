@@ -48,7 +48,7 @@ module.exports = (app, express) => {
         } else {
             res.redirect('/login');
         }
-    })
+    });
 
 
 
