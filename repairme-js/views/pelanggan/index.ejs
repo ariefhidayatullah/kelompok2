@@ -197,21 +197,40 @@
                 </div>
             </div>
         </div>
+
+
+
+        <footer class="main-footer bg-dark">
+            <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
+            admin@repairme.com :)
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Versi</b> 1.0.0
+            </div>
+        </footer>
     </div>
 
-
-
-    <footer class="main-footer bg-dark">
-        <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
-        admin@repairme.com :)
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Versi</b> 1.0.0
-        </div>
-    </footer>
 
     <!-- javascript -->
     <script src="/assets/js/vueJs/vue.js"></script>
     <script src="/assets/js/vueJs/axios.js"></script>
+    <script>
+        var vm = new Vue({
+
+            el: "#app",
+            data: {
+                pelanggan: null
+            },
+            mounted() {
+                axios({
+                    method: 'get',
+                    url: '/api/pelanggan/' + '<%= email %>'
+                }).then(response => {
+                    this.pelanggan = response.data;
+                })
+            }
+
+        })
+    </script>
     <!-- jQuery -->
     <script src="/assets/js/jquery-3.4.1.js"></script>
     <script src="/assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -235,21 +254,3 @@
 </body>
 
 </html>
-<script>
-    var vm = new Vue({
-
-        el: "#app",
-        data: {
-            tambah: null
-        },
-        mounted() {
-            axios({
-                method: 'get',
-                url: '/api/pelanggan/' + '<%= email %>'
-            }).then(response => {
-                this.tambah = response.data;
-            })
-        }
-
-    })
-</script>
