@@ -64,6 +64,21 @@ module.exports = (app, express) => {
        }
     })
 
+    router.get('/voucher', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'mitra') {
+                res.render('mitra/perbaikan/voucher/index', {
+                judul: 'Terima Voucher',
+                email: req.session.user.email
+                })
+            }else {
+                next()
+            }
+       }else{
+            res.redirect('/login');
+       }
+    })
+
     app.use('/mitra', router);
 
 }

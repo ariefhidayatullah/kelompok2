@@ -9,6 +9,7 @@ const PerbaikanSchema = mongoose.Schema({
     kerusakan:String,
     keterangan_lain:String,
     tanggal:String,
+    lama_perkiraan: String,
     status: String,
     harga: String,
     keterangan_lain: String,

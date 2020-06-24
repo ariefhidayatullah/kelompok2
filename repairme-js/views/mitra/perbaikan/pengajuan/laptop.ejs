@@ -662,7 +662,7 @@
           return this.post_data.harga = this.$refs.hargalaptop.value
         },
         terima_perbaikan(){
-          axios.post('/api/perbaikan/mitra/' + this.post_data.id, vm.post_data, {
+          axios.post('/api/perbaikan/mitra/' + this.post_data.id + '/update_status', vm.post_data, {
             header: {
               'Content-Type':'application/json'
             }
@@ -695,7 +695,7 @@
           }
         },
         post_data_penolakan(){
-          axios.post('/api/perbaikan/mitra/' + this.post_data.id, vm.post_data, {
+          axios.post('/api/perbaikan/mitra/' + this.post_data.id  + '/update_status', vm.post_data, {
             header: {
               'Content-Type':'application/json'
             }
