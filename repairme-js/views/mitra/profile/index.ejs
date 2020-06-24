@@ -70,28 +70,26 @@
       <aside class="main-sidebar sidebar-dark-light elevation-2">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-          <img src="../assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Mitra RepairMe</span>
         </a>
         <div class="sidebar">
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <!-- <img src="" class="img-box elevation-2" alt="Foto Usaha Mitra"> -->
+              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
             </div>
             <div v-if="mitra !== null" class="info">
               <a class="float-right">{{ mitra.nama }}</a>
             </div>
           </div>
-          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'"
-            class="btn btn-danger btn-sm" data-toggle="modal" data-target="#verifikasiModal">Belum Terverifikasi</a>
+          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
+          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'" class="btn btn-success btn-sm">Terverifikasi</button>
           <!-- Sidebar Menu -->
           <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu"
-              data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item">
-                <a href="/" class="nav-link active">
+                <a href="/mitra" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Beranda <span class="right badge badge-success">Data Cepat</span>
@@ -115,7 +113,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/voucher" class="nav-link" id="voucher_sidebar">
+                    <a href="/mitra/voucher" class="nav-link" id="voucher_sidebar">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Voucher Perbaikan</p>
                     </a>
@@ -127,19 +125,19 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/batalperbaikan" class="nav-link">
+                    <a href="/mitra/batalperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Perbaikan Dibatalkan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/selesaiperbaikan" class="nav-link">
+                    <a href="/mitra/selesaiperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Barang Selesai Di Perbaiki</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/riwayatperbaikan" class="nav-link">
+                    <a href="/mitra/riwayatperbaikan" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Riwayat Perbaikan</p>
                     </a>
@@ -157,13 +155,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/profile" class="nav-link">
+                    <a href="/mitra/profile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Profile</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/deskripsi" class="nav-link">
+                    <a href="/mitra/profile" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ubah Profile</p>
                     </a>
@@ -173,7 +171,7 @@
             </ul>
           </nav>
           <!-- /.sidebar -->
-      </aside>
+        </aside>
     </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -368,6 +366,20 @@
 </body>
 
 </html>
+  <div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row" id="option_barang">
+              <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+              <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   var vm = new Vue({

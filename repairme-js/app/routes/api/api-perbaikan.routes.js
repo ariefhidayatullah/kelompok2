@@ -16,7 +16,10 @@ module.exports = (app, express) => {
     //mitra berdasarkan status nya
     router.get('/mitra/:email/:status/:jenis', perbaikan.findPerbaikanMitraStatus);
     //ganti status perbaikan ex= terima mitra dll
-    router.post('/mitra/:id/', perbaikan.putPerbaikanMitra);
+    router.post('/mitra/:id/:keterangan', perbaikan.putPerbaikanMitra);
+
+    // mitra berdasarkan voucher
+    router.get('/voucher/:voucher', perbaikan.findPerbaikanByVoucher);
 
     app.use('/api/perbaikan', router);
 }

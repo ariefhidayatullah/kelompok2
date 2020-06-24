@@ -102,25 +102,45 @@ exports.findPerbaikanMitraStatus = (req, res) => {
 }
 
 exports.putPerbaikanMitra = (req, res) => {
-	Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-		status: req.body.status,
-		harga: req.body.harga,
-		keterangan_mitra: req.body.keterangan_lain,
-		voucher: req.body.voucher
+	if (req.params.keterangan === 'update_status') {
+		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+			status: req.body.status,
+			harga: req.body.harga,
+			keterangan_mitra: req.body.keterangan_lain,
+			voucher: req.body.voucher
+		}
+		}).then((response) => {
+	        res.send({
+	            response: response,
+	            status: "success",
+	            message: "Berhasil",
+	        });
+	    })
+	    .catch((err) => {
+	        res.send({
+	            response: err,
+	            status: "error",
+	            message: "Gagal!",
+	        });
+	    });
 	}
-	}).then((response) => {
-        res.send({
-            response: response,
-            status: "success",
-            message: "Berhasil",
-        });
-    })
-    .catch((err) => {
-        res.send({
-            response: err,
-            status: "error",
-            message: "Gagal!",
-        });
-    });
+}
+
+exports.findPerbaikanByVoucher = (req, res) => {
+	Perbaikan.Perbaikan.aggregate(
+	[
+	    {"$match" : {voucher: req.params.voucher}},
+	    {
+	        "$lookup" : {
+	                from: "pelanggan",
+	                localField: "pelanggan",
+	                foreignField: "_id",
+	                as: "data_pelanggan"
+	            }
+	    }
+	]
+	).then((response) => {
+	    res.send(response);
+	})
 }
 

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= judul %></title>
+    <link rel="stylesheet" href="/assets/panel-master/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+  </head>
+  <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
+    <div  id="app" class="wrapper">
+      <div v-if="mitra !== null">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
+          <!-- Left navbar links -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="../home/index" class="nav-link">Home</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto mr-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell" style="font-size: 150%;"></i>
+                <span class="badge badge-warning navbar-badge">15</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-item dropdown-header">15 Notifications</span>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                  <i class="fas fa-envelope mr-2"></i> 4 new messages
+                  <span class="float-right text-muted text-sm">3 mins</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                  <i class="fas fa-users mr-2"></i> 8 friend requests
+                  <span class="float-right text-muted text-sm">12 hours</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item">
+                  <i class="fas fa-file mr-2"></i> 3 new reports
+                  <span class="float-right text-muted text-sm">2 days</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li  class="nav-item">
+              <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
+              <!-- <span class="float-right text-muted text-sm">keluar</span> -->
+            </li>
+          </ul>
+        </nav>
+        <aside class="main-sidebar sidebar-dark-light elevation-2">
+          <!-- Brand Logo -->
+          <a href="index3.html" class="brand-link">
+            <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Mitra RepairMe</span>
+          </a>
+          <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
+              </div>
+              <div v-if="mitra !== null" class="info">
+                <a class="float-right">{{ mitra.nama }}</a>
+              </div>
+            </div>
+            <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
+            <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'" class="btn btn-success btn-sm">Terverifikasi</button>
+            <!-- Sidebar Menu -->
+            <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                  <a href="/mitra" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Beranda <span class="right badge badge-success">Data Cepat</span>
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item has-treeview menu-open">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-shopping-cart"></i>
+                    <p>
+                      Perbaikan
+                      <i class="fas fa-angle-left right"></i>
+                      <span class="badge badge-info right">6</span>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="permintaan_perbaikan">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Permintaan Perbaikan</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/mitra/voucher" class="nav-link active" id="voucher_sidebar">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Voucher Perbaikan</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm" id="perbaikan">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Perbaikan</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/mitra/batalperbaikan" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Perbaikan Dibatalkan</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/mitra/selesaiperbaikan" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Barang Selesai Di Perbaiki</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/mitra/riwayatperbaikan" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Riwayat Perbaikan</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                  <a href="" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>
+                      Profile Mitra
+                      <i class="fas fa-angle-left right"></i>
+                      <span class="right badge badge-warning">Edit</span>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="/mitra/profile" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Profile</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/mitra/profile" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Ubah Profile</p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <!-- /.sidebar -->
+          </aside>
+        </div>
+        
+        <!-- ========== CONTENT ============ -->
+        <div class="content-wrapper mt-5">
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>Terima Voucher</h1>
+                </div>
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Terima Voucher</a></li>
+                    <li class="breadcrumb-item active">Perbaikan</li>
+                  </ol>
+                </div>
+              </div>
+              </div><!-- /.container-fluid -->
+            </section>
+            <div class="container-fluid">
+              <!-- container fluid -->
+              <div class="row">
+                <div class="col-sm-5 ml-1">
+                  <div class="card card-dark">
+                    <div class="card-header">
+                      <h3 class="card-title">Masukkan Voucher</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="input-group">
+                        <input class="form-control form-control-lg" type="text" ref="input_voucher" placeholder="Voucher">
+                        <span class="input-group-append">
+                          <button @click="searchVoucher()" type="button" class="btn btn-dark terima_voucher">Terima</button>
+                        </span>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                </div>
+                <div v-if="voucher !== null" class="col-sm-6">
+                  <div class="card card-dark detail_pelanggan">
+                    <div class="card-header">
+                      <h3 class="card-title">Informasi Pelanggan</h3>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style="width: 42%;"><strong>Pengaju</strong></td>
+                            <td> {{ voucher.data_pelanggan[0].nama.toUpperCase() }} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                </div>
+                <div v-if="voucher !== null" class="col-sm-11" style="margin-left: 0; margin-right: auto;">
+                  <div class="card card-dark data_barang">
+                    <div class="card-header">
+                      <h3 class="card-title">Informasi Barang</h3>
+                    </div>
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style="width: 30%;"><strong>Jenis Barang</strong></td>
+                            <td> {{ voucher.jenis_barang }} </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;"><strong>Merk</strong></td>
+                            <td> {{ voucher.merk }} </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;"><strong>Tipe</strong></td>
+                            <td> {{ voucher.tipe }} </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;"><strong>Kerusakan</strong></td>
+                            <td> {{ voucher.kerusakan }} </td>
+                          </tr>
+                          <tr v-if="voucher.keterangan_lain !== null">
+                            <td style="width: 30%;"><strong>Keterangan Lain</strong></td>
+                            <td> {{ voucher.keterangan_lain }} </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;"><strong>Keterangan Mitra</strong></td>
+                            <td> {{ voucher.keterangan_mitra }} </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;"><strong>Harga</strong></td>
+                            <td> {{ voucher.harga }} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <button v-if="voucher.jenis_barang === 'laptop'" class="btn btn-dark btn-block mt-4" data-toggle="modal" @click="modal_terima_voucher" data-target="#modal_terima_voucher" type="button">Perbaiki Laptop</button>
+                      <button v-if="voucher.jenis_barang === 'handphone'" class="btn btn-dark btn-block mt-4" data-toggle="modal" @click="modal_terima_voucher" data-target="#modal_terima_voucher" type="button">Perbaiki Handphone</button>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="modal_terima_voucher" tabindex="-1" role="dialog" aria-labelledby="terimaLaptopLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                    <div class="card-header">
+                      <h3 class="card-title">Perkiraan Mitra</h3>
+                    </div>
+                    <div class="card-body">
+                      <!-- Date and time range -->
+                      <div class="form-group">
+                        <label>Perkiraan Mitra :</label>
+                        <div class="input-group">
+                          <button type="button" class="btn btn-default float-right" id="daterange">
+                          <i class="far fa-calendar-alt"></i>Perkiraan Lama Perbaikan
+                          </button>
+                        </div>
+                      </div>
+                      <div class="waktulaptop">
+                        <table border="1" cellpadding="10">
+                          <tr>
+                            <td style="width: 15%"><strong>Waktu</strong></td>
+                            <td><span id="reportrange"></span></td>
+                          </tr>
+                          <tr>
+                            <td><strong style="width: 15%">Lama</strong></td>
+                            <td><span id="reportrangeday"></span></td>
+                          </tr>
+                          <!-- /.form group -->
+                        </table>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ========== END OF APP =========== -->
+        </div>
+        <footer class="main-footer bg-dark">
+          <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
+          admin@repairme.com :)
+          <div class="float-right d-none d-sm-inline-block">
+            <b>Versi</b> 1.0.0
+          </div>
+        </footer>
+        
+        <!-- javascript -->
+        <script src="/assets/js/vueJs/vue.js"></script>
+        <script src="/assets/js/vueJs/axios.js"></script>
+        <script>
+          var vm = new Vue({
+            el: "#app",
+            data: {
+              mitra: null,
+              voucher: null,
+              time: null
+            },
+            mounted(){
+              this.getData()
+            },
+            methods:{
+              getData(){
+                axios({
+                  method: 'get',
+                  url: '/api/mitra/' + '<%= email %>'
+                }).then(response => {
+                  this.mitra = response.data;
+                })
+              },
+              searchVoucher(){
+                let value = this.$refs.input_voucher.value
+                if (value === '') {
+                  this.warning('Isikan Voucher Terlebih Dahulu!')
+                  this.voucher = null
+                }else{
+                  axios.get('/api/perbaikan/voucher/' + value).then(response => {
+                    if (response.data.length > 0) {
+                      this.success('Vocuher Ditemukan!')
+                      this.voucher = response.data[0]
+                    }else {
+                      this.error('Voucher Tidak Ditemukan!')
+                      this.voucher = null
+                    }
+                  })
+                }
+
+              },
+              modal_terima_voucher(){
+                $('#daterange').daterangepicker({
+                    minDate: 0,
+                    ranges: {
+                      'Hari ini': [moment(), moment()],
+                      '3 Hari ': [moment(), moment().add(3, 'days')],
+                      '1 Minggu': [moment(), moment().add(7, 'days')],
+                      '2 Minggu': [moment(), moment().add(12, 'days')],
+                      '30 Hari': [moment(), moment().add(30, 'days')]
+                    },
+                    minDate: moment()
+                  },
+                  function(start, end) {
+                    
+                  }
+                );
+              },
+              warning: function (message) {
+                setTimeout(function () {
+                  toastr.warning(
+                    message
+                    );
+                }, 10);
+              },
+              success: function (success) {
+                setTimeout(function () {
+                  toastr.success(
+                    success
+                    );
+                }, 10);
+              },
+              error: function (error) {
+                setTimeout(function () {
+                  toastr.error(
+                    error
+                    );
+                }, 10);
+              },
+            }
+          })
+        </script>
+        <!-- jQuery -->
+        <script src="/assets/js/jquery-3.4.1.js"></script>
+        <script src="/assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <script src="/assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+        <script src="/assets/panel-master/plugins/raphael/raphael.min.js"></script>
+        <script src="/assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+        <script src="/assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+        <script src="/assets/panel-master/dist/js/adminlte.js"></script>
+        <!-- ChartJS -->
+        <script src="/assets/panel-master/plugins/chart.js/Chart.min.js"></script>
+        <!-- Toastr -->
+        <script src="/assets/panel-master/plugins/toastr/toastr.min.js"></script>
+        <script src="/assets/js/notiny/notiny.js"></script>
+        <link href="/assets/js/notiny/notiny.css" rel="stylesheet">
+        <script src="/assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+        <script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
+        <script src="/assets/js/moment-id.js"></script>
+        <!-- date-range-picker -->
+        <script src="/assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+      </body>
+    </html>
+    <div class="modal fade" id="modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row" id="option_barang">
+                <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+                <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
