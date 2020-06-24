@@ -3,7 +3,6 @@ module.exports = (app, express) => {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-        console.log(req.session)
         if (req.session.user) {
             if (req.session.user.jenis === 'pelanggan') {
                 res.render('pelanggan/index', {
@@ -27,6 +26,30 @@ module.exports = (app, express) => {
             judul: 'profile'
         });
     });
+    router.get('/pengajuan/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                if (req.params.jenis === "laptop") {
+                    res.render('pelanggan/perbaikan/pengajuan/laptop', {
+                        judul: 'Pengajuan Perbaikan',
+                        email: req.session.user.email
+                    })
+                } else if (req.params.jenis === "handphone") {
+                    res.render('pelanggan/perbaikan/pengajuan/handphone', {
+                        judul: 'Pengajuan Perbaikan',
+                        email: req.session.user.email
+                    })
+                } else {
+                    next()
+                }
+            } else {
+                next()
+            }
+        } else {
+            res.redirect('/login');
+        }
+    })
+
 
 
     app.use('/pelanggan', router);

@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><%= judul %></title>
-    <link rel="stylesheet" href="../assets/panel-master/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
 </head>
 
 
@@ -26,7 +26,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="<?= base_url(); ?>home" class="nav-link">Home</a>
+                    <a href="/home" class="nav-link">Home</a>
                     <div class="waktu"></div>
                 </li>
             </ul>
@@ -38,9 +38,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
                         <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span> pesan baru
-                            untuk <?= strtoupper($this->session->userdata('userData')['nama']); ?></span>
+                            untuk</span>
                         <div class="dropdown-divider notif_atas"></div>
-
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item dropdown-footer">Lihat Semua Pesan</a>
                     </div>
@@ -48,7 +47,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="<?= base_url('login/logout'); ?>"></a>
+                    <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout/"></a>
                     <!-- <span class="float-right text-muted text-sm">keluar</span> -->
                 </li>
             </ul>
@@ -62,21 +61,21 @@
                     <center>Repairme</center>
                 </span>
             </a>
-            <div class="sidebar">
+            <div v-if="pelanggan !== null" class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= base_url(); ?>assets/panel-master/dist/img/user1.png" class="img-box elevation-2"
+                        <img :src="'/assets/images/pelanggan/' + pelanggan.foto_profile" class="img-box elevation-2"
                             alt="Foto Profile">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"><%= email %></a>
+                        <a href="#" class="d-block">{{ pelanggan.nama.toUpperCase() }}</a>
                     </div>
                 </div>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview"
                         role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
+                            with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
@@ -88,10 +87,10 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link" id="pengajuan_perbaikan" data-toggle="modal"
+                                    <a class="nav-link" id="pengajuan_perbaikan" data-toggle="modal"
                                         data-target="#modal-sm" id="permintaan_perbaikan">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Pengajuan perbaikan</p>
+                                        <p>Pengajuan Perbaikan</p>
                                     </a>
                                 </li>
 
@@ -102,19 +101,19 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>pelanggan/batalperbaikan" class="nav-link">
+                                    <a href="/pelanggan/batalperbaikan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Perbaikan Dibatalkan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>pelanggan/selesaiperbaikan" class="nav-link">
+                                    <a href="/pelanggan/selesaiperbaikan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Barang Selesai Di Perbaiki</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>pelanggan/riwayatperbaikan" class="nav-link">
+                                    <a href="/pelanggan/riwayatperbaikan" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Riwayat Perbaikan</p>
                                     </a>
@@ -139,7 +138,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>Pelanggan/editProfile" class="nav-link">
+                                    <a href="/Pelanggan/editProfile" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Ubah Profile</p>
                                     </a>
@@ -157,13 +156,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>perbaikan/index" class="nav-link">
+                                    <a href="/perbaikan/index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Cari Mitra</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?= base_url(); ?>Pelanggan/beriRating" class="nav-link">
+                                    <a href="/Pelanggan/beriRating" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Berikan Rating</p>
                                     </a>
@@ -171,7 +170,7 @@
                             </ul>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="<?= base_url(); ?>Pelanggan/notifikasi" class="nav-link">
+                            <a href="/Pelanggan/notifikasi" class="nav-link">
                                 <i class="nav-icon fas fa-map"></i>
                                 <p>
                                     Notifikasi
@@ -184,46 +183,22 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-    </div>
-    <div class="modal fade" id="modal-sm">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Pilih Permintaan</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="option_barang">
-                    <!-- <p>One fine body&hellip;</p> -->
-
-                </div>
-                <div class="modal-footer justify-content-between">
+        <div class="modal fade" id="modal-sm">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row" id="option_barang">
+                                <a href="/pelanggan/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+                                <a href="/pelanggan/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
 
-    <div class="modal fade" id="modal-sm">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="modal-body" id="option_barang">
-                    <!-- <p>One fine body&hellip;</p> -->
-
-                </div>
-                <div class="modal-footer justify-content-between">
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
 
 
     <footer class="main-footer bg-dark">
@@ -235,29 +210,28 @@
     </footer>
 
     <!-- javascript -->
-    <script src="../assets/js/vueJs/vue.js"></script>
-    <script src="../assets/js/vueJs/axios.js"></script>
-
+    <script src="/assets/js/vueJs/vue.js"></script>
+    <script src="/assets/js/vueJs/axios.js"></script>
     <!-- jQuery -->
-    <script src="../assets/js/jquery-3.4.1.js"></script>
-    <script src="../assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <script src="../assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="../assets/panel-master/plugins/raphael/raphael.min.js"></script>
-    <script src="../assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="../assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <script src="../assets/panel-master/dist/js/adminlte.js"></script>
+    <script src="/assets/js/jquery-3.4.1.js"></script>
+    <script src="/assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="/assets/panel-master/plugins/raphael/raphael.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="/assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+    <script src="/assets/panel-master/dist/js/adminlte.js"></script>
     <!-- ChartJS -->
-    <script src="../assets/panel-master/plugins/chart.js/Chart.min.js"></script>
+    <script src="/assets/panel-master/plugins/chart.js/Chart.min.js"></script>
     <!-- Toastr -->
-    <script src="../assets/panel-master/plugins/toastr/toastr.min.js"></script>
-    <script src="../assets/js/notiny/notiny.js"></script>
-    <link href="../assets/js/notiny/notiny.css" rel="stylesheet">
-    <script src="../assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-    <script src="../assets/panel-master/plugins/moment/moment.min.js"></script>
-    <script src="../assets/js/moment-id.js"></script>
+    <script src="/assets/panel-master/plugins/toastr/toastr.min.js"></script>
+    <script src="/assets/js/notiny/notiny.js"></script>
+    <link href="/assets/js/notiny/notiny.css" rel="stylesheet">
+    <script src="/assets/panel-master/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="/assets/panel-master/plugins/moment/moment.min.js"></script>
+    <script src="/assets/js/moment-id.js"></script>
     <!-- date-range-picker -->
-    <script src="../assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/assets/panel-master/plugins/daterangepicker/daterangepicker.js"></script>
 </body>
 
 </html>

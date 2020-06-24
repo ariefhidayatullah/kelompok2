@@ -13,6 +13,7 @@ const PerbaikanSchema = mongoose.Schema({
     harga: String,
     keterangan_lain: String,
     voucher : String,
+    keterangan_mitra: String
 }, {
     timestamps: true
 });

@@ -41,6 +41,7 @@ module.exports = (app, express) => {
 
     //router Handphone
     router.get('/handphone', barang.findAllHandphone);
+    router.get('/handphone/:merk', barang.findHandphoneByMerk);
     router.put('/hp/:id', barang.updateHandphone);
     router.delete('/hp/:id', barang.deleteHandphone);
 

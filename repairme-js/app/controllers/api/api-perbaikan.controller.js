@@ -12,7 +12,6 @@ exports.newPerbaikan = (req, res) => {
 	    tanggal:req.body.tanggal,
 	    status: "Menunggu Persetujuan",
 	    harga: null,
-	    keterangan_lain: null,
 	    voucher: null
 	})
 
@@ -26,10 +25,31 @@ exports.findAllPerbaikan = (req, res) => {
   });
 };
 
+// ========================= PELANGGAN ====================
+
 exports.findPerbaikanPelanggan = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
 	[
 	    {"$match" : {pelanggan: req.params.id}},
+	    {
+	        "$lookup" : {
+	                from: "mitra",
+	                localField: "mitra",
+	                foreignField: "_id",
+	                as: "data_mitra"
+	            }
+	    }
+	]
+	).then((response) => {
+	    res.send(response);
+	})
+}
+
+exports.findPerbaikanPelangganStatus = (req, res) => {
+	Perbaikan.Perbaikan.aggregate(
+	[
+	    {"$match" : {pelanggan: req.params.email,
+	     jenis_barang: req.params.jenis}},
 	    {
 	        "$lookup" : {
 	                from: "mitra",
@@ -82,11 +102,10 @@ exports.findPerbaikanMitraStatus = (req, res) => {
 }
 
 exports.putPerbaikanMitra = (req, res) => {
-	console.log(req.body)
 	Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
 		status: req.body.status,
 		harga: req.body.harga,
-		keterangan_lain: req.body.keterangan_lain,
+		keterangan_mitra: req.body.keterangan_lain,
 		voucher: req.body.voucher
 	}
 	}).then((response) => {
