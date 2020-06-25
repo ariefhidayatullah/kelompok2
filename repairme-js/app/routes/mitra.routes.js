@@ -9,7 +9,8 @@ module.exports = (app, express) => {
             if (req.session.user.jenis === 'mitra') {
                 res.render('mitra/index', {
                 judul: 'Dashboard Mitra',
-                email: req.session.user.email
+                email: req.session.user.email,
+                content: 'mitra/test'
                 })
             }else {
                 next()
@@ -78,6 +79,29 @@ module.exports = (app, express) => {
             res.redirect('/login');
        }
     })
+
+    router.get('/perbaikan/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'mitra') {
+                if (req.params.jenis === 'laptop') {
+                    res.render('mitra/perbaikan/perbaikan/laptop', {
+                    judul: 'Perbaikan Laptop',
+                    email: req.session.user.email
+                    })
+                }else if (req.params.jenis === 'handphone') {
+                    res.render('mitra/perbaikan/perbaikan/handphone', {
+                    judul: 'Perbaikan Handphone',
+                    email: req.session.user.email
+                    })
+                }
+            }else {
+                next()
+            }
+       }else{
+            res.redirect('/login');
+       }
+    })
+
 
     app.use('/mitra', router);
 

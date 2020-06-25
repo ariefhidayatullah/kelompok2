@@ -123,6 +123,25 @@ exports.putPerbaikanMitra = (req, res) => {
 	            message: "Gagal!",
 	        });
 	    });
+	}else if(req.params.keterangan === 'terima_voucher'){
+		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+			status: req.body.status,
+			lama_perkiraan: req.body.lama_perkiraan
+		}
+		}).then((response) => {
+	        res.send({
+	            response: response,
+	            status: "success",
+	            message: "Berhasil",
+	        });
+	    })
+	    .catch((err) => {
+	        res.send({
+	            response: err,
+	            status: "error",
+	            message: "Gagal!",
+	        });
+	    });
 	}
 }
 
