@@ -45,7 +45,7 @@ exports.findPerbaikanPelanggan = (req, res) => {
 	})
 }
 
-exports.findPerbaikanPelangganStatus = (req, res) => {
+exports.findPerbaikanPelangganByJenis = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
 	[
 	    {"$match" : {pelanggan: req.params.email,

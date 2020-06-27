@@ -9,7 +9,8 @@
           beranda: 'active'
         },
         mitra: null,
-        myfile: null
+        myfile: null,
+        mydata: 'wkwk1'
       },
       mounted(){
         axios({
@@ -18,6 +19,8 @@
         }).then(response => {
           this.mitra = response.data;
         })
+
+
       }
       
     })

@@ -8,7 +8,7 @@ module.exports = (app, express) => {
     //pelanggan
 
     router.get('/pelanggan/:id', perbaikan.findPerbaikanPelanggan);
-    router.get('/pelanggan/:email/:jenis', perbaikan.findPerbaikanPelangganStatus);
+    router.get('/pelanggan/:email/:jenis', perbaikan.findPerbaikanPelangganByJenis);
 
     //mitra
     router.get('/mitra/:id', perbaikan.findPerbaikanMitra);

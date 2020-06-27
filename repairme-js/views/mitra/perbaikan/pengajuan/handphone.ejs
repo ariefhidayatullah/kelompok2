@@ -160,17 +160,20 @@
       </div>
     </section>
   </div>
-  <!-- ==========  BAGIAN MODAL ============= -->
-  <div class="modal fade" id="detail_barang">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="container-fluid">
+ <!-- ==========  BAGIAN MODAL ============= -->
+<div class="modal fade" id="detail_barang">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Barang </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
             <table class="table table-bordered">
-              <tr class="bg-dark">
+              <tr>
                 <th><b>Judul</b></th>
                 <th><b>Data</b></th>
               </tr>
@@ -196,24 +199,28 @@
               </tr>
             </table>
           </div>
+          <!-- end of modal content -->
         </div>
+        <!-- /.card-body -->
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
-  
-  <div class="modal fade" id="detail_pelanggan">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="container-fluid">
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="detail_pelanggan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Pelanggan </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
             <table class="table table-bordered">
-              <tr class="bg-dark">
+              <tr>
                 <th><b>Judul</b></th>
                 <th><b>Data</b></th>
               </tr>
@@ -235,85 +242,99 @@
               </tr>
             </table>
           </div>
+          <!-- end of modal content -->
         </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-  <!-- Modal -->
-  <div class="modal fade" id="terima_perbaikan" tabindex="-1" role="dialog" aria-labelledby="terimaHandphoneLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="terimaHandphoneLabel">Terima Pengajuan Handphone</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table class="table table-bordered">
-            <tr class="bg-dark">
-              <td style="text-align: center;"><b>Barang</b></td>
-              <td><b>Handphone</b></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Merk & Tipe</b></td>
-              <td style="font-weight: bold;" ref="modal_terima_barang"></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Kerusakan</b></td>
-              <td style="font-weight: bold;" ref="modal_terima_kerusakan"></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Voucher</b></td>
-              <td ref="modal_terima_kode_voucher" style="font-size: 16px; font-weight: bold;"></td>
-            </tr>
-          </table>
-          <div class="form-group mt-20">
-            <input class="form-control" id="hargahandphone" ref="hargahandphone" name="hargahandphone" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah" @keyup="hargaChange()">
-          </div>
-          <p class="hargahandphone" v-if="post_data.harga !== null && post_data.harga !== 'Rp.'" style="color: red;">Harga yang ada masukkan : {{ post_data.harga }}</p>
-          <div class="form-group mt-20">
-            <input class="form-control" id="kethandphonelain" name="kethandphonelain" type="text" placeholder="Keterangan Lain" v-model="post_data.keterangan_lain">
-          </div>
-        </div>
-        <div v-if="post_data.keterangan_lain !== null && post_data.keterangan_lain !== '' && post_data.harga !== null && post_data.harga !== 'Rp.'" class="modal-footer">
-          <button type="submit" @click="terima_perbaikan()" class="btn btn-block btn-outline-success btn-sm">Terima Permintaan</button>
-        </div>
+        <!-- /.card-body -->
       </div>
     </div>
   </div>
-  <div class="modal fade" id="tolak_perbaikan" tabindex="-1" role="dialog" aria-labelledby="tolak_perbaikan" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tolakHandphoneLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <select @change="selectPenolakan()" ref="selectPenolakan" class="form-control">
-              <option selected="true" disabled="">Alasan Penolakan</option>
-              <option>Teknisi Belum Ready</option>
-              <option>Permintaan Masih Penuh</option>
-              <option>Permintaan Tidak Benar</option>
-              <option style="color: red;" value="false">Alasan Lain</option>
-            </select>
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="terima_perbaikan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Terima Perbaikan </h3>
           </div>
-          <div class="form-group mt-20">
-            <input v-if="perbaikan.Keterangan === true" v-model="post_data.keterangan_lain" class="form-control" id="alasan_penolakan" name="alasan_penolakan" type="text" placeholder="Alasan Anda">
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
+             <table class="table table-bordered">
+              <tr>
+                <td style="text-align: center;"><b>Barang</b></td>
+                <td><b>Handphone</b></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Merk & Tipe</b></td>
+                <td style="font-weight: bold;" ref="modal_terima_barang"></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Kerusakan</b></td>
+                <td style="font-weight: bold;" ref="modal_terima_kerusakan"></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Voucher</b></td>
+                <td ref="modal_terima_kode_voucher" style="font-size: 16px; font-weight: bold;"></td>
+              </tr>
+            </table>
+            <div class="form-group mt-20">
+              <input class="form-control" id="hargahandphone" ref="hargahandphone" name="hargahandphone" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah" @keyup="hargaChange()">
+            </div>
+            <p class="hargahandphone" v-if="post_data.harga !== null && post_data.harga !== 'Rp.'" style="color: red;">Harga yang ada masukkan : {{ post_data.harga }}</p>
+            <div class="form-group mt-20">
+              <input class="form-control" id="kethandphonelain" name="kethandphonelain" type="text" placeholder="Keterangan Lain" v-model="post_data.keterangan_lain">
+            </div>
           </div>
+          <div v-if="post_data.keterangan_lain !== null && post_data.keterangan_lain !== '' && post_data.harga !== null && post_data.harga !== 'Rp.'" class="modal-footer">
+            <button type="submit" @click="terima_perbaikan()" class="btn btn-block btn-outline-success btn-sm">Terima Permintaan</button>
+          </div>
+          <!-- end of modal content -->
         </div>
-        <div class="modal-footer">
-          <button @click="post_data_penolakan()" type="submit" class="btn btn-danger">Tolak Permintaan</button>
-        </div>
+        <!-- /.card-body -->
       </div>
     </div>
   </div>
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="tolak_perbaikan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Pelanggan </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
+             <div class="form-group">
+              <select @change="selectPenolakan()" ref="selectPenolakan" class="form-control">
+                <option selected="true" disabled="">Alasan Penolakan</option>
+                <option>Teknisi Belum Ready</option>
+                <option>Permintaan Masih Penuh</option>
+                <option>Permintaan Tidak Benar</option>
+                <option style="color: red;" value="false">Alasan Lain</option>
+              </select>
+            </div>
+            <div class="form-group mt-20">
+              <input v-if="perbaikan.Keterangan === true" v-model="post_data.keterangan_lain" class="form-control" id="alasan_penolakan" name="alasan_penolakan" type="text" placeholder="Alasan Anda">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button @click="post_data_penolakan()" type="submit" class="btn btn-danger">Tolak Permintaan</button>
+          </div>
+        </div>
+        <!-- end of modal content -->
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+</div>
+</div>
 <%- include('../../templates/footer') -%>
 
 <script>

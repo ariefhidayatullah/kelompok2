@@ -15,162 +15,165 @@
           </ol>
         </div>
       </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- Main content -->
-    <section class="content">
-      <div v-if="perbaikan.menunggu !== null" class="card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Pengajuan Pelanggan</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div v-if="perbaikan.menunggu !== null" class="card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Pengajuan Pelanggan</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Pengajuan</th>
-                <th style="width: 20%;">Proses</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_pengajuan">
-              <tr v-for="(value, index) in perbaikan.menunggu">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
-                    </div>
-                    <div class="col-sm-6">
-                      <button @click="modal_tolak_pengajuan(value)" class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
-                    </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Pengajuan</th>
+              <th style="width: 20%;">Proses</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_pengajuan">
+            <tr v-for="(value, index) in perbaikan.menunggu">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-      <div class="card collapsed-card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Perbaikan diterima</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Diterima</th>
-                <th style="width: 20%;">Voucher</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_perbaikan_diterima">
-              <tr v-for="(value, index) in perbaikan.diterima">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  {{ value.voucher }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card collapsed-card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Perbaikan Ditolak</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Ditolak</th>
-                <th style="width: 20%;">Proses</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_perbaikan_ditolak">
-              <tr v-for="(value, index) in perbaikan.ditolak">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
-                    </div>
+                  <div class="col-sm-6">
+                    <button @click="modal_tolak_pengajuan(value)" class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Perbaikan diterima</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
       </div>
-    </section>
-  </div>
-  <!-- ==========  BAGIAN MODAL ============= -->
-  <div class="modal fade" id="detail_barang">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="container-fluid">
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Diterima</th>
+              <th style="width: 20%;">Voucher</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_perbaikan_diterima">
+            <tr v-for="(value, index) in perbaikan.diterima">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                {{ value.voucher }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Perbaikan Ditolak</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Ditolak</th>
+              <th style="width: 20%;">Proses</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_perbaikan_ditolak">
+            <tr v-for="(value, index) in perbaikan.ditolak">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ==========  BAGIAN MODAL ============= -->
+<div class="modal fade" id="detail_barang">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Barang </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
             <table class="table table-bordered">
-              <tr class="bg-dark">
+              <tr>
                 <th><b>Judul</b></th>
                 <th><b>Data</b></th>
               </tr>
@@ -196,24 +199,28 @@
               </tr>
             </table>
           </div>
+          <!-- end of modal content -->
         </div>
+        <!-- /.card-body -->
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
-  
-  <div class="modal fade" id="detail_pelanggan">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-          <div class="container-fluid">
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="detail_pelanggan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Pelanggan </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
             <table class="table table-bordered">
-              <tr class="bg-dark">
+              <tr>
                 <th><b>Judul</b></th>
                 <th><b>Data</b></th>
               </tr>
@@ -235,85 +242,99 @@
               </tr>
             </table>
           </div>
+          <!-- end of modal content -->
         </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-  <!-- Modal -->
-  <div class="modal fade" id="terima_perbaikan" tabindex="-1" role="dialog" aria-labelledby="terimaLaptopLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="terimaLaptopLabel">Terima Pengajuan Laptop</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table class="table table-bordered">
-            <tr class="bg-dark">
-              <td style="text-align: center;"><b>Barang</b></td>
-              <td><b>Laptop</b></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Merk & Tipe</b></td>
-              <td style="font-weight: bold;" ref="modal_terima_barang"></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Kerusakan</b></td>
-              <td style="font-weight: bold;" ref="modal_terima_kerusakan"></td>
-            </tr>
-            <tr>
-              <td style="text-align: center;"><b>Voucher</b></td>
-              <td ref="modal_terima_kode_voucher" style="font-size: 16px; font-weight: bold;"></td>
-            </tr>
-          </table>
-          <div class="form-group mt-20">
-            <input class="form-control" id="hargalaptop" ref="hargalaptop" name="hargalaptop" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah" @keyup="hargaChange()">
-          </div>
-          <p class="hargalaptop" v-if="post_data.harga !== null && post_data.harga !== 'Rp.'" style="color: red;">Harga yang ada masukkan : {{ post_data.harga }}</p>
-          <div class="form-group mt-20">
-            <input class="form-control" id="ketlaptoplain" name="ketlaptoplain" type="text" placeholder="Keterangan Lain" v-model="post_data.keterangan_lain">
-          </div>
-        </div>
-        <div v-if="post_data.keterangan_lain !== null && post_data.keterangan_lain !== '' && post_data.harga !== null && post_data.harga !== 'Rp.'" class="modal-footer">
-          <button type="submit" @click="terima_perbaikan()" class="btn btn-block btn-outline-success btn-sm">Terima Permintaan</button>
-        </div>
+        <!-- /.card-body -->
       </div>
     </div>
   </div>
-  <div class="modal fade" id="tolak_perbaikan" tabindex="-1" role="dialog" aria-labelledby="tolak_perbaikan" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tolakLaptopLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <select @change="selectPenolakan()" ref="selectPenolakan" class="form-control">
-              <option selected="true" disabled="">Alasan Penolakan</option>
-              <option>Teknisi Belum Ready</option>
-              <option>Permintaan Masih Penuh</option>
-              <option>Permintaan Tidak Benar</option>
-              <option style="color: red;" value="false">Alasan Lain</option>
-            </select>
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="terima_perbaikan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Terima Perbaikan </h3>
           </div>
-          <div class="form-group mt-20">
-            <input v-if="perbaikan.Keterangan === true" v-model="post_data.keterangan_lain" class="form-control" id="alasan_penolakan" name="alasan_penolakan" type="text" placeholder="Alasan Anda">
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
+             <table class="table table-bordered">
+              <tr>
+                <td style="text-align: center;"><b>Barang</b></td>
+                <td><b>Laptop</b></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Merk & Tipe</b></td>
+                <td style="font-weight: bold;" ref="modal_terima_barang"></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Kerusakan</b></td>
+                <td style="font-weight: bold;" ref="modal_terima_kerusakan"></td>
+              </tr>
+              <tr>
+                <td style="text-align: center;"><b>Voucher</b></td>
+                <td ref="modal_terima_kode_voucher" style="font-size: 16px; font-weight: bold;"></td>
+              </tr>
+            </table>
+            <div class="form-group mt-20">
+              <input class="form-control" id="hargalaptop" ref="hargalaptop" name="hargalaptop" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah" @keyup="hargaChange()">
+            </div>
+            <p class="hargalaptop" v-if="post_data.harga !== null && post_data.harga !== 'Rp.'" style="color: red;">Harga yang ada masukkan : {{ post_data.harga }}</p>
+            <div class="form-group mt-20">
+              <input class="form-control" id="ketlaptoplain" name="ketlaptoplain" type="text" placeholder="Keterangan Lain" v-model="post_data.keterangan_lain">
+            </div>
           </div>
+          <div v-if="post_data.keterangan_lain !== null && post_data.keterangan_lain !== '' && post_data.harga !== null && post_data.harga !== 'Rp.'" class="modal-footer">
+            <button type="submit" @click="terima_perbaikan()" class="btn btn-block btn-outline-success btn-sm">Terima Permintaan</button>
+          </div>
+          <!-- end of modal content -->
         </div>
-        <div class="modal-footer">
-          <button @click="post_data_penolakan()" type="submit" class="btn btn-danger">Tolak Permintaan</button>
-        </div>
+        <!-- /.card-body -->
       </div>
     </div>
   </div>
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="tolak_perbaikan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Pelanggan </h3>
+          </div>
+          <div class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
+             <div class="form-group">
+              <select @change="selectPenolakan()" ref="selectPenolakan" class="form-control">
+                <option selected="true" disabled="">Alasan Penolakan</option>
+                <option>Teknisi Belum Ready</option>
+                <option>Permintaan Masih Penuh</option>
+                <option>Permintaan Tidak Benar</option>
+                <option style="color: red;" value="false">Alasan Lain</option>
+              </select>
+            </div>
+            <div class="form-group mt-20">
+              <input v-if="perbaikan.Keterangan === true" v-model="post_data.keterangan_lain" class="form-control" id="alasan_penolakan" name="alasan_penolakan" type="text" placeholder="Alasan Anda">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button @click="post_data_penolakan()" type="submit" class="btn btn-danger">Tolak Permintaan</button>
+          </div>
+        </div>
+        <!-- end of modal content -->
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+</div>
+</div>
 
 <%- include('../../templates/footer') -%>
 

@@ -216,8 +216,8 @@
             if (response.data.status == "success") {
               this.success('Berhasil Diterima!')
               setTimeout(() => {
-                
-              }, 200);
+                window.location = '/mitra/perbaikan/' + this.voucher.jenis_barang
+              }, 500);
             }else if(response.data.status == "error") {
               this.error('Gagal Menerima!')
             }
