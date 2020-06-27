@@ -1,4 +1,5 @@
 const User = require('../models/user.model.js');
+const Mitra = require('../models/mitra.model.js');
 const bcrypt = require('bcryptjs');
 
 exports.findAllEmail = (req, res) => {
@@ -34,7 +35,7 @@ exports.auth = (req, res) => {
 					}else if(result[0].jenis === "pelanggan"){
 						req.session.user = {
 							"email": result[0].email,
-							"jenis": result[0].jenis
+							"jenis": result[0].jenis,
 						}
 						res.redirect('/pelanggan');
 					}

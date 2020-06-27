@@ -29,6 +29,7 @@ class HomeScreen extends React.Component {
   render(){ 
     return (
       <View style={styles.container}>
+      { this.state.Mitra.map((mitra) =>(
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         
       <View style={styles.containerRepair}>
@@ -88,14 +89,13 @@ class HomeScreen extends React.Component {
         <Text style={styles.TextDeskripsi}>Setelah Mitra menyetujui permintaan maka, barang dikirim ke Mitra</Text>
       </View>
         </ScrollView>
-        { this.state.Mitra.map((mitra) =>(
         <View style={({width:350})} key={mitra._id}>
           <Image source={require('../../assets/images/mitra/foto_usaha/5061-c8c189b6fd48de4697ea10957022389e.jpg')} style={styles.KelebihanIcon}/>
           <Text style={styles.TextJudulDeskripsi} > {mitra.nama_usaha} </Text>
         </View>
-        ))}
       </View>
         </ScrollView>
+        ))}
       </View>
     );
   }

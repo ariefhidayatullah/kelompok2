@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { Platform, StyleSheet, Text,View,ImageBackground,Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { Component } from "react";
 
 import styles from "./LoginStyle";
+import {Keyboard, Text, View, TextInput, TouchableWithoutFeedback, KeyboardAvoidingView} from 'react-native';
+import { Button } from 'react-native-elements';
+
 
 export default class RegisterScreen extends React.Component {
   render(){

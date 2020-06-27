@@ -34,6 +34,7 @@ exports.create = (req, res, next) => {
     user.save()
     mitra.save()
 
+    res.redirect('/login');
 };
 
 // Cari semua data
@@ -188,7 +189,7 @@ exports.terverifikasi = (req, res, next) => {
             }
         })
         .then(() => {
-            Mitra.updateMany({
+            Mitra.Mitra.updateMany({
                     _id: req.params.email
                 }, {
                     $set: {
