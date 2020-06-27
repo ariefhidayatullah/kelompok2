@@ -22,9 +22,28 @@ module.exports = (app, express) => {
     });
 
     router.get('/profile', (req, res) => {
-        res.render('pelanggan/profile', {
-            judul: 'profile'
-        });
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                res.render('pelanggan/profile', {
+                    judul: 'Profile',
+                    email: req.session.user.email
+                })
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
+    router.get('/editProfile', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                res.render('pelanggan/editProfile', {
+                    judul: 'Profile',
+                    email: req.session.user.email
+                })
+            }
+        } else {
+            res.redirect('/login');
+        }
     });
     router.get('/pengajuan/:jenis', (req, res) => {
         if (req.session.user) {

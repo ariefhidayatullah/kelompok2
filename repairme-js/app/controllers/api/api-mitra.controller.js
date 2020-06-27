@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 exports.create = (req, res, next) => {
 
     // Data Mitra
-    const mitra = new Mitra({
+    const mitra = new Mitra.Mitra({
         _id: req.body.email,
         nama: req.body.nama,
         no_tlp: req.body.no_tlp,
