@@ -45,7 +45,7 @@ exports.findPerbaikanPelanggan = (req, res) => {
 	})
 }
 
-exports.findPerbaikanPelangganStatus = (req, res) => {
+exports.findPerbaikanPelangganByJenis = (req, res) => {
 	Perbaikan.Perbaikan.aggregate(
 	[
 	    {"$match" : {pelanggan: req.params.email,
@@ -108,6 +108,25 @@ exports.putPerbaikanMitra = (req, res) => {
 			harga: req.body.harga,
 			keterangan_mitra: req.body.keterangan_lain,
 			voucher: req.body.voucher
+		}
+		}).then((response) => {
+	        res.send({
+	            response: response,
+	            status: "success",
+	            message: "Berhasil",
+	        });
+	    })
+	    .catch((err) => {
+	        res.send({
+	            response: err,
+	            status: "error",
+	            message: "Gagal!",
+	        });
+	    });
+	}else if(req.params.keterangan === 'terima_voucher'){
+		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+			status: req.body.status,
+			lama_perkiraan: req.body.lama_perkiraan
 		}
 		}).then((response) => {
 	        res.send({

@@ -1,0 +1,331 @@
+<%- include('../../templates/header') -%>
+
+<!-- ============= CONTENT ================= -->
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Perbaikan</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
+            <li class="breadcrumb-item active">Perbaikan Laptop</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Perbaikan Yang Sedang Berlangsung</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 5%;">No</th>
+              <th>Perbaikan</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(value, index) in perbaikan">
+              <td> {{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)" style="float: right; width: 30%;">Detail</button>
+              </td>
+              <td>
+                {{ value.voucher }}
+              </td>
+              <td>
+                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Ubah</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Menunggu Persetujuan Penambahan Harga</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 5%;">No</th>
+              <th>Perbaikan</th>
+              <th style="width: 25%;">voucher</th>
+              <th style="width: 25%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </section>
+</div>
+<!-- ============= END OF CONTENT ================= -->
+
+<!-- =========== MODAL =============== -->
+<div class="modal fade" id="detail_perbaikan">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">  Data Perbaikan </h3>
+          </div>
+          <div v-if="showDetailPerbaikan !== null" class="card-body">
+           <!-- modal content -->
+           <div class="container-fluid">
+              <table class="table table-condensed">
+            <tr class="bg-gray-dark color-palette">
+              <th colspan="2" style="text-align: center;">
+                <strong>Informasi Perbaikan</strong>
+              </th>
+            </tr>
+            <tr>
+              <td style="width: 30%;">Merk</td>
+              <td> {{ showDetailPerbaikan.merk.toUpperCase() }} </td>
+            </tr>
+            <tr>
+              <td>Tipe</td>
+              <td> {{ showDetailPerbaikan.tipe }} </td>
+            </tr>
+            <tr>
+              <td>Kerusakan</td>
+              <td>  {{ showDetailPerbaikan.kerusakan }} </td>
+            </tr>
+            <tr>
+              <td>Keterangan Lain</td>
+              <td> {{ showDetailPerbaikan.keterangan_lain }} </td>
+            </tr>
+          </table>
+          <table class="table table-condensed">
+            <tr class="bg-gray-dark color-palette">
+              <th colspan="2" style="text-align: center;">
+                <strong>Data Pelanggan</strong>
+              </th>
+            </tr>
+            <tr>
+              <td style="width: 30%;">Nama</td>
+              <td>  {{ showDetailPerbaikan.data_pelanggan[0].nama.toUpperCase() }} </td>
+            </tr>
+            <tr>
+              <td>Diajukan</td>
+              <td> {{ tanggal(showDetailPerbaikan.tanggal) }} </td>
+            </tr>
+          </table>
+          <table class="table table-condensed">
+            <tr class="bg-gray-dark color-palette">
+              <th colspan="2" style="text-align: center;">
+                <strong>Data Lain</strong>
+              </th>
+            </tr>
+            <tr>
+              <td style="width: 30%;">Harga</td>
+              <td> {{ showDetailPerbaikan.harga }}</td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">Keterangan Mitra</td>
+              <td> {{ showDetailPerbaikan.keterangan_mitra }} </td>
+            </tr>
+          </table>
+          </div>
+          <!-- end of modal content -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- !modal -->
+
+ <div class="modal fade" id="ubah_perbaikan" tabindex="-1" role="dialog" aria-labelledby="ubah_perbaikan" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">Pilih Perbaikan</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+            <!-- ================ CARD PERSENTASE =============== -->
+             <div v-if="button_modal.awal" class="col-sm-12 mb-5">
+               <code><p>Persentase Hari Pengerjaan</p></code>
+                <div class="progress progress-sm active">
+                  <div class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                    <span class="text_persentase_waktu">30%</span>
+                  </div>
+                </div>
+             </div>
+
+            <!-- ================== END OF CARD ============ -->
+
+            <button v-if="button_modal.awal" class="btn btn-dark col-sm-5" type="button" style="margin: auto;" @click="ubah_keterangan">Ubah Keterangan
+            </button>
+            <button v-if="button_modal.awal" class="btn btn-dark col-sm-5" type="button" style="margin: auto;" @click="funcUbahData">
+              Ubah Harga
+            </button>
+            <button v-if="button_modal.ubah_data" class="btn btn-success col-sm-5 mt-3" type="button" style="margin: auto;" @click="funcDiskon">
+              Beri Diskon
+            </button>
+            <button v-if="button_modal.ubah_data" class="btn btn-warning col-sm-5 mt-3" type="button" style="margin: auto;" @click="funcTambahHarga">
+              Tambah Harga
+            </button>
+
+
+            <!-- =============== CARD DISKON ============ -->
+            <div v-if="button_modal.diskon" class="card col-sm-12 mt-3 card_ubah_harga">
+              <div class="card-header">
+                <h3 class="card-title" ref="title_ubah_harga"></h3>
+              </div>
+              <div class="card-body container-fluid">
+                <div class="row">
+                <div class="card_diskon mt-20 col-sm-12">
+                  <div class="form-group mt-20">
+                    <select class="form-control col-sm-12" ref="option_diskon" @change="selectDiskon">
+                      <option selected="true" disabled>Persentase Diskon</option>
+                      <option>Input Harga Manual</option>
+                      <option>3%</option>
+                      <option>5%</option>
+                      <option>10%</option>
+                      <option>20%</option>
+                      <option>30%</option>
+                      <option>40%</option>
+                      <option>50%</option>
+                      <option>60%</option>
+                      <option>70%</option>
+                    </select>
+                  </div>
+                  <div v-if="button_modal.choosedDiskon === 'Input Harga Manual'" class="form-group mt-20">
+                    <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
+                    <p class="text_harga" style="color: red;"></p>
+                  </div>
+                </div>
+                <div v-if="button_modal.choosedDiskon !== null" class="form-group col-sm-12" ref="modal_diskon_harga_awal">
+                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="'Harga Awal : ' + choosedPerbaikan.harga">
+                </div>
+                <div class="form-group col-sm-12">
+                  <input id="harga_akhir_diskon" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newDiskon.harga">
+                </div>
+                  <div v-if="button_modal.choosedDiskon !== null" class="form-group mt-20 col-sm-12">
+                    <button class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- !modal -->
+
+<%- include('../../templates/footer') -%>
+
+<script>
+  var vm = new Vue({
+
+    el: "#app",
+    data: {
+      sidebar_menu:{
+        perbaikan: 'menu-open',
+        perbaikan_utama: 'active'
+      },
+      mitra: null,
+      perbaikan: null,
+      myfile: null,
+      showDetailPerbaikan: null,
+      button_modal: {
+        ubah_data: false,
+        awal: true,
+        tambah_harga: false,
+        diskon: false,
+        choosedDiskon: null,
+        hargaAkhir: null
+      },
+      choosedPerbaikan: null,
+      newDiskon: {
+        harga: null,
+        keterangan: null
+      }
+    },
+    mounted(){
+      this.getData()
+      this.getPerbaikan()
+    },
+    methods:{
+      getData(){
+        axios({
+          method: 'get',
+          url: '/api/mitra/' + '<%= email %>'
+        }).then(response => {
+          this.mitra = response.data;
+        })
+      },
+      getPerbaikan(){
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Sedang Diperbaiki/laptop')
+        .then(response => {
+          this.perbaikan = response.data
+        })
+      },
+      modal_detail_perbaikan(value){
+        this.showDetailPerbaikan = value
+      },
+      tanggal(tanggal){
+        return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
+      },
+      ubah_keterangan(){
+
+      },
+      funcUbahData(){
+        return this.button_modal.ubah_data = !this.button_modal.ubah_data
+      },
+      funcDiskon(){
+        this.button_modal.diskon = !this.button_modal.diskon
+
+      },
+      funcTambahHarga(){
+        this.button_modal.tambah_harga = !this.button_modal.tambah_harga
+      },
+      selectDiskon(){
+        const choosed = this.$refs.option_diskon.value
+        this.button_modal.choosedDiskon = choosed
+        if (choosed !== 'Input Harga Manual') {
+          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].replace('.', '');
+          const diskon =  (harga * parseInt(this.button_modal.choosedDiskon)) / 100
+
+          this.newDiskon.harga = diskon
+          
+        }
+        $('#harga_akhir_diskon').autoNumeric('init');
+      },
+      funcUbahPerbaikan(value){
+        return this.choosedPerbaikan = value
+      }
+    }
+
+  })
+</script>
+
