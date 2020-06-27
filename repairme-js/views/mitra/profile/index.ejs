@@ -70,24 +70,29 @@
       <aside class="main-sidebar sidebar-dark-light elevation-2">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Mitra RepairMe</span>
         </a>
         <div class="sidebar">
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
+              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2"
+                alt="Foto Usaha Mitra">
             </div>
             <div v-if="mitra !== null" class="info">
               <a class="float-right">{{ mitra.nama }}</a>
             </div>
           </div>
-          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
-          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'" class="btn btn-success btn-sm">Terverifikasi</button>
+          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'"
+            class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
+          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'"
+            class="btn btn-success btn-sm">Terverifikasi</button>
           <!-- Sidebar Menu -->
           <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu"
+              data-accordion="false">
               <li class="nav-item">
                 <a href="/mitra" class="nav-link active">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -171,7 +176,21 @@
             </ul>
           </nav>
           <!-- /.sidebar -->
-        </aside>
+      </aside>
+      <div class="modal fade" id="modal-sm">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row" id="option_barang">
+                  <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
+                  <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -222,8 +241,11 @@
                     </li>
                     <input type="text" id="id_mitra1" hidden>
                   </ul>
-                  <button type="button" class="btn btn-block btn-secondary" data-toggle="modal"
+                  <button v-if="mitra.verifikasi === 'Belum Terverifikasi'" type="button"
+                    class="btn btn-block btn-secondary" data-toggle="modal"
                     data-target="#exampleModal2">Verifikasi</button>
+                  <button v-if="mitra.verifikasi === 'Terverifikasi'" type="button" class="btn btn-block btn-secondary"
+                    data-toggle="modal" data-target="#exampleModal2">Verifikasi</button>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -366,20 +388,6 @@
 </body>
 
 </html>
-  <div class="modal fade" id="modal-sm">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="container-fluid">
-            <div class="row" id="option_barang">
-              <a href="/mitra/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
-              <a href="/mitra/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 <script>
   var vm = new Vue({

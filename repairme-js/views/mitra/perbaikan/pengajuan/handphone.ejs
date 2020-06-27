@@ -15,152 +15,152 @@
           </ol>
         </div>
       </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- Main content -->
-    <section class="content">
-      <div v-if="perbaikan.menunggu !== null" class="card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Pengajuan Pelanggan</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div v-if="perbaikan.menunggu !== null" class="card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Pengajuan Pelanggan</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Pengajuan</th>
-                <th style="width: 20%;">Proses</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_pengajuan">
-              <tr v-for="(value, index) in perbaikan.menunggu">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
-                    </div>
-                    <div class="col-sm-6">
-                      <button @click="modal_tolak_pengajuan(value)" class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
-                    </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Pengajuan</th>
+              <th style="width: 20%;">Proses</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_pengajuan">
+            <tr v-for="(value, index) in perbaikan.menunggu">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#terima_perbaikan" @click="modal_terima_pengajuan(value)">Terima</button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-      <div class="card collapsed-card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Perbaikan diterima</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Diterima</th>
-                <th style="width: 20%;">Voucher</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_perbaikan_diterima">
-              <tr v-for="(value, index) in perbaikan.diterima">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  {{ value.voucher }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card collapsed-card">
-        <div class="card-header bg-dark" data-card-widget="collapse">
-          <h3 class="card-title">Perbaikan Ditolak</h3>
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th style="width: 10px">No</th>
-                <th style="width: 30%;">Barang</th>
-                <th style="width: 30%;">Pelanggan</th>
-                <th style="width: 20%;">Tanggal Ditolak</th>
-                <th style="width: 20%;">Proses</th>
-              </tr>
-            </thead>
-            <tbody id="tabel_perbaikan_ditolak">
-              <tr v-for="(value, index) in perbaikan.ditolak">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
-                </td>
-                <td>
-                  {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                  <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
-                </td>
-                <td>
-                  {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
-                    </div>
+                  <div class="col-sm-6">
+                    <button @click="modal_tolak_pengajuan(value)" class="btn btn-block btn-outline-danger btn-sm" data-toggle="modal" data-target="#tolak_perbaikan">Tolak</button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Perbaikan diterima</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
         </div>
       </div>
-    </section>
-  </div>
- <!-- ==========  BAGIAN MODAL ============= -->
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Diterima</th>
+              <th style="width: 20%;">Voucher</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_perbaikan_diterima">
+            <tr v-for="(value, index) in perbaikan.diterima">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                {{ value.voucher }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card collapsed-card">
+      <div class="card-header bg-dark" data-card-widget="collapse">
+        <h3 class="card-title">Perbaikan Ditolak</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th style="width: 30%;">Barang</th>
+              <th style="width: 30%;">Pelanggan</th>
+              <th style="width: 20%;">Tanggal Ditolak</th>
+              <th style="width: 20%;">Proses</th>
+            </tr>
+          </thead>
+          <tbody id="tabel_perbaikan_ditolak">
+            <tr v-for="(value, index) in perbaikan.ditolak">
+              <td>{{ index + 1 }}</td>
+              <td>
+                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_barang" style="float: right; width: 30%;" @click="modal_detail_barang(value)">Detail</button>
+              </td>
+              <td>
+                {{ value.data_pelanggan[0].nama.toUpperCase() }}
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_pelanggan" style="float: right; width: 30%;" @click="modal_detail_pelanggan(value.data_pelanggan[0])">Detail</button>
+              </td>
+              <td>
+                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <button class="btn btn-block btn-outline-danger btn-sm">Hapus</button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ==========  BAGIAN MODAL ============= -->
 <div class="modal fade" id="detail_barang">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -335,6 +335,7 @@
   </div>
 </div>
 </div>
+
 <%- include('../../templates/footer') -%>
 
 <script>
@@ -417,11 +418,7 @@
         this.$refs.merk.textContent = value.merk.toUpperCase()
         this.$refs.tipe.textContent = value.tipe
         this.$refs.kerusakan.textContent = value.kerusakan
-        if (value.keterangan_lain) {
-          this.$refs.keterangan_lain.textContent = value.keterangan_lain
-        }else {
-          this.$refs.keterangan_lain.textContent = '-Tidak Ada-'
-        }
+        this.$refs.keterangan_lain.textContent = value.keterangan_lain
       },
       modal_detail_pelanggan(value){
         this.$refs.nama_pelanggan.textContent = value.nama.toUpperCase()
@@ -431,11 +428,7 @@
       },
       modal_terima_pengajuan(value){
         this.$refs.modal_terima_barang.textContent =  value.merk.toUpperCase() + ' - ' + value.tipe
-        if (value.keterangan_lain) {
-          this.$refs.modal_terima_kerusakan.textContent = value.kerusakan + ' - ' + value.keterangan_lain
-        }else{
-          this.$refs.modal_terima_kerusakan.textContent = value.kerusakan
-        }
+        this.$refs.modal_terima_kerusakan.textContent = value.kerusakan + ' - ' + value.keterangan_lain
         this.$refs.modal_terima_kode_voucher.textContent = ''
         const character = 'abcdefghijklmnopqrstuvwxyz0123456789';
         const characterLength = character.length;

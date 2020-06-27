@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta charset="utf-8">
@@ -13,6 +14,7 @@
   <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
   <div id="app" class="wrapper">
     <div v-if="mitra !== null">
@@ -56,7 +58,7 @@
           </li>
         </ul>
         <ul class="navbar-nav">
-          <li  class="nav-item">
+          <li class="nav-item">
             <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
             <!-- <span class="float-right text-muted text-sm">keluar</span> -->
           </li>
@@ -65,24 +67,29 @@
       <aside class="main-sidebar sidebar-dark-light elevation-2">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
-          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="/assets/panel-master/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Mitra RepairMe</span>
         </a>
         <div class="sidebar">
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2" alt="Foto Usaha Mitra">
+              <img :src="'/assets/images/mitra/foto_usaha/' + mitra.foto_usaha" class="img-box elevation-2"
+                alt="Foto Usaha Mitra">
             </div>
             <div v-if="mitra !== null" class="info">
               <a class="float-right">{{ mitra.nama }}</a>
             </div>
           </div>
-          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'" class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
-          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'" class="btn btn-success btn-sm">Terverifikasi</button>
+          <a href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Belum Terverifikasi'"
+            class="btn btn-danger btn-sm">Berlum Terverifikasi</a>
+          <button href="/mitra/profile" style="width: 100%;" v-if="mitra.verifikasi === 'Terverifikasi'"
+            class="btn btn-success btn-sm">Terverifikasi</button>
           <!-- Sidebar Menu -->
           <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+
 
               <li class="nav-item">
                 <a href="/mitra" :class="'nav-link ' + sidebar_menu.beranda">
@@ -165,8 +172,6 @@
                   <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/pengajuan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
 
                   <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/pengajuan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
-
-
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -198,4 +203,5 @@
         </div>
       </div>
       <!-- !modal -->
+
     </div>
