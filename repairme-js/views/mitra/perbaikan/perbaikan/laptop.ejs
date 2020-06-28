@@ -199,8 +199,8 @@
                 <div class="row">
                 <div class="card_diskon mt-20 col-sm-12">
                   <div class="form-group mt-20">
-                    <select class="form-control col-sm-12" ref="option_diskon" @change="selectDiskon">
-                      <option selected="true" disabled>Persentase Diskon</option>
+                    <select class="form-control col-sm-12" ref="option_diskon" @click="selectDiskon">
+                      <option selected disabled>Persentase Diskon</option>
                       <option>Input Harga Manual</option>
                       <option>3%</option>
                       <option>5%</option>
@@ -213,24 +213,62 @@
                       <option>70%</option>
                     </select>
                   </div>
-                  <div v-if="button_modal.choosedDiskon === 'Input Harga Manual'" class="form-group mt-20">
-                    <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Harga Rupiah">
-                    <p class="text_harga" style="color: red;"></p>
+                  <div v-show="button_modal.choosedDiskon === 'Input Harga Manual'" class="form-group mt-20">
+                    <input class="form-control" ref="ref_diskonManual" @keyup="diskonManual" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Masukkan Harga Rupiah" id="diskonManual" max="10">
+                  <label ref="peringatan_diskon_manual" style="color: red;"></label>
                   </div>
                 </div>
                 <div v-if="button_modal.choosedDiskon !== null" class="form-group col-sm-12" ref="modal_diskon_harga_awal">
-                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="'Harga Awal : ' + choosedPerbaikan.harga">
+                  <label>Harga Awal : </label>
+                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
                 </div>
-                <div class="form-group col-sm-12">
-                  <input id="harga_akhir_diskon" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newDiskon.harga">
+                <div v-show="newDiskon.harga" class="form-group col-sm-12">
+                  <label for="harga_akhir_diskon">Harga Akhir Adalah: </label>
+                  <input id="harga_akhir_diskon" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newDiskon.harga" disabled>
                 </div>
-                  <div v-if="button_modal.choosedDiskon !== null" class="form-group mt-20 col-sm-12">
+                <div v-if="newDiskon.harga" class="form-group col-sm-12">
+                  <label for="harga_akhir_diskon">Keterangan Diskon: </label>
+                  <input v-model="newDiskon.keterangan" class="form-control" type="text">
+                </div>
+                  <div v-if="newDiskon.keterangan" class="form-group mt-20 col-sm-12">
                     <button class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
                   </div>
                 </div>
               </div>
             </div>
-
+            <!-- =============== CARD TAMBAH HARGA ============ -->
+            <div v-if="button_modal.tambah_harga" class="card col-sm-12 mt-3" @keypress="tambahHargaInput">
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <div class="card-body container-fluid">
+                <div class="row">
+                <div class="form-group col-sm-12">
+                  <label for="harga_tambah">Jumlah Harga Yang Ingin Ditambah: </label>
+                  <input @keypress="tambahHargaInput" @keyup= "tambahHargaInput" @click="tambahHargaInput" id="harga_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." ref="inputTambahHarga">
+                  <label class="mt-20" ref="peringatan_harga" style="color: red;"></label>
+                </div>
+                <div class="form-group col-sm-12" ref="modal_tambah_harga_awal">
+                  <label>Harga Awal : </label>
+                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
+                </div>
+                <div v-show="newHarga.harga" class="form-group col-sm-12">
+                  <label for="harga_akhir_tambah">Harga Akhir Adalah: </label>
+                  <input id="harga_akhir_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newHarga.harga" disabled>
+                </div>
+                <div v-if="newHarga.harga" class="form-group col-sm-12">
+                  <label>Keterangan Penambahan: </label>
+                  <input v-model="newHarga.keterangan" class="form-control" type="text">
+                </div>
+                  <div v-if="newHarga.keterangan !== null" class="form-group mt-20 col-sm-12">
+                    <button class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <template>
+               <input id="harga_akhir" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." hidden>
+            </template>
 
           </div>
           </div>
@@ -268,6 +306,12 @@
       choosedPerbaikan: null,
       newDiskon: {
         harga: null,
+        jumlahDiskon: null,
+        keterangan: null
+      },
+      newHarga: {
+        harga: null,
+        jumlahNaik: null,
         keterangan: null
       }
     },
@@ -300,28 +344,124 @@
 
       },
       funcUbahData(){
+        this.button_modal.tambah_harga = false
+        this.button_modal.diskon = false
         return this.button_modal.ubah_data = !this.button_modal.ubah_data
       },
       funcDiskon(){
+        this.button_modal.tambah_harga = false
         this.button_modal.diskon = !this.button_modal.diskon
-
+        this.newDiskon = {
+          harga: null,
+          jumlahDiskon: null,
+          keterangan: null
+        }
+        this.newHarga = {
+          harga: null,
+          jumlahNaik: null,
+          keterangan: null
+        }
       },
       funcTambahHarga(){
         this.button_modal.tambah_harga = !this.button_modal.tambah_harga
+        this.button_modal.diskon = false
+        this.newDiskon = {
+          harga: null,
+          jumlahDiskon: null,
+          keterangan: null
+        }
+        this.newHarga = {
+          harga: null,
+          jumlahNaik: null,
+          keterangan: null
+        }
       },
       selectDiskon(){
+        $('#harga_akhir').autoNumeric('destroy');
         const choosed = this.$refs.option_diskon.value
         this.button_modal.choosedDiskon = choosed
         if (choosed !== 'Input Harga Manual') {
-          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].replace('.', '');
+          $('#harga_akhir_diskon').autoNumeric('destroy');
+          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('')
           const diskon =  (harga * parseInt(this.button_modal.choosedDiskon)) / 100
-
-          this.newDiskon.harga = diskon
-          
+          const harga_akhir = harga - diskon;
+          $('#harga_akhir').val(harga_akhir);
+          $('#harga_akhir').autoNumeric('init');
+          this.newDiskon.harga = $('#harga_akhir').val();
+          this.newDiskon.jumlahDiskon = choosed
+        }else{
+          $('#diskonManual').autoNumeric('init');
+          this.newDiskon.harga = null
         }
-        $('#harga_akhir_diskon').autoNumeric('init');
+      },
+      diskonManual(){
+        $('#harga_akhir').autoNumeric('destroy');
+        let variable = this.$refs.ref_diskonManual.value.split('Rp. ')[1].split('.').join('')
+        const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('')
+        if(variable.length <= 3){
+          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+          this.newDiskon.harga = null
+        }else if(parseInt(variable) >= parseInt(harga)){
+          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+          this.newDiskon.harga = null
+        }else if (variable.length >= 10) {
+          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+          this.newDiskon.harga = null
+        }else {
+          const persentase = parseInt(variable) / harga * 100
+          this.$refs.peringatan_diskon_manual.textContent = 'Persentase Diskon : ' + Math.floor(persentase) + '%'
+          let harga_akhir = (harga - parseInt(variable))
+          $('#harga_akhir').val(harga_akhir);
+          $('#harga_akhir').autoNumeric('init');
+          this.newDiskon.harga = $('#harga_akhir').val().toString();  
+          this.newDiskon.jumlahDiskon = Math.floor(persentase) + '%'
+        }
+      },
+      tambahHargaInput(){
+        $('#harga_akhir').autoNumeric('destroy');
+        $('#harga_tambah').autoNumeric('init');
+        if (this.$refs.inputTambahHarga.value) {  
+          let variable = this.$refs.inputTambahHarga.value.split('Rp. ')[1].split('.').join('')
+          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('')
+          let harga_akhir = (parseInt(variable) + parseInt(harga))
+          if (parseInt(variable) >= parseInt(harga)) {
+            this.$refs.peringatan_harga.textContent = 'Harga Tidak Boleh Melebihi Perkiraan Awal!'
+            this.newHarga.harga = null
+          }else if (variable.length <= 3) {
+            this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
+            this.newHarga.harga = null
+          }else if (variable.length >= 10) {
+            this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
+            this.newHarga.harga = null
+          }else{
+            this.$refs.peringatan_harga.textContent = ''
+            $('#harga_akhir').val(harga_akhir);
+            $('#harga_akhir').autoNumeric('init');
+            this.newHarga.harga = $('#harga_akhir').val();
+            this.$refs.peringatan_harga.textContent = 'Anda Menaikkan Harga Sebesar ' + this.$refs.inputTambahHarga.value + ', Perbaikan Akan Dihentikan Untuk Menunggu Persetujuan Pelanggan!'
+          }
+        }
+        
       },
       funcUbahPerbaikan(value){
+        this.button_modal = {
+          ubah_data: false,
+          awal: true,
+          tambah_harga: false,
+          diskon: false,
+          choosedDiskon: null,
+          hargaAkhir: null
+        }
+        this.newDiskon = {
+          harga: null,
+          jumlahDiskon: null,
+          keterangan: null
+        }
+        this.newHarga = {
+          harga: null,
+          jumlahNaik: null,
+          keterangan: null
+        }
         return this.choosedPerbaikan = value
       }
     }
