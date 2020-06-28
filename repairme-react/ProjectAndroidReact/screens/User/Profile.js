@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, ImageBackground, Image, Dimensions, } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, ImageBackground, Image, Dimensions, AsyncStorage, } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 const axios = require('axios');
 import baseUrl from '../../config/config';
 var {height, width} = Dimensions.get('window');
 
 
-class HomeScreen extends React.Component {
+class Profile extends React.Component {
     constructor(props) {
       super(props);
+
+      AsyncStorage.getItem('name',(error,result) => {
+        if(result) {
+          this.setState({
+            name: result
+          });
+        }
+      });
 
       this.state = {
         Mitra: [],
@@ -30,7 +38,7 @@ class HomeScreen extends React.Component {
 
   render(){
     const { Mitra } = this.state;
-    
+    console.log(this.state.name);
     const MitraData = Mitra.length ? (
       Mitra.map(Mitras  => { 
         return(
@@ -48,7 +56,6 @@ class HomeScreen extends React.Component {
           <Text style={styles.TextJudulDeskripsi} >Belum Ada Mitra Yang Terdaftar</Text>
         </View>
     ) 
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -56,7 +63,7 @@ class HomeScreen extends React.Component {
       <View style={styles.containerRepair}>
         <ImageBackground source={require('../../assets/images/fix.jpeg')} style={styles.repairimage}>
           <Text style={styles.TextPerbaiki}>Segera Perbaiki Sekarang</Text>
-        <TouchableOpacity style={styles.ButtonRepair} onPress={ () => navigate('Maps')}><Text> Repair Now !</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.ButtonRepair}><Text> Repair Now !</Text></TouchableOpacity>
         </ImageBackground>
       </View>
                                               {/* Kelebihan RepairMe */}
@@ -117,11 +124,6 @@ class HomeScreen extends React.Component {
     );
   }
 }
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
 
 const styles = StyleSheet.create({
   TextJudulDeskripsi: {
@@ -195,4 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Profile;
