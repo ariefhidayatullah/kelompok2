@@ -1,6 +1,6 @@
 <%- include('templates/header') -%>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div  v-if="pelanggan !== null" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -17,7 +17,6 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -31,7 +30,7 @@
                                 <img class="profile-user-img img-fluid img-circle"
                                     :src="'/assets/images/pelanggan/' + pelanggan.foto_profile">
                             </div>
-                            <h3 class="profile-username text-center">{{ pelanggan.nama }}</p>
+                            <h3 class="profile-username text-center">{{ pelanggan.nama }}
                             </h3>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
@@ -44,14 +43,18 @@
                                     <b>Alamat</b> <a class="float-right">{{ pelanggan.alamat }}</a>
                                 </li>
                             </ul>
-                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"
-                                data-target="#modalubahhp">
+                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"data-target="#modalubahhp">
                                 update
                             </button>
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    <div class="modal fade" id="modalubahhp" tabindex="-1" role="dialog"
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="modalubahhp" tabindex="-1" role="dialog"
                         aria-labelledby="exampleModalLabel2" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -79,16 +82,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
-
-
-
-
-
 <%- include('templates/footer') -%>
 <script>
     var vm = new Vue({
