@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Alert, Linking, Dimensions } from 'react-native';
+import baseUrl from '../../config/config'
 
 export default class MapsScreen extends React.Component {
   render(){
@@ -14,6 +15,7 @@ import MapView, {
   PROVIDER_DEFAULT,
   ProviderPropType,
   UrlTile,
+  Marker,
 } from 'react-native-maps';
 
 const { width, height } = Dimensions.get('window');
@@ -29,6 +31,7 @@ class CustomTiles extends React.Component {
     super(props, context);
 
     this.state = {
+      Mitra: [],
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -36,6 +39,19 @@ class CustomTiles extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
     };
+  }
+
+  componentDidMount() {
+    baseUrl.get('/api/mitra')
+  .then((response) => {
+      const Mitra = response.data;
+      this.setState ({ Mitra });
+      console.log(Mitra);
+      
+  })
+  .catch((error) => {
+      console.log(error);
+  });
   }
 
   get mapType() {
@@ -46,8 +62,54 @@ class CustomTiles extends React.Component {
   }
 
   render() {
+    const { Mitra } = this.state;
     const { region } = this.state;
-    return (
+    const MitraData = Mitra.length ? (
+      Mitra.map(Mitras  => { 
+        const latitude = Mitras.lat.toString();
+        const longitude = Mitras.lng.toString();
+        return (
+          <View style={styles.container}>
+            <MapView
+              provider={this.props.provider}
+              mapType={this.mapType}
+              style={styles.map}
+              initialRegion={region}
+            >
+              <UrlTile
+                urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                zIndex={-1}
+              />
+            </MapView>
+            {/* <View style={styles.buttonContainer}>
+              <View style={styles.bubble}>
+                <Text>Custom Tiles</Text>
+              </View>
+            </View> */}
+          </View>
+        );
+      })
+    ) : (
+      <View style={styles.container}>
+        <MapView
+          provider={this.props.provider}
+          mapType={this.mapType}
+          style={styles.map}
+          initialRegion={region}
+        >
+          <UrlTile
+            urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            zIndex={-1}
+          />
+        </MapView>
+        {/* <View style={styles.buttonContainer}>
+          <View style={styles.bubble}>
+            <Text>Custom Tiles</Text>
+          </View>
+        </View> */}
+      </View>
+    )
+    return(
       <View style={styles.container}>
         <MapView
           provider={this.props.provider}
