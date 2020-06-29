@@ -166,15 +166,28 @@
           <div class="card-body">
             <div class="row">
             <!-- ================ CARD PERSENTASE =============== -->
-             <div v-if="button_modal.awal" class="col-sm-12 mb-5">
+             <div v-show="button_modal.awal && !button_modal.ubah_data" class="col-sm-12 mb-5">
                <code><p>Persentase Hari Pengerjaan</p></code>
                 <div class="progress progress-sm active">
-                  <div class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
-                    <span class="text_persentase_waktu">30%</span>
+                  <div ref="progress_waktu" class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" >
+                    <span ref="text_persentase_waktu"></span>
                   </div>
                 </div>
+                <table class="table table-bordered" style="margin-top: 10px;">
+                  <tr>
+                    <td>Berakhir Pada</td>
+                    <td ref="sisa_hari"></td>
+                  </tr>
+                  <tr>
+                    <td>Diajukan</td>
+                    <td ref="diajukan_pada"></td>
+                  </tr>
+                  <tr>
+                    <td>Berakhir Pada</td>
+                    <td ref="berakhir_pada"></td>
+                  </tr>
+                  </table>
              </div>
-
             <!-- ================== END OF CARD ============ -->
 
             <button v-if="button_modal.awal" class="btn btn-dark col-sm-5" type="button" style="margin: auto;" @click="ubah_keterangan">Ubah Keterangan
@@ -231,7 +244,7 @@
                   <input v-model="newDiskon.keterangan" class="form-control" type="text">
                 </div>
                   <div v-if="newDiskon.keterangan" class="form-group mt-20 col-sm-12">
-                    <button class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                    <button @click="postData('diskon')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
                   </div>
                 </div>
               </div>
@@ -261,7 +274,7 @@
                   <input v-model="newHarga.keterangan" class="form-control" type="text">
                 </div>
                   <div v-if="newHarga.keterangan !== null" class="form-group mt-20 col-sm-12">
-                    <button class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                    <button @click="postData('tambah_harga')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
                   </div>
                 </div>
               </div>
@@ -438,12 +451,38 @@
             $('#harga_akhir').val(harga_akhir);
             $('#harga_akhir').autoNumeric('init');
             this.newHarga.harga = $('#harga_akhir').val();
+            this.newHarga.jumlahNaik = this.$refs.inputTambahHarga.value
             this.$refs.peringatan_harga.textContent = 'Anda Menaikkan Harga Sebesar ' + this.$refs.inputTambahHarga.value + ', Perbaikan Akan Dihentikan Untuk Menunggu Persetujuan Pelanggan!'
           }
         }
         
       },
       funcUbahPerbaikan(value){
+        const a = value.lama_perkiraan.split('sampai')[1]
+        const b = value.lama_perkiraan.split('sampai')[0]
+        const sisaHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment())) / 86400000)
+        const totalHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment(b, 'Do MMMM YYYY, HH:mm:ss'))) / 86400000)
+        this.$refs.sisa_hari.textContent = sisaHari + ' hari'
+        let persentase = Math.floor(sisaHari / totalHari * 100)
+        if (persentase > 50) {
+          this.$refs.progress_waktu.className = 'progress-bar bg-success progress-bar-striped'
+          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+        }else if (persentase < 50 && persentase > 20) {
+          this.$refs.progress_waktu.className = 'progress-bar bg-warning progress-bar-striped'
+
+          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+        }else{
+          this.$refs.progress_waktu.className = 'progress-bar bg-danger progress-bar-striped'
+
+          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+        }
+        this.$refs.diajukan_pada.textContent = moment(b, 'Do MMMM YYYY, HH:mm:ss').fromNow()
+         + ', tanggal ' + b.split(',')[0] + ', jam ' + b.split(',')[1]
+        this.$refs.berakhir_pada.textContent = moment(a, 'Do MMMM YYYY, HH:mm:ss').fromNow()
+         + ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
         this.button_modal = {
           ubah_data: false,
           awal: true,
@@ -463,6 +502,16 @@
           keterangan: null
         }
         return this.choosedPerbaikan = value
+      },
+      postData(params){
+        alert(params)
+        if (params === 'diskon') {
+          console.log(this.newDiskon)
+          // axios.post()
+        }else if (params === 'tambah_harga') {
+          console.log(this.newHarga)
+          // axios.post()
+        }
       }
     }
 
