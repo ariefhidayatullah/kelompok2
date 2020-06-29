@@ -16,7 +16,7 @@ export default class LoginScreen extends React.Component {
     AsyncStorage.getItem('name',(error,result) => {
       if(result) {
         this.setState({
-          name: result
+          Name: result
         });
       }
     });
@@ -24,6 +24,7 @@ export default class LoginScreen extends React.Component {
     this.state = {
       LoginMitra: [],
       LoginPelanggan: [],
+      Name:'',
       Username: '',
       Password: '',
       isLoading: true
@@ -31,7 +32,9 @@ export default class LoginScreen extends React.Component {
   }
 
   render() {
-    if (this.state.name == '') {
+    console.log(this.state.Name);
+    let userAuth = this.state.Name.length;
+    if (userAuth === 0) {
       return (
         <KeyboardAvoidingView style={styles.containerView} behavior="padding">
   
@@ -85,6 +88,8 @@ export default class LoginScreen extends React.Component {
           <View>
             <Text>Anda Telah Login</Text>
             <Button buttonStyle={styles.loginButton} onPress={ () => navigate('User')} title="Go to Profile" />
+            <Button buttonStyle={styles.loginButton} onPress={ () => {AsyncStorage.setItem('name', ''); console.log(this.state.User);
+            navigate('Home')}} title="Logout" />
           </View>
         );
     }
@@ -125,10 +130,9 @@ export default class LoginScreen extends React.Component {
     const MitraAuth =  (
       LoginMitra.map(Mitras  => {
         console.log(Mitras);   
-    if(this.state.user == Mitras._id){
+    if(this.state.user === Mitras._id){
       console.log('Success');
-    }
-    else{
+    }else{
       console.log('Failed');
       return(
         DialogManager.show({
@@ -163,12 +167,10 @@ export default class LoginScreen extends React.Component {
     if(this.state.user == pelanggan._id){
       console.log('Success');
       this.saveData();
-      console.log(this.state.name);
+      console.log(this.state.user);
       navigate('User')
-    }
-    else{
-      console.log(this.username);
-      console.log(password);
+    }else{
+      console.log(this.state.user);
       console.log('Failed');
       return(
         DialogManager.show({

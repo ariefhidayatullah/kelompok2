@@ -16,7 +16,7 @@ export default class LoginScreen extends React.Component {
     AsyncStorage.getItem('name',(error,result) => {
       if(result) {
         this.setState({
-          name: result
+          User: result
         });
       }
     });
@@ -24,43 +24,100 @@ export default class LoginScreen extends React.Component {
     this.state = {
       LoginMitra: [],
       LoginPelanggan: [],
-      Username: '',
-      Password: '',
+      Nama: '',
+      User: '',
       isLoading: true
     };
   }
 
-  render() {
-    if (this.state.name == '') {
-      return (
-        <KeyboardAvoidingView style={styles.containerView} behavior="padding">
-  
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.loginScreenContainer}>
-            <View style={styles.loginFormView}>
-            <Text style={styles.logoText}>Repair Me</Text>
-              <TextInput onChangeText={(user) => this.setState({ user })} placeholder="Username" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} />
-              <TextInput onChangeText={(pass) => this.setState({ pass })} placeholder="Password" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} secureTextEntry={true}/>
-              <Button
-                buttonStyle={styles.loginButton}
-                onPress={() => this.onLoginPress()} 
-                title="Login Sebagai Mitra"
-              />
-              <Button
-                buttonStyle={styles.loginButton}
-                onPress={() => this.onLoginPressUser()} 
-                title="Login Sebagai Pelanggan"
-              />
-              <Button
-                buttonStyle={styles.fbLoginButton}
-                onPress={() => this.onFbLoginPress()}
-                title="Forget Password ?"
-                titleStyle={({color: "black"})}
-              />
-            </View>
+  switchRegister() {
+    const { navigate } = this.props.navigation;
+
+        const myAction = async () => {
+
+        const choice = await AlertAsync(
+          'Alert',
+          'Registrasi Mitra',
+          [
+            {text: 'Registrasi Mitra', onPress: () => 'Ok'},
+            {text: 'Registrasi User', onPress: () => 'User'},
+          ],
+        );
+
+        if (choice === 'Ok') {
+        console.log('Pressed Ok');
+        
+        }else {
+          console.log('Pressed User');
+          
+        }
+        }
+        return(
+          myAction(),
+          <View>
           </View>
-        </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        );
+  }
+
+  registerBertahap() {
+      return(
+        <View>
+        <Button
+        buttonStyle={styles.loginButton}
+        onPress={() => this.LoginMitra()} 
+        title="Login Sebagai Mitra"
+      />
+      <Button
+        buttonStyle={styles.loginButton}
+        onPress={() => this.LoginUser()} 
+        title="Login Sebagai Pelanggan"
+      />
+      </View>
+      );
+  }
+
+  LoginMitra(){}
+
+  LoginUser(){}
+
+  registerBertahapSatu() {
+    return(
+    <KeyboardAvoidingView style={styles.containerView} behavior="padding">
+  
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.loginScreenContainer}>
+        <View style={styles.loginFormView}>
+        <Text style={styles.logoText}>Repair Me</Text>
+          <TextInput onChangeText={(user) => this.setState({ user })} placeholder="Username" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} />
+          <TextInput onChangeText={(pass) => this.setState({ pass })} placeholder="Password" placeholderColor="#c4c3cb" style={styles.loginFormTextInput} secureTextEntry={true}/>
+          <Button
+            buttonStyle={styles.loginButton}
+            onPress={() => this.onLoginPress()} 
+            title="Login Sebagai Mitra"
+          />
+          <Button
+            buttonStyle={styles.loginButton}
+            onPress={() => this.onLoginPressUser()} 
+            title="Login Sebagai Pelanggan"
+          />
+          <Button
+            buttonStyle={styles.fbLoginButton}
+            onPress={() => this.onFbLoginPress()}
+            title="Forget Password ?"
+            titleStyle={({color: "black"})}
+          />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+);
+    }
+
+  render() {
+    let userAuth = this.state.User.length;
+    if (userAuth === 0) {
+      return(
+        <this.registerBertahap />
       );
     }else {
       const { navigate } = this.props.navigation;
@@ -74,17 +131,10 @@ export default class LoginScreen extends React.Component {
             {text: 'Ok', onPress: () => 'Ok'},
             {text: 'Cancel', onPress: () => Promise.resolve('Cancel')},
           ],
-          {
-            cancelable: true,
-            onDismiss: () => 'Cancel',
-          },
         );
 
         if (choice === 'Ok') {
           await navigate('User');
-        }
-        else {
-          await navigate('Root');
         }
         }
         return(
@@ -92,9 +142,11 @@ export default class LoginScreen extends React.Component {
           <View>
             <Text>Anda Telah Login</Text>
             <Button buttonStyle={styles.loginButton} onPress={ () => navigate('User')} title="Go to Profile" />
+            <Button buttonStyle={styles.loginButton} onPress={ () => {AsyncStorage.setItem('name', ''); console.log(this.state.User);
+            navigate('Home')}} title="Logout" />
           </View>
         );
-    }
+    }  
   }
 
   componentDidMount() {
@@ -113,93 +165,6 @@ export default class LoginScreen extends React.Component {
       this.setState({ LoginPelanggan });
       console.log(LoginPelanggan);
     })
-  }
-
-  saveData() {
-    let username = this.state.user;
-    let password = this.state.pass;
-
-    this.setState({
-      Username: username,
-      Password: password,
-    });
-    console.log('Session Berhasil');
-    AsyncStorage.setItem('name', username);
-    }
-  
-  onLoginPress(){
-    const { LoginMitra } = this.state;
-    const MitraAuth =  (
-      LoginMitra.map(Mitras  => {
-        console.log(Mitras);   
-    if(this.state.user == Mitras._id){
-      console.log('Success');
-    }
-    else{
-      console.log('Failed');
-      return(
-        DialogManager.show({
-          title: 'Failed',
-          width: 400 ,
-          titleAlign: 'center',
-          animationDuration: 200,
-          ScaleAnimation: new ScaleAnimation(),
-          children: (
-            <DialogContent>
-              <View>
-                <Text>
-                  Failed To Login, Username atau Password Salah
-                </Text>
-              </View>
-            </DialogContent>
-          ),
-        }, () => {
-          console.log('callback - show');
-        })
-            );
-    }
-      })
-    )
-  }
-  onLoginPressUser(){
-    const { navigate } = this.props.navigation;
-    const { LoginPelanggan } = this.state;
-    const PelangganAuth =  (
-      LoginPelanggan.map(pelanggan  => {
-        console.log(pelanggan);   
-    if(this.state.user == pelanggan._id){
-      console.log('Success');
-      this.saveData();
-      console.log(this.state.name);
-      navigate('User')
-    }
-    else{
-      console.log(this.username);
-      console.log(password);
-      console.log('Failed');
-      return(
-        DialogManager.show({
-          title: 'Failed',
-          width: 400 ,
-          titleAlign: 'center',
-          animationDuration: 200,
-          ScaleAnimation: new ScaleAnimation(),
-          children: (
-            <DialogContent>
-              <View>
-                <Text>
-                  Failed To Login, Username atau Password Salah
-                </Text>
-              </View>
-            </DialogContent>
-          ),
-        }, () => {
-          console.log('callback - show');
-        })
-            );
-    }
-      })
-    )
   }
 
   componentWillUnmount() {
