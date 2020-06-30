@@ -9,6 +9,7 @@ module.exports = (app, express) => {
 
     router.get('/pelanggan/:id', perbaikan.findPerbaikanPelanggan);
     router.get('/pelanggan/:email/:jenis', perbaikan.findPerbaikanPelangganByJenis);
+    router.get('/pelanggan/:email/:status/:jenis', perbaikan.findPerbaikanPelangganStatus);
 
     //mitra
     router.get('/mitra/:id', perbaikan.findPerbaikanMitra);

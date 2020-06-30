@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/assets/panel-master/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
     <link rel="stylesheet" href="/assets/panel-master/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/assets/panel-master/plugins/daterangepicker/daterangepicker.css">
+    <!-- untuk leafletjs -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
 </head>
 
 
@@ -56,7 +58,7 @@
             <!-- Brand Logo -->
             <a href="/pelanggan/" class="brand-link">
                 <span class="brand-text font-weight-light">
-                    <center>Repairme</center>
+                    <center>Pelanggan RepairMe</center>
                 </span>
             </a>
             <div v-if="pelanggan !== null" class="sidebar">
@@ -74,92 +76,64 @@
                         role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
+                        <li class="nav-header">
+                            BARANG
+                        </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-shopping-cart"></i>
-                                <p>
-                                    Barang
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">5</span>
-                                </p>
+                            <a href="" :class="'nav-link ' + sidebar_menu.permintaan_perbaikan" data-toggle="modal"
+                                data-target="#sidebar_modal_pengajuan">
+                                <i class="fa fa-shopping-cart nav-icon"></i>
+                                <p>Pengajuan Perbaikan</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pengajuan_perbaikan" data-toggle="modal"
-                                        data-target="#modal-sm" id="permintaan_perbaikan">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Pengajuan Perbaikan</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item" id="perbaikan">
-                                    <a href="" class="nav-link" data-toggle="modal" data-target="#modal-sm">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Perbaikan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/pelanggan/batalperbaikan" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Perbaikan Dibatalkan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/pelanggan/selesaiperbaikan" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Barang Selesai Di Perbaiki</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/pelanggan/riwayatperbaikan" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Riwayat Perbaikan</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="nav-item has-treeview">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Profile Pelanggan
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="right badge badge-warning">Edit</span>
-                                </p>
+                        <li class="nav-item">
+                            <a href="" :class="'nav-link ' + sidebar_menu.perbaikann" data-toggle="modal"
+                                data-target="#sidebar_perbaikan">
+                                <i class="fa fa-medkit nav-icon"></i>
+                                <p>Perbaikan</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/pelanggan/profile" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profile</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon fas fa-map"></i>
-                                <p>
-                                    Mitra
-                                    <i class="right fas fa-angle-left"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
+                        <li class="nav-item">
+                            <a href="/pelanggan/batalperbaikan" class="nav-link">
+                                <i class="fa fa-circle-notch nav-icon"></i>
+                                <p>Perbaikan Dibatalkan</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/perbaikan/index" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Cari Mitra</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Pelanggan/beriRating" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Berikan Rating</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pelanggan/selesaiperbaikan" class="nav-link">
+                                <i class="fa fa-check-circle nav-icon"></i>
+                                <p>Barang Selesai Di Perbaiki</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pelanggan/riwayatperbaikan" class="nav-link">
+                                <i class="fa fa-file nav-icon"></i>
+                                <p>Riwayat Perbaikan</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">
+                            PROFILE
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pelanggan/profile" class="nav-link">
+                                <i class="fas fa-user nav-icon"></i>
+                                <p>Profile Pelanggan</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">
+                            MITRA
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pelanggan/profile" class="nav-link">
+                                <i class="fas fa-search nav-icon"></i>
+                                <p>Cari Mitra</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/pelanggan/profile" class="nav-link">
+                                <i class="fas fa-star nav-icon"></i>
+                                <p>Berikan Rating</p>
+                            </a>
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="/Pelanggan/notifikasi" class="nav-link">
@@ -172,17 +146,51 @@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
-            <!-- /.sidebar -->
+                <!-- /.sidebar -->
         </aside>
-        <div class="modal fade" id="modal-sm">
-            <div class="modal-dialog modal-sm">
+        <!-- ==== MODAL ==== -->
+        <div class="modal fade" id="sidebar_modal_pengajuan" tabindex="-1" role="dialog"
+            aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row" id="option_barang">
-                                <a href="/pelanggan/pengajuan/laptop" class="btn btn-dark btn-sm col-sm-6">LAPTOP</a>
-                                <a href="/pelanggan/pengajuan/handphone" class="btn btn-grey btn-sm">HANDPHONE</a>
+                        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                            <div class="card-header">
+                                <h3 class="card-title">Pilih Perbaikan</h3>
                             </div>
+                            <div class="card-body">
+                                <a href="/pelanggan/pengajuan/laptop"
+                                    class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                                <a href="/pelanggan/pengajuan/handphone"
+                                    class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ==== MODAL ==== -->
+        <div class="modal fade" id="sidebar_perbaikan" tabindex="-1" role="dialog" aria-labelledby="sidebar_pengajuan"
+            aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                            <div class="card-header">
+                                <h3 class="card-title">Pilih Perbaikan</h3>
+                            </div>
+                            <div class="card-body">
+                                <a href="/pelanggan/perbaikan/laptop"
+                                    class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                                <a href="/pelanggan/perbaikan/handphone"
+                                    class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+
+
+                            </div>
+                            <!-- /.card-body -->
                         </div>
                     </div>
                 </div>

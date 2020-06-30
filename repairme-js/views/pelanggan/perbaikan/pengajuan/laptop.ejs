@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(value, index) in perbaikan">
+                        <tr v-if="value.status !== 'Sedang Diperbaiki'" v-for="(value, index) in perbaikan">
                             <td>{{index + 1}}</td>
                             <td>
                                 {{ value.merk.toUpperCase() }} - {{ value.tipe }}
@@ -244,6 +244,10 @@
     var vm = new Vue({
         el: "#app",
         data: {
+            sidebar_menu: {
+                perbaikan: 'menu-open',
+                permintaan_perbaikan: 'active'
+            },
             pelanggan: null,
             mitra: null,
             perbaikan: null,
