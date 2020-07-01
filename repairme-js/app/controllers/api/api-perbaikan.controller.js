@@ -215,6 +215,24 @@ exports.putPerbaikanMitra = (req, res) => {
 	            message: "Gagal!",
 	        });
 	    });
+	}else if (req.params.keterangan === 'update_keterangan') {
+		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+			keterangan_mitra: req.body.keterangan_mitra
+		}
+		}).then((response) => {
+	        res.send({
+	            response: response,
+	            status: "success",
+	            message: "Berhasil",
+	        });
+	    })
+	    .catch((err) => {
+	        res.send({
+	            response: err,
+	            status: "error",
+	            message: "Gagal!",
+	        });
+	    });
 	}
 }
 

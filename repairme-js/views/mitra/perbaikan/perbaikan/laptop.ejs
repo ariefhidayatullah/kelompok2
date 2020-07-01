@@ -69,7 +69,7 @@
             </tr>
           </thead>
           <tbody>
-              <tr v-for="(value, index) in perbakan_terhenti">
+              <tr v-for="(value, index) in perbaikan_terhenti">
                 <td>{{ index + 1 }}</td>
                 <td>
                   {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
@@ -210,6 +210,28 @@
               Tambah Harga
             </button>
 
+            <!-- =============== CARD UBAH KETERANGAN ============ -->
+            <div v-if="button_modal.ubah_keterangan" class="card col-sm-12 mt-3" >
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+              </div>
+              <div class="card-body container-fluid">
+                <div class="row">
+                <div class="form-group col-sm-12">
+                <div class="form-group col-sm-12">
+                  <code>Keterangan Mitra: {{ choosedPerbaikan.keterangan_mitra }}</code>
+                  <br>
+                  <br>
+                  <label>Keterangan Baru Mitra: </label>
+                  <input class="form-control" type="text" v-model="newKeterangan.keterangan">
+                </div>
+                  <div v-if="newKeterangan.keterangan" class="form-group mt-20 col-sm-12">
+                    <button @click="postData('ubah_keterangan')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
 
             <!-- =============== CARD DISKON ============ -->
             <div v-if="button_modal.diskon" class="card col-sm-12 mt-3 card_ubah_harga">
@@ -314,10 +336,11 @@
       },
       mitra: null,
       perbaikan: null,
-      perbakan_terhenti: null,
+      perbaikan_terhenti: null,
       myfile: null,
       showDetailPerbaikan: null,
       button_modal: {
+        ubah_keterangan: false,
         ubah_data: false,
         awal: true,
         tambah_harga: false,
@@ -334,6 +357,9 @@
       newHarga: {
         harga: null,
         jumlahNaik: null,
+        keterangan: null
+      },
+      newKeterangan: {
         keterangan: null
       }
     },
@@ -357,7 +383,7 @@
         })
         axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Dihentikan Sementara/laptop')
         .then(response => {
-          this.perbakan_terhenti = response.data
+          this.perbaikan_terhenti = response.data
         })
       },
       warning: function (message) {
@@ -388,14 +414,32 @@
         return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
       },
       ubah_keterangan(){
-
-      },
-      funcUbahData(){
         this.button_modal.tambah_harga = false
         this.button_modal.diskon = false
+        this.button_modal.ubah_data = false
+        this.newDiskon = {
+          harga: null,
+          jumlahDiskon: null,
+          keterangan: null
+        }
+        this.newHarga = {
+          harga: null,
+          jumlahNaik: null,
+          keterangan: null
+        }
+        return this.button_modal.ubah_keterangan = !this.button_modal.ubah_keterangan
+      },
+      funcUbahData(){
+        this.button_modal.ubah_keterangan = false
+        this.button_modal.tambah_harga = false
+        this.button_modal.diskon = false
+        this.keterangan = {
+          keterangan: null
+        }
         return this.button_modal.ubah_data = !this.button_modal.ubah_data
       },
       funcDiskon(){
+        this.button_modal.ubah_keterangan = false
         this.button_modal.tambah_harga = false
         this.button_modal.diskon = !this.button_modal.diskon
         this.newDiskon = {
@@ -410,6 +454,7 @@
         }
       },
       funcTambahHarga(){
+        this.button_modal.ubah_keterangan = false
         this.button_modal.tambah_harga = !this.button_modal.tambah_harga
         this.button_modal.diskon = false
         this.newDiskon = {
@@ -519,6 +564,7 @@
          + ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
         this.button_modal = {
           ubah_data: false,
+          ubah_keterangan: false,
           awal: true,
           tambah_harga: false,
           diskon: false,
@@ -533,6 +579,9 @@
         this.newHarga = {
           harga: null,
           jumlahNaik: null,
+          keterangan: null
+        }
+        this.newKeterangan = {
           keterangan: null
         }
         return this.choosedPerbaikan = value
@@ -582,6 +631,18 @@
                 }
             })
           })
+       }else if (params === 'ubah_keterangan') {
+         axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_keterangan', {
+          keterangan_mitra : vm.newKeterangan.keterangan
+         }).then(response => {
+          $('#ubah_perbaikan').modal('toggle');
+            if (response.data.status == "success") {
+              this.success(response.data.message);
+              this.getPerbaikan()
+            } else if (response.data.status == "error") {
+              this.error(response.data.message);
+            }
+         })
        }
     }
   }
