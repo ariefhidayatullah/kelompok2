@@ -68,6 +68,54 @@
             <!-- /.card-body -->
         </div>
     </section>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Menunggu Persetujuan Penambahan Harga</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">No</th>
+                            <th>Perbaikan</th>
+                            <th style="width: 25%;">Mitra</th>
+                            <th style="width: 25%;">Pengerjaan</th>
+                            <th style="width: 25%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(value, index) in perbaikan_terhenti">
+                            <td> {{ index + 1 }}</td>
+                            <td>
+                                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)"
+                                    style="float: right; width: 30%;">Detail</button>
+                            </td>
+                            <td>
+                                {{ value.data_pelanggan[0].nama_usaha }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_mitra" @click="modal_detail_mitra(value)"
+                                    style="float: right; width: 30%;">Detail</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal"
+                                    data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Detail</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-block btn-warning btn-sm" data-toggle="modal"
+                                    data-target="#persetujuan">Detail</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </section>
 </div>
 <!-- ============= END OF CONTENT ================= -->
 
@@ -155,7 +203,7 @@
                                 </tr>
                                 <tr>
                                     <td rowspan="10">
-                                        <div id="map" style="height: 450px; display: block;">
+                                        <div id="map" style="height: 450px; width: 450px; display: block;">
                                         </div>
                                     </td>
                                     <td>
@@ -167,7 +215,7 @@
                                 <tr>
                                     <td colspan="2"><img
                                             :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_pelanggan[0].foto_usaha"
-                                            class="foto_usaha" style="width: 100%;"></td>
+                                            class="foto_usaha" style="width: 100px;"></td>
                                 </tr>
                                 <tr>
                                     <td><b>NAMA PEMILIK</b></td>
@@ -193,6 +241,23 @@
                         </div>
                         <!-- end of modal content -->
                     </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- !modal -->
+<!-- =========== MODAL =============== -->
+<div class="modal fade" id="persetujuan">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                    <div class="card-header">
+                        <h3 class="card-title"> Data Perbaikan </h3>
+                    </div>
+
                     <!-- /.card-body -->
                 </div>
             </div>
@@ -261,6 +326,7 @@
             },
             pelanggan: null,
             perbaikan: null,
+            perbaikan_terhenti: null,
             myfile: null,
             showDetailPerbaikan: null,
             showDetailMitra: null,
@@ -291,12 +357,19 @@
                     .then(response => {
                         this.perbaikan = response.data
                     })
+                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Dihentikan Sementara/laptop')
+                    .then(response => {
+                        this.perbaikan_terhenti = response.data
+                    })
             },
             modal_detail_perbaikan(value) {
                 this.showDetailPerbaikan = value
             },
             modal_detail_mitra(value) {
                 this.showDetailMitra = value
+                setTimeout(() => {
+                    this.maps()
+                }, 200);
             },
             tanggal(tanggal) {
                 return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
@@ -350,8 +423,8 @@
                 return this.choosedPerbaikan = value
             },
             maps() {
-                var map = L.map('map').setView([vm.perbaikan[0].data_pelanggan[0].lat, vm
-                    .perbaikan[0].data_pelanggan[0].lng
+                var map = L.map('map').setView([vm.showDetailMitra.data_pelanggan[0].lat, vm
+                    .showDetailMitra.data_pelanggan[0].lng
                 ], 17);
                 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
