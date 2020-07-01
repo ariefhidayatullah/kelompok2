@@ -67,6 +67,8 @@ require('./app/routes/api/api-mitra.routes.js')(app, express);
 require('./app/routes/api/api-barang.routes.js')(app, express);
 require('./app/routes/api/api-barang.routes.js')(app, express);
 require('./app/routes/api/api-perbaikan.routes.js')(app, express);
+require('./app/routes/api/api-notifikasi.routes.js')(app, express);
+
 
 //frontend routes
 require('./app/routes/home.routes')(app, express);
