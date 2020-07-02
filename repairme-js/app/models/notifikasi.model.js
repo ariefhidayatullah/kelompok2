@@ -4,6 +4,7 @@ const NotifikasiSchema = mongoose.Schema({
     mitra: String,
     pelanggan: String,
     perbaikan: String,
+    untuk: String,
     jenis: String,
     keterangan: String,
     keterangan_mitra: String,

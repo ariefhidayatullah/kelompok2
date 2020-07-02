@@ -74,12 +74,12 @@ module.exports = (app, express) => {
             if (req.session.user.jenis === 'pelanggan') {
                 if (req.params.jenis === "laptop") {
                     res.render('pelanggan/perbaikan/perbaikan/laptop', {
-                        judul: 'Pengajuan Perbaikan',
+                        judul: 'Perbaikan',
                         email: req.session.user.email
                     })
                 } else if (req.params.jenis === "handphone") {
                     res.render('pelanggan/perbaikan/perbaikan/handphone', {
-                        judul: 'Pengajuan Perbaikan',
+                        judul: 'Perbaikan',
                         email: req.session.user.email
                     })
                 } else {

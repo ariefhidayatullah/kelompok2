@@ -36,7 +36,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell" style="font-size: 150%;"></i>
-                        <span v-if="notifikasi" class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
+                        <div v-if="notifikasi">
+                        <span v-if="notifikasi.length > 0" class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
+                        </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
                         <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span>Pemberitahuan</span>

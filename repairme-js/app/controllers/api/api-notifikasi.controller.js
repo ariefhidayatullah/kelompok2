@@ -20,6 +20,7 @@ exports.findByPerbaikanStatus = (req, res) => {
 	})
 }
 
+
 exports.findByIdUser = (req, res) => {
 	if (req.params.jenis === 'mitra') {
 		Notifikasi.find({mitra: req.params.id})
@@ -36,12 +37,12 @@ exports.findByIdUser = (req, res) => {
 
 exports.findByStatus = (req, res) => {
 	if (req.params.jenis === 'mitra') {
-		Notifikasi.find({mitra: req.params.id, dibaca: req.params.status})
+		Notifikasi.find({mitra: req.params.id, dibaca: req.params.status, untuk: 'mitra'})
 		.then(response => {
 			res.send(response)
 		})
 	}else if (req.params.jenis === 'pelanggan') {
-		Notifikasi.find({pelanggan: req.params.id, dibaca: req.params.status})
+		Notifikasi.find({pelanggan: req.params.id, dibaca: req.params.status, untuk: 'pelanggan'})
 		.then(response => {
 			res.send(response)
 		})	
@@ -58,7 +59,8 @@ exports.newNotifikasi = (req, res) => {
 	    keterangan_mitra: req.body.keterangan_mitra,
 	    dibaca: 't',
 	    tanggal: req.body.tanggal,
-	    barang: req.body.barang
+	    barang: req.body.barang,
+	    untuk: 'pelanggan'
 	})
 
 	notif.save()
@@ -83,8 +85,8 @@ exports.newNotifikasiPelanggan = (req, res) => {
 		mitra: req.body.mitra,
 	    pelanggan: req.body.pelanggan,
 	    perbaikan: req.body.perbaikan,
+	    untuk: 'mitra',
 	    jenis: req.body.jenis,
-	    keterangan: req.body.keterangan,
 	    dibaca: 't',
 	    tanggal: req.body.tanggal,
 	    barang: req.body.barang
