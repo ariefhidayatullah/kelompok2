@@ -81,6 +81,8 @@ app.use((req, res) => {
     res.status(404).redirect('/')
 });
 
+// const port = process.env.PORT 
+
 http.listen(3000, () => {
     console.log('listening on *:3000');
 });

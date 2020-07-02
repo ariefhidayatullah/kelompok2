@@ -38,8 +38,7 @@
             <tr v-for="(value, index) in perbaikan">
               <td> {{ index + 1 }}</td>
               <td>
-                {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)" style="float: right; width: 30%;">Detail</button>
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)"> {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
               </td>
               <td>
                 {{ value.voucher }}
@@ -72,11 +71,10 @@
               <tr v-for="(value, index) in perbaikan_terhenti">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)" style="float: right; width: 30%;">Detail</button>
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
                 </td>
                 <td> {{ value.voucher }}</td>
-                <td><b style="color: red;">Menunggu Persetujuan Pelanggan</b></td>
+                <td><button class="btn btn-block btn-warning btn-sm" disabled>Menunggu Persetujuan</button></td>
               </tr>
           </tbody>
         </table>

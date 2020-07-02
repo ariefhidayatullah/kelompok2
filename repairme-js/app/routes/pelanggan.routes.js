@@ -93,6 +93,20 @@ module.exports = (app, express) => {
         }
     });
 
+    router.get('/notifikasi/', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                res.render('pelanggan/notifikasi/index', {
+                    judul: 'Pengajuan Perbaikan',
+                    email: req.session.user.email
+                })
+            } else {
+                next()
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
 
 
     app.use('/pelanggan', router);

@@ -38,8 +38,7 @@
             <tr v-for="(value, index) in perbaikan">
               <td> {{ index + 1 }}</td>
               <td>
-                {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)" style="float: right; width: 30%;">Detail</button>
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
               </td>
               <td>
                 {{ value.voucher }}
@@ -72,11 +71,10 @@
               <tr v-for="(value, index) in perbaikan_terhenti">
                 <td>{{ index + 1 }}</td>
                 <td>
-                  {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)" style="float: right; width: 30%;">Detail</button>
+                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
                 </td>
                 <td> {{ value.voucher }}</td>
-                <td><b style="color: red;">Menunggu Persetujuan Pelanggan</b></td>
+                <td><button class="btn btn-block btn-warning btn-sm" disabled>Menunggu Persetujuan</button></td>
               </tr>
           </tbody>
         </table>
@@ -594,8 +592,9 @@
               perbaikan: vm.choosedPerbaikan._id,
               jenis: 'diskon',
               keterangan: vm.newDiskon.jumlahDiskon,
-              keterangan_mitra: vm.newDiskon.keterangan
-         
+              keterangan_mitra: vm.newDiskon.keterangan,
+              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+              barang: 'laptop'
           }).then(() => {
             axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_harga', {
               harga: vm.newDiskon.harga
@@ -616,7 +615,9 @@
             perbaikan: vm.choosedPerbaikan._id,
             jenis: 'tambah_harga',
             keterangan: vm.newHarga.jumlahNaik,
-            keterangan_mitra: vm.newHarga.keterangan
+            keterangan_mitra: vm.newHarga.keterangan,
+            tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+            barang: 'laptop'
           }).then(() => {
             axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/tambah_harga', {
               status: 'Dihentikan Sementara',
@@ -632,6 +633,16 @@
             })
           })
        }else if (params === 'ubah_keterangan') {
+        axios.post('/api/notifikasi', {
+            mitra: '<%= email %>',
+            pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
+            perbaikan: vm.choosedPerbaikan._id,
+            jenis: 'tambah_harga',
+            keterangan: vm.newHarga.jumlahNaik,
+            keterangan_mitra: vm.newHarga.keterangan,
+            tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+            barang: 'laptop'
+          }).then(() => {
          axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_keterangan', {
           keterangan_mitra : vm.newKeterangan.keterangan
          }).then(response => {
@@ -643,6 +654,7 @@
               this.error(response.data.message);
             }
          })
+        })
        }
     }
   }

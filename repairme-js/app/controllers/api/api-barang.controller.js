@@ -234,7 +234,6 @@ exports.updateLaptop = (req, res) => {
 };
 
 exports.deleteLaptop = (req, res) => {
-    console.log(req.params.id)
     Barang.Laptop.findByIdAndRemove(req.params.id)
         .then((response) => {
             res.send({

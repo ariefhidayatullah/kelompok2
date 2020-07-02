@@ -245,6 +245,11 @@
     var vm = new Vue({
         el: "#app",
         data: {
+            sidebar_menu: {
+                perbaikan: 'menu-open',
+                permintaan_perbaikan: 'active'
+            },
+            notifikasi: null,
             pelanggan: null,
             mitra: null,
             perbaikan: null,
@@ -253,6 +258,7 @@
         mounted() {
             this.getData()
             this.getPerbaikan()
+            this.getNotifikasi()
         },
         methods: {
             getData() {
@@ -262,6 +268,15 @@
                 }).then(response => {
                     this.pelanggan = response.data;
                 })
+            },
+            getNotifikasi(){
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                .then(response => {
+                    this.notifikasi = response.data
+                })
+            },
+            getNotifikasiTanggal(value){
+                return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
             },
             warning: function (message) {
                 setTimeout(function () {

@@ -29,38 +29,27 @@
                     <thead>
                         <tr>
                             <th style="width: 5%;">No</th>
-                            <th>Perbaikan</th>
+                            <th style="width: 30%;">Perbaikan</th>
                             <th style="width: 25%;">Mitra</th>
-                            <th style="width: 25%;">Pengerjaan</th>
-                            <th style="width: 25%;">Status</th>
+                            <th style="width: 25%;">Detail</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(value, index) in perbaikan">
                             <td> {{ index + 1 }}</td>
                             <td>
-                                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                                
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)"
-                                    style="float: right; width: 30%;">Detail</button>
+                                    data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}</button>
                             </td>
                             <td>
-                                {{ value.data_pelanggan[0].nama_usaha }}
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_mitra" @click="modal_detail_mitra(value)"
-                                    style="float: right; width: 30%;">Detail</button>
+                                    data-target="#detail_mitra" @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
                             </td>
                             <td>
-                                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal"
-                                    data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Detail</button>
+                                <button class="btn btn-block btn-success btn-sm" data-toggle="modal"
+                                    data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Sedang Dalam Perbaikan</button>
                             </td>
-                            <td>
-                                <button v-if="value.status === 'Sedang Diperbaiki'"
-                                    class="btn btn-block btn-success btn-sm" disabled>Sedang Dalam Perbaikan</button>
-                                <button v-if="value.status === 'Menunggu Persetujuan'"
-                                    class="btn btn-block btn-info btn-sm">Menunggu Persetujuan</button>
-                            </td>
-
                         </tr>
                     </tbody>
                 </table>
@@ -79,34 +68,26 @@
                     <thead>
                         <tr>
                             <th style="width: 5%;">No</th>
-                            <th>Perbaikan</th>
+                            <th style="width: 30%;">Perbaikan</th>
                             <th style="width: 25%;">Mitra</th>
-                            <th style="width: 25%;">Pengerjaan</th>
-                            <th style="width: 25%;">Status</th>
+                            <th style="width: 25%;">Pesan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(value, index) in perbaikan_terhenti">
                             <td> {{ index + 1 }}</td>
                             <td>
-                                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                                
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)"
-                                    style="float: right; width: 30%;">Detail</button>
+                                    data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}</button>
                             </td>
                             <td>
-                                {{ value.data_pelanggan[0].nama_usaha }}
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_mitra" @click="modal_detail_mitra(value)"
-                                    style="float: right; width: 30%;">Detail</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal"
-                                    data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Detail</button>
+                                    data-target="#detail_mitra" @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
                             </td>
                             <td>
                                 <button class="btn btn-block btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#persetujuan">Detail</button>
+                                    data-target="#modal_tambah_harga" @click="tambah_harga_pesan(value)">Lihat Pesan</button>
                             </td>
 
                         </tr>
@@ -181,22 +162,17 @@
 <!-- !modal -->
 <!-- =========== MODAL =============== -->
 <div class="modal fade" id="detail_mitra">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
                     <div class="card-header">
-                        <h3 class="card-title"> Data Perbaikan </h3>
+                        <h3 class="card-title"> Detail Mitra </h3>
                     </div>
                     <div v-if="showDetailMitra !== null" class="card-body">
                         <!-- modal content -->
                         <div class="container-fluid">
-                            <table class="table table-condensed">
-                                <tr class="bg-gray-dark color-palette">
-                                    <th colspan="4" style="text-align: center;">
-                                        <strong>Informasi Mitra</strong>
-                                    </th>
-                                </tr>
+                            <table class="table table-bordered">
                                 <tr>
                                     <th>Lokasi</th>
                                     <th colspan="2" style="width: 40%;">Data</th>
@@ -213,9 +189,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><img
-                                            :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_pelanggan[0].foto_usaha"
-                                            class="foto_usaha" style="width: 100px;"></td>
+                                    <td colspan="2">
+                                    <img :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_pelanggan[0].foto_usaha"
+                                    class="foto_usaha" style="width: 100px;"></td>
                                 </tr>
                                 <tr>
                                     <td><b>NAMA PEMILIK</b></td>
@@ -249,17 +225,46 @@
 </div>
 <!-- !modal -->
 <!-- =========== MODAL =============== -->
-<div class="modal fade" id="persetujuan">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modal_tambah_harga">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                <div v-if="tambah_harga_data.perbaikan && tambah_harga_data.notifikasi" class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
                     <div class="card-header">
-                        <h3 class="card-title"> Data Perbaikan </h3>
+                        <h3 class="card-title">Baca Pesan</h3>
                     </div>
-
-                    <!-- /.card-body -->
-                </div>
+                    <div class="card-body">
+                        <!-- modal content -->
+                        <div class="container-fluid">
+                        <div class="mailbox-read-info">
+                        
+                        <p>Dari {{ tambah_harga_data.perbaikan.data_pelanggan[0]._id }},
+                        untuk {{ tambah_harga_data.perbaikan.pelanggan }} <span class="badge badge-success float-right">{{ getNotifikasiTanggal(tambah_harga_data.notifikasi.tanggal) }}</span></p>
+                      </div>
+                      <div class="mailbox-read-message">
+                          <p>Halo, <b>{{ pelanggan.nama }}</b>, perbaikan barang dengan tipe <b>{{tambah_harga_data.perbaikan.tipe}}</b>, dan merk <b>{{ tambah_harga_data.perbaikan.merk }}</b> yang anda lakukan di mitra <b>{{ tambah_harga_data.perbaikan.data_pelanggan[0].nama_usaha }}</b> <b style="color: red;">terhenti sementara</b>, karena ada tambahan biaya yang ingin mitra ajukan, detail penambahan harga yaitu:</p>
+                          <p>Jumlah penambahan dari perkiraan awal : <b>{{ tambah_harga_data.notifikasi.keterangan }}</b>,</p>
+                          <p>Sehingga total biaya : <b>{{tambah_harga_data.perbaikan.harga}}</b>, </p>
+                          <p>Mitra menaikkan harga karena : <b>{{ tambah_harga_data.notifikasi.keterangan_mitra }}</b></p>
+                          <p>Anda dibebaskan untuk <b style="color: red;"> menolak </b> atau <b style="color: green;"> menerima </b>dengan ketentuan,</p>
+                          <p><b>Jika anda menolak,</b> silahkan pilih batalkan perbaikan, dan jemput barang anda di mitra</p>
+                          <p><b>Jika anda menerima,</b> silahkan pilih terima pengajuan dan tunggu mitra menyelesaikan perbaikannya</p>
+                          <p style="margin-bottom: 10%;">Terimakasih</p>
+                          <div class="container-fluid">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <button class="btn btn-sm btn-success" @click="terima_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)" style="width: 100%;"> Terima Pengajuan </button>
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <button class="btn btn-sm btn-danger" @click="tolak_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id)" style="width: 100%;"> Batalkan Pengajuan </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                        </div>
+                        <!-- end of modal content -->
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -324,10 +329,15 @@
                 perbaikan: 'menu-open',
                 perbaikann: 'active'
             },
+            notifikasi: null,
             pelanggan: null,
             perbaikan: null,
             perbaikan_terhenti: null,
             myfile: null,
+            tambah_harga_data: {
+                perbaikan: null,
+                notifikasi: null
+            },
             showDetailPerbaikan: null,
             showDetailMitra: null,
             button_modal: {
@@ -342,6 +352,7 @@
         mounted() {
             this.getData()
             this.getPerbaikan()
+            this.getNotifikasi()
         },
         methods: {
             getData() {
@@ -362,14 +373,63 @@
                         this.perbaikan_terhenti = response.data
                     })
             },
+            warning: function (message) {
+                setTimeout(function () {
+                  toastr.warning(
+                    message
+                    );
+                }, 10);
+              },
+              success: function (success) {
+                setTimeout(function () {
+                  toastr.success(
+                    success
+                    );
+                }, 10);
+              },
+              error: function (error) {
+                setTimeout(function () {
+                  toastr.error(
+                    error
+                    );
+                }, 10);
+              },
+            getNotifikasi(){
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                .then(response => {
+                    this.notifikasi = response.data
+                })
+            },
+            getNotifikasiTanggal(value){
+                return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+            },
             modal_detail_perbaikan(value) {
                 this.showDetailPerbaikan = value
+                axios.post
             },
             modal_detail_mitra(value) {
                 this.showDetailMitra = value
                 setTimeout(() => {
                     this.maps()
                 }, 200);
+            },
+            tambah_harga_pesan(value){
+                this.tambah_harga_data.perbaikan = value
+                axios.get('/api/notifikasi/perbaikan/' + value._id + '/t/tambah_harga')
+                .then(response => {
+                    this.tambah_harga_data.notifikasi = response.data[0]
+                })
+            },
+            maps() {
+                var map = L.map('map').setView([vm.showDetailMitra.data_pelanggan[0].lat, vm
+                    .showDetailMitra.data_pelanggan[0].lng
+                ], 17);
+                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                var marker = L.marker([vm.showDetailMitra.data_pelanggan[0].lat, vm
+                    .showDetailMitra.data_pelanggan[0].lng]).addTo(map);
+                marker.bindPopup(vm.perbaikan.data_pelanggan[0].nama_usaha).openPopup();
             },
             tanggal(tanggal) {
                 return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
@@ -422,17 +482,34 @@
                 }
                 return this.choosedPerbaikan = value
             },
-            maps() {
-                var map = L.map('map').setView([vm.showDetailMitra.data_pelanggan[0].lat, vm
-                    .showDetailMitra.data_pelanggan[0].lng
-                ], 17);
-                L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-                var marker = L.marker([vm.perbaikan.data_pelanggan[0].lat, vm.perbaikan
-                    .data_pelanggan[0].lng
-                ]).addTo(map);
-                marker.bindPopup(vm.perbaikan.data_pelanggan[0].nama_usaha).openPopup();
+            terima_harga_naik(idPerbaikan, idNotifikasi, value){
+            axios.post('/api/notifikasi/dibaca/' + idNotifikasi)
+            .then(() => {
+                axios.post('/api/notifikasi/pelanggan', {
+                    mitra: value.mitra,
+                    pelanggan: '<%= email %>',
+                    perbaikan: idPerbaikan,
+                    jenis: 'dari_pelanggan',
+                    keterangan: 'terima_harga_naik',
+                    tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+                    barang: 'laptop'
+                })
+                axios.post('/api/perbaikan/mitra/' + idPerbaikan + '/update_status_only', {
+                  status : 'Sedang Diperbaiki'
+                 }).then(response => {
+                  $('#modal_tambah_harga').modal('toggle');
+                    if (response.data.status == "success") {
+                      this.success(response.data.message);
+                      this.getPerbaikan()
+                      this.getNotifikasi
+                    } else if (response.data.status == "error") {
+                      this.error(response.data.message);
+                    }
+                 })
+            })
+            },
+            tolak_harga_naik(idPerbaikan, idNotifikasi){
+                console.log(idPerbaikan + ' ' + idNotifikasi)
             }
         }
 

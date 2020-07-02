@@ -233,6 +233,24 @@ exports.putPerbaikanMitra = (req, res) => {
 	            message: "Gagal!",
 	        });
 	    });
+	}else if (req.params.keterangan === 'update_status_only') {
+		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+			status: req.body.status
+		}
+		}).then((response) => {
+	        res.send({
+	            response: response,
+	            status: "success",
+	            message: "Berhasil",
+	        });
+	    })
+	    .catch((err) => {
+	        res.send({
+	            response: err,
+	            status: "error",
+	            message: "Gagal!",
+	        });
+	    });
 	}
 }
 

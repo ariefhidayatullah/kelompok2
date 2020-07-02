@@ -36,12 +36,29 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell" style="font-size: 150%;"></i>
-                        <span class="jml_pesan_baru"></span>
+                        <span v-if="notifikasi" class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span> pesan baru
-                            untuk</span>
-                        <div class="dropdown-divider notif_atas"></div>
+                        <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span>Pemberitahuan</span>
+                        <div v-for="value in notifikasi">
+                        <div v-if="value.jenis === 'diskon'">
+                        <div class="dropdown-divider"></div>
+                          <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
+                            <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                            <i class="fa fa-smile mr-2"></i>
+                            Anda Mendapatkan Diskon! :)
+                          </a>
+                          <div class="dropdown-divider"></div>
+                        </div>
+                          <div v-if="value.jenis === 'tambah_harga'">
+                        <div class="dropdown-divider"></div>
+                          <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
+                          <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                            <i class="fa fa-question mr-2"></i>
+                            Perbaikan Terhenti Karena..
+                          </a>
+                          <div class="dropdown-divider"></div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -136,8 +153,8 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="/Pelanggan/notifikasi" class="nav-link">
-                                <i class="nav-icon fas fa-map"></i>
+                            <a href="/pelanggan/notifikasi" class="nav-link">
+                                <i class="nav-icon far fa-bell"></i>
                                 <p>
                                     Notifikasi
                                 </p>

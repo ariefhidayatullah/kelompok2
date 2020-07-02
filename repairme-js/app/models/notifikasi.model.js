@@ -6,7 +6,10 @@ const NotifikasiSchema = mongoose.Schema({
     perbaikan: String,
     jenis: String,
     keterangan: String,
-    keterangan_mitra: String
+    keterangan_mitra: String,
+    dibaca: String,
+    tanggal: String,
+    barang: String
 }, {
     timestamps: true
 });

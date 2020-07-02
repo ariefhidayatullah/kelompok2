@@ -1,7 +1,8 @@
-<%- include('templates/header') -%>
-<%- include('templates/footer') -%>
+<%- include('../templates/header') -%>
+<%- include('../templates/footer') -%>
+
 <script>
-    var vm = new Vue({
+	 var vm = new Vue({
 
         el: "#app",
         data: {
@@ -24,6 +25,27 @@
                     this.pelanggan = response.data;
                 })
             },
+            warning: function (message) {
+		        setTimeout(function () {
+		          toastr.warning(
+		            message
+		            );
+		        }, 10);
+		      },
+		      success: function (success) {
+		        setTimeout(function () {
+		          toastr.success(
+		            success
+		            );
+		        }, 10);
+		      },
+		      error: function (error) {
+		        setTimeout(function () {
+		          toastr.error(
+		            error
+		            );
+		        }, 10);
+		      },
             getNotifikasi(){
                 axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
                 .then(response => {
