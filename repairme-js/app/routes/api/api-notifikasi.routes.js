@@ -9,6 +9,7 @@ module.exports = (app, express) => {
     router.get('/jenis/:jenis/:id/:status', notifikasi.findByStatus);
     router.post('/', notifikasi.newNotifikasi);
     router.post('/pelanggan', notifikasi.newNotifikasiPelanggan);
-    router.post('/dibaca/:id', notifikasi.changeStatus)
+    router.post('/dibaca/:id', notifikasi.changeStatus);
+    router.put('/delete/:id', notifikasi.deleteNotifikasi);
     app.use('/api/notifikasi', router);
 }

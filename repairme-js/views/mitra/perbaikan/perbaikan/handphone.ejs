@@ -38,13 +38,14 @@
             <tr v-for="(value, index) in perbaikan">
               <td> {{ index + 1 }}</td>
               <td>
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)"> {{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
+                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
               </td>
               <td>
                 {{ value.voucher }}
               </td>
               <td>
-                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Ubah</button>
+                <button class="btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Ubah</button>
+                <button v-for="value2 in notifikasi" v-if="value2.perbaikan === value._id" class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#modal_notifikasi" @click="lihatPesan(value, value2)">Lihat Pesan</button>
               </td>
             </tr>
           </tbody>
@@ -68,20 +69,20 @@
             </tr>
           </thead>
           <tbody>
-              <tr v-for="(value, index) in perbaikan_terhenti">
-                <td>{{ index + 1 }}</td>
-                <td>
-                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
-                </td>
-                <td> {{ value.voucher }}</td>
-                <td><button class="btn btn-block btn-warning btn-sm" disabled>Menunggu Persetujuan</button></td>
-              </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.card-body -->
-    </div>
-  </section>
+            <tr v-for="(value, index) in perbaikan_terhenti">
+              <td>{{ index + 1 }}</td>
+              <td>
+               <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal" data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}, {{ value.data_pelanggan[0].nama.toUpperCase() }}</button>
+             </td>
+             <td> {{ value.voucher }}</td>
+             <td><button class="btn btn-block btn-warning btn-sm" disabled>Menunggu Persetujuan</button></td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <!-- /.card-body -->
+   </div>
+ </section>
 </div>
 <!-- ============= END OF CONTENT ================= -->
 
@@ -97,59 +98,59 @@
           <div v-if="showDetailPerbaikan !== null" class="card-body">
            <!-- modal content -->
            <div class="container-fluid">
-              <table class="table table-condensed">
-            <tr class="bg-gray-dark color-palette">
-              <th colspan="2" style="text-align: center;">
-                <strong>Informasi Perbaikan</strong>
-              </th>
-            </tr>
-            <tr>
-              <td style="width: 30%;">Merk</td>
-              <td> {{ showDetailPerbaikan.merk.toUpperCase() }} </td>
-            </tr>
-            <tr>
-              <td>Tipe</td>
-              <td> {{ showDetailPerbaikan.tipe }} </td>
-            </tr>
-            <tr>
-              <td>Kerusakan</td>
-              <td>  {{ showDetailPerbaikan.kerusakan }} </td>
-            </tr>
-            <tr>
-              <td>Keterangan Lain</td>
-              <td> {{ showDetailPerbaikan.keterangan_lain }} </td>
-            </tr>
-          </table>
-          <table class="table table-condensed">
-            <tr class="bg-gray-dark color-palette">
-              <th colspan="2" style="text-align: center;">
-                <strong>Data Pelanggan</strong>
-              </th>
-            </tr>
-            <tr>
-              <td style="width: 30%;">Nama</td>
-              <td>  {{ showDetailPerbaikan.data_pelanggan[0].nama.toUpperCase() }} </td>
-            </tr>
-            <tr>
-              <td>Diajukan</td>
-              <td> {{ tanggal(showDetailPerbaikan.tanggal) }} </td>
-            </tr>
-          </table>
-          <table class="table table-condensed">
-            <tr class="bg-gray-dark color-palette">
-              <th colspan="2" style="text-align: center;">
-                <strong>Data Lain</strong>
-              </th>
-            </tr>
-            <tr>
-              <td style="width: 30%;">Harga</td>
-              <td> {{ showDetailPerbaikan.harga }}</td>
-            </tr>
-            <tr>
-              <td style="width: 30%;">Keterangan Mitra</td>
-              <td> {{ showDetailPerbaikan.keterangan_mitra }} </td>
-            </tr>
-          </table>
+            <table class="table table-condensed">
+              <tr class="bg-gray-dark color-palette">
+                <th colspan="2" style="text-align: center;">
+                  <strong>Informasi Perbaikan</strong>
+                </th>
+              </tr>
+              <tr>
+                <td style="width: 30%;">Merk</td>
+                <td> {{ showDetailPerbaikan.merk.toUpperCase() }} </td>
+              </tr>
+              <tr>
+                <td>Tipe</td>
+                <td> {{ showDetailPerbaikan.tipe }} </td>
+              </tr>
+              <tr>
+                <td>Kerusakan</td>
+                <td>  {{ showDetailPerbaikan.kerusakan }} </td>
+              </tr>
+              <tr>
+                <td>Keterangan Lain</td>
+                <td> {{ showDetailPerbaikan.keterangan_lain }} </td>
+              </tr>
+            </table>
+            <table class="table table-condensed">
+              <tr class="bg-gray-dark color-palette">
+                <th colspan="2" style="text-align: center;">
+                  <strong>Data Pelanggan</strong>
+                </th>
+              </tr>
+              <tr>
+                <td style="width: 30%;">Nama</td>
+                <td>  {{ showDetailPerbaikan.data_pelanggan[0].nama.toUpperCase() }} </td>
+              </tr>
+              <tr>
+                <td>Diajukan</td>
+                <td> {{ tanggal(showDetailPerbaikan.tanggal) }} </td>
+              </tr>
+            </table>
+            <table class="table table-condensed">
+              <tr class="bg-gray-dark color-palette">
+                <th colspan="2" style="text-align: center;">
+                  <strong>Data Lain</strong>
+                </th>
+              </tr>
+              <tr>
+                <td style="width: 30%;">Harga</td>
+                <td> {{ showDetailPerbaikan.harga }}</td>
+              </tr>
+              <tr>
+                <td style="width: 30%;">Keterangan Mitra</td>
+                <td> {{ showDetailPerbaikan.keterangan_mitra }} </td>
+              </tr>
+            </table>
           </div>
           <!-- end of modal content -->
         </div>
@@ -161,7 +162,7 @@
 </div>
 <!-- !modal -->
 
- <div class="modal fade" id="ubah_perbaikan" tabindex="-1" role="dialog" aria-labelledby="ubah_perbaikan" aria-hidden="true">
+<div class="modal fade" id="ubah_perbaikan" tabindex="-1" role="dialog" aria-labelledby="ubah_perbaikan" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
@@ -171,29 +172,29 @@
           </div>
           <div class="card-body">
             <div class="row">
-            <!-- ================ CARD PERSENTASE =============== -->
-             <div v-show="button_modal.awal && !button_modal.ubah_data" class="col-sm-12 mb-5">
+              <!-- ================ CARD PERSENTASE =============== -->
+              <div v-show="button_modal.awal && !button_modal.ubah_data" class="col-sm-12 mb-5">
                <code><p>Persentase Hari Pengerjaan</p></code>
-                <div class="progress progress-sm active">
-                  <div ref="progress_waktu" class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" >
-                    <span ref="text_persentase_waktu"></span>
-                  </div>
+               <div class="progress progress-sm active">
+                <div ref="progress_waktu" class="progress-bar bg-success progress-bar-striped persentase_waktu" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" >
+                  <span ref="text_persentase_waktu"></span>
                 </div>
-                <table class="table table-bordered" style="margin-top: 10px;">
-                  <tr>
-                    <td>Berakhir Pada</td>
-                    <td ref="sisa_hari"></td>
-                  </tr>
-                  <tr>
-                    <td>Diajukan</td>
-                    <td ref="diajukan_pada"></td>
-                  </tr>
-                  <tr>
-                    <td>Berakhir Pada</td>
-                    <td ref="berakhir_pada"></td>
-                  </tr>
-                  </table>
-             </div>
+              </div>
+              <table class="table table-bordered" style="margin-top: 10px;">
+                <tr>
+                  <td>Berakhir Pada</td>
+                  <td ref="sisa_hari"></td>
+                </tr>
+                <tr>
+                  <td>Diajukan</td>
+                  <td ref="diajukan_pada"></td>
+                </tr>
+                <tr>
+                  <td>Berakhir Pada</td>
+                  <td ref="berakhir_pada"></td>
+                </tr>
+              </table>
+            </div>
             <!-- ================== END OF CARD ============ -->
 
             <button v-if="button_modal.awal" class="btn btn-dark col-sm-5" type="button" style="margin: auto;" @click="ubah_keterangan">Ubah Keterangan
@@ -215,20 +216,20 @@
               </div>
               <div class="card-body container-fluid">
                 <div class="row">
-                <div class="form-group col-sm-12">
-                <div class="form-group col-sm-12">
-                  <code>Keterangan Mitra: {{ choosedPerbaikan.keterangan_mitra }}</code>
-                  <br>
-                  <br>
-                  <label>Keterangan Baru Mitra: </label>
-                  <input class="form-control" type="text" v-model="newKeterangan.keterangan">
-                </div>
-                  <div v-if="newKeterangan.keterangan" class="form-group mt-20 col-sm-12">
-                    <button @click="postData('ubah_keterangan')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                  <div class="form-group col-sm-12">
+                    <div class="form-group col-sm-12">
+                      <code>Keterangan Mitra: {{ choosedPerbaikan.keterangan_mitra }}</code>
+                      <br>
+                      <br>
+                      <label>Keterangan Baru Mitra: </label>
+                      <input class="form-control" type="text" v-model="newKeterangan.keterangan">
+                    </div>
+                    <div v-if="newKeterangan.keterangan" class="form-group mt-20 col-sm-12">
+                      <button @click="postData('ubah_keterangan')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
 
             <!-- =============== CARD DISKON ============ -->
@@ -238,39 +239,39 @@
               </div>
               <div class="card-body container-fluid">
                 <div class="row">
-                <div class="card_diskon mt-20 col-sm-12">
-                  <div class="form-group mt-20">
-                    <select class="form-control col-sm-12" ref="option_diskon" @click="selectDiskon">
-                      <option selected disabled>Persentase Diskon</option>
-                      <option>Input Harga Manual</option>
-                      <option>3%</option>
-                      <option>5%</option>
-                      <option>10%</option>
-                      <option>20%</option>
-                      <option>30%</option>
-                      <option>40%</option>
-                      <option>50%</option>
-                      <option>60%</option>
-                      <option>70%</option>
-                    </select>
+                  <div class="card_diskon mt-20 col-sm-12">
+                    <div class="form-group mt-20">
+                      <select class="form-control col-sm-12" ref="option_diskon" @click="selectDiskon">
+                        <option selected disabled>Persentase Diskon</option>
+                        <option>Input Harga Manual</option>
+                        <option>3%</option>
+                        <option>5%</option>
+                        <option>10%</option>
+                        <option>20%</option>
+                        <option>30%</option>
+                        <option>40%</option>
+                        <option>50%</option>
+                        <option>60%</option>
+                        <option>70%</option>
+                      </select>
+                    </div>
+                    <div v-show="button_modal.choosedDiskon === 'Input Harga Manual'" class="form-group mt-20">
+                      <input class="form-control" ref="ref_diskonManual" @keyup="diskonManual" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Masukkan Harga Rupiah" id="diskonManual" max="10">
+                      <label ref="peringatan_diskon_manual" style="color: red;"></label>
+                    </div>
                   </div>
-                  <div v-show="button_modal.choosedDiskon === 'Input Harga Manual'" class="form-group mt-20">
-                    <input class="form-control" ref="ref_diskonManual" @keyup="diskonManual" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." placeholder="Masukkan Harga Rupiah" id="diskonManual" max="10">
-                  <label ref="peringatan_diskon_manual" style="color: red;"></label>
+                  <div v-if="button_modal.choosedDiskon !== null" class="form-group col-sm-12" ref="modal_diskon_harga_awal">
+                    <label>Harga Awal : </label>
+                    <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
                   </div>
-                </div>
-                <div v-if="button_modal.choosedDiskon !== null" class="form-group col-sm-12" ref="modal_diskon_harga_awal">
-                  <label>Harga Awal : </label>
-                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
-                </div>
-                <div v-show="newDiskon.harga" class="form-group col-sm-12">
-                  <label for="harga_akhir_diskon">Harga Akhir Adalah: </label>
-                  <input id="harga_akhir_diskon" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newDiskon.harga" disabled>
-                </div>
-                <div v-if="newDiskon.harga" class="form-group col-sm-12">
-                  <label for="harga_akhir_diskon">Keterangan Diskon: </label>
-                  <input v-model="newDiskon.keterangan" class="form-control" type="text">
-                </div>
+                  <div v-show="newDiskon.harga" class="form-group col-sm-12">
+                    <label for="harga_akhir_diskon">Harga Akhir Adalah: </label>
+                    <input id="harga_akhir_diskon" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newDiskon.harga" disabled>
+                  </div>
+                  <div v-if="newDiskon.harga" class="form-group col-sm-12">
+                    <label for="harga_akhir_diskon">Keterangan Diskon: </label>
+                    <input v-model="newDiskon.keterangan" class="form-control" type="text">
+                  </div>
                   <div v-if="newDiskon.keterangan" class="form-group mt-20 col-sm-12">
                     <button @click="postData('diskon')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
                   </div>
@@ -284,23 +285,23 @@
               </div>
               <div class="card-body container-fluid">
                 <div class="row">
-                <div class="form-group col-sm-12">
-                  <label for="harga_tambah">Jumlah Harga Yang Ingin Ditambah: </label>
-                  <input @keypress="tambahHargaInput" @keyup= "tambahHargaInput" @click="tambahHargaInput" id="harga_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." ref="inputTambahHarga">
-                  <label class="mt-20" ref="peringatan_harga" style="color: red;"></label>
-                </div>
-                <div class="form-group col-sm-12" ref="modal_tambah_harga_awal">
-                  <label>Harga Awal : </label>
-                  <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
-                </div>
-                <div v-show="newHarga.harga" class="form-group col-sm-12">
-                  <label for="harga_akhir_tambah">Harga Akhir Adalah: </label>
-                  <input id="harga_akhir_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newHarga.harga" disabled>
-                </div>
-                <div v-if="newHarga.harga" class="form-group col-sm-12">
-                  <label>Keterangan Penambahan: </label>
-                  <input v-model="newHarga.keterangan" class="form-control" type="text">
-                </div>
+                  <div class="form-group col-sm-12">
+                    <label for="harga_tambah">Jumlah Harga Yang Ingin Ditambah: </label>
+                    <input @keypress="tambahHargaInput" @keyup= "tambahHargaInput" @click="tambahHargaInput" id="harga_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." ref="inputTambahHarga">
+                    <label class="mt-20" ref="peringatan_harga" style="color: red;"></label>
+                  </div>
+                  <div class="form-group col-sm-12" ref="modal_tambah_harga_awal">
+                    <label>Harga Awal : </label>
+                    <input class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." disabled :value="choosedPerbaikan.harga">
+                  </div>
+                  <div v-show="newHarga.harga" class="form-group col-sm-12">
+                    <label for="harga_akhir_tambah">Harga Akhir Adalah: </label>
+                    <input id="harga_akhir_tambah" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." :value="newHarga.harga" disabled>
+                  </div>
+                  <div v-if="newHarga.harga" class="form-group col-sm-12">
+                    <label>Keterangan Penambahan: </label>
+                    <input v-model="newHarga.keterangan" class="form-control" type="text">
+                  </div>
                   <div v-if="newHarga.keterangan !== null" class="form-group mt-20 col-sm-12">
                     <button @click="postData('tambah_harga')" class="btn btn-block btn-outline-success btn-sm" type="button" style="width: 100%;">SIMPAN</button>
                   </div>
@@ -308,345 +309,418 @@
               </div>
             </div>
             <template>
-               <input id="harga_akhir" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." hidden>
-            </template>
+             <input id="harga_akhir" class="form-control" type="text" data-a-sign="Rp. " data-a-dec="," data-a-sep="." hidden>
+           </template>
 
+         </div>
+       </div>
+       <!-- /.card-body -->
+     </div>
+   </div>
+ </div>
+</div>
+</div>
+<!-- !modal -->
+<div class="modal fade" id="modal_notifikasi">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+          <div class="card-header">
+            <h3 class="card-title">Baca Pesan</h3>
           </div>
+          <div v-if="dataModal" class="card-body">
+            <!-- modal content -->
+            <div class="mailbox-read-info">
+                <div class="mailbox-read-info">
+                <p>Dari {{ dataModal.perbaikan.pelanggan }},
+                    untuk {{ dataModal.perbaikan.mitra }} <span class="badge badge-success float-right">{{ getNotifikasiTanggal(dataModal.notifikasi.tanggal) }}</span></p>
+                </div>
+                <div class="mailbox-read-message">
+                    <p>Halo, Pelanggan ini menerima permintaan penambahan harga yang anda ajukan.</p>
+                    <p>Terimakasih dan <b>Semangat</b></p>
+                    <p>Silahkan klik <b style="color: green;">Lanjut Perbaikan</b> untuk menghilangkan pesan ini.</p>
+                </div>
+              </div>
+              <button class="btn btn-sm btn-success" @click="deleteNotifikasi(dataModal.notifikasi._id)" style="width: 100%;"> Lanjut Perbaikan </button>
+              <!-- end of modal content -->
+            </div>
           </div>
-          <!-- /.card-body -->
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- !modal -->
+  <%- include('../../templates/footer') -%>
 
-<%- include('../../templates/footer') -%>
+  <script>
+    var vm = new Vue({
 
-<script>
-  var vm = new Vue({
-
-    el: "#app",
-    data: {
-      sidebar_menu:{
-        perbaikan: 'menu-open',
-        perbaikan_utama: 'active'
-      },
-      mitra: null,
-      perbaikan: null,
-      perbaikan_terhenti: null,
-      myfile: null,
-      showDetailPerbaikan: null,
-      button_modal: {
-        ubah_keterangan: false,
-        ubah_data: false,
-        awal: true,
-        tambah_harga: false,
-        diskon: false,
-        choosedDiskon: null,
-        hargaAkhir: null
-      },
-      choosedPerbaikan: null,
-      newDiskon: {
-        harga: null,
-        jumlahDiskon: null,
-        keterangan: null
-      },
-      newHarga: {
-        harga: null,
-        jumlahNaik: null,
-        keterangan: null
-      },
-      newKeterangan: {
-        keterangan: null
-      }
-    },
-    mounted(){
-      this.getData()
-      this.getPerbaikan()
-    },
-    methods:{
-      getData(){
-        axios({
-          method: 'get',
-          url: '/api/mitra/' + '<%= email %>'
-        }).then(response => {
-          this.mitra = response.data;
-        })
-      },
-      getPerbaikan(){
-        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Sedang Diperbaiki/handphone')
-        .then(response => {
-          this.perbaikan = response.data
-        })
-        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Dihentikan Sementara/handphone')
-        .then(response => {
-          this.perbaikan_terhenti = response.data
-        })
-      },
-      warning: function (message) {
-        setTimeout(function () {
-          toastr.warning(
-            message
-            );
-        }, 10);
-      },
-      success: function (success) {
-        setTimeout(function () {
-          toastr.success(
-            success
-            );
-        }, 10);
-      },
-      error: function (error) {
-        setTimeout(function () {
-          toastr.error(
-            error
-            );
-        }, 10);
-      },
-      modal_detail_perbaikan(value){
-        this.showDetailPerbaikan = value
-      },
-      tanggal(tanggal){
-        return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
-      },
-      ubah_keterangan(){
-        this.button_modal.tambah_harga = false
-        this.button_modal.diskon = false
-        this.button_modal.ubah_data = false
-        this.newDiskon = {
-          harga: null,
-          jumlahDiskon: null,
-          keterangan: null
-        }
-        this.newHarga = {
-          harga: null,
-          jumlahNaik: null,
-          keterangan: null
-        }
-        return this.button_modal.ubah_keterangan = !this.button_modal.ubah_keterangan
-      },
-      funcUbahData(){
-        this.button_modal.ubah_keterangan = false
-        this.button_modal.tambah_harga = false
-        this.button_modal.diskon = false
-        this.keterangan = {
-          keterangan: null
-        }
-        return this.button_modal.ubah_data = !this.button_modal.ubah_data
-      },
-      funcDiskon(){
-        this.button_modal.ubah_keterangan = false
-        this.button_modal.tambah_harga = false
-        this.button_modal.diskon = !this.button_modal.diskon
-        this.newDiskon = {
-          harga: null,
-          jumlahDiskon: null,
-          keterangan: null
-        }
-        this.newHarga = {
-          harga: null,
-          jumlahNaik: null,
-          keterangan: null
-        }
-      },
-      funcTambahHarga(){
-        this.button_modal.ubah_keterangan = false
-        this.button_modal.tambah_harga = !this.button_modal.tambah_harga
-        this.button_modal.diskon = false
-        this.newDiskon = {
-          harga: null,
-          jumlahDiskon: null,
-          keterangan: null
-        }
-        this.newHarga = {
-          harga: null,
-          jumlahNaik: null,
-          keterangan: null
-        }
-      },
-      selectDiskon(){
-        $('#harga_akhir').autoNumeric('destroy');
-        const choosed = this.$refs.option_diskon.value
-        this.button_modal.choosedDiskon = choosed
-        if (choosed !== 'Input Harga Manual') {
-          $('#harga_akhir_diskon').autoNumeric('destroy');
-          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
-          const diskon =  (harga * parseInt(this.button_modal.choosedDiskon)) / 100
-          const harga_akhir = harga - diskon;
-          $('#harga_akhir').val(harga_akhir);
-          $('#harga_akhir').autoNumeric('init');
-          this.newDiskon.harga = $('#harga_akhir').val();
-          this.newDiskon.jumlahDiskon = choosed
-        }else{
-          $('#diskonManual').autoNumeric('init');
-          this.newDiskon.harga = null
-        }
-      },
-      diskonManual(){
-        $('#harga_akhir').autoNumeric('destroy');
-        let variable = this.$refs.ref_diskonManual.value.split('Rp. ')[1].split('.').join('')
-        const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
-        if(variable.length <= 3){
-          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
-          this.newDiskon.harga = null
-        }else if(parseInt(variable) >= parseInt(harga)){
-          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
-          this.newDiskon.harga = null
-        }else if (variable.length >= 10) {
-          this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
-          this.newDiskon.harga = null
-        }else {
-          const persentase = parseInt(variable) / harga * 100
-          this.$refs.peringatan_diskon_manual.textContent = 'Persentase Diskon : ' + Math.floor(persentase) + '%'
-          let harga_akhir = (harga - parseInt(variable))
-          $('#harga_akhir').val(harga_akhir);
-          $('#harga_akhir').autoNumeric('init');
-          this.newDiskon.harga = $('#harga_akhir').val().toString();  
-          this.newDiskon.jumlahDiskon = Math.floor(persentase) + '%'
-        }
-      },
-      tambahHargaInput(){
-        $('#harga_akhir').autoNumeric('destroy');
-        $('#harga_tambah').autoNumeric('init');
-        if (this.$refs.inputTambahHarga.value) {  
-          let variable = this.$refs.inputTambahHarga.value.split('Rp. ')[1].split('.').join('')
-          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
-          let harga_akhir = (parseInt(variable) + parseInt(harga))
-          if (parseInt(variable) >= parseInt(harga)) {
-            this.$refs.peringatan_harga.textContent = 'Harga Tidak Boleh Melebihi Perkiraan Awal!'
-            this.newHarga.harga = null
-          }else if (variable.length <= 3) {
-            this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
-            this.newHarga.harga = null
-          }else if (variable.length >= 10) {
-            this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
-            this.newHarga.harga = null
-          }else{
-            this.$refs.peringatan_harga.textContent = ''
-            $('#harga_akhir').val(harga_akhir);
-            $('#harga_akhir').autoNumeric('init');
-            this.newHarga.harga = $('#harga_akhir').val();
-            this.newHarga.jumlahNaik = this.$refs.inputTambahHarga.value
-            this.$refs.peringatan_harga.textContent = 'Anda Menaikkan Harga Sebesar ' + this.$refs.inputTambahHarga.value + ', Perbaikan Akan Dihentikan Untuk Menunggu Persetujuan Pelanggan!'
-          }
-        }
-        
-      },
-      funcUbahPerbaikan(value){
-        const a = value.lama_perkiraan.split('sampai')[1]
-        const b = value.lama_perkiraan.split('sampai')[0]
-        const sisaHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment())) / 86400000)
-        const totalHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment(b, 'Do MMMM YYYY, HH:mm:ss'))) / 86400000)
-        this.$refs.sisa_hari.textContent = sisaHari + ' hari'
-        let persentase = Math.floor(sisaHari / totalHari * 100)
-        if (persentase > 50) {
-          this.$refs.progress_waktu.className = 'progress-bar bg-success progress-bar-striped'
-          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
-          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
-        }else if (persentase < 50 && persentase > 20) {
-          this.$refs.progress_waktu.className = 'progress-bar bg-warning progress-bar-striped'
-
-          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
-          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
-        }else{
-          this.$refs.progress_waktu.className = 'progress-bar bg-danger progress-bar-striped'
-
-          this.$refs.progress_waktu.style = 'width:' + persentase + '%'
-          this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
-        }
-        this.$refs.diajukan_pada.textContent = moment(b, 'Do MMMM YYYY, HH:mm:ss').fromNow()
-         + ', tanggal ' + b.split(',')[0] + ', jam ' + b.split(',')[1]
-        this.$refs.berakhir_pada.textContent = moment(a, 'Do MMMM YYYY, HH:mm:ss').fromNow()
-         + ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
-        this.button_modal = {
-          ubah_data: false,
+      el: "#app",
+      data: {
+        sidebar_menu:{
+          perbaikan: 'menu-open',
+          perbaikan_utama: 'active'
+        },
+        mitra: null,
+        perbaikan: null,
+        notifikasi: null,
+        perbaikan_terhenti: null,
+        myfile: null,
+        showDetailPerbaikan: null,
+        button_modal: {
           ubah_keterangan: false,
+          ubah_data: false,
           awal: true,
           tambah_harga: false,
           diskon: false,
           choosedDiskon: null,
           hargaAkhir: null
-        }
-        this.newDiskon = {
+        },
+        dataModal: null,
+        choosedPerbaikan: null,
+        newDiskon: {
           harga: null,
           jumlahDiskon: null,
           keterangan: null
-        }
-        this.newHarga = {
+        },
+        newHarga: {
           harga: null,
           jumlahNaik: null,
           keterangan: null
-        }
-        this.newKeterangan = {
+        },
+        newKeterangan: {
           keterangan: null
         }
-        return this.choosedPerbaikan = value
       },
-      postData(params){
-        if (params === 'diskon') {
-          axios.post('/api/notifikasi', {
+      mounted(){
+        this.getData()
+        this.getPerbaikan()
+        this.getNotifikasi()
+      },
+      methods:{
+        getData(){
+          axios({
+            method: 'get',
+            url: '/api/mitra/' + '<%= email %>'
+          }).then(response => {
+            this.mitra = response.data;
+          })
+        },
+        getPerbaikan(){
+          axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Sedang Diperbaiki/handphone')
+          .then(response => {
+            this.perbaikan = response.data
+          })
+          axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Dihentikan Sementara/handphone')
+          .then(response => {
+            this.perbaikan_terhenti = response.data
+          })
+        },
+        getNotifikasi(){
+          axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+          .then(response => {
+            this.notifikasi = response.data
+          })
+        },
+        getNotifikasiTanggal(value){
+          return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
+        lihatPesan(perbaikan, notifikasi){
+          this.dataModal = {perbaikan, notifikasi}
+        },
+        tanggal(tanggal){
+          return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
+        warning: function (message) {
+          setTimeout(function () {
+            toastr.warning(
+              message
+              );
+          }, 10);
+        },
+        success: function (success) {
+          setTimeout(function () {
+            toastr.success(
+              success
+              );
+          }, 10);
+        },
+        error: function (error) {
+          setTimeout(function () {
+            toastr.error(
+              error
+              );
+          }, 10);
+        },
+        modal_detail_perbaikan(value){
+          this.showDetailPerbaikan = value
+        },
+        tanggal(tanggal){
+          return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
+        ubah_keterangan(){
+          this.button_modal.tambah_harga = false
+          this.button_modal.diskon = false
+          this.button_modal.ubah_data = false
+          this.newDiskon = {
+            harga: null,
+            jumlahDiskon: null,
+            keterangan: null
+          }
+          this.newHarga = {
+            harga: null,
+            jumlahNaik: null,
+            keterangan: null
+          }
+          return this.button_modal.ubah_keterangan = !this.button_modal.ubah_keterangan
+        },
+        funcUbahData(){
+          this.button_modal.ubah_keterangan = false
+          this.button_modal.tambah_harga = false
+          this.button_modal.diskon = false
+          this.keterangan = {
+            keterangan: null
+          }
+          return this.button_modal.ubah_data = !this.button_modal.ubah_data
+        },
+        funcDiskon(){
+          this.button_modal.ubah_keterangan = false
+          this.button_modal.tambah_harga = false
+          this.button_modal.diskon = !this.button_modal.diskon
+          this.newDiskon = {
+            harga: null,
+            jumlahDiskon: null,
+            keterangan: null
+          }
+          this.newHarga = {
+            harga: null,
+            jumlahNaik: null,
+            keterangan: null
+          }
+        },
+        funcTambahHarga(){
+          this.button_modal.ubah_keterangan = false
+          this.button_modal.tambah_harga = !this.button_modal.tambah_harga
+          this.button_modal.diskon = false
+          this.newDiskon = {
+            harga: null,
+            jumlahDiskon: null,
+            keterangan: null
+          }
+          this.newHarga = {
+            harga: null,
+            jumlahNaik: null,
+            keterangan: null
+          }
+        },
+        selectDiskon(){
+          $('#harga_akhir').autoNumeric('destroy');
+          const choosed = this.$refs.option_diskon.value
+          this.button_modal.choosedDiskon = choosed
+          if (choosed !== 'Input Harga Manual') {
+            $('#harga_akhir_diskon').autoNumeric('destroy');
+            const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
+            const diskon =  (harga * parseInt(this.button_modal.choosedDiskon)) / 100
+            const harga_akhir = harga - diskon;
+            $('#harga_akhir').val(harga_akhir);
+            $('#harga_akhir').autoNumeric('init');
+            this.newDiskon.harga = $('#harga_akhir').val();
+            this.newDiskon.jumlahDiskon = choosed
+          }else{
+            $('#diskonManual').autoNumeric('init');
+            this.newDiskon.harga = null
+          }
+        },
+        diskonManual(){
+          $('#harga_akhir').autoNumeric('destroy');
+          let variable = this.$refs.ref_diskonManual.value.split('Rp. ')[1].split('.').join('')
+          const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
+          if(variable.length <= 3){
+            this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+            this.newDiskon.harga = null
+          }else if(parseInt(variable) >= parseInt(harga)){
+            this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+            this.newDiskon.harga = null
+          }else if (variable.length >= 10) {
+            this.$refs.peringatan_diskon_manual.textContent = 'Diskon Tidak Memenuhi Syarat!'
+            this.newDiskon.harga = null
+          }else {
+            const persentase = parseInt(variable) / harga * 100
+            this.$refs.peringatan_diskon_manual.textContent = 'Persentase Diskon : ' + Math.floor(persentase) + '%'
+            let harga_akhir = (harga - parseInt(variable))
+            $('#harga_akhir').val(harga_akhir);
+            $('#harga_akhir').autoNumeric('init');
+            this.newDiskon.harga = $('#harga_akhir').val().toString();  
+            this.newDiskon.jumlahDiskon = Math.floor(persentase) + '%'
+          }
+        },
+        tambahHargaInput(){
+          $('#harga_akhir').autoNumeric('destroy');
+          $('#harga_tambah').autoNumeric('init');
+          if (this.$refs.inputTambahHarga.value) {  
+            let variable = this.$refs.inputTambahHarga.value.split('Rp. ')[1].split('.').join('')
+            const harga = this.choosedPerbaikan.harga.split('Rp. ')[1].split('.').join('').split(',00').join('')
+            let harga_akhir = (parseInt(variable) + parseInt(harga))
+            if (parseInt(variable) >= parseInt(harga)) {
+              this.$refs.peringatan_harga.textContent = 'Harga Tidak Boleh Melebihi Perkiraan Awal!'
+              this.newHarga.harga = null
+            }else if (variable.length <= 3) {
+              this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
+              this.newHarga.harga = null
+            }else if (variable.length >= 10) {
+              this.$refs.peringatan_harga.textContent = 'Harga Tidak Valid!'
+              this.newHarga.harga = null
+            }else{
+              this.$refs.peringatan_harga.textContent = ''
+              $('#harga_akhir').val(harga_akhir);
+              $('#harga_akhir').autoNumeric('init');
+              this.newHarga.harga = $('#harga_akhir').val();
+              this.newHarga.jumlahNaik = this.$refs.inputTambahHarga.value
+              this.$refs.peringatan_harga.textContent = 'Anda Menaikkan Harga Sebesar ' + this.$refs.inputTambahHarga.value + ', Perbaikan Akan Dihentikan Untuk Menunggu Persetujuan Pelanggan!'
+            }
+          }
+
+        },
+        funcUbahPerbaikan(value){
+          const a = value.lama_perkiraan.split('sampai')[1]
+          const b = value.lama_perkiraan.split('sampai')[0]
+          const sisaHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment())) / 86400000)
+          const totalHari = Math.floor((Math.floor(moment(a, 'Do MMMM YYYY, HH:mm:ss')) - Math.floor(moment(b, 'Do MMMM YYYY, HH:mm:ss'))) / 86400000)
+          this.$refs.sisa_hari.textContent = sisaHari + ' hari'
+          let persentase = Math.floor(sisaHari / totalHari * 100)
+          if (persentase > 50) {
+            this.$refs.progress_waktu.className = 'progress-bar bg-success progress-bar-striped'
+            this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+            this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+          }else if (persentase < 50 && persentase > 20) {
+            this.$refs.progress_waktu.className = 'progress-bar bg-warning progress-bar-striped'
+
+            this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+            this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+          }else{
+            this.$refs.progress_waktu.className = 'progress-bar bg-danger progress-bar-striped'
+
+            this.$refs.progress_waktu.style = 'width:' + persentase + '%'
+            this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
+          }
+          this.$refs.diajukan_pada.textContent = moment(b, 'Do MMMM YYYY, HH:mm:ss').fromNow()
+          + ', tanggal ' + b.split(',')[0] + ', jam ' + b.split(',')[1]
+          this.$refs.berakhir_pada.textContent = moment(a, 'Do MMMM YYYY, HH:mm:ss').fromNow()
+          + ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
+          this.button_modal = {
+            ubah_data: false,
+            ubah_keterangan: false,
+            awal: true,
+            tambah_harga: false,
+            diskon: false,
+            choosedDiskon: null,
+            hargaAkhir: null
+          }
+          this.newDiskon = {
+            harga: null,
+            jumlahDiskon: null,
+            keterangan: null
+          }
+          this.newHarga = {
+            harga: null,
+            jumlahNaik: null,
+            keterangan: null
+          }
+          this.newKeterangan = {
+            keterangan: null
+          }
+          return this.choosedPerbaikan = value
+        },
+        postData(params){
+          if (params === 'diskon') {
+            axios.post('/api/notifikasi', {
               mitra: '<%= email %>',
               pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
               perbaikan: vm.choosedPerbaikan._id,
               jenis: 'diskon',
               keterangan: vm.newDiskon.jumlahDiskon,
-              keterangan_mitra: vm.newDiskon.keterangan
-         
-          }).then(() => {
-            axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_harga', {
-              harga: vm.newDiskon.harga
-            }).then(response => {
-              $('#ubah_perbaikan').modal('toggle');
+              keterangan_mitra: vm.newDiskon.keterangan,
+              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+              barang: 'handphone'
+            }).then(() => {
+              axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_harga', {
+                harga: vm.newDiskon.harga
+              }).then(response => {
+                $('#ubah_perbaikan').modal('toggle');
                 if (response.data.status == "success") {
                   this.success(response.data.message);
                   this.getPerbaikan()
                 } else if (response.data.status == "error") {
                   this.error(response.data.message);
                 }
+              })
             })
-          })
-        }else if (params === 'tambah_harga') {
-          axios.post('/api/notifikasi', {
-            mitra: '<%= email %>',
-            pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
-            perbaikan: vm.choosedPerbaikan._id,
-            jenis: 'tambah_harga',
-            keterangan: vm.newHarga.jumlahNaik,
-            keterangan_mitra: vm.newHarga.keterangan
-          }).then(() => {
-            axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/tambah_harga', {
-              status: 'Dihentikan Sementara',
-              harga: vm.newHarga.harga
-            }).then(response => {
-              $('#ubah_perbaikan').modal('toggle');
+          }else if (params === 'tambah_harga') {
+            axios.post('/api/notifikasi', {
+              mitra: '<%= email %>',
+              pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
+              perbaikan: vm.choosedPerbaikan._id,
+              jenis: 'tambah_harga',
+              keterangan: vm.newHarga.jumlahNaik,
+              keterangan_mitra: vm.newHarga.keterangan,
+              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+              barang: 'handphone'
+            }).then(() => {
+              axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/tambah_harga', {
+                status: 'Dihentikan Sementara',
+                harga: vm.newHarga.harga
+              }).then(response => {
+                $('#ubah_perbaikan').modal('toggle');
                 if (response.data.status == "success") {
                   this.success(response.data.message);
                   this.getPerbaikan()
                 } else if (response.data.status == "error") {
                   this.error(response.data.message);
                 }
+              })
+            })
+          }else if (params === 'ubah_keterangan') {
+            axios.post('/api/notifikasi', {
+              mitra: '<%= email %>',
+              pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
+              perbaikan: vm.choosedPerbaikan._id,
+              jenis: 'tambah_harga',
+              keterangan: vm.newHarga.jumlahNaik,
+              keterangan_mitra: vm.newHarga.keterangan,
+              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+              barang: 'handphone'
+            }).then(() => {
+             axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_keterangan', {
+              keterangan_mitra : vm.newKeterangan.keterangan
+            }).then(response => {
+              $('#ubah_perbaikan').modal('toggle');
+              if (response.data.status == "success") {
+                this.success(response.data.message);
+                this.getPerbaikan()
+              } else if (response.data.status == "error") {
+                this.error(response.data.message);
+              }
             })
           })
-       }else if (params === 'ubah_keterangan') {
-         axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_keterangan', {
-          keterangan_mitra : vm.newKeterangan.keterangan
-         }).then(response => {
-          $('#ubah_perbaikan').modal('toggle');
-            if (response.data.status == "success") {
-              this.success(response.data.message);
-              this.getPerbaikan()
-            } else if (response.data.status == "error") {
-              this.error(response.data.message);
-            }
-         })
-       }
-    }
-  }
-    
-    
+          }
+        },
+        deleteNotifikasi(id){
+          axios.put('/api/notifikasi/delete/' + id)
+          .then(response => {
+            $('#modal_notifikasi').modal('toggle');
+              if (response.data.status == "success") {
+                this.success(response.data.message);
+                this.getPerbaikan()
+                this.getNotifikasi()
+              } else if (response.data.status == "error") {
+                this.error(response.data.message);
+              }
+          })
+        }
+      }
 
-  })
-</script>
+
+
+    })
+  </script>
 
