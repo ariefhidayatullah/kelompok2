@@ -23,6 +23,38 @@ export default function BottomTabNavigatorAfterLoginUser({ navigation, route }) 
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
         }}
       />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
