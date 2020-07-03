@@ -173,3 +173,23 @@ exports.changeStatus = (req, res) => {
 			});
 		});
 }
+
+exports.deleteNotifikasi = (req, res) => {
+	Notifikasi.deleteOne({
+			_id: req.params.id
+		})
+		.then((response) => {
+			res.send({
+				response: response,
+				status: "success",
+				message: "Berhasil",
+			});
+		})
+		.catch((err) => {
+			res.send({
+				response: err,
+				status: "error",
+				message: "Gagal!",
+			});
+		});
+}

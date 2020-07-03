@@ -37,31 +37,35 @@
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell" style="font-size: 150%;"></i>
                         <div v-if="notifikasi">
-                        <span v-if="notifikasi.length > 0" class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
+                            <span v-if="notifikasi.length > 0"
+                                class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span>Pemberitahuan</span>
+                        <span class="dropdown-item dropdown-header"><span
+                                class="jml_pesan_baru"></span>Pemberitahuan</span>
                         <div v-for="value in notifikasi">
-                        <div v-if="value.jenis === 'diskon'">
-                        <div class="dropdown-divider"></div>
-                          <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
-                            <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
-                            <i class="fa fa-smile mr-2"></i>
-                            Anda Mendapatkan Diskon! :)
-                          </a>
-                          <div class="dropdown-divider"></div>
+                            <div v-if="value.jenis === 'diskon'">
+                                <div class="dropdown-divider"></div>
+                                <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
+                                    <span
+                                        class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                                    <i class="fa fa-smile mr-2"></i>
+                                    Anda Mendapatkan Diskon! :)
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            <div v-if="value.jenis === 'tambah_harga'">
+                                <div class="dropdown-divider"></div>
+                                <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
+                                    <span
+                                        class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                                    <i class="fa fa-question mr-2"></i>
+                                    Perbaikan Terhenti Karena..
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </div>
-                          <div v-if="value.jenis === 'tambah_harga'">
-                        <div class="dropdown-divider"></div>
-                          <a :href="'/pelanggan/perbaikan/' + value.barang" class="dropdown-item">
-                          <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
-                            <i class="fa fa-question mr-2"></i>
-                            Perbaikan Terhenti Karena..
-                          </a>
-                          <div class="dropdown-divider"></div>
-                        </div>
-                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -152,14 +156,6 @@
                             <a href="/pelanggan/profile" class="nav-link">
                                 <i class="fas fa-star nav-icon"></i>
                                 <p>Berikan Rating</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="/pelanggan/notifikasi" class="nav-link">
-                                <i class="nav-icon far fa-bell"></i>
-                                <p>
-                                    Notifikasi
-                                </p>
                             </a>
                         </li>
                     </ul>
