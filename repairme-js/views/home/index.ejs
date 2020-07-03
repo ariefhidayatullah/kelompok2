@@ -171,14 +171,14 @@
                         </div>
                     </div>
                     <div class="row multi-columns-row">
-                        <div class="col-sm-6 col-md-3 col-lg-3" v-for="(value, index) in mitra">
+                        <div class="col-sm-6 col-md-3 col-lg-3" v-for="value in mitra">
                             <div class="shop-item">
                                 <div class="shop-item-image"> <img
                                         :src="'/assets/images/mitra/foto_usaha/' + value.foto_usaha" alt="member"
                                         width="128px" height="128px">
                                     <div class="shop-item-detail"><a :href="'/perbaikan/' + value._id"
                                             class="btn btn-round btn-b"><span
-                                                class="icon-basket">{{value.nama}}</span></a>
+                                                class="icon-basket">{{value.nama_usaha}}</span></a>
                                     </div>
                                 </div>
                                 <h4 class="shop-item-title font-alt"><a href="#"></a></h4>
@@ -266,8 +266,6 @@
                 }).then(response => {
                     this.mitra = response.data;
                 })
-                this.$refs.detail_mitra_foto_usaha.src = './assets/images/mitra/foto_usaha/' + value
-                    .foto_usaha
                 this.session.email = "<%= sessionEmail %>";
             }
 
