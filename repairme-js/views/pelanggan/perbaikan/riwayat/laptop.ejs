@@ -1,0 +1,71 @@
+<%- include('../../templates/header') -%>
+
+<!-- ============= CONTENT ================= -->
+
+
+<%- include('../../templates/footer') -%>
+
+<script>
+    var vm = new Vue({
+
+        el: "#app",
+        data: {
+            sidebar_menu: {
+                perbaikan: 'menu-open',
+                riwayat: 'active'
+            },
+            pelanggan: null,
+            perbaikan: null,
+            notifikasi: null
+        },
+        mounted() {
+            this.getData()
+            this.getPerbaikan()
+            this.getNotifikasi()
+        },
+        methods: {
+            getData() {
+                axios({
+                    method: 'get',
+                    url: '/api/pelanggan/' + '<%= email %>'
+                }).then(response => {
+                    this.pelanggan = response.data;
+                })
+            },
+            getPerbaikan() {
+                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Riwayat/laptop')
+                    .then(response => {
+                        this.perbaikan = response.data
+                    })
+            },
+            getNotifikasi() {
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                    .then(response => {
+                        this.notifikasi = response.data
+                    })
+            },
+            warning: function (message) {
+                setTimeout(function () {
+                    toastr.warning(
+                        message
+                    );
+                }, 10);
+            },
+            success: function (success) {
+                setTimeout(function () {
+                    toastr.success(
+                        success
+                    );
+                }, 10);
+            },
+            error: function (error) {
+                setTimeout(function () {
+                    toastr.error(
+                        error
+                    );
+                }, 10);
+            }
+        }
+
+    })
+</script>
