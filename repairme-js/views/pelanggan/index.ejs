@@ -8,15 +8,31 @@
             sidebar_menu: {
                 beranda: 'active'
             },
+            notifikasi: null,
             pelanggan: null
         },
         mounted() {
-            axios({
-                method: 'get',
-                url: '/api/pelanggan/' + '<%= email %>'
-            }).then(response => {
-                this.pelanggan = response.data;
-            })
+            this.getData()
+            this.getNotifikasi()
+        },
+        methods: {
+            getData(){
+                axios({
+                    method: 'get',
+                    url: '/api/pelanggan/' + '<%= email %>'
+                }).then(response => {
+                    this.pelanggan = response.data;
+                })
+            },
+            getNotifikasi(){
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                .then(response => {
+                    this.notifikasi = response.data
+                })
+            },
+            getNotifikasiTanggal(value){
+                return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+            },
         }
 
     })

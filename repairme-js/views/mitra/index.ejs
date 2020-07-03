@@ -8,6 +8,7 @@
         sidebar_menu:{
           beranda: 'active'
         },
+        notifikasi: null,
         mitra: null,
         myfile: null,
         mydata: 'wkwk1'
@@ -19,8 +20,19 @@
         }).then(response => {
           this.mitra = response.data;
         })
+        this.getNotifikasi()
 
-
+      },
+      methods: {
+        getNotifikasi(){
+            axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+            .then(response => {
+                this.notifikasi = response.data
+            })
+        },
+        getNotifikasiTanggal(value){
+            return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
       }
       
     })

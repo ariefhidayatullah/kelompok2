@@ -30,33 +30,37 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto mr-3">
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="">
-              <i class="far fa-bell" style="font-size: 150%;"></i>
-              <span class="badge badge-warning navbar-badge">15</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span class="dropdown-item dropdown-header">15 Notifications</span>
-              <div class="dropdown-divider"></div>
-              <a href="" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="" class="dropdown-item">
-                <i class="fas fa-users mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-          </li>
-        </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell" style="font-size: 150%;"></i>
+                        <div v-if="notifikasi">
+                        <span v-if="notifikasi.length > 0" class="badge badge-warning navbar-badge">{{ notifikasi.length }}</span>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header"><span class="jml_pesan_baru"></span>Pemberitahuan</span>
+                        <div v-for="value in notifikasi">
+                        <div v-if="value.jenis === 'terima_harga_naik'">
+                        <div class="dropdown-divider"></div>
+                          <a :href="'/mitra/perbaikan/' + value.barang" class="dropdown-item">
+                            <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                            <i class="fa fa-smile mr-2"></i>
+                            Tambah Harga Diterima! :)
+                          </a>
+                          <div class="dropdown-divider"></div>
+                        </div>
+                        <div v-if="value.jenis === 'tolak_harga_naik'">
+                        <div class="dropdown-divider"></div>
+                          <a :href="'/mitra/perbaikan/' + value.barang" class="dropdown-item">
+                            <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                            <i class="fa fa-circle-notch mr-2"></i>
+                            Perbaikan Dibatalkan!
+                          </a>
+                          <div class="dropdown-divider"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="fa fa-sign-out-alt" style="font-size: 150%;" href="/logout"></a>
@@ -121,19 +125,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/mitra/batalperbaikan" class="nav-link" ref="sidebar_perbaikan_dibatalkan">
+              <a href="/mitra/dibatalkan" :class="'nav-link ' + sidebar_menu.dibatalkan" data-toggle="modal" data-target="#sidebar_modal_dibatalkan">
                 <i class="fa fa-circle-notch nav-icon"></i>
                 <p>Perbaikan Dibatalkan</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/mitra/selesaiperbaikan" class="nav-link" ref="sidebar_barang_selesai">
+              <a href="/mitra/selesai" :class="'nav-link ' + sidebar_menu.barang_selesai">
                 <i class="fa fa-check-circle nav-icon"></i>
                 <p>Barang Selesai Di Perbaiki</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/mitra/riwayatperbaikan" class="nav-link" ref="sidebar_riwayat_perbaikan">
+              <a href="/mitra/riwayat" :class="'nav-link ' + sidebar_menu.riwayat">
                 <i class="fa fa-file nav-icon"></i>
                 <p>Riwayat Perbaikan</p>
               </a>
@@ -203,5 +207,27 @@
         </div>
       </div>
       <!-- !modal -->
-
+        <!-- ==== MODAL ==== -->
+      <div class="modal fade" id="sidebar_modal_dibatalkan" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                <div class="card-header">
+                  <h3 class="card-title">Pilih Perbaikan</h3>
+                </div>
+                <div class="card-body">
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/dibatalkan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+                  
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/dibatalkan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                  
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- !modal -->
     </div>
