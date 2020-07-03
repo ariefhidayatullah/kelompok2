@@ -44,7 +44,16 @@
                 {{ value.voucher }}
               </td>
               <td>
-                <button class="btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Ubah</button>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <button class="btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Ubah</button>
+                    </div>
+                    <div class="col-sm-6">
+                      <button class="btn-block btn-outline-success btn-sm" @click="funcSelesai(value)">Selesai</button>
+                    </div>
+                  </div>
+                </div>
                 <button v-for="value2 in notifikasi" v-if="value2.perbaikan === value._id" class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#modal_notifikasi" @click="lihatPesan(value, value2)">Lihat Pesan</button>
               </td>
             </tr>
@@ -703,6 +712,27 @@
             })
           })
           }
+        },
+        funcSelesai(value){
+            axios.post('/api/notifikasi', {
+              mitra: value.mitra,
+              pelanggan: value.pelanggan,
+              perbaikan: value._id,
+              jenis: 'Siap Jemput',
+              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
+              barang: 'laptop'
+            }).then(() => {
+              axios.post('/api/perbaikan/mitra/' + value._id + '/update_status_only', {
+                status: 'Siap Jemput',
+              }).then(response => {
+                if (response.data.status == "success") {
+                  this.success(response.data.message);
+                  this.getPerbaikan()
+                } else if (response.data.status == "error") {
+                  this.error(response.data.message);
+                }
+              })
+            });
         },
         deleteNotifikasi(id){
           axios.put('/api/notifikasi/delete/' + id)

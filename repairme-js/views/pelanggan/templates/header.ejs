@@ -65,6 +65,16 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                             </div>
+                            <div v-if="value.jenis === 'Siap Jemput'">
+                                <div class="dropdown-divider"></div>
+                                <a :href="'/pelanggan/selesai/' + value.barang" class="dropdown-item">
+                                    <span
+                                        class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
+                                    <i class="fa fa-smile mr-2"></i>
+                                    Perbaikan Selesai..
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </div>
                 </li>
             </ul>

@@ -124,6 +124,28 @@ module.exports = (app, express) => {
        }
     })
 
+    router.get('/selesai/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'mitra') {
+                if (req.params.jenis === 'laptop') {
+                    res.render('mitra/perbaikan/selesai/laptop', {
+                    judul: 'Perbaikan Selesai',
+                    email: req.session.user.email
+                    })
+                }else if (req.params.jenis === 'handphone') {
+                    res.render('mitra/perbaikan/selesai/handphone', {
+                    judul: 'Perbaikan Selesai',
+                    email: req.session.user.email
+                    })
+                }
+            }else {
+                next()
+            }
+       }else{
+            res.redirect('/login');
+       }
+    })
+
     app.use('/mitra', router);
 
 }

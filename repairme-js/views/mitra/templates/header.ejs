@@ -131,7 +131,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/mitra/selesai" :class="'nav-link ' + sidebar_menu.barang_selesai">
+              <a data-toggle="modal" data-target="#sidebar_modal_selesai" href="/mitra/selesai" :class="'nav-link ' + sidebar_menu.selesai">
                 <i class="fa fa-check-circle nav-icon"></i>
                 <p>Barang Selesai Di Perbaiki</p>
               </a>
@@ -230,4 +230,27 @@
         </div>
       </div>
       <!-- !modal -->
+     <!-- ==== MODAL ==== -->
+      <div class="modal fade" id="sidebar_modal_selesai" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                <div class="card-header">
+                  <h3 class="card-title">Pilih Perbaikan</h3>
+                </div>
+                <div class="card-body">
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/selesai/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+                  
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/selesai/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                  
+                  
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+      <!-- !modal -->
