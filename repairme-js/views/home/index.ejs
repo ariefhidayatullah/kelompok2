@@ -1,259 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= judul %></title>
-    <link href="./assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="./assets/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="./assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="./assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="./assets/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="./assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="./assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="./assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="./assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
-    <link href="./assets/css/home.template.css/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="./assets/css/home.template.css/css/colors/default.css" rel="stylesheet">
-</head>
-
-<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main id="app">
-        <div class="page-loader">
-            <div class="loader">Repairme sedang memuat halaman...</div>
+<%- include('../templates/header') -%>
+<section class="home-section home-parallax home-fade home-full-height bg-dark-30" id="home"
+    data-background="./assets/images/fix.jpeg">
+    <div class="titan-caption">
+        <div class="caption-content">
+            <div class="font-alt mb-40 titan-title-size-3">
+                <span class="rotate">
+                    Jasa Perbaikan Hp dan Laptop | Segera Perbaiki Sekarang |Banyak Promo |
+                    Mitra Terpercaya
+                </span>
+            </div>
+            <a class="btn btn-border-w btn-circle" href="/perbaikan">Perbaiki Sekarang!</a>
         </div>
-        <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    </div>
+</section>
+<div class="main">
+    <hr class="divider-w">
+    <section class="module" id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">Kelebihan RepairMe</h2>
+                </div>
+            </div>
+            <div class="row multi-columns-row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="features-item">
+                        <img src="./assets/images/icon/users.png" alt="member" width="128px" height="128px">
+                        <h3 class="features-title font-alt">Banyak Mitra Terpercaya</h3>
+                        <p>Mitra yang bergabung dengan kami sudah terpercaya, jika ada mitra yang tidak memenuhi
+                            peraturan yang sudah ditentukan oleh pihak RepairMe maka mitra tidak bisa melakukan
+                            pemasangan iklan lagi </p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="features-item">
+                        <img src="./assets/images/icon/waktu.png" alt="member" width="128px" height="128px">
+                        <h3 class="features-title font-alt">Tepat Waktu</h3>
+                        <p>Perbaikan Hp atau Laptop anda akan diselesaikan dengan jangka waktu yang sudah
+                            ditentukan oleh mitra yang akan memperbaiki kerusakan Hp atau Laptop anda.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="features-item">
+                        <img src="./assets/images/icon/promo1.png" alt="member" width="128px" height="128px">
+                        <h3 class="features-title font-alt">Banyak Promo</h3>
+                        <p>Banyak Promo yang akan ditawarkan kepada Pelanggan maupun kepada Mitra</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="features-item">
+                        <img src="./assets/images/icon/list1.png" alt="member" width="128px" height="128px">
+                        <h3 class="features-title font-alt">Bergaransi</h3>
+                        <p>Pelanggan dapat menggunakan garansi setelah perbaikan selesai</p>
+                    </div>
+                </div>
+    </section>
+    <hr />
+    <section class="module">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">bagaimana cara menggunakannya?</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
+                    <div class="team-item">
+                        <img src="./assets/images/icon/maps.png" alt="member" width="128px" height="128px">
+                        <div class="team-descr font-alt">
+                            <div class="team-name">LangKah Pertama</div>
+                            <div class="team-role">Pilih Mitra dengan click salah satu lokasi maka profil mitra
+                                akan muncul</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
+                    <div class="team-item">
+                        <img src="./assets/images/icon/hp.png" alt="member" width="128px" height="128px">
+                        <div class="team-descr font-alt">
+                            <div class="team-name">Langkah Ke-dua</div>
+                            <div class="team-role">pilih Merk dan Tipe Handphone atau Laptop anda yang rusak
+                            </div> &amp;
+                            <div class="team-role">pilih kerusakan Handphone atau Laptop</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
+                    <div class="team-item">
+                        <img src="./assets/images/icon/setuju.png" alt="member" width="128px" height="128px">
+                        <div class="team-descr font-alt">
+                            <div class="team-name">Langkah Ke-tiga</div>
+                            <div class="team-role">Pelanggan menunggu persetujuan dari Mitra</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
+                    <div class="team-item">
+                        <img src="./assets/images/icon/sepeda.png" alt="member" width="128px" height="128px">
+                        <div class="team-descr font-alt">
+                            <div class="team-name">Langkah Ke-lima</div>
+                            <div class="team-role">Setelah Mitra menyetujui permintaan maka, barang dikirim ke
+                                Mitra </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section class="module-small" id="mitra">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h2 class="module-title font-alt">Portofolio Mitra</h2>
+                </div>
+            </div>
+            <div class="row multi-columns-row">
+                <div class="col-sm-6 col-md-3 col-lg-3" v-for="value in mitra">
+                    <div class="shop-item">
+                        <div class="shop-item-image"> <img :src="'/assets/images/mitra/foto_usaha/' + value.foto_usaha"
+                                alt="member" width="128px" height="128px">
+                            <div class="shop-item-detail"><a :href="'/perbaikan/' + value._id"
+                                    class="btn btn-round btn-b"><span
+                                        class="icon-basket">{{value.nama_usaha}}</span></a>
+                            </div>
+                        </div>
+                        <h4 class="shop-item-title font-alt"><a href="#"></a></h4>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section>
+        <div class="module-small bg-dark">
             <div class="container">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span><span class="icon-bar"></span>
-                        <span class="icon-bar"></span></button><a class="navbar-brand" href="">RepairME</a>
-                </div>
-                <div class="collapse navbar-collapse" id="custom-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/">Home</a></li>
-                        <li v-if="user">
-                            <a v-if="user.jenis === 'admin'" href="/admin/">Dashboard {{user.jenis}} </a>
-                            <a v-if="user.jenis === 'pelanggan'" href="/pelanggan/">Dashboard {{user.jenis}}
-                            </a>
-                            <a v-if="user.jenis === 'mitra'" href="/mitra/">Dashboard {{user.jenis}} </a>
-                        </li>
-                        <li><a href="/tentang-kami">tentang kami</a></li>
-                        <li v-if="session.email !== 'false'">
-                            <a href="" class="fa fa-address-card" data-toggle="modal"
-                                data-target="#exampleModal">Registrasi</a>
-                        </li>
-                        <li v-if="session.email === 'false'">
-                            <a class="fa fa-user" href="/login">Login</a>
-                        </li>
-                        <li v-if="session.email !== 'false'">
-                            <a class="fa fa-out" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <section class="home-section home-parallax home-fade home-full-height bg-dark-30" id="home"
-            data-background="./assets/images/fix.jpeg">
-            <div class="titan-caption">
-                <div class="caption-content">
-                    <div class="font-alt mb-40 titan-title-size-3">
-                        <span class="rotate">
-                            Jasa Perbaikan Hp dan Laptop | Segera Perbaiki Sekarang |Banyak Promo |
-                            Mitra Terpercaya
-                        </span>
-                    </div>
-                    <a class="btn btn-border-w btn-circle" href="/perbaikan">Perbaiki Sekarang!</a>
-                </div>
-            </div>
-        </section>
-        <div class="main">
-            <hr class="divider-w">
-            <section class="module" id="services">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <h2 class="module-title font-alt">Kelebihan RepairMe</h2>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="widget">
+                            <h5 class="widget-title font-alt">Hubungi</h5>
+                            <p>Jl. Raya Situbondo, Blindungan, Kec. Bondowoso, Kab. Bondowoso, Jawa Timur 68211.
+                            </p>
+                            <p>Phone : +6283847999691</p>
+                            <p>Email : <a href="#">repairme@gmail.com</a></p>
                         </div>
                     </div>
-                    <div class="row multi-columns-row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="features-item">
-                                <img src="./assets/images/icon/users.png" alt="member" width="128px" height="128px">
-                                <h3 class="features-title font-alt">Banyak Mitra Terpercaya</h3>
-                                <p>Mitra yang bergabung dengan kami sudah terpercaya, jika ada mitra yang tidak memenuhi
-                                    peraturan yang sudah ditentukan oleh pihak RepairMe maka mitra tidak bisa melakukan
-                                    pemasangan iklan lagi </p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="features-item">
-                                <img src="./assets/images/icon/waktu.png" alt="member" width="128px" height="128px">
-                                <h3 class="features-title font-alt">Tepat Waktu</h3>
-                                <p>Perbaikan Hp atau Laptop anda akan diselesaikan dengan jangka waktu yang sudah
-                                    ditentukan oleh mitra yang akan memperbaiki kerusakan Hp atau Laptop anda.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="features-item">
-                                <img src="./assets/images/icon/promo1.png" alt="member" width="128px" height="128px">
-                                <h3 class="features-title font-alt">Banyak Promo</h3>
-                                <p>Banyak Promo yang akan ditawarkan kepada Pelanggan maupun kepada Mitra</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="features-item">
-                                <img src="./assets/images/icon/list1.png" alt="member" width="128px" height="128px">
-                                <h3 class="features-title font-alt">Bergaransi</h3>
-                                <p>Pelanggan dapat menggunakan garansi setelah perbaikan selesai</p>
-                            </div>
-                        </div>
-            </section>
-            <hr />
-            <section class="module">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <h2 class="module-title font-alt">bagaimana cara menggunakannya?</h2>
+                    <div class="col-sm-4">
+                        <div class="widget" style="width:100%;text-align: center;">
+                            <h5 class="widget-title font-alt"><a href="">Perbaiki
+                                    Sekarang</h5>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
-                            <div class="team-item">
-                                <img src="./assets/images/icon/maps.png" alt="member" width="128px" height="128px">
-                                <div class="team-descr font-alt">
-                                    <div class="team-name">LangKah Pertama</div>
-                                    <div class="team-role">Pilih Mitra dengan click salah satu lokasi maka profil mitra
-                                        akan muncul</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
-                            <div class="team-item">
-                                <img src="./assets/images/icon/hp.png" alt="member" width="128px" height="128px">
-                                <div class="team-descr font-alt">
-                                    <div class="team-name">Langkah Ke-dua</div>
-                                    <div class="team-role">pilih Merk dan Tipe Handphone atau Laptop anda yang rusak
-                                    </div> &amp;
-                                    <div class="team-role">pilih kerusakan Handphone atau Laptop</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
-                            <div class="team-item">
-                                <img src="./assets/images/icon/setuju.png" alt="member" width="128px" height="128px">
-                                <div class="team-descr font-alt">
-                                    <div class="team-name">Langkah Ke-tiga</div>
-                                    <div class="team-role">Pelanggan menunggu persetujuan dari Mitra</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-sm-20 wow fadeInUp col-sm-6 col-md-3" onclick="wow; fadeInUp;">
-                            <div class="team-item">
-                                <img src="./assets/images/icon/sepeda.png" alt="member" width="128px" height="128px">
-                                <div class="team-descr font-alt">
-                                    <div class="team-name">Langkah Ke-lima</div>
-                                    <div class="team-role">Setelah Mitra menyetujui permintaan maka, barang dikirim ke
-                                        Mitra </div>
-                                </div>
-                            </div>
+                    <div class="col-sm-4">
+                        <div class="widget">
+                            <h5 class="widget-title font-alt"><a href="home/about">Tentang
+                                    Repairme</h5>
+                            <p>Website Penyedia layanan perbaikan Laptop dan Handphone, dengan mitra yang
+                                terpercaya</p>
                         </div>
                     </div>
-                </div>
-            </section>
-            <hr>
-            <section class="module-small" id="mitra">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <h2 class="module-title font-alt">Portofolio Mitra</h2>
-                        </div>
-                    </div>
-                    <div class="row multi-columns-row">
-                        <div class="col-sm-6 col-md-3 col-lg-3" v-for="value in mitra">
-                            <div class="shop-item">
-                                <div class="shop-item-image"> <img
-                                        :src="'/assets/images/mitra/foto_usaha/' + value.foto_usaha" alt="member"
-                                        width="128px" height="128px">
-                                    <div class="shop-item-detail"><a :href="'/perbaikan/' + value._id"
-                                            class="btn btn-round btn-b"><span
-                                                class="icon-basket">{{value.nama_usaha}}</span></a>
-                                    </div>
-                                </div>
-                                <h4 class="shop-item-title font-alt"><a href="#"></a></h4>
-                            </div>
-                        </div>
-                    </div>
-            </section>
-            <section>
-                <div class="module-small bg-dark">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="widget">
-                                    <h5 class="widget-title font-alt">Hubungi</h5>
-                                    <p>Jl. Raya Situbondo, Blindungan, Kec. Bondowoso, Kab. Bondowoso, Jawa Timur 68211.
-                                    </p>
-                                    <p>Phone : +6283847999691</p>
-                                    <p>Email : <a href="#">repairme@gmail.com</a></p>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="widget" style="width:100%;text-align: center;">
-                                    <h5 class="widget-title font-alt"><a href="">Perbaiki
-                                            Sekarang</h5>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="widget">
-                                    <h5 class="widget-title font-alt"><a href="home/about">Tentang
-                                            Repairme</h5>
-                                    <p>Website Penyedia layanan perbaikan Laptop dan Handphone, dengan mitra yang
-                                        terpercaya</p>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
-            </section>
-            <hr class="divider-d">
-            <footer class="footer bg-dark">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p class="copyright font-alt">RepairMe &copy; 2019 <a href="home/index">RepairMe</a>Website
-                                Penyedia Layanan Perbaikan
-                                Laptop dan
-                                Handphone</p>
-                            <b>Versi</b> 1.0.0
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a
-                                    href="#"><i class="fa fa-twitter"></i></a><a href="#"><i
-                                        class="fa fa-skype"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            </div>
         </div>
-        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </main>
-
-    <!-- JavaScripts -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/assets/js/vueJs/vue.js"></script>
-    <script src="/assets/js/vueJs/axios.js"></script>
-    <script>
-        var socket = io();
-    </script>
+    </section>
+    <%- include('../templates/footer') -%>
     <script>
         var vm = new Vue({
 
@@ -276,47 +185,3 @@
 
         })
     </script>
-
-    <script src="./assets/lib/jquery/dist/jquery.js"></script>
-    <script src="./assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./assets/lib/wow/dist/wow.js"></script>
-    <script src="./assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="./assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="./assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="./assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="./assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="./assets/lib/smoothscroll.js"></script>
-    <script src="./assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="./assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="./assets/js/home.template.js/js/plugins.js"></script>
-    <script src="./assets/js/home.template.js/js/main.js"></script>
-</body>
-
-</html>
-</body>
-
-</html>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h5>Anda akan bergabung sebagai?</h5>
-            </div>
-            <div class="modal-body">
-
-                <a href="/pelanggan/registrasi" class="btn btn-round btn-b" style="width: 280px;">Gabung Menjadi
-                    Pelanggan</a>
-
-                <a href="/mitra/registrasi" class="btn btn-round btn-b tombol-mitra" style="width: 280px;">Gabung
-                    Menjadi Mitra</a>
-            </div>
-        </div>
-    </div>
-</div>
