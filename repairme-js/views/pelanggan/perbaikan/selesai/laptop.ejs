@@ -50,26 +50,11 @@
                                     @click="modal_detail_mitra(value)">{{ value.data_mitra[0].nama_usaha }}</button>
                             </td>
                             <td>
-                                <button class="btn btn-block btn-success btn-sm" disabled>Menunggu Siap Dijemput</button>
+                                <button v-for="value2 in notifikasi" class="btn btn-block btn-success btn-sm" data-toggle="modal"
+                                data-target="#mitra_siap_dijemput" @click="choosedPerbaikanFunc(value, value2)">Sudah Dijemput</button>
                             </td>
                         </tr>
-                        <tr v-if="perbaikan_dibatalkan" v-for="(value, index) in perbaikan_dibatalkan">
-                            <td> {{ index + 1 }}</td>
-                            <td>
-
-                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_perbaikan"
-                                    @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} -
-                                    {{ value.tipe }}</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                    data-target="#detail_mitra"
-                                    @click="modal_detail_mitra(value)">{{ value.data_mitra[0].nama_usaha }}</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-block btn-success btn-sm" data-toggle="modal"
-                                data-target="#mitra_siap_dijemput" @click="choosedPerbaikanFunc(value)">Sudah Dijemput</button>
+                      
                 </table>
             </div>
             <!-- /.card-body -->
@@ -163,29 +148,29 @@
                                     <td>
                                         <b>NAMA MITRA</b>
                                     </td>
-                                    <td class="nama_usaha"> {{ showDetailMitra.data_pelanggan[0].nama_usaha }}
+                                    <td class="nama_usaha"> {{ showDetailMitra.data_mitra[0].nama_usaha }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <img :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_pelanggan[0].foto_usaha"
+                                        <img :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_mitra[0].foto_usaha"
                                             class="foto_usaha" style="width: 100px;"></td>
                                 </tr>
                                 <tr>
                                     <td><b>NAMA PEMILIK</b></td>
-                                    <td class="nama_mitra">{{ showDetailMitra.data_pelanggan[0].nama }}</td>
+                                    <td class="nama_mitra">{{ showDetailMitra.data_mitra[0].nama }}</td>
                                 </tr>
                                 <tr>
                                     <td><b>KEAHLIAN</b></td>
-                                    <td class="keahlian">{{ showDetailMitra.data_pelanggan[0].jenis_usaha }}</td>
+                                    <td class="keahlian">{{ showDetailMitra.data_mitra[0].jenis_usaha }}</td>
                                 </tr>
                                 <tr>
                                     <td><b>ALAMAT</b></td>
-                                    <td class="alamat">{{ showDetailMitra.data_pelanggan[0].alamat }}</td>
+                                    <td class="alamat">{{ showDetailMitra.data_mitra[0].alamat }}</td>
                                 </tr>
                                 <tr>
                                     <td><b>DESKRIPSI</b></td>
-                                    <td class="deskripsi">{{ showDetailMitra.data_pelanggan[0].deskripsi }}</td>
+                                    <td class="deskripsi">{{ showDetailMitra.data_mitra[0].deskripsi }}</td>
                                 </tr>
                                 <tr>
                                     <td><b>RATING</b></td>
@@ -217,7 +202,7 @@
                         <div class="container-fluid">
                             <div class="mailbox-read-info">
 
-                                <p>Dari {{ tambah_harga_data.perbaikan.data_pelanggan[0]._id }},
+                                <p>Dari {{ tambah_harga_data.perbaikan.data_mitra[0]._id }},
                                     untuk {{ tambah_harga_data.perbaikan.pelanggan }} <span
                                         class="badge badge-success float-right">{{ getNotifikasiTanggal(tambah_harga_data.notifikasi.tanggal) }}</span>
                                 </p>
@@ -226,7 +211,7 @@
                                 <p>Halo, <b>{{ pelanggan.nama }}</b>, perbaikan barang dengan tipe
                                     <b>{{tambah_harga_data.perbaikan.tipe}}</b>, dan merk
                                     <b>{{ tambah_harga_data.perbaikan.merk }}</b> yang anda lakukan di mitra
-                                    <b>{{ tambah_harga_data.perbaikan.data_pelanggan[0].nama_usaha }}</b> <b
+                                    <b>{{ tambah_harga_data.perbaikan.data_mitra[0].nama_usaha }}</b> <b
                                         style="color: red;">terhenti sementara</b>, karena ada tambahan biaya yang ingin
                                     mitra ajukan, detail penambahan harga yaitu:</p>
                                 <p>Jumlah penambahan dari perkiraan awal :
@@ -355,7 +340,7 @@
         data: {
             sidebar_menu: {
                 perbaikan: 'menu-open',
-                dibatalkan: 'active'
+                selesai: 'active'
             },
             choosedPerbaikan: null,
             notifikasi: null,
@@ -393,14 +378,10 @@
                 })
             },
             getPerbaikan() {
-                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Perbaikan Dibatalkan/laptop')
-                    .then(response => {
-                        this.perbaikan = response.data
-                    })
-                    axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Siap Jemput Batal/laptop')
-                    .then(response => {
-                        this.perbaikan_dibatalkan = response.data
-                    })
+            axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Siap Jemput/laptop')
+                .then(response => {
+                    this.perbaikan = response.data
+                })
             },
             warning: function (message) {
                 setTimeout(function () {
@@ -463,16 +444,16 @@
                         })
             },
             maps() {
-                var map = L.map('map').setView([vm.showDetailMitra.data_pelanggan[0].lat, vm
-                    .showDetailMitra.data_pelanggan[0].lng
+                var map = L.map('map').setView([vm.showDetailMitra.data_mitra[0].lat, vm
+                    .showDetailMitra.data_mitra[0].lng
                 ], 17);
                 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
-                var marker = L.marker([vm.showDetailMitra.data_pelanggan[0].lat, vm
-                    .showDetailMitra.data_pelanggan[0].lng
+                var marker = L.marker([vm.showDetailMitra.data_mitra[0].lat, vm
+                    .showDetailMitra.data_mitra[0].lng
                 ]).addTo(map);
-                marker.bindPopup(vm.showDetailMitra.data_pelanggan[0].nama_usaha).openPopup();
+                marker.bindPopup(vm.showDetailMitra.data_mitra[0].nama_usaha).openPopup();
             },
             tanggal(tanggal) {
                 return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()

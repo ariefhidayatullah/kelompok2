@@ -132,6 +132,29 @@ module.exports = (app, express) => {
         }
     });
 
+    router.get('/selesai/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                if (req.params.jenis === "laptop") {
+                    res.render('pelanggan/perbaikan/selesai/laptop', {
+                        judul: 'Perbaikan Selesai',
+                        email: req.session.user.email
+                    })
+                } else if (req.params.jenis === "handphone") {
+                    res.render('pelanggan/perbaikan/selesai/handphone', {
+                        judul: 'Perbaikan Selesai',
+                        email: req.session.user.email
+                    })
+                } else {
+                    next()
+                }
+            } else {
+                next()
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
 
     app.use('/pelanggan', router);
 

@@ -51,7 +51,7 @@
                         </div>
                         <div v-if="value.jenis === 'tolak_harga_naik'">
                         <div class="dropdown-divider"></div>
-                          <a :href="'/mitra/perbaikan/' + value.barang" class="dropdown-item">
+                          <a :href="'/mitra/dibatalkan/' + value.barang" class="dropdown-item">
                             <span class="badge badge-success float-right">{{ getNotifikasiTanggal(value.tanggal) }}</span>
                             <i class="fa fa-circle-notch mr-2"></i>
                             Perbaikan Dibatalkan!
