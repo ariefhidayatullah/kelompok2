@@ -102,6 +102,27 @@ module.exports = (app, express) => {
        }
     })
 
+    router.get('/dibatalkan/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'mitra') {
+                if (req.params.jenis === 'laptop') {
+                    res.render('mitra/perbaikan/dibatalkan/laptop', {
+                    judul: 'Perbaikan Dibatalkan',
+                    email: req.session.user.email
+                    })
+                }else if (req.params.jenis === 'handphone') {
+                    res.render('mitra/perbaikan/dibatalkan/handphone', {
+                    judul: 'Perbaikan Dibatalkan',
+                    email: req.session.user.email
+                    })
+                }
+            }else {
+                next()
+            }
+       }else{
+            res.redirect('/login');
+       }
+    })
 
     app.use('/mitra', router);
 

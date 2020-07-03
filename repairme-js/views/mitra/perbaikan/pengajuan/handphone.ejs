@@ -348,6 +348,7 @@
       },
       mitra: null,
       myfile: null,
+      notifikasi: null,
       perbaikan: {
         menunggu: null,
         diterima: null,
@@ -365,6 +366,7 @@
     mounted(){
       this.getData()
       this.getPerbaikan()
+      this.getNotifikasi()
     },
     methods: {
       getData(){
@@ -409,6 +411,18 @@
         .then(response => {
           this.perbaikan.ditolak = response.data
         })
+      },
+      getNotifikasi(){
+          axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+          .then(response => {
+              this.notifikasi = response.data
+          })
+      },
+      getNotifikasiTanggal(value){
+          return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+      },
+      tanggal(tanggal){
+        return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
       },
       tanggal(tanggal){
         return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()

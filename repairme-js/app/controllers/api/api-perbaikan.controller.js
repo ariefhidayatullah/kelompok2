@@ -234,7 +234,7 @@ exports.putPerbaikanMitra = (req, res) => {
 	        });
 	    });
 	}else if (req.params.keterangan === 'update_status_only') {
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
+		Perbaikan.Perbaikan.updateOne({_id : req.params.id}, { $set: {
 			status: req.body.status
 		}
 		}).then((response) => {

@@ -151,6 +151,7 @@
           perbaikan: 'menu-open',
           voucher: 'active'
         },
+        notifikasi: null,
         mitra: null,
         voucher: null,
         time: null,
@@ -168,6 +169,19 @@
           }).then(response => {
             this.mitra = response.data;
           })
+          this.getNotifikasi()
+        },
+        getNotifikasi(){
+          axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+          .then(response => {
+              this.notifikasi = response.data
+          })
+        },
+        getNotifikasiTanggal(value){
+            return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+        },
+        tanggal(tanggal){
+          return moment(tanggal, "Do MMMM YYYY, HH:mm:ss").fromNow()
         },
         searchVoucher(){
           let value = this.$refs.input_voucher.value
