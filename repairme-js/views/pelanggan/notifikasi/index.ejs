@@ -1,8 +1,155 @@
 <%- include('../templates/header') -%>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Inbox</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Inbox</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- /.col -->
+            <div class="col">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Inbox</h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" placeholder="Search Mail">
+                                <div class="input-group-append">
+                                    <div class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    <tr v-for="value in notifikasi">
+                                        <td class="mailbox-star"><a href="#"><i
+                                                    class="fas fa-star text-warning"></i></a></td>
+                                        <td class="mailbox-name"><a
+                                                href="read-mail.html">{{value.data_mitra[0].nama_usaha}}</a></td>
+                                        <td class="mailbox-subject"><b>{{value.jenis}}</b> : <div
+                                                v-if="value.jenis === 'tambah_harga'"><button
+                                                    class="btn btn-block btn-outline-secondary btn-sm float-right"
+                                                    data-toggle="modal" data-target="#modal_tambah_harga"
+                                                    @click="tambah_harga_pesan(value)" style="width: 30%;">detail
+                                                    penambahan</button>
+                                                perbaikan
+                                                <b>{{ value.barang }}</b> <b style="color: red;">terhenti
+                                                    sementara</b>, karena
+                                                ada tambahan biaya yang ingin
+                                                mitra ajukan,
+                                                </p>
+                                            </div>
+                                            <div v-if="value.jenis === 'diskon'"><button
+                                                    class="btn btn-block btn-outline-secondary btn-sm float-right"
+                                                    data-toggle="modal" data-target="#detail_mitra"
+                                                    @click="modal_detail_mitra(value)" style="width: 30%;">Detail
+                                                    Diskon</button>
+                                                Selamat!! :), perbaikan
+                                                <b>{{ value.barang }}</b> anda mendapatkan <b
+                                                    style="color: green;">diskon</b>, akan
+                                                ada pengurangan biaya dari mitra </p>
+                                            </div>
+                                        </td>
+                                        <td class="mailbox-date">{{ getNotifikasiTanggal(value.tanggal) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- =========== MODAL =============== -->
+<div class="modal fade" id="modal_tambah_harga">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div v-if="tambah_harga_data.perbaikan && tambah_harga_data.notifikasi" class="card  card-dark"
+                    style="position: absolute; right: 0; left: 0; top: 0;">
+                    <div class="card-header">
+                        <h3 class="card-title">Baca Pesan</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- modal content -->
+                        <div class="container-fluid">
+                            <div class="mailbox-read-info">
+
+                                <p>Dari {{ tambah_harga_data.perbaikan.data_pelanggan[0]._id }},
+                                    untuk {{ tambah_harga_data.perbaikan.pelanggan }} <span
+                                        class="badge badge-success float-right">{{ getNotifikasiTanggal(tambah_harga_data.notifikasi.tanggal) }}</span>
+                                </p>
+                            </div>
+                            <div class="mailbox-read-message">
+                                <p>Halo, <b>{{ pelanggan.nama }}</b>, perbaikan barang dengan tipe
+                                    <b>{{tambah_harga_data.perbaikan.tipe}}</b>, dan merk
+                                    <b>{{ tambah_harga_data.perbaikan.merk }}</b> yang anda lakukan di mitra
+                                    <b>{{ tambah_harga_data.perbaikan.data_pelanggan[0].nama_usaha }}</b> <b
+                                        style="color: red;">terhenti sementara</b>, karena ada tambahan biaya yang ingin
+                                    mitra ajukan, detail penambahan harga yaitu:</p>
+                                <p>Jumlah penambahan dari perkiraan awal :
+                                    <b>{{ tambah_harga_data.notifikasi.keterangan }}</b>,</p>
+                                <p>Sehingga total biaya : <b>{{tambah_harga_data.perbaikan.harga}}</b>, </p>
+                                <p>Mitra menaikkan harga karena :
+                                    <b>{{ tambah_harga_data.notifikasi.keterangan_mitra }}</b></p>
+                                <p>Anda dibebaskan untuk <b style="color: red;"> menolak </b> atau <b
+                                        style="color: green;"> menerima </b>dengan ketentuan,</p>
+                                <p><b>Jika anda menolak,</b> silahkan pilih batalkan perbaikan, dan jemput barang anda
+                                    di mitra</p>
+                                <p><b>Jika anda menerima,</b> silahkan pilih terima pengajuan dan tunggu mitra
+                                    menyelesaikan perbaikannya</p>
+                                <p style="margin-bottom: 10%;">Terimakasih</p>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-sm btn-success"
+                                                @click="terima_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)"
+                                                style="width: 100%;"> Terima Pengajuan </button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-sm btn-danger"
+                                                @click="tolak_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)"
+                                                style="width: 100%;"> Batalkan Pengajuan </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of modal content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <%- include('../templates/footer') -%>
 
 <script>
-	 var vm = new Vue({
+    var vm = new Vue({
 
         el: "#app",
         data: {
@@ -17,7 +164,7 @@
             this.getNotifikasi()
         },
         methods: {
-            getData(){
+            getData() {
                 axios({
                     method: 'get',
                     url: '/api/pelanggan/' + '<%= email %>'
@@ -26,33 +173,33 @@
                 })
             },
             warning: function (message) {
-		        setTimeout(function () {
-		          toastr.warning(
-		            message
-		            );
-		        }, 10);
-		      },
-		      success: function (success) {
-		        setTimeout(function () {
-		          toastr.success(
-		            success
-		            );
-		        }, 10);
-		      },
-		      error: function (error) {
-		        setTimeout(function () {
-		          toastr.error(
-		            error
-		            );
-		        }, 10);
-		      },
-            getNotifikasi(){
-                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
-                .then(response => {
-                    this.notifikasi = response.data
-                })
+                setTimeout(function () {
+                    toastr.warning(
+                        message
+                    );
+                }, 10);
             },
-            getNotifikasiTanggal(value){
+            success: function (success) {
+                setTimeout(function () {
+                    toastr.success(
+                        success
+                    );
+                }, 10);
+            },
+            error: function (error) {
+                setTimeout(function () {
+                    toastr.error(
+                        error
+                    );
+                }, 10);
+            },
+            getNotifikasi() {
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                    .then(response => {
+                        this.notifikasi = response.data
+                    })
+            },
+            getNotifikasiTanggal(value) {
                 return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
             },
         }

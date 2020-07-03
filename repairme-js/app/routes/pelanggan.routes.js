@@ -33,6 +33,18 @@ module.exports = (app, express) => {
             res.redirect('/login');
         }
     });
+    router.get('/notifikasi', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                res.render('pelanggan/notifikasi/index', {
+                    judul: 'Notifikasi',
+                    email: req.session.user.email
+                })
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
     router.get('/editProfile', (req, res) => {
         if (req.session.user) {
             if (req.session.user.jenis === 'pelanggan') {

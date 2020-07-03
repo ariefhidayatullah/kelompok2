@@ -40,15 +40,19 @@
                             <td>
 
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}</button>
+                                    data-target="#detail_perbaikan"
+                                    @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} -
+                                    {{ value.tipe }}</button>
                             </td>
                             <td>
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                data-target="#detail_mitra" @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
+                                    data-target="#detail_mitra"
+                                    @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
                             </td>
                             <td>
                                 <button class="btn btn-block btn-success btn-sm" data-toggle="modal"
-                                data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Sedang Dalam Perbaikan</button>
+                                    data-target="#ubah_perbaikan" @click="funcUbahPerbaikan(value)">Sedang Dalam
+                                    Perbaikan</button>
                             </td>
                         </tr>
                     </tbody>
@@ -79,15 +83,19 @@
                             <td>
 
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                data-target="#detail_perbaikan" @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} - {{ value.tipe }}</button>
+                                    data-target="#detail_perbaikan"
+                                    @click="modal_detail_perbaikan(value)">{{ value.merk.toUpperCase() }} -
+                                    {{ value.tipe }}</button>
                             </td>
                             <td>
                                 <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
-                                data-target="#detail_mitra" @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
+                                    data-target="#detail_mitra"
+                                    @click="modal_detail_mitra(value)">{{ value.data_pelanggan[0].nama_usaha }}</button>
                             </td>
                             <td>
                                 <button class="btn btn-block btn-warning btn-sm" data-toggle="modal"
-                                data-target="#modal_tambah_harga" @click="tambah_harga_pesan(value)">Lihat Pesan</button>
+                                    data-target="#modal_tambah_harga" @click="tambah_harga_pesan(value)">Lihat
+                                    Pesan</button>
                             </td>
 
                         </tr>
@@ -191,88 +199,105 @@
                                 <tr>
                                     <td colspan="2">
                                         <img :src="'/assets/images/mitra/foto_usaha/' + showDetailMitra.data_pelanggan[0].foto_usaha"
-                                        class="foto_usaha" style="width: 100px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>NAMA PEMILIK</b></td>
-                                        <td class="nama_mitra">{{ showDetailMitra.data_pelanggan[0].nama }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>KEAHLIAN</b></td>
-                                        <td class="keahlian">{{ showDetailMitra.data_pelanggan[0].jenis_usaha }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>ALAMAT</b></td>
-                                        <td class="alamat">{{ showDetailMitra.data_pelanggan[0].alamat }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>DESKRIPSI</b></td>
-                                        <td class="deskripsi">{{ showDetailMitra.data_pelanggan[0].deskripsi }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>RATING</b></td>
-                                        <td class="rating"></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <!-- end of modal content -->
+                                            class="foto_usaha" style="width: 100px;"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>NAMA PEMILIK</b></td>
+                                    <td class="nama_mitra">{{ showDetailMitra.data_pelanggan[0].nama }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>KEAHLIAN</b></td>
+                                    <td class="keahlian">{{ showDetailMitra.data_pelanggan[0].jenis_usaha }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>ALAMAT</b></td>
+                                    <td class="alamat">{{ showDetailMitra.data_pelanggan[0].alamat }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>DESKRIPSI</b></td>
+                                    <td class="deskripsi">{{ showDetailMitra.data_pelanggan[0].deskripsi }}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>RATING</b></td>
+                                    <td class="rating"></td>
+                                </tr>
+                            </table>
                         </div>
-                        <!-- /.card-body -->
+                        <!-- end of modal content -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- !modal -->
+<!-- =========== MODAL =============== -->
+<div class="modal fade" id="modal_tambah_harga">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div v-if="tambah_harga_data.perbaikan && tambah_harga_data.notifikasi" class="card  card-dark"
+                    style="position: absolute; right: 0; left: 0; top: 0;">
+                    <div class="card-header">
+                        <h3 class="card-title">Baca Pesan</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- modal content -->
+                        <div class="container-fluid">
+                            <div class="mailbox-read-info">
+
+                                <p>Dari {{ tambah_harga_data.perbaikan.data_pelanggan[0]._id }},
+                                    untuk {{ tambah_harga_data.perbaikan.pelanggan }} <span
+                                        class="badge badge-success float-right">{{ getNotifikasiTanggal(tambah_harga_data.notifikasi.tanggal) }}</span>
+                                </p>
+                            </div>
+                            <div class="mailbox-read-message">
+                                <p>Halo, <b>{{ pelanggan.nama }}</b>, perbaikan barang dengan tipe
+                                    <b>{{tambah_harga_data.perbaikan.tipe}}</b>, dan merk
+                                    <b>{{ tambah_harga_data.perbaikan.merk }}</b> yang anda lakukan di mitra
+                                    <b>{{ tambah_harga_data.perbaikan.data_pelanggan[0].nama_usaha }}</b> <b
+                                        style="color: red;">terhenti sementara</b>, karena ada tambahan biaya yang ingin
+                                    mitra ajukan, detail penambahan harga yaitu:</p>
+                                <p>Jumlah penambahan dari perkiraan awal :
+                                    <b>{{ tambah_harga_data.notifikasi.keterangan }}</b>,</p>
+                                <p>Sehingga total biaya : <b>{{tambah_harga_data.perbaikan.harga}}</b>, </p>
+                                <p>Mitra menaikkan harga karena :
+                                    <b>{{ tambah_harga_data.notifikasi.keterangan_mitra }}</b></p>
+                                <p>Anda dibebaskan untuk <b style="color: red;"> menolak </b> atau <b
+                                        style="color: green;"> menerima </b>dengan ketentuan,</p>
+                                <p><b>Jika anda menolak,</b> silahkan pilih batalkan perbaikan, dan jemput barang anda
+                                    di mitra</p>
+                                <p><b>Jika anda menerima,</b> silahkan pilih terima pengajuan dan tunggu mitra
+                                    menyelesaikan perbaikannya</p>
+                                <p style="margin-bottom: 10%;">Terimakasih</p>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-sm btn-success"
+                                                @click="terima_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)"
+                                                style="width: 100%;"> Terima Pengajuan </button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-sm btn-danger"
+                                                @click="tolak_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)"
+                                                style="width: 100%;"> Batalkan Pengajuan </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of modal content -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- !modal -->
-    <!-- =========== MODAL =============== -->
-    <div class="modal fade" id="modal_tambah_harga">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div v-if="tambah_harga_data.perbaikan && tambah_harga_data.notifikasi" class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
-                        <div class="card-header">
-                            <h3 class="card-title">Baca Pesan</h3>
-                        </div>
-                        <div class="card-body">
-                            <!-- modal content -->
-                            <div class="container-fluid">
-                                <div class="mailbox-read-info">
-
-                                    <p>Dari {{ tambah_harga_data.perbaikan.data_pelanggan[0]._id }},
-                                        untuk {{ tambah_harga_data.perbaikan.pelanggan }} <span class="badge badge-success float-right">{{ getNotifikasiTanggal(tambah_harga_data.notifikasi.tanggal) }}</span></p>
-                                    </div>
-                                    <div class="mailbox-read-message">
-                                      <p>Halo, <b>{{ pelanggan.nama }}</b>, perbaikan barang dengan tipe <b>{{tambah_harga_data.perbaikan.tipe}}</b>, dan merk <b>{{ tambah_harga_data.perbaikan.merk }}</b> yang anda lakukan di mitra <b>{{ tambah_harga_data.perbaikan.data_pelanggan[0].nama_usaha }}</b> <b style="color: red;">terhenti sementara</b>, karena ada tambahan biaya yang ingin mitra ajukan, detail penambahan harga yaitu:</p>
-                                      <p>Jumlah penambahan dari perkiraan awal : <b>{{ tambah_harga_data.notifikasi.keterangan }}</b>,</p>
-                                      <p>Sehingga total biaya : <b>{{tambah_harga_data.perbaikan.harga}}</b>, </p>
-                                      <p>Mitra menaikkan harga karena : <b>{{ tambah_harga_data.notifikasi.keterangan_mitra }}</b></p>
-                                      <p>Anda dibebaskan untuk <b style="color: red;"> menolak </b> atau <b style="color: green;"> menerima </b>dengan ketentuan,</p>
-                                      <p><b>Jika anda menolak,</b> silahkan pilih batalkan perbaikan, dan jemput barang anda di mitra</p>
-                                      <p><b>Jika anda menerima,</b> silahkan pilih terima pengajuan dan tunggu mitra menyelesaikan perbaikannya</p>
-                                      <p style="margin-bottom: 10%;">Terimakasih</p>
-                                      <div class="container-fluid">
-                                          <div class="row">
-                                              <div class="col-sm-6">
-                                                  <button class="btn btn-sm btn-success" @click="terima_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)" style="width: 100%;"> Terima Pengajuan </button>
-                                              </div>
-                                              <div class="col-sm-6">
-                                                  <button class="btn btn-sm btn-danger" @click="tolak_harga_naik(tambah_harga_data.perbaikan._id, tambah_harga_data.notifikasi._id, tambah_harga_data.notifikasi)" style="width: 100%;"> Batalkan Pengajuan </button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end of modal content -->
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- !modal -->
-      <div class="modal fade" id="ubah_perbaikan" tabindex="-1" role="dialog" aria-labelledby="ubah_perbaikan"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
+</div>
+<!-- !modal -->
+<div class="modal fade" id="ubah_perbaikan" tabindex="-1" role="dialog" aria-labelledby="ubah_perbaikan"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
@@ -288,33 +313,33 @@
                                 </code>
                                 <div class="progress progress-sm active">
                                     <div ref="progress_waktu"
-                                    class="progress-bar bg-success progress-bar-striped persentase_waktu"
-                                    role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                    <span ref="text_persentase_waktu"></span>
+                                        class="progress-bar bg-success progress-bar-striped persentase_waktu"
+                                        role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <span ref="text_persentase_waktu"></span>
+                                    </div>
                                 </div>
+                                <table class="table table-bordered" style="margin-top: 10px;">
+                                    <tr>
+                                        <td>Berakhir Pada</td>
+                                        <td ref="sisa_hari"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diajukan</td>
+                                        <td ref="diajukan_pada"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Berakhir Pada</td>
+                                        <td ref="berakhir_pada"></td>
+                                    </tr>
+                                </table>
                             </div>
-                            <table class="table table-bordered" style="margin-top: 10px;">
-                                <tr>
-                                    <td>Berakhir Pada</td>
-                                    <td ref="sisa_hari"></td>
-                                </tr>
-                                <tr>
-                                    <td>Diajukan</td>
-                                    <td ref="diajukan_pada"></td>
-                                </tr>
-                                <tr>
-                                    <td>Berakhir Pada</td>
-                                    <td ref="berakhir_pada"></td>
-                                </tr>
-                            </table>
                         </div>
                     </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- !modal -->
 
@@ -365,42 +390,42 @@
             },
             getPerbaikan() {
                 axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Sedang Diperbaiki/laptop')
-                .then(response => {
-                    this.perbaikan = response.data
-                })
+                    .then(response => {
+                        this.perbaikan = response.data
+                    })
                 axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Dihentikan Sementara/laptop')
-                .then(response => {
-                    this.perbaikan_terhenti = response.data
-                })
+                    .then(response => {
+                        this.perbaikan_terhenti = response.data
+                    })
             },
             warning: function (message) {
                 setTimeout(function () {
-                  toastr.warning(
-                    message
+                    toastr.warning(
+                        message
                     );
-              }, 10);
+                }, 10);
             },
             success: function (success) {
                 setTimeout(function () {
-                  toastr.success(
-                    success
+                    toastr.success(
+                        success
                     );
-              }, 10);
+                }, 10);
             },
             error: function (error) {
                 setTimeout(function () {
-                  toastr.error(
-                    error
+                    toastr.error(
+                        error
                     );
-              }, 10);
+                }, 10);
             },
-            getNotifikasi(){
+            getNotifikasi() {
                 axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
-                .then(response => {
-                    this.notifikasi = response.data
-                })
+                    .then(response => {
+                        this.notifikasi = response.data
+                    })
             },
-            getNotifikasiTanggal(value){
+            getNotifikasiTanggal(value) {
                 return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
             },
             modal_detail_perbaikan(value) {
@@ -413,22 +438,23 @@
                     this.maps()
                 }, 200);
             },
-            tambah_harga_pesan(value){
+            tambah_harga_pesan(value) {
                 this.tambah_harga_data.perbaikan = value
                 axios.get('/api/notifikasi/perbaikan/' + value._id + '/t/tambah_harga')
-                .then(response => {
-                    this.tambah_harga_data.notifikasi = response.data[0]
-                })
+                    .then(response => {
+                        this.tambah_harga_data.notifikasi = response.data[0]
+                    })
             },
             maps() {
                 var map = L.map('map').setView([vm.showDetailMitra.data_pelanggan[0].lat, vm
                     .showDetailMitra.data_pelanggan[0].lng
-                    ], 17);
+                ], 17);
                 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
                 var marker = L.marker([vm.showDetailMitra.data_pelanggan[0].lat, vm
-                    .showDetailMitra.data_pelanggan[0].lng]).addTo(map);
+                    .showDetailMitra.data_pelanggan[0].lng
+                ]).addTo(map);
                 marker.bindPopup(vm.showDetailMitra.data_pelanggan[0].nama_usaha).openPopup();
             },
             tanggal(tanggal) {
@@ -459,9 +485,9 @@
                     this.$refs.text_persentase_waktu.textContent = sisaHari + ' hari lagi'
                 }
                 this.$refs.diajukan_pada.textContent = moment(b, 'Do MMMM YYYY, HH:mm:ss').fromNow() +
-                ', tanggal ' + b.split(',')[0] + ', jam ' + b.split(',')[1]
+                    ', tanggal ' + b.split(',')[0] + ', jam ' + b.split(',')[1]
                 this.$refs.berakhir_pada.textContent = moment(a, 'Do MMMM YYYY, HH:mm:ss').fromNow() +
-                ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
+                    ', tanggal ' + a.split(',')[0] + ', jam ' + a.split(',')[1]
                 this.button_modal = {
                     ubah_data: false,
                     awal: true,
@@ -482,55 +508,55 @@
                 }
                 return this.choosedPerbaikan = value
             },
-            terima_harga_naik(idPerbaikan, idNotifikasi, value){
+            terima_harga_naik(idPerbaikan, idNotifikasi, value) {
                 axios.post('/api/notifikasi/dibaca/' + idNotifikasi)
-                .then(() => {
-                    axios.post('/api/notifikasi/pelanggan', {
-                        mitra: value.mitra,
-                        pelanggan: '<%= email %>',
-                        perbaikan: idPerbaikan,
-                        jenis: 'terima_harga_naik',
-                        tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
-                        barang: 'laptop'
+                    .then(() => {
+                        axios.post('/api/notifikasi/pelanggan', {
+                            mitra: value.mitra,
+                            pelanggan: '<%= email %>',
+                            perbaikan: idPerbaikan,
+                            jenis: 'terima_harga_naik',
+                            tanggal: moment().format("Do MMMM YYYY, HH:mm:ss"),
+                            barang: 'laptop'
+                        })
+                        axios.post('/api/perbaikan/mitra/' + idPerbaikan + '/update_status_only', {
+                            status: 'Sedang Diperbaiki'
+                        }).then(response => {
+                            $('#modal_tambah_harga').modal('toggle');
+                            if (response.data.status == "success") {
+                                this.success(response.data.message);
+                                this.getPerbaikan()
+                                this.getNotifikasi()
+                            } else if (response.data.status == "error") {
+                                this.error(response.data.message);
+                            }
+                        })
                     })
-                    axios.post('/api/perbaikan/mitra/' + idPerbaikan + '/update_status_only', {
-                      status : 'Sedang Diperbaiki'
-                  }).then(response => {
-                      $('#modal_tambah_harga').modal('toggle');
-                      if (response.data.status == "success") {
-                          this.success(response.data.message);
-                          this.getPerbaikan()
-                          this.getNotifikasi()
-                      } else if (response.data.status == "error") {
-                          this.error(response.data.message);
-                      }
-                  })
-              })
             },
-            tolak_harga_naik(idPerbaikan, idNotifikasi, value){
+            tolak_harga_naik(idPerbaikan, idNotifikasi, value) {
                 axios.post('/api/notifikasi/dibaca/' + idNotifikasi)
-                .then(() => {
-                    axios.post('/api/notifikasi/pelanggan', {
-                        mitra: value.mitra,
-                        pelanggan: '<%= email %>',
-                        perbaikan: idPerbaikan,
-                        jenis: 'tolak_harga_naik',
-                        tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
-                        barang: 'laptop'
+                    .then(() => {
+                        axios.post('/api/notifikasi/pelanggan', {
+                            mitra: value.mitra,
+                            pelanggan: '<%= email %>',
+                            perbaikan: idPerbaikan,
+                            jenis: 'tolak_harga_naik',
+                            tanggal: moment().format("Do MMMM YYYY, HH:mm:ss"),
+                            barang: 'laptop'
+                        })
+                        axios.post('/api/perbaikan/mitra/' + idPerbaikan + '/update_status_only', {
+                            status: 'Perbaikan Dibatalkan'
+                        }).then(response => {
+                            $('#modal_tambah_harga').modal('toggle');
+                            if (response.data.status == "success") {
+                                this.success(response.data.message);
+                                this.getPerbaikan()
+                                this.getNotifikasi()
+                            } else if (response.data.status == "error") {
+                                this.error(response.data.message);
+                            }
+                        })
                     })
-                    axios.post('/api/perbaikan/mitra/' + idPerbaikan + '/update_status_only', {
-                      status : 'Perbaikan Dibatalkan'
-                  }).then(response => {
-                      $('#modal_tambah_harga').modal('toggle');
-                      if (response.data.status == "success") {
-                          this.success(response.data.message);
-                          this.getPerbaikan()
-                          this.getNotifikasi()
-                      } else if (response.data.status == "error") {
-                          this.error(response.data.message);
-                      }
-                  })
-              })
             }
         }
 
