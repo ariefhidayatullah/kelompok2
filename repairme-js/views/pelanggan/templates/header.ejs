@@ -141,7 +141,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/pelanggan/riwayatperbaikan" class="nav-link">
+                            <a href="" :class="'nav-link ' + sidebar_menu.riwayat" data-toggle="modal"
+                                data-target="#sidebar_riwayat">
                                 <i class="fa fa-file nav-icon"></i>
                                 <p>Riwayat Perbaikan</p>
                             </a>
@@ -211,6 +212,28 @@
                                 <a href="/pelanggan/dibatalkan/laptop"
                                     class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
                                 <a href="/pelanggan/dibatalkan/handphone"
+                                    class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ==== MODAL ==== -->
+        <div class="modal fade" id="sidebar_riwayat" tabindex="-1" role="dialog"
+            aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                            <div class="card-header">
+                                <h3 class="card-title">Pilih Perbaikan</h3>
+                            </div>
+                            <div class="card-body">
+                                <a href="/pelanggan/riwayat/laptop"
+                                    class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+                                <a href="/pelanggan/riwayat/handphone"
                                     class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
                             </div>
                             <!-- /.card-body -->

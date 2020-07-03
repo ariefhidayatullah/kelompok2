@@ -1,0 +1,128 @@
+<%- include('../../templates/header') -%>
+
+<!-- ============= CONTENT ================= -->
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Riwayat Perbaikan</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Perbaikan</a></li>
+                        <li class="breadcrumb-item active">Riwayat Perbaikan</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Handphone</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">No</th>
+                            <th style="width: 30%;">pelanggan</th>
+                            <th style="width: 25%;">Mitra</th>
+                            <th style="width: 25%;">barang</th>
+                            <th style="width: 25%;">harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="perbaikan" v-for="(value, index) in perbaikan">
+                            <td> {{ index + 1 }}</td>
+                            <td> {{mitra.nama}}
+                            </td>
+                            <td>{{ value.data_pelanggan[0].nama }}</button>
+                            </td>
+                            <td>
+                                {{value.merk}}, {{value.tipe}}
+                            </td>
+                            <td>
+                                {{value.harga}}
+                            </td>
+                        </tr>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </section>
+</div>
+<!-- ============= END OF CONTENT ================= -->
+
+
+<%- include('../../templates/footer') -%>
+
+<script>
+    var vm = new Vue({
+
+        el: "#app",
+        data: {
+            sidebar_menu: {
+                perbaikan: 'menu-open',
+                riwayat: 'active'
+            },
+            mitra: null,
+            perbaikan: null,
+            notifikasi: null
+        },
+        mounted() {
+            this.getData()
+            this.getPerbaikan()
+            this.getNotifikasi()
+        },
+        methods: {
+            getData() {
+                axios({
+                    method: 'get',
+                    url: '/api/mitra/' + '<%= email %>'
+                }).then(response => {
+                    this.mitra = response.data;
+                })
+            },
+            getPerbaikan() {
+                axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Riwayat/handphone')
+                    .then(response => {
+                        this.perbaikan = response.data
+                    })
+            },
+            getNotifikasi() {
+                axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+                    .then(response => {
+                        this.notifikasi = response.data
+                    })
+            },
+            getNotifikasiTanggal(value) {
+                return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+            },
+            warning: function (message) {
+                setTimeout(function () {
+                    toastr.warning(
+                        message
+                    );
+                }, 10);
+            },
+            success: function (success) {
+                setTimeout(function () {
+                    toastr.success(
+                        success
+                    );
+                }, 10);
+            },
+            error: function (error) {
+                setTimeout(function () {
+                    toastr.error(
+                        error
+                    );
+                }, 10);
+            }
+        }
+
+    })
+</script>

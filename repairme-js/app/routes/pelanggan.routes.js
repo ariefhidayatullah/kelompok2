@@ -45,6 +45,29 @@ module.exports = (app, express) => {
             res.redirect('/login');
         }
     });
+    router.get('/riwayat/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                if (req.params.jenis === "laptop") {
+                    res.render('pelanggan/perbaikan/riwayat/laptop', {
+                        judul: 'Riwayat Perbaikan',
+                        email: req.session.user.email
+                    })
+                } else if (req.params.jenis === "handphone") {
+                    res.render('pelanggan/perbaikan/riwayat/handphone', {
+                        judul: 'Riwayat Perbaikan',
+                        email: req.session.user.email
+                    })
+                } else {
+                    next()
+                }
+            } else {
+                next()
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
     router.get('/pengajuan/:jenis', (req, res) => {
         if (req.session.user) {
             if (req.session.user.jenis === 'pelanggan') {

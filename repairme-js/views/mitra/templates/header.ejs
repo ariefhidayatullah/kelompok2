@@ -92,7 +92,8 @@
             class="btn btn-success btn-sm">Terverifikasi</button>
           <!-- Sidebar Menu -->
           <nav v-if="mitra.verifikasi !== 'Belum Terverifikasi'" class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview" role="menu"
+              data-accordion="false">
 
 
               <li class="nav-item">
@@ -104,67 +105,73 @@
                 </a>
               </li>
               <li class="nav-header">
-               PERBAIKAN 
-             </li>
-             <li class="nav-item">
-              <a href="" :class="'nav-link ' + sidebar_menu.permintaan_perbaikan" data-toggle="modal" data-target="#sidebar_modal_pengajuan">
-                <i class="fa fa-shopping-cart nav-icon"></i>
-                <p>Permintaan Perbaikan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/mitra/voucher" :class="'nav-link '+ sidebar_menu.voucher" ref="sidebar_voucher">
-                <i class="fa fa-paste nav-icon"></i>
-                <p>Voucher Perbaikan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" :class="'nav-link ' + sidebar_menu.perbaikan_utama" data-toggle="modal" data-target="#sidebar_modal_perbaikan">
-                <i class="fa fa-medkit nav-icon"></i>
-                <p>Perbaikan</p><span class="right badge badge-success">Perbaikan Utama</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/mitra/dibatalkan" :class="'nav-link ' + sidebar_menu.dibatalkan" data-toggle="modal" data-target="#sidebar_modal_dibatalkan">
-                <i class="fa fa-circle-notch nav-icon"></i>
-                <p>Perbaikan Dibatalkan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a data-toggle="modal" data-target="#sidebar_modal_selesai" href="/mitra/selesai" :class="'nav-link ' + sidebar_menu.selesai">
-                <i class="fa fa-check-circle nav-icon"></i>
-                <p>Barang Selesai Di Perbaiki</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/mitra/riwayat" :class="'nav-link ' + sidebar_menu.riwayat">
-                <i class="fa fa-file nav-icon"></i>
-                <p>Riwayat Perbaikan</p>
-              </a>
-            </li>
+                PERBAIKAN
+              </li>
+              <li class="nav-item">
+                <a href="" :class="'nav-link ' + sidebar_menu.permintaan_perbaikan" data-toggle="modal"
+                  data-target="#sidebar_modal_pengajuan">
+                  <i class="fa fa-shopping-cart nav-icon"></i>
+                  <p>Permintaan Perbaikan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mitra/voucher" :class="'nav-link '+ sidebar_menu.voucher" ref="sidebar_voucher">
+                  <i class="fa fa-paste nav-icon"></i>
+                  <p>Voucher Perbaikan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" :class="'nav-link ' + sidebar_menu.perbaikan_utama" data-toggle="modal"
+                  data-target="#sidebar_modal_perbaikan">
+                  <i class="fa fa-medkit nav-icon"></i>
+                  <p>Perbaikan</p><span class="right badge badge-success">Perbaikan Utama</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mitra/dibatalkan" :class="'nav-link ' + sidebar_menu.dibatalkan" data-toggle="modal"
+                  data-target="#sidebar_modal_dibatalkan">
+                  <i class="fa fa-circle-notch nav-icon"></i>
+                  <p>Perbaikan Dibatalkan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a data-toggle="modal" data-target="#sidebar_modal_selesai" href="/mitra/selesai"
+                  :class="'nav-link ' + sidebar_menu.selesai">
+                  <i class="fa fa-check-circle nav-icon"></i>
+                  <p>Barang Selesai Di Perbaiki</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mitra/riwayat" :class="'nav-link ' + sidebar_menu.riwayat" data-toggle="modal"
+                  data-target="#sidebar_modal_riwayat">
+                  <i class="fa fa-file nav-icon"></i>
+                  <p>Riwayat Perbaikan</p>
+                </a>
+              </li>
 
-            <li class="nav-header">
-              PROFILE
-            </li>
-            <li class="nav-item">
-              <a href="/mitra/profile" class="nav-link" ref="sidebar_profile_mitra">
-                <i class="fa fa-user nav-icon"></i>
-                <p>Profile</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/mitra/profile" class="nav-link" ref="sidebar_ubah_profile">
-                <i class="fa fa-user-md nav-icon"></i>
-                <p>Ubah Profile</p>
-              </a>
-            </li>
+              <li class="nav-header">
+                PROFILE
+              </li>
+              <li class="nav-item">
+                <a href="/mitra/profile" class="nav-link" ref="sidebar_profile_mitra">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mitra/profile" class="nav-link" ref="sidebar_ubah_profile">
+                  <i class="fa fa-user-md nav-icon"></i>
+                  <p>Ubah Profile</p>
+                </a>
+              </li>
 
           </nav>
         </div>
         <!-- /.sidebar -->
       </aside>
       <!-- ==== MODAL ==== -->
-      <div class="modal fade" id="sidebar_modal_pengajuan" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+      <div class="modal fade" id="sidebar_modal_pengajuan" tabindex="-1" role="dialog"
+        aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -173,9 +180,11 @@
                   <h3 class="card-title">Pilih Perbaikan</h3>
                 </div>
                 <div class="card-body">
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/pengajuan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+                    href="/mitra/pengajuan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
 
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/pengajuan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+                    href="/mitra/pengajuan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -185,7 +194,8 @@
       </div>
       <!-- !modal -->
       <!-- ==== MODAL ==== -->
-      <div class="modal fade" id="sidebar_modal_perbaikan" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+      <div class="modal fade" id="sidebar_modal_riwayat" tabindex="-1" role="dialog"
+        aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -194,11 +204,11 @@
                   <h3 class="card-title">Pilih Perbaikan</h3>
                 </div>
                 <div class="card-body">
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/perbaikan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
-                  
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/perbaikan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
-                  
-                  
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+                    href="/mitra/riwayat/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+                    href="/mitra/riwayat/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -207,8 +217,9 @@
         </div>
       </div>
       <!-- !modal -->
-        <!-- ==== MODAL ==== -->
-      <div class="modal fade" id="sidebar_modal_dibatalkan" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+      <!-- ==== MODAL ==== -->
+      <div class="modal fade" id="sidebar_modal_perbaikan" tabindex="-1" role="dialog"
+        aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -217,11 +228,13 @@
                   <h3 class="card-title">Pilih Perbaikan</h3>
                 </div>
                 <div class="card-body">
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/dibatalkan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
-                  
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/dibatalkan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
-                  
-                  
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+                    href="/mitra/perbaikan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+                    href="/mitra/perbaikan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+
+
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -230,8 +243,9 @@
         </div>
       </div>
       <!-- !modal -->
-     <!-- ==== MODAL ==== -->
-      <div class="modal fade" id="sidebar_modal_selesai" tabindex="-1" role="dialog" aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+      <!-- ==== MODAL ==== -->
+      <div class="modal fade" id="sidebar_modal_dibatalkan" tabindex="-1" role="dialog"
+        aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -240,11 +254,39 @@
                   <h3 class="card-title">Pilih Perbaikan</h3>
                 </div>
                 <div class="card-body">
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'" href="/mitra/selesai/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
-                  
-                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'" href="/mitra/selesai/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
-                  
-                  
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+                    href="/mitra/dibatalkan/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+                    href="/mitra/dibatalkan/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+
+
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- !modal -->
+      <!-- ==== MODAL ==== -->
+      <div class="modal fade" id="sidebar_modal_selesai" tabindex="-1" role="dialog"
+        aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                <div class="card-header">
+                  <h3 class="card-title">Pilih Perbaikan</h3>
+                </div>
+                <div class="card-body">
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+                    href="/mitra/selesai/laptop" class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+
+                  <a v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+                    href="/mitra/selesai/handphone" class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+
+
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -253,4 +295,4 @@
         </div>
       </div>
     </div>
-      <!-- !modal -->
+    <!-- !modal -->
