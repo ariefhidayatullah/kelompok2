@@ -127,7 +127,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/pelanggan/batalperbaikan" class="nav-link">
+                            <a href="" :class="'nav-link ' + sidebar_menu.dibatalkan" data-toggle="modal"
+                                data-target="#sidebar_dibatalkan">
                                 <i class="fa fa-circle-notch nav-icon"></i>
                                 <p>Perbaikan Dibatalkan</p>
                             </a>
@@ -157,7 +158,7 @@
                             MITRA
                         </li>
                         <li class="nav-item">
-                            <a href="/pelanggan/profile" class="nav-link">
+                            <a href="/perbaikan" class="nav-link">
                                 <i class="fas fa-search nav-icon"></i>
                                 <p>Cari Mitra</p>
                             </a>
@@ -186,8 +187,29 @@
                             <div class="card-body">
                                 <a href="/pelanggan/pengajuan/laptop"
                                     class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
-
                                 <a href="/pelanggan/pengajuan/handphone"
+                                    class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ==== MODAL ==== -->
+        <div class="modal fade" id="sidebar_dibatalkan" tabindex="-1" role="dialog"
+            aria-labelledby="sidebar_modal_pengajuan" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="card  card-dark" style="position: absolute; right: 0; left: 0; top: 0;">
+                            <div class="card-header">
+                                <h3 class="card-title">Pilih Perbaikan</h3>
+                            </div>
+                            <div class="card-body">
+                                <a href="/pelanggan/dibatalkan/laptop"
+                                    class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
+                                <a href="/pelanggan/dibatalkan/handphone"
                                     class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
                             </div>
                             <!-- /.card-body -->
@@ -209,11 +231,8 @@
                             <div class="card-body">
                                 <a href="/pelanggan/perbaikan/laptop"
                                     class="btn btn-block btn-outline-success btn-sm">LAPTOP</a>
-
                                 <a href="/pelanggan/perbaikan/handphone"
                                     class="btn btn-block btn-outline-info btn-sm">HANDPHONE</a>
-
-
                             </div>
                             <!-- /.card-body -->
                         </div>

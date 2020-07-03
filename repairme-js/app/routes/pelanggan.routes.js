@@ -33,18 +33,6 @@ module.exports = (app, express) => {
             res.redirect('/login');
         }
     });
-    router.get('/notifikasi', (req, res) => {
-        if (req.session.user) {
-            if (req.session.user.jenis === 'pelanggan') {
-                res.render('pelanggan/notifikasi/index', {
-                    judul: 'Notifikasi',
-                    email: req.session.user.email
-                })
-            }
-        } else {
-            res.redirect('/login');
-        }
-    });
     router.get('/editProfile', (req, res) => {
         if (req.session.user) {
             if (req.session.user.jenis === 'pelanggan') {
@@ -68,6 +56,30 @@ module.exports = (app, express) => {
                 } else if (req.params.jenis === "handphone") {
                     res.render('pelanggan/perbaikan/pengajuan/handphone', {
                         judul: 'Pengajuan Perbaikan',
+                        email: req.session.user.email
+                    })
+                } else {
+                    next()
+                }
+            } else {
+                next()
+            }
+        } else {
+            res.redirect('/login');
+        }
+    });
+
+    router.get('/dibatalkan/:jenis', (req, res) => {
+        if (req.session.user) {
+            if (req.session.user.jenis === 'pelanggan') {
+                if (req.params.jenis === "laptop") {
+                    res.render('pelanggan/perbaikan/dibatalkan/laptop', {
+                        judul: 'Perbaikan Dibatalkan',
+                        email: req.session.user.email
+                    })
+                } else if (req.params.jenis === "handphone") {
+                    res.render('pelanggan/perbaikan/dibatalkan/handphone', {
+                        judul: 'Perbaikan Dibatalkan',
                         email: req.session.user.email
                     })
                 } else {

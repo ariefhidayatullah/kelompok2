@@ -35,7 +35,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="value.status !== 'Sedang Diperbaiki'" v-for="(value, index) in perbaikan">
+                        <tr v-if="perbaikan" v-for="(value, index) in perbaikan">
+                            <td>{{index + 1}}</td>
+                            <td>
+                                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_barang" style="float: right; width: 30%;"
+                                    @click="modal_detail_barang(value)">Detail</button>
+                            </td>
+                            <td>
+                                {{ value.data_mitra[0].nama_usaha.toUpperCase() }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_mitra" style="float: right; width: 30%;"
+                                    @click="modal_detail_mitra(value.data_mitra[0])">Detail</button>
+                            </td>
+                            <td>
+                                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+                            </td>
+                            <td>
+                                <button v-if="value.status === 'Menunggu Persetujuan'"
+                                    class="btn btn-block btn-info btn-sm" disabled>Menunggu Persetujuan</button>
+                            </td>
+                        </tr>
+                        <tr v-if="perbaikan_diterima" v-for="(value, index) in perbaikan_diterima">
                             <td>{{index + 1}}</td>
                             <td>
                                 {{ value.merk.toUpperCase() }} - {{ value.tipe }}
@@ -57,8 +79,26 @@
                                     class="btn btn-block btn-success btn-sm" data-toggle="modal"
                                     data-target="#perbaikan_diterima" @click="modal_perbaikan_diterima(value)">Mitra
                                     Siap Memperbaiki</button>
-                                <button v-if="value.status === 'Menunggu Persetujuan'"
-                                    class="btn btn-block btn-info btn-sm" disabled>Menunggu Persetujuan</button>
+                            </td>
+                        </tr>
+                        <tr v-if="perbaikan_ditolak" v-for="(value, index) in perbaikan_ditolak">
+                            <td>{{index + 1}}</td>
+                            <td>
+                                {{ value.merk.toUpperCase() }} - {{ value.tipe }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_barang" style="float: right; width: 30%;"
+                                    @click="modal_detail_barang(value)">Detail</button>
+                            </td>
+                            <td>
+                                {{ value.data_mitra[0].nama_usaha.toUpperCase() }}
+                                <button class="btn btn-block btn-outline-secondary btn-sm" data-toggle="modal"
+                                    data-target="#detail_mitra" style="float: right; width: 30%;"
+                                    @click="modal_detail_mitra(value.data_mitra[0])">Detail</button>
+                            </td>
+                            <td>
+                                {{ value.tanggal.split(',')[0] }} - {{ tanggal(value.tanggal) }}
+                            </td>
+                            <td>
                                 <button v-if="value.status === 'Mitra Menolak Perbaikan'"
                                     class="btn btn-block btn-danger btn-sm" data-toggle="modal"
                                     data-target="#perbaikan_ditolak" @click="modal_perbaikan_ditolak(value)">Mitra
@@ -270,13 +310,13 @@
                     this.pelanggan = response.data;
                 })
             },
-            getNotifikasi(){
+            getNotifikasi() {
                 axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
-                .then(response => {
-                    this.notifikasi = response.data
-                })
+                    .then(response => {
+                        this.notifikasi = response.data
+                    })
             },
-            getNotifikasiTanggal(value){
+            getNotifikasiTanggal(value) {
                 return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
             },
             warning: function (message) {
@@ -301,9 +341,17 @@
                 }, 10);
             },
             getPerbaikan() {
-                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/laptop')
+                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Menunggu Persetujuan/laptop')
                     .then(response => {
                         this.perbaikan = response.data
+                    })
+                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Mitra Siap Memperbaiki/laptop')
+                    .then(response => {
+                        this.perbaikan_diterima = response.data
+                    })
+                axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Mitra Menolak Perbaikan/laptop')
+                    .then(response => {
+                        this.perbaikan_ditolak = response.data
                     })
             },
             map(lat, lng, nama) {

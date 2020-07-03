@@ -21,7 +21,7 @@
   <section class="content">
      <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Perbaikan Yang Dibatalkan</h3>
+        <h3 class="card-title">Perbaikan Dibatalkan</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -44,7 +44,7 @@
                 {{ value.voucher }}
               </td>
               <td>
-                <button v-for="value2 in notifikasi" class="btn-block btn-outline-success btn-sm" data-toggle="modal" v-if="value2.perbaikan === value._id" data-target="#modal_notifikasi" @click="modal_notifikasi(value, value2)">Lihat Pesan</button>
+                <button v-for="value2 in notifikasi" class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" v-if="value2.perbaikan === value._id" data-target="#modal_notifikasi" @click="modal_notifikasi(value, value2)">Lihat Pesan</button>
               </td>
             </tr>
           </tbody>
@@ -77,7 +77,7 @@
                 {{ value.voucher }}
               </td>
               <td>
-                <button class="btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#modal_notifikasi" @click="modal_notifikasi(value, value2)">Sudah Dijemput</button>
+                <button class="btn btn-block btn-outline-success btn-sm" data-toggle="modal" data-target="#modal_notifikasi" @click="modal_notifikasi(value, value2)">Sudah Dijemput</button>
               </td>
             </tr>
           </tbody>

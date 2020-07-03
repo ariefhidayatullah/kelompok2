@@ -105,7 +105,7 @@ exports.findPerbaikanPelangganStatus = (req, res) => {
 					from: "mitra",
 					localField: "mitra",
 					foreignField: "_id",
-					as: "data_pelanggan"
+					as: "data_mitra"
 				}
 			}
 		]
@@ -139,118 +139,136 @@ exports.findPerbaikanMitraStatus = (req, res) => {
 
 exports.putPerbaikanMitra = (req, res) => {
 	if (req.params.keterangan === 'update_status') {
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-			status: req.body.status,
-			harga: req.body.harga,
-			keterangan_mitra: req.body.keterangan_lain,
-			voucher: req.body.voucher
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
-	}else if(req.params.keterangan === 'terima_voucher'){
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-			status: req.body.status,
-			lama_perkiraan: req.body.lama_perkiraan
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
-	}else if (req.params.keterangan === 'tambah_harga') {
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-			status: req.body.status,
-			harga: req.body.harga
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
-	}else if (req.params.keterangan === 'update_harga') {
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-			harga: req.body.harga
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
-	}else if (req.params.keterangan === 'update_keterangan') {
-		Perbaikan.Perbaikan.updateMany({_id : req.params.id}, { $set: {
-			keterangan_mitra: req.body.keterangan_mitra
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
-	}else if (req.params.keterangan === 'update_status_only') {
-		Perbaikan.Perbaikan.updateOne({_id : req.params.id}, { $set: {
-			status: req.body.status
-		}
-		}).then((response) => {
-	        res.send({
-	            response: response,
-	            status: "success",
-	            message: "Berhasil",
-	        });
-	    })
-	    .catch((err) => {
-	        res.send({
-	            response: err,
-	            status: "error",
-	            message: "Gagal!",
-	        });
-	    });
+		Perbaikan.Perbaikan.updateMany({
+				_id: req.params.id
+			}, {
+				$set: {
+					status: req.body.status,
+					harga: req.body.harga,
+					keterangan_mitra: req.body.keterangan_lain,
+					voucher: req.body.voucher
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
+	} else if (req.params.keterangan === 'terima_voucher') {
+		Perbaikan.Perbaikan.updateMany({
+				_id: req.params.id
+			}, {
+				$set: {
+					status: req.body.status,
+					lama_perkiraan: req.body.lama_perkiraan
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
+	} else if (req.params.keterangan === 'tambah_harga') {
+		Perbaikan.Perbaikan.updateMany({
+				_id: req.params.id
+			}, {
+				$set: {
+					status: req.body.status,
+					harga: req.body.harga
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
+	} else if (req.params.keterangan === 'update_harga') {
+		Perbaikan.Perbaikan.updateMany({
+				_id: req.params.id
+			}, {
+				$set: {
+					harga: req.body.harga
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
+	} else if (req.params.keterangan === 'update_keterangan') {
+		Perbaikan.Perbaikan.updateMany({
+				_id: req.params.id
+			}, {
+				$set: {
+					keterangan_mitra: req.body.keterangan_mitra
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
+	} else if (req.params.keterangan === 'update_status_only') {
+		Perbaikan.Perbaikan.updateOne({
+				_id: req.params.id
+			}, {
+				$set: {
+					status: req.body.status
+				}
+			}).then((response) => {
+				res.send({
+					response: response,
+					status: "success",
+					message: "Berhasil",
+				});
+			})
+			.catch((err) => {
+				res.send({
+					response: err,
+					status: "error",
+					message: "Gagal!",
+				});
+			});
 	}
 }
 
