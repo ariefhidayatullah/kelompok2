@@ -77,7 +77,7 @@ class CustomTiles extends React.Component {
               initialRegion={region}
             >
               <UrlTile
-                urlTemplate="http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                urlTemplate="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 zIndex={-1}
               />
             </MapView>

@@ -4,7 +4,6 @@ import * as React from 'react';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/Home/HomeScreen';
 import MapsScreen from '../screens/Repair/MapsScreen';
-import RegisterScreen from '../screens/Auth/RegisterScreen';
 import LoginScreen from '../screens/Auth/LoginScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -35,14 +34,6 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          title: 'Register',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-person-add" />,
-        }}
-      />
-      <BottomTab.Screen
         name="Login"
         component={LoginScreen}
         options={{
@@ -62,8 +53,6 @@ function getHeaderTitle(route) {
       return 'RepairMe - Home';
     case 'Maps':
       return 'RepairMe - Maps';
-    case 'Register':
-      return 'RepairMe - Register';
     case 'Login':
       return 'RepairMe - Login';
   }

@@ -126,35 +126,40 @@ export default class LoginScreen extends React.Component {
     }
   
   onLoginPress(){
+    const { navigate } = this.state.navigation;
     const { LoginMitra } = this.state;
     const MitraAuth =  (
       LoginMitra.map(Mitras  => {
         console.log(Mitras);   
-    if(this.state.user === Mitras._id){
-      console.log('Success');
-    }else{
-      console.log('Failed');
-      return(
-        DialogManager.show({
-          title: 'Failed',
-          width: 400 ,
-          titleAlign: 'center',
-          animationDuration: 200,
-          ScaleAnimation: new ScaleAnimation(),
-          children: (
-            <DialogContent>
-              <View>
-                <Text>
-                  Failed To Login, Username atau Password Salah
-                </Text>
-              </View>
-            </DialogContent>
-          ),
-        }, () => {
-          console.log('callback - show');
-        })
-            );
-    }
+        if(this.state.user == Mitras._id){
+          console.log('Success');
+          this.saveData();
+          console.log(this.state.user);
+          navigate('User')
+        }else{
+          console.log(this.state.user);
+          console.log('Failed');
+          return(
+            DialogManager.show({
+              title: 'Failed',
+              width: 400 ,
+              titleAlign: 'center',
+              animationDuration: 200,
+              ScaleAnimation: new ScaleAnimation(),
+              children: (
+                <DialogContent>
+                  <View>
+                    <Text>
+                      Failed To Login, Username atau Password Salah
+                    </Text>
+                  </View>
+                </DialogContent>
+              ),
+            }, () => {
+              console.log('callback - show');
+            })
+                );
+        }
       })
     )
   }
