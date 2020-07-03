@@ -77,6 +77,9 @@ module.exports = (app, express) => {
     // Mencari Mitra
     router.get('/', mitra.findAll);
 
+    // Mencari Mitra
+
+
     router.get('/email', mitra.findEmail);
 
     // Mencari Mitra berdasarkan Id
@@ -99,4 +102,6 @@ module.exports = (app, express) => {
     //mitra terverifikasi
 
     app.put('/api/verifikasi/terverifikasi/:email', mitra.terverifikasi);
+
+    app.get('/api/user/:id', mitra.findUser);
 }

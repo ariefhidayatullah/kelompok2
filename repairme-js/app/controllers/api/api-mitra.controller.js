@@ -63,6 +63,20 @@ exports.findEmail = (req, res) => {
         });
 };
 
+//cari email
+exports.findUser = (req, res) => {
+    User.findOne({
+            email: req.params.id
+        })
+        .then(mitra => {
+            res.send(mitra);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Server repairme error."
+            });
+        });
+};
+
 // Cari Mitra Berdasarkan ID
 exports.findOne = (req, res) => {
     Mitra.Mitra.findById(req.params.mitraId)

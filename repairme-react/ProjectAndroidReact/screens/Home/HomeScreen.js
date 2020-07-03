@@ -52,13 +52,6 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        
-      <View style={styles.containerRepair}>
-        <ImageBackground source={require('../../assets/images/fix.jpeg')} style={styles.repairimage}>
-          <Text style={styles.TextPerbaiki}>Segera Perbaiki Sekarang</Text>
-        <TouchableOpacity style={styles.ButtonRepair} onPress={ () => navigate('Maps')}><Text> Repair Now !</Text></TouchableOpacity>
-        </ImageBackground>
-      </View>
                                               {/* Kelebihan RepairMe */}
       <View style={({backgroundColor: "white"})}>
         <Text style={styles.TextKelebihan}>Kelebihan RepairMe</Text>
@@ -110,6 +103,7 @@ class HomeScreen extends React.Component {
         <Text style={styles.TextDeskripsi}>Setelah Mitra menyetujui permintaan maka, barang dikirim ke Mitra</Text>
       </View>
         </ScrollView>
+        <TouchableOpacity style={styles.loginButton} onPress={ () => navigate('Maps')}><Text style={({color: "white", textAlign:"center",paddingTop: 8,fontSize:20})}> Repair Now !</Text></TouchableOpacity>
         { MitraData }
       </View>
         </ScrollView>
@@ -133,6 +127,15 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginTop: 30,
   },
+  
+loginButton: {
+  backgroundColor: 'black',
+  borderRadius: 5,
+  height: 45,
+  marginLeft: 15,
+  marginRight: 15,
+  marginTop: 10,
+},
   TextDeskripsi: {
     color: "black",
     fontSize: 21,
