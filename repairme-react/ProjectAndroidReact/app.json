@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ProjectAndroidReact",
-    "slug": "ProjectAndroidReact",
+    "name": "RepairMe",
+    "slug": "repairme",
     "platforms": [
       "ios",
       "android",
@@ -9,12 +9,16 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Logo1.png",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "package" : "com.React.RepairMe",
+      "versionCode" : 1
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -27,6 +31,7 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
