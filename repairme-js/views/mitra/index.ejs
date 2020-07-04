@@ -293,11 +293,11 @@
           .then(response => {
             this.perbaikanDibatalkanhandphone = response.data
           })
-        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Selesai/laptop')
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Siap Dijemput/laptop')
           .then(response => {
             this.perbaikanSelesailaptop = response.data
           })
-        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Selesai/handphone')
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Siap Dijemput/handphone')
           .then(response => {
             this.perbaikanSelesaihandphone = response.data
           })
