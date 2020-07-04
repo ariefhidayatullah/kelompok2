@@ -128,26 +128,22 @@ exports.update = (req, res) => {
 
 // Delete a mitra with the specified mitraId in the request
 exports.delete = (req, res) => {
-    Mitra.Mitra.findByIdAndRemove(req.params.mitraId)
-        .then(mitra => {
-            if (!mitra) {
-                return res.status(404).send({
-                    message: "Mitra not found with id " + req.params.mitraId
-                });
-            }
+    Mitra.Mitra.deleteOne({_id: req.params.mitraId})
+        .then((response) => {
             res.send({
-                message: "Mitra deleted successfully!"
+                response: response,
+                status: "success",
+                message: "Berhasil!",
             });
-        }).catch(err => {
-            if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                return res.status(404).send({
-                    message: "Mitra not found with id " + req.params.mitraId
-                });
-            }
-            return res.status(500).send({
-                message: "Could not delete mitra with id " + req.params.mitraId
+        })
+        .catch(err => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal!",
             });
-        });
+        })
+          
 };
 
 exports.insertBukti = (req, res, next) => {

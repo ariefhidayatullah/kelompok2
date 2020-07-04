@@ -1,430 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><%= judul %></title>
-    <link rel="stylesheet" href="../assets/panel-master/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
-    <link rel="stylesheet" href="../assets/panel-master/dist/css/adminlte.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/panel-master/plugins/toastr/toastr.min.css">
-</head>
-
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm">
-    <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../assets/home/index" class="nav-link">Home</a>
-                </li>
-            </ul>
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <li>
-                    <i class="fa fa-sign-out-alt"> </i>
-                    <a></a>
-                </li>
-            </ul>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-light elevation-2">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img class="profile-user-img img-fluid img-circle" src="../assets/panel-master/dist/img/user1.png"
-                    alt="User profile picture" width="100px" height="100px">
-                <span class="brand-text font-weight-light">Dashboard Admin</span>
-            </a>
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="info">
-                        <a href="#" class="d-block">ADMIN</a>
-                    </div>
+<%- include('../templates/header') -%>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Dashboard Kerusakan Handphone</h1>
                 </div>
-                <!-- Sidebar Menu -->
-                <nav class="mt-4">
-                    <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview"
-                        role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-	with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="./admin" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Data Cepat
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
-                                    Barang
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/laptop" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Laptop</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/handphone" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Handphone</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
-                                    Kerusakan
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/kerusakan_laptop" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Kerusakan Laptop</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/kerusakan_handphone" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Kerusakan Hp</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/perbaikan" class="nav-link">
-                                <i class="nav-icon fas fa-poll-h"></i>
-                                <p>
-                                    Data Perbaikan
-                                    <span class="right badge badge-warning">Edit</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/data_mitra" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Data Mitra
-                                    <span class="right badge badge-warning">Edit</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/data_pelanggan" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Data Pelanggan
-                                    <span class="right badge badge-warning">Edit</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/paket" class="nav-link">
-                                <i class="nav-icon fas fa-poll-h"></i>
-                                <p>
-                                    Paket Biaya Iklan
-                                    <span class="right badge badge-light">Edit</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/permintaan_verifikasi" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Konfirmasi Mitra
-                                    <span class="right badge badge-warning">Baru</span>
-                                </p>
-                            </a>
-                        </li>
-                        <!-- /.sidebar-menu -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="#">Kerusakan</a></li>
+                        <li class="breadcrumb-item active">Tambah Kerusakan Handphone Baru</li>
+                    </ol>
+                </div>
             </div>
-            <!-- /.sidebar -->
-        </aside>
-        <div id="app" class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Dashboard Kerusakan Handphone</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                                <li class="breadcrumb-item"><a href="#">Kerusakan</a></li>
-                                <li class="breadcrumb-item active">Tambah Kerusakan Handphone Baru</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- Main content -->
-            <!-- Main content -->
-            <section id="app" class="content">
-                <!-- Default box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tambah Kerusakan Handphone Baru</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                title="Collapse">
-                                <i class="fas fa-minus"></i></button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
-                                title="Remove">
-                                <i class="fas fa-times"></i></button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6 offset-sm-1 mt-3">
-                                    <input type="text" v-model="kerusakan" class="form-control" id="kerusakan"
-                                        placeholder="Kerusakan" name="kerusakan">
-                                </div>
-                                <div class="col-sm-4 mt-3">
-                                    <button @click="addNew" type="submit" class="btn btn-block btn-success"
-                                        id="submit">TAMBAH KERUSAKAN BARU</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <!-- Main content -->
+    <section id="app" class="content">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Tambah Kerusakan Handphone Baru</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                    title="Remove">
+                    <i class="fas fa-times"></i></button>
                 </div>
-                <!-- /.card -->
-                <!-- Default box -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Daftar Kerusakan Handphone</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                                title="Collapse">
-                                <i class="fas fa-minus"></i></button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
-                                title="Remove">
-                                <i class="fas fa-times"></i></button>
-                        </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                    <table id="example1" class="table table-bordered table-striped dataTable"
-                                        role="grid" aria-describedby="example1_info">
-                                        <thead>
-                                            <tr role="row">
-                                                <th style="width: 10px;">No</th>
-                                                <th>Kerusakan</th>
-                                                <th>Ubah</th>
-                                                <th>Hapus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(kerusakan, index) in dataKerusakan">
-                                                <td>{{ index + 1 }}</td>
-                                                <td> {{ kerusakan.kerusakan }} </td>
-                                                <td>
-                                                    <button @click="updateData(kerusakan._id, kerusakan.kerusakan)"
-                                                        class="btn btn-success btn-sm btn-u-kerusakanlap"
-                                                        data-toggle="modal" data-target="#modalubahlap">
-                                                        update
-                                                    </button>
-                                                </td>
-                                                <td><a @click="deleteKerusakan(kerusakan._id)"
-                                                        class="btn btn-danger btn-sm">Hapus</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="modalubahlap" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel2">Kerusakan Handphone</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div v-if="updateKerusakan.kerusakan !== null" class="modal-body">
-
-                                    <!-- isi dari class modal -->
-
-                                    <input type="text" class="form-control" id="id_kerusakanlap_ubh"
-                                        name="id_kerusakanlap_ubh" hidden>
-
-                                    <input v-model="updateKerusakan.kerusakan" type="text" id="kerusakanlap_ubh"
-                                        name="kerusakanlap_ubh" class="form-control mt-20">
-                                    <div class="modal-footer">
-                                        <button @click="updateKerusakanSubmit" name="submit" id="submit"
-                                            class="btn btn-secondary">update</button>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </section>
-            <!-- /.content-wrapper -->
-            <!-- Main Footer -->
-
-            <footer class="main-footer bg-dark">
-                <strong>RepairMe &copy; 2019 <a href="http://adminlte.io">Repairme</a>.</strong>
-                Situs Untuk Mencari Tempat Perbaikan Terbaik.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Versi</b> 1.0.0
                 </div>
-            </footer>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-1 mt-3">
+                            <input type="text" v-model="kerusakan" class="form-control" id="kerusakan"
+                            placeholder="Kerusakan" name="kerusakan">
+                        </div>
+                        <div class="col-sm-4 mt-3">
+                            <button @click="addNew" type="submit" class="btn btn-block btn-success"
+                            id="submit">TAMBAH KERUSAKAN BARU</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- ./wrapper -->
-        <!-- vue js -->
-        <script src="../assets/js/vueJs/vue.js"></script>
-        <script src="../assets/js/vueJs/axios.js"></script>
-        <script>
-            var vm = new Vue({
-                el: "#app",
-                data: {
-                    kerusakan: null,
-                    dataKerusakan: null,
-                    updateKerusakan: {
-                        id: null,
-                        kerusakan: null
+        <!-- /.card -->
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Daftar Kerusakan Handphone</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                    title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <table id="example1" class="table table-bordered table-striped dataTable"
+                            role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th style="width: 10px;">No</th>
+                                    <th>Kerusakan</th>
+                                    <th>Ubah</th>
+                                    <th>Hapus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(kerusakan, index) in dataKerusakan">
+                                    <td>{{ index + 1 }}</td>
+                                    <td> {{ kerusakan.kerusakan }} </td>
+                                    <td>
+                                        <button @click="updateData(kerusakan._id, kerusakan.kerusakan)"
+                                        class="btn btn-success btn-sm btn-u-kerusakanlap"
+                                        data-toggle="modal" data-target="#modalubahlap">
+                                        update
+                                    </button>
+                                </td>
+                                <td><a @click="deleteKerusakan(kerusakan._id)"
+                                    class="btn btn-danger btn-sm">Hapus</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalubahlap" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Kerusakan Handphone</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div v-if="updateKerusakan.kerusakan !== null" class="modal-body">
+                    <!-- isi dari class modal -->
+                    <input type="text" class="form-control" id="id_kerusakanlap_ubh"
+                    name="id_kerusakanlap_ubh" hidden>
+                    <input v-model="updateKerusakan.kerusakan" type="text" id="kerusakanlap_ubh"
+                    name="kerusakanlap_ubh" class="form-control mt-20">
+                    <div class="modal-footer">
+                        <button @click="updateKerusakanSubmit" name="submit" id="submit"
+                        class="btn btn-secondary">update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<%- include('../templates/footer') -%>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            kerusakan: null,
+            dataKerusakan: null,
+            updateKerusakan: {
+                id: null,
+                kerusakan: null
+            }
+        },
+        mounted() {
+            this.getData();
+        },
+        methods: {
+            getData: function () {
+                axios({
+                    method: 'get',
+                    url: '/api/barang/kerusakan/handphone'
+                }).then(response => {
+                    return vm._data.dataKerusakan = response.data;
+                })
+            },
+            warning: function (message) {
+                setTimeout(function () {
+                    toastr.warning(
+                        message
+                        );
+                }, 10);
+            },
+            success: function (success) {
+                setTimeout(function () {
+                    toastr.success(
+                        success
+                        );
+                }, 10);
+            },
+            error: function (error) {
+                setTimeout(function () {
+                    toastr.error(
+                        error
+                        );
+                }, 10);
+            },
+            addNew: function () {
+                axios({
+                    method: 'post',
+                    url: '/api/barang/kerusakan',
+                    data: {
+                        kerusakan: vm._data.kerusakan,
+                        jenis: 'handphone'
+                    },
+                    header: {
+                        'Content-Type': 'application/json'
                     }
-                },
-                mounted() {
+                }).then(response => {
                     this.getData();
-                },
-                methods: {
-                    getData: function () {
-                        axios({
-                            method: 'get',
-                            url: '/api/barang/kerusakan/handphone'
-                        }).then(response => {
-                            return vm._data.dataKerusakan = response.data;
-                        })
-                    },
-                    warning: function (message) {
-                        setTimeout(function () {
-                            toastr.warning(
-                                message
-                            );
-                        }, 10);
-                    },
-                    success: function (success) {
-                        setTimeout(function () {
-                            toastr.success(
-                                success
-                            );
-                        }, 10);
-                    },
-                    error: function (error) {
-                        setTimeout(function () {
-                            toastr.error(
-                                error
-                            );
-                        }, 10);
-                    },
-                    addNew: function () {
-                        axios({
-                            method: 'post',
-                            url: '/api/barang/kerusakan',
-                            data: {
-                                kerusakan: vm._data.kerusakan,
-                                jenis: 'handphone'
-                            },
-                            header: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(response => {
-                            this.getData();
-                            if (response.data.status == "success") {
-                                this.success(response.data.message);
-                            } else if (response.data.status == "error") {
-                                this.error(response.data.message);
-                            }
-                        })
-                    },
-                    updateData: function (id, kerusakan) {
-                        this.updateKerusakan.id = id;
-                        this.updateKerusakan.kerusakan = kerusakan;
-                    },
-                    updateKerusakanSubmit: function () {
-                        axios({
-                            method: 'put',
-                            url: '/api/barang/kerusakanhp/handphone',
-                            data: vm._data.updateKerusakan,
-                            header: {
-                                'Content-Type': 'application/json'
-                            }
-                        }).then(response => {
-                            this.getData();
-                            $('#modalubahlap').modal('toggle');
-                            if (response.data.status == "success") {
-                                this.success(response.data.message);
-                            } else if (response.data.status == "error") {
-                                this.error(response.data.message);
-                            }
-                            $('#modalubahlap').modal('toggle');
-                        })
-                    },
-                    deleteKerusakan: function (id) {
-                        axios({
-                                method: 'delete',
-                                url: '../api/barang/kerusakan/' + id
-                            })
-                            .then(response => {
-                                this.getData();
-                                if (response.data.status == "success") {
-                                    this.success(response.data.message);
-                                } else if (response.data.status == "error") {
-                                    this.error(response.data.message);
-                                }
-                            })
+                    if (response.data.status == "success") {
+                        this.success(response.data.message);
+                    } else if (response.data.status == "error") {
+                        this.error(response.data.message);
                     }
-                }
-            })
-        </script>
-        <script src="../assets/panel-master/plugins/jquery/jquery.js"></script>
-        <script src="../assets/panel-master/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="../assets/panel-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-        <script src="../assets/panel-master/plugins/toastr/toastr.min.js"></script>
-        <script src="../assets/panel-master/dist/js/adminlte.js"></script>
-        <script src="../assets/panel-master/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-        <script src="../assets/panel-master/plugins/raphael/raphael.min.js"></script>
-        <script src="../assets/panel-master/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-        <script src="../assets/panel-master/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-        <script src="../assets/panel-master/plugins/chart.js/Chart.min.js"></script>
-</body>
-
-</html>
+                })
+            },
+            updateData: function (id, kerusakan) {
+                this.updateKerusakan.id = id;
+                this.updateKerusakan.kerusakan = kerusakan;
+            },
+            updateKerusakanSubmit: function () {
+                axios({
+                    method: 'put',
+                    url: '/api/barang/kerusakanhp/handphone',
+                    data: vm._data.updateKerusakan,
+                    header: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    this.getData();
+                    $('#modalubahlap').modal('toggle');
+                    if (response.data.status == "success") {
+                        this.success(response.data.message);
+                    } else if (response.data.status == "error") {
+                        this.error(response.data.message);
+                    }
+                    $('#modalubahlap').modal('toggle');
+                })
+            },
+            deleteKerusakan: function (id) {
+                axios({
+                    method: 'delete',
+                    url: '../api/barang/kerusakan/' + id
+                })
+                .then(response => {
+                    this.getData();
+                    if (response.data.status == "success") {
+                        this.success(response.data.message);
+                    } else if (response.data.status == "error") {
+                        this.error(response.data.message);
+                    }
+                })
+            }
+        }
+    })
+</script>

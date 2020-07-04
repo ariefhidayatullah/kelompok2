@@ -693,16 +693,7 @@
               })
             })
           }else if (params === 'ubah_keterangan') {
-            axios.post('/api/notifikasi', {
-              mitra: '<%= email %>',
-              pelanggan: vm.choosedPerbaikan.data_pelanggan[0]._id,
-              perbaikan: vm.choosedPerbaikan._id,
-              jenis: 'tambah_harga',
-              keterangan: vm.newHarga.jumlahNaik,
-              keterangan_mitra: vm.newHarga.keterangan,
-              tanggal:  moment().format("Do MMMM YYYY, HH:mm:ss"),
-              barang: 'laptop'
-            }).then(() => {
+           
              axios.post('/api/perbaikan/mitra/' + vm.choosedPerbaikan._id + '/update_keterangan', {
               keterangan_mitra : vm.newKeterangan.keterangan
             }).then(response => {
@@ -714,7 +705,6 @@
                 this.error(response.data.message);
               }
             })
-          })
           }
         },
         funcSelesai(value){

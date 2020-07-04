@@ -89,24 +89,19 @@ exports.update = (req, res) => {
 
 // Delete a note with the specified noteId in the request
 exports.delete = (req, res) => {
-    Pelanggan.Pelanggan.findByIdAndRemove(req.params.noteId)
-        .then(note => {
-            if (!note) {
-                return res.status(404).send({
-                    message: "Pelanggan not found with id " + req.params.noteId
-                });
-            }
+    Pelanggan.Pelanggan.deleteOne({_id: req.params.noteId})
+        .then((response) => {
             res.send({
-                message: "Pelanggan deleted successfully!"
+                response: response,
+                status: "success",
+                message: "Berhasil!",
             });
-        }).catch(err => {
-            if (err.kind === 'ObjectId' || err.name === 'NotFound') {
-                return res.status(404).send({
-                    message: "Pelanggan not found with id " + req.params.noteId
-                });
-            }
-            return res.status(500).send({
-                message: "Could not delete note with id " + req.params.noteId
+        })
+        .catch(err => {
+            res.send({
+                response: err,
+                status: "error",
+                message: "Gagal!",
             });
-        });
+        })
 };
