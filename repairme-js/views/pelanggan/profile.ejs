@@ -1,6 +1,6 @@
 <%- include('templates/header') -%>
 <!-- Content Wrapper. Contains page content -->
-<div  v-if="pelanggan !== null" class="content-wrapper">
+<div v-if="pelanggan !== null" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -43,45 +43,44 @@
                                     <b>Alamat</b> <a class="float-right">{{ pelanggan.alamat }}</a>
                                 </li>
                             </ul>
-                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"data-target="#modalubahhp">
+                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"
+                                data-target="#modalubahhp">
                                 update
                             </button>
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    
+
                 </div>
             </div>
         </div>
     </section>
-    <div class="modal fade" id="modalubahhp" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel2">Tipe Handphone</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- isi dari class modal -->
-                                    <input type="text" id="id_ubh" name="id_ubh" class="form-control mb-3"
-                                        v-model="pelanggan._id" readonly>
-                                    <input type="text" class="form-control mb-3" id="nama_ubh" name="nama_ubh"
-                                        v-model="pelanggan.nama">
-                                    <input type="text" class="form-control mb-3" id="no_tlp_ubh" name="no_tlp_ubh"
-                                        v-model="pelanggan.no_tlp">
-                                    <input type="text" class="form-control mb-3" id="alamat_ubh" name="alamat_ubh"
-                                        v-model="pelanggan.alamat">
-                                    <div class="modal-footer">
-                                        <button type="submit" name="submit" @click="updateHp"
-                                            class="btn btn-secondary">update</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="modal fade" id="modalubahhp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Tipe Handphone</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- isi dari class modal -->
+                    <input type="text" id="id_ubh" name="id_ubh" class="form-control mb-3" v-model="pelanggan._id"
+                        readonly>
+                    <input type="text" class="form-control mb-3" id="nama_ubh" name="nama_ubh" v-model="pelanggan.nama">
+                    <input type="text" class="form-control mb-3" id="no_tlp_ubh" name="no_tlp_ubh"
+                        v-model="pelanggan.no_tlp">
+                    <input type="text" class="form-control mb-3" id="alamat_ubh" name="alamat_ubh"
+                        v-model="pelanggan.alamat">
+                    <div class="modal-footer">
+                        <button type="submit" name="submit" @click="updateHp" class="btn btn-secondary">update</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <%- include('templates/footer') -%>
 <script>

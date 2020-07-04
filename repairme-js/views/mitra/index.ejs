@@ -1,39 +1,319 @@
 <%- include('templates/header') -%>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dashboard</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Info boxes -->
+      <div v-if="mitra" class="row">
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-shopping-cart"></i></span>
+
+            <div v-if="pengajuanlaptop" class="info-box-content">
+              <span class="info-box-text">Permintaan Perbaikan</span>
+              <span v-if="pengajuanlaptop.length === 0" class="info-box-number">
+                {{pengajuanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+              <span v-if="pengajuanlaptop.length > 0" class="info-box-number">
+                {{pengajuanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-shopping-cart"></i></span>
+
+            <div v-if="pengajuanhandphone" class="info-box-content">
+              <span class="info-box-text">Permintaan Perbaikan</span>
+              <span v-if="pengajuanhandphone.length === 0" class="info-box-number">
+                {{pengajuanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+              <span v-if="pengajuanhandphone.length > 0" class="info-box-number">
+                {{pengajuanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-medkit"></i></span>
+
+            <div v-if="perbaikanlaptop" class="info-box-content">
+              <span class="info-box-text">Perbaikan</span>
+              <span v-if="perbaikanlaptop.length === 0" class="info-box-number">
+                {{perbaikanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+              <span v-if="perbaikanlaptop.length > 0" class="info-box-number">
+                {{perbaikanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-medkit"></i></span>
+
+            <div v-if="perbaikanhandphone" class="info-box-content">
+              <span class="info-box-text">Perbaikan</span>
+              <span v-if="perbaikanhandphone.length === 0" class="info-box-number">
+                {{perbaikanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+              <span v-if="perbaikanhandphone.length > 0" class="info-box-number">
+                {{perbaikanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanDibatalkanlaptop" class="info-box-content">
+              <span class="info-box-text">Perbaikan Dibatalkan</span>
+              <span v-if="perbaikanDibatalkanlaptop.length === 0" class="info-box-number">
+                {{perbaikanDibatalkanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+              <span v-if="perbaikanDibatalkanlaptop.length > 0" class="info-box-number">
+                {{perbaikanDibatalkanlaptop.length}}
+                <small>Laptop</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanDibatalkanhandphone" class="info-box-content">
+              <span class="info-box-text">Perbaikan Dibatalkan</span>
+              <span v-if="perbaikanDibatalkanhandphone.length === 0" class="info-box-number">
+                {{perbaikanDibatalkanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+              <span v-if="perbaikanDibatalkanhandphone.length > 0" class="info-box-number">
+                {{perbaikanDibatalkanhandphone.length}}
+                <small>Handphone</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanSelesailaptop" class="info-box-content">
+              <span class="info-box-text">Perbaikan Selesai</span>
+              <span v-if="perbaikanSelesailaptop.length === 0" class="info-box-number">
+                {{perbaikanSelesailaptop.length}}
+                <small>Laptop</small>
+              </span>
+              <span v-if="perbaikanSelesailaptop.length > 0" class="info-box-number">
+                {{perbaikanSelesailaptop.length}}
+                <small>Laptop</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanSelesaihandphone" class="info-box-content">
+              <span class="info-box-text">Perbaikan Selesai</span>
+              <span v-if="perbaikanSelesaihandphone.length === 0" class="info-box-number">
+                {{perbaikanSelesaihandphone.length}}
+                <small>Handphone</small>
+              </span>
+              <span v-if="perbaikanSelesaihandphone.length > 0" class="info-box-number">
+                {{perbaikanSelesaihandphone.length}}
+                <small>Handphone</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'laptop'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanRiwayatlaptop" class="info-box-content">
+              <span class="info-box-text">Riwayat Perbaikan</span>
+              <span v-if="perbaikanRiwayatlaptop.length === 0" class="info-box-number">
+                {{perbaikanRiwayatlaptop.length}}
+                <small>Laptop</small>
+              </span>
+              <span v-if="perbaikanRiwayatlaptop.length > 0" class="info-box-number">
+                {{perbaikanRiwayatlaptop.length}}
+                <small>Laptop</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div v-if="mitra.jenis_usaha === 'serbabisa' || mitra.jenis_usaha === 'handphone'"
+          class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon bg-success elevation-1"><i class="fa fa-circle-notch"></i></span>
+
+            <div v-if="perbaikanRiwayathandphone" class="info-box-content">
+              <span class="info-box-text">Riwayat Perbaikan</span>
+              <span v-if="perbaikanRiwayathandphone.length === 0" class="info-box-number">
+                {{perbaikanRiwayathandphone.length}}
+                <small>Handphone</small>
+              </span>
+              <span v-if="perbaikanRiwayathandphone.length > 0" class="info-box-number">
+                {{perbaikanRiwayathandphone.length}}
+                <small>Handphone</small>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+</div>
 <%- include('templates/footer') -%>
-  <script>
-    var vm = new Vue({
+<script>
+  var vm = new Vue({
 
-      el: "#app",
-      data: {
-        sidebar_menu:{
-          beranda: 'active'
-        },
-        notifikasi: null,
-        mitra: null,
-        myfile: null,
-        mydata: 'wkwk1'
+    el: "#app",
+    data: {
+      sidebar_menu: {
+        beranda: 'active'
       },
-      mounted(){
-        axios({
-          method: 'get',
-          url: 'api/mitra/' + '<%= email %>'
-        }).then(response => {
-          this.mitra = response.data;
-        })
-        this.getNotifikasi()
+      notifikasi: null,
+      pengajuanlaptop: null,
+      pengajuanhandphone: null,
+      perbaikanlaptop: null,
+      perbaikanhandphone: null,
+      perbaikanDibatalkanlaptop: null,
+      perbaikanDibatalkanhandphone: null,
+      perbaikanSelesailaptop: null,
+      perbaikanSelesaihandphone: null,
+      perbaikanRiwayatlaptop: null,
+      perbaikanRiwayathandphone: null,
+      mitra: null,
+      myfile: null,
+      mydata: 'wkwk1'
+    },
+    mounted() {
+      axios({
+        method: 'get',
+        url: 'api/mitra/' + '<%= email %>'
+      }).then(response => {
+        this.mitra = response.data;
+      })
+      this.getNotifikasi()
 
+    },
+    methods: {
+      getNotifikasi() {
+        axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
+          .then(response => {
+            this.notifikasi = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Menunggu Persetujuan/laptop')
+          .then(response => {
+            this.pengajuanlaptop = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Menunggu Persetujuan/handphone')
+          .then(response => {
+            this.pengajuanhandphone = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Sedang Diperbaiki/laptop')
+          .then(response => {
+            this.perbaikanlaptop = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Sedang Diperbaiki/handphone')
+          .then(response => {
+            this.perbaikanhandphone = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Dibatalkan/laptop')
+          .then(response => {
+            this.perbaikanDibatalkanlaptop = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Dibatalkan/handphone')
+          .then(response => {
+            this.perbaikanDibatalkanhandphone = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Selesai/laptop')
+          .then(response => {
+            this.perbaikanSelesailaptop = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Perbaikan Selesai/handphone')
+          .then(response => {
+            this.perbaikanSelesaihandphone = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Riwayat/laptop')
+          .then(response => {
+            this.perbaikanRiwayatlaptop = response.data
+          })
+        axios.get('/api/perbaikan/mitra/' + '<%= email %>' + '/Riwayat/handphone')
+          .then(response => {
+            this.perbaikanRiwayathandphone = response.data
+          })
       },
-      methods: {
-        getNotifikasi(){
-            axios.get('/api/notifikasi/jenis/mitra/' + '<%= email %>' + '/t')
-            .then(response => {
-                this.notifikasi = response.data
-            })
-        },
-        getNotifikasiTanggal(value){
-            return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
-        },
-      }
-      
-    })
-  </script>
+      getNotifikasiTanggal(value) {
+        return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
+      },
+    }
+
+  })
+</script>

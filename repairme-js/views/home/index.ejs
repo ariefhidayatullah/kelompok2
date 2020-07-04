@@ -180,7 +180,10 @@
                     .then(response => {
                         return this.user = response.data
                     })
-
+                axios.get('/api/mitra/')
+                    .then(response => {
+                        return this.mitra = response.data
+                    })
             }
 
         })
