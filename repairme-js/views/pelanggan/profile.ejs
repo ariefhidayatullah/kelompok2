@@ -21,7 +21,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 ml-3">
 
                     <!-- Profile Image -->
                     <div class="card card-primary card-outline">
@@ -43,7 +43,7 @@
                                     <b>Alamat</b> <a class="float-right">{{ pelanggan.alamat }}</a>
                                 </li>
                             </ul>
-                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"data-target="#modalubahhp">
+                            <button class="btn btn-success btn-sm btn-u-ubahlap" data-toggle="modal"data-target="#modalubahhp" style="width: 100%;">
                                 update
                             </button>
                         </div>
@@ -76,7 +76,7 @@
                                         v-model="pelanggan.alamat">
                                     <div class="modal-footer">
                                         <button type="submit" name="submit" @click="updateHp"
-                                            class="btn btn-secondary">update</button>
+                                            class="btn btn-secondary" style="width: 100%;">update</button>
                                     </div>
                                 </div>
                             </div>
@@ -89,10 +89,15 @@
 
         el: "#app",
         data: {
-            pelanggan: null
+            sidebar_menu: {
+                profile: 'active'
+            },
+            pelanggan: null,
+            notifikasi: null,
         },
         mounted() {
             this.getData();
+            this.getNotifikasi()
         },
         methods: {
             getData: function () {
@@ -106,7 +111,7 @@
             updateHp: function () {
                 axios({
                     method: 'put',
-                    url: '../api/pelanggan/' + vm._data.pelanggan._id,
+                    url: '/api/pelanggan/' + vm._data.pelanggan._id,
                     data: {
                         nama: vm._data.pelanggan.nama,
                         no_tlp: vm._data.pelanggan.no_tlp,
@@ -124,6 +129,15 @@
                         this.error(response.data.message);
                     }
                 })
+            },
+            getNotifikasi(){
+                axios.get('/api/notifikasi/jenis/pelanggan/' + '<%= email %>' + '/t')
+                .then(response => {
+                    this.notifikasi = response.data
+                })
+            },
+            getNotifikasiTanggal(value){
+                return moment(value, "Do MMMM YYYY, HH:mm:ss").fromNow()
             },
             warning: function (message) {
                 setTimeout(function () {

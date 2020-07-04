@@ -21,7 +21,7 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Laptop</h3>
+                <h3 class="card-title">Handphone</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -379,7 +379,7 @@
                 })
             },
             getPerbaikan() {
-            axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Siap Jemput/laptop')
+            axios.get('/api/perbaikan/pelanggan/' + '<%= email %>' + '/Siap Jemput/handphone')
                 .then(response => {
                     this.perbaikan = response.data
                 })

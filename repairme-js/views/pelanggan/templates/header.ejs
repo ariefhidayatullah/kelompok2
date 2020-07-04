@@ -107,6 +107,13 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact" data-widget="treeview"
                         role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="" :class="'nav-link ' + sidebar_menu.beranda" data-toggle="modal"
+                                data-target="#sidebar_modal_pengajuan">
+                                <i class="fa fa-shopping-cart nav-icon"></i>
+                                <p>Beranda</p>
+                            </a>
+                        </li>
                         <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                         <li class="nav-header">
@@ -151,7 +158,7 @@
                             PROFILE
                         </li>
                         <li class="nav-item">
-                            <a href="/pelanggan/profile" class="nav-link">
+                            <a href="/pelanggan/profile" :class="'nav-link ' + sidebar_menu.profile">
                                 <i class="fas fa-user nav-icon"></i>
                                 <p>Profile Pelanggan</p>
                             </a>

@@ -58,32 +58,32 @@
                                                 <th class="sorting" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Browser: activate to sort column ascending"
-                                                style="width: 200px;">Nama</th>
+                                                style="width: 200px;">Mitra</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Platform(s): activate to sort column ascending"
-                                                style="width: 194px;">Email</th>
+                                                style="width: 194px;">Pelanggan</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Platform(s): activate to sort column ascending"
-                                                style="width: 225px;">No Telepon</th>
+                                                style="width: 225px;">Barang</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Platform(s): activate to sort column ascending"
-                                                style="width: 225px;">Alamat</th>
+                                                style="width: 225px;">tanggal</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Platform(s): activate to sort column ascending"
-                                                style="width: 219px;">Opsi</th>
+                                                style="width: 219px;">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr role="row" class="odd" v-for="data in pelanggan">
-                                                <td>{{data.nama}}</td>
-                                                <td>{{data._id}}</td>
-                                                <td>{{data.no_tlp}}</td>
-                                                <td>{{data.alamat}}</td>
-                                                <td><button class="btn btn-danger btn-sm" @click="deletePelanggan(data._id)">Hapus</button>
+                                                <td>{{data.mitra}}</td>
+                                                <td>{{data.pelanggan}}</td>
+                                                <td>{{data.merk.toUpperCase()}} - {{data.tipe}} </td>
+                                                <td>{{data.tanggal}}</td>
+                                                <td>{{ data.status }}</button>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
@@ -111,7 +111,7 @@
                         getData(){
                             axios({
                                 method: 'get',
-                                url: '/api/barang/pelanggan'
+                                url: '/api/perbaikan'
                             }).then((response) => {
                                 return vm._data.pelanggan = response.data;
                             })

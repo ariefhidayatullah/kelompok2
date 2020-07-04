@@ -1,4 +1,100 @@
 <%- include('templates/header') -%>
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Selamat Datang, {{pelanggan.nama.split(' ')[0]}}..</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Pelanggan</a></li>
+            <li class="breadcrumb-item active">Selamat Datang</li>
+          </ol>
+        </div>
+      </div>
+      <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  Peraturan
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-ban"></i> Jangan Pernah!</h5>
+                  Dilarang mengajukan perbaikan dengan data yang tidak valid, dan jangan pernah bertaransaksi secara online di situs kami, pembayaran dilakukan secara manual jika barang telah selesai diperbaiki
+                </div>
+                <div class="alert alert-info alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-info"></i> Lakukan!</h5>
+                  Perhatikan setiap informasi yang masuk, agar mengetahui informasi terbaru terkait perbaikan.
+                </div>
+                <div class="alert alert-warning alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
+                  Setiap perbaikan memiliki garansi 1 minggu.
+                </div>
+                <div class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Semangat!</h5>
+                  Selamat menggunakan RepairMe :) 
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+
+          <div class="col-md-6">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-bullhorn"></i>
+                  Langkah-langkah
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="callout callout-danger">
+                  <h5>Pengajuan</h5>
+
+                  <p>Menunggu mitra menyetujui perbaikan.</p>
+                </div>
+                <div class="callout callout-warning">
+                  <h5>Mendatangi Mitra</h5>
+
+                  <p>Bawa voucher dan barang anda.</p>
+                </div>
+                <div class="callout callout-info">
+                  <h5>Perbaikan</h5>
+
+                  <p>Tunggu barang selesai diperbaiki</p>
+                </div>
+                <div class="callout callout-success">
+                  <h5>Selesai</h5>
+
+                  <p>Jemput barang anda :)</p>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+    </div>
+  </section>
+  <section class="content">
+    
+   
+ </section>
+</div>
 <%- include('templates/footer') -%>
 <script>
     var vm = new Vue({
