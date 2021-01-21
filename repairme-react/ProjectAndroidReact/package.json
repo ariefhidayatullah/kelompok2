@@ -45,7 +45,7 @@
     "react-native-webview-leaflet": "^5.0.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
